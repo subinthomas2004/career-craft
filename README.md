@@ -1,4 +1,4 @@
-# CAREER CRAFT
+# Career Craft
 
 CAREER CRAFT is an AI-powered placement preparation and career readiness platform designed to help students systematically prepare for campus placements and job interviews. The platform addresses the limitations of traditional placement preparation methods by providing automated, personalized, and data-driven learning experiences.
 
@@ -24,7 +24,7 @@ CAREER CRAFT is an AI-powered placement preparation and career readiness platfor
 - Express.js
 - MongoDB
 
-## setup
+## Setup
 
 1. Install dependencies:
    ```bash
