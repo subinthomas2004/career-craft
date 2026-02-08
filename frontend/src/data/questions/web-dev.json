@@ -1,0 +1,153 @@
+[
+    {
+        "id": "web_react_1",
+        "text": "What are React Hooks and why were they introduced?",
+        "type": "technical",
+        "difficulty": "intermediate",
+        "topic": "react",
+        "keywords": [
+            "react",
+            "hooks",
+            "frontend"
+        ],
+        "expectedKeywords": [
+            "state",
+            "lifecycle",
+            "functional components",
+            "class components",
+            "reuse"
+        ],
+        "followUpIds": [
+            "web_react_2",
+            "web_react_3"
+        ]
+    },
+    {
+        "id": "web_react_2",
+        "text": "Can you explain the useEffect hook and its dependency array?",
+        "type": "technical",
+        "difficulty": "intermediate",
+        "topic": "react",
+        "keywords": [
+            "effect",
+            "lifecycle",
+            "mount"
+        ],
+        "expectedKeywords": [
+            "side effects",
+            "render",
+            "dependency",
+            "cleanup",
+            "mount",
+            "update"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "web_js_1",
+        "text": "Explain the difference between 'let', 'const', and 'var'.",
+        "type": "technical",
+        "difficulty": "beginner",
+        "topic": "javascript",
+        "keywords": [
+            "javascript",
+            "es6",
+            "variables"
+        ],
+        "expectedKeywords": [
+            "scope",
+            "block",
+            "function",
+            "hoisting",
+            "reassign"
+        ],
+        "followUpIds": [
+            "web_js_2"
+        ]
+    },
+    {
+        "id": "web_js_2",
+        "text": "How does the 'this' keyword work in JavaScript?",
+        "type": "technical",
+        "difficulty": "advanced",
+        "topic": "javascript",
+        "keywords": [
+            "javascript",
+            "context",
+            "this"
+        ],
+        "expectedKeywords": [
+            "context",
+            "execution",
+            "arrow functions",
+            "bind",
+            "call",
+            "apply"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "web_css_1",
+        "text": "What is the Box Model in CSS?",
+        "type": "technical",
+        "difficulty": "beginner",
+        "topic": "css",
+        "keywords": [
+            "css",
+            "styling",
+            "layout"
+        ],
+        "expectedKeywords": [
+            "margin",
+            "border",
+            "padding",
+            "content",
+            "width",
+            "height"
+        ],
+        "followUpIds": [
+            "web_css_2"
+        ]
+    },
+    {
+        "id": "web_css_2",
+        "text": "Explain the difference between Flexbox and Grid.",
+        "type": "technical",
+        "difficulty": "intermediate",
+        "topic": "css",
+        "keywords": [
+            "layout",
+            "responsive",
+            "css"
+        ],
+        "expectedKeywords": [
+            "1d",
+            "2d",
+            "axis",
+            "rows",
+            "columns",
+            "alignment"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "web_perf_1",
+        "text": "How would you optimize the performance of a React application?",
+        "type": "technical",
+        "difficulty": "advanced",
+        "topic": "performance",
+        "keywords": [
+            "performance",
+            "optimization",
+            "react"
+        ],
+        "expectedKeywords": [
+            "memo",
+            "lazy loading",
+            "code splitting",
+            "usecallback",
+            "virtual dom"
+        ],
+        "followUpIds": []
+    }
+]

@@ -1,0 +1,708 @@
+[
+    {
+        "id": "hr_greeting",
+        "text": "Hello! It's great to meet you. I'm Sarah, an HR Manager here, and joining me is David, who is also an HR Manager. We'd like to get to know you better today. We'll start with a few basic questions and then move on to your experiences. Shall we begin?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "greeting",
+        "keywords": [
+            "ready",
+            "yes",
+            "okay",
+            "sure",
+            "begin",
+            "start",
+            "hello",
+            "hi"
+        ],
+        "expectedKeywords": [
+            "yes",
+            "okay",
+            "sure",
+            "ready"
+        ],
+        "followUpIds": [
+            "hr_intro"
+        ]
+    },
+    {
+        "id": "hr_intro",
+        "text": "Great. To start off, could you please introduce yourself? Tell us a bit about your background and what brings you here today.",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "introduction",
+        "keywords": [
+            "myself",
+            "background",
+            "experience",
+            "name",
+            "graduated",
+            "worked"
+        ],
+        "expectedKeywords": [
+            "name",
+            "experience",
+            "background",
+            "passionate",
+            "years"
+        ],
+        "followUpIds": [
+            "hr_project_recent",
+            "hr_strength_weakness",
+            "hr_why_company"
+        ]
+    },
+    {
+        "id": "hr_leadership_defined",
+        "text": "How do you define leadership, and can you give an example of how you've demonstrated it?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "leadership",
+        "keywords": [
+            "leadership",
+            "lead",
+            "guide",
+            "mentor"
+        ],
+        "expectedKeywords": [
+            "influence",
+            "guidance",
+            "example",
+            "support",
+            "vision"
+        ],
+        "followUpIds": [
+            "hr_leadership_conflict"
+        ]
+    },
+    {
+        "id": "hr_leadership_conflict",
+        "text": "As a leader or team member, how do you handle conflicts between two colleagues?",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "leadership",
+        "keywords": [
+            "conflict",
+            "fight",
+            "disagreement",
+            "mediate"
+        ],
+        "expectedKeywords": [
+            "mediate",
+            "listen",
+            "neutral",
+            "resolution",
+            "empathy"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_motivate_team",
+        "text": "Imagine your team is feeling demoralized after a project setback. How would you motivate them?",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "leadership",
+        "keywords": [
+            "motivate",
+            "morale",
+            "setback",
+            "fail"
+        ],
+        "expectedKeywords": [
+            "encourage",
+            "positive",
+            "learn",
+            "support",
+            "future"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_delegation",
+        "text": "How do you decide what tasks to delegate and to whom?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "leadership",
+        "keywords": [
+            "delegate",
+            "assign",
+            "task"
+        ],
+        "expectedKeywords": [
+            "strength",
+            "capacity",
+            "trust",
+            "growth",
+            "responsibility"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_project_recent",
+        "text": "Thank you. I'd love to hear about a specific project you've worked on recently. What was your role, and what was the outcome?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "project",
+        "keywords": [
+            "project",
+            "role",
+            "outcome",
+            "team",
+            "built",
+            "developed"
+        ],
+        "expectedKeywords": [
+            "project",
+            "role",
+            "lead",
+            "developed",
+            "outcome",
+            "result",
+            "success"
+        ],
+        "followUpIds": [
+            "hr_project_challenge",
+            "hr_team_conflict"
+        ]
+    },
+    {
+        "id": "hr_project_challenge",
+        "text": "Projects often come with hurdles. Can you describe a significant technical or team challenge you faced during that project and how you overcame it?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "project",
+        "keywords": [
+            "challenge",
+            "problem",
+            "issue",
+            "difficult",
+            "solved",
+            "fixed"
+        ],
+        "expectedKeywords": [
+            "challenge",
+            "overcame",
+            "resolved",
+            "solution",
+            "learned",
+            "communication"
+        ],
+        "followUpIds": [
+            "hr_failure_lesson"
+        ]
+    },
+    {
+        "id": "hr_deadline_missed",
+        "text": "Have you ever missed a deadline? How did you handle the situation?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "project",
+        "keywords": [
+            "deadline",
+            "late",
+            "missed"
+        ],
+        "expectedKeywords": [
+            "communicated",
+            "responsibility",
+            "plan",
+            "completion",
+            "prevent"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_team_conflict",
+        "text": "Working in teams is essential. Could you share an instance where you had a disagreement with a team member? How did you handle it?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "teamwork",
+        "keywords": [
+            "conflict",
+            "disagreement",
+            "team",
+            "argument",
+            "different",
+            "opinion"
+        ],
+        "expectedKeywords": [
+            "listened",
+            "perspective",
+            "compromise",
+            "resolution",
+            "collaborated",
+            "understanding"
+        ],
+        "followUpIds": [
+            "hr_work_style"
+        ]
+    },
+    {
+        "id": "hr_work_style",
+        "text": "Do you prefer working independently or in a team? How do you balance collaboration with deep work?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "teamwork",
+        "keywords": [
+            "team",
+            "independent",
+            "alone",
+            "together",
+            "balance"
+        ],
+        "expectedKeywords": [
+            "team",
+            "collaboration",
+            "focus",
+            "balance",
+            "adaptable"
+        ],
+        "followUpIds": [
+            "hr_environment"
+        ]
+    },
+    {
+        "id": "hr_constructive_criticism",
+        "text": "Tell me about a time you received constructive criticism. How did you react?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "teamwork",
+        "keywords": [
+            "criticism",
+            "feedback",
+            "negative"
+        ],
+        "expectedKeywords": [
+            "accepted",
+            "improvement",
+            "growth",
+            "positive",
+            "listened"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_difficult_coworker",
+        "text": "Describe a time you had to work with someone difficult to get along with. How did you handle it?",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "teamwork",
+        "keywords": [
+            "difficult",
+            "person",
+            "colleague",
+            "annoying"
+        ],
+        "expectedKeywords": [
+            "professional",
+            "focus",
+            "patience",
+            "work",
+            "respect"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_strength_weakness",
+        "text": "What would you say is your greatest professional strength, and what is one area you are actively working to improve?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "personal",
+        "keywords": [
+            "strength",
+            "weakness",
+            "improve",
+            "better",
+            "learning"
+        ],
+        "expectedKeywords": [
+            "strength",
+            "weakness",
+            "improving",
+            "learning",
+            "dedicated",
+            "skill"
+        ],
+        "followUpIds": [
+            "hr_five_years"
+        ]
+    },
+    {
+        "id": "hr_five_years",
+        "text": "Where do you see yourself professionally in the next five years?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "personal",
+        "keywords": [
+            "future",
+            "goals",
+            "five years",
+            "plan",
+            "role"
+        ],
+        "expectedKeywords": [
+            "senior",
+            "lead",
+            "growth",
+            "expert",
+            "management",
+            "learning"
+        ],
+        "followUpIds": [
+            "hr_motivation"
+        ]
+    },
+    {
+        "id": "hr_motivation",
+        "text": "What motivates you to come to work every day?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "personal",
+        "keywords": [
+            "motivate",
+            "drive",
+            "inspire",
+            "passion"
+        ],
+        "expectedKeywords": [
+            "impact",
+            "learning",
+            "challenge",
+            "solving",
+            "team"
+        ],
+        "followUpIds": [
+            "hr_closing"
+        ]
+    },
+    {
+        "id": "hr_hobbies",
+        "text": "Outside of work, what are your hobbies or interests?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "personal",
+        "keywords": [
+            "hobby",
+            "interest",
+            "free time",
+            "fun"
+        ],
+        "expectedKeywords": [
+            "creative",
+            "sports",
+            "reading",
+            "learning",
+            "social"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_stress_handling",
+        "text": "How do you handle stress or burnout?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "personal",
+        "keywords": [
+            "stress",
+            "burnout",
+            "tired",
+            "overwhelmed"
+        ],
+        "expectedKeywords": [
+            "break",
+            "balance",
+            "exercise",
+            "perspective",
+            "planning"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_why_company",
+        "text": "We are curious, what specifically interested you in applying to our company?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "company",
+        "keywords": [
+            "company",
+            "interested",
+            "apply",
+            "mission",
+            "values"
+        ],
+        "expectedKeywords": [
+            "company",
+            "values",
+            "mission",
+            "culture",
+            "growth",
+            "opportunity"
+        ],
+        "followUpIds": [
+            "hr_environment"
+        ]
+    },
+    {
+        "id": "hr_environment",
+        "text": "What kind of work environment allows you to be most productive and happy?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "company",
+        "keywords": [
+            "environment",
+            "culture",
+            "atmosphere",
+            "quiet",
+            "open",
+            "supportive"
+        ],
+        "expectedKeywords": [
+            "supportive",
+            "collaborative",
+            "growth",
+            "open",
+            "innovative"
+        ],
+        "followUpIds": [
+            "hr_closing"
+        ]
+    },
+    {
+        "id": "hr_why_hire",
+        "text": "Why should we hire you over other candidates?",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "company",
+        "keywords": [
+            "hire",
+            "candidate",
+            "better",
+            "choose"
+        ],
+        "expectedKeywords": [
+            "unique",
+            "skill",
+            "fit",
+            "passion",
+            "results",
+            "contribution"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_company_knowledge",
+        "text": "What do you know about our company products or services?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "company",
+        "keywords": [
+            "know",
+            "product",
+            "service"
+        ],
+        "expectedKeywords": [
+            "research",
+            "product",
+            "market",
+            "users",
+            "innovation"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_adaptability_change",
+        "text": "Describe a time when you had to adapt to a significant change at work. How did you handle it?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "situational",
+        "keywords": [
+            "change",
+            "adapt",
+            "new",
+            "switch"
+        ],
+        "expectedKeywords": [
+            "flexible",
+            "positive",
+            "learned",
+            "quickly",
+            "adjusted"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_disagree_boss",
+        "text": "Have you ever disagreed with a decision made by your manager? How did you approach it?",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "situational",
+        "keywords": [
+            "manager",
+            "boss",
+            "disagree",
+            "decision"
+        ],
+        "expectedKeywords": [
+            "respectful",
+            "private",
+            "evidence",
+            "discussion",
+            "accepted"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_multiple_tasks",
+        "text": "How do you prioritize your work when you have multiple urgent tasks?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "situational",
+        "keywords": [
+            "prioritize",
+            "urgent",
+            "busy",
+            "tasks"
+        ],
+        "expectedKeywords": [
+            "impact",
+            "deadline",
+            "communication",
+            "plan",
+            "focus"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_unpopular_decision",
+        "text": "Tell me about a time you had to make an unpopular decision.",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "situational",
+        "keywords": [
+            "decision",
+            "unpopular",
+            "hard"
+        ],
+        "expectedKeywords": [
+            "necessary",
+            "explained",
+            "transparent",
+            "result",
+            "firm"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_failure_lesson",
+        "text": "Can you tell me about a time you failed or made a mistake? What did you learn from that experience?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "behavioral",
+        "keywords": [
+            "fail",
+            "mistake",
+            "error",
+            "wrong",
+            "learn"
+        ],
+        "expectedKeywords": [
+            "mistake",
+            "responsibility",
+            "learned",
+            "corrected",
+            "growth",
+            "prevent"
+        ],
+        "followUpIds": [
+            "hr_pressure_handling"
+        ]
+    },
+    {
+        "id": "hr_pressure_handling",
+        "text": "How do you handle tight deadlines or high-pressure situations?",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "behavioral",
+        "keywords": [
+            "pressure",
+            "stress",
+            "deadline",
+            "fast",
+            "busy"
+        ],
+        "expectedKeywords": [
+            "prioritize",
+            "organize",
+            "calm",
+            "focus",
+            "plan",
+            "communicate"
+        ],
+        "followUpIds": [
+            "hr_closing"
+        ]
+    },
+    {
+        "id": "hr_ethical_dilemma",
+        "text": "Describe a time you faced an ethical dilemma at work. What did you do?",
+        "type": "hr",
+        "difficulty": "advanced",
+        "topic": "behavioral",
+        "keywords": [
+            "ethical",
+            "dilemma",
+            "cheating",
+            "wrong"
+        ],
+        "expectedKeywords": [
+            "integrity",
+            "honest",
+            "reported",
+            "correct",
+            "values"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_creative_solution",
+        "text": "Give an example of a time you came up with a creative solution to a problem.",
+        "type": "hr",
+        "difficulty": "intermediate",
+        "topic": "behavioral",
+        "keywords": [
+            "creative",
+            "innovative",
+            "idea",
+            "solution"
+        ],
+        "expectedKeywords": [
+            "innovation",
+            "efficiency",
+            "new",
+            "solved",
+            "impact"
+        ],
+        "followUpIds": []
+    },
+    {
+        "id": "hr_closing",
+        "text": "Thank you for sharing all of that. We really appreciate your time today. Before we wrap up, do you have any final questions for us?",
+        "type": "hr",
+        "difficulty": "beginner",
+        "topic": "closing",
+        "keywords": [
+            "question",
+            "ask",
+            "role",
+            "team"
+        ],
+        "expectedKeywords": [
+            "culture",
+            "team",
+            "role",
+            "expectations",
+            "next steps"
+        ],
+        "followUpIds": []
+    }
+]
