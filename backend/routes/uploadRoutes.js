@@ -5,7 +5,8 @@ import { parseResume } from '../controllers/uploadController.js';
 import path from 'path';
 
 const router = express.Router();
-const upload = multer({ dest: path.join(process.cwd(), 'uploads/') }); // Absolute path temp storage
+const uploadDir = process.env.VERCEL ? '/tmp/uploads' : path.join(process.cwd(), 'uploads/');
+const upload = multer({ dest: uploadDir });
 
 router.post('/resume', upload.single('resume'), parseResume);
 

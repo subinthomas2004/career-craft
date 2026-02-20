@@ -1,6 +1,12 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const pdf = require('pdf-parse');
+let pdf;
+try {
+    pdf = require('pdf-parse');
+} catch (e) {
+    console.warn('Could not load pdf-parse:', e.message);
+    pdf = null;
+}
 
 const COMMON_TECH_KEYWORDS = [
     "React", "JavaScript", "TypeScript", "Node.js", "Python", "Java",

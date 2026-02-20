@@ -5,15 +5,17 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const tempDir = path.join(__dirname, '../temp');
 
-// Ensure temp directory exists (wrapped for Vercel compatibility)
+// On Vercel, only /tmp is writable
+const tempDir = process.env.VERCEL ? '/tmp/careercraft-code' : path.join(__dirname, '../temp');
+
+// Ensure temp directory exists
 try {
     if (!fs.existsSync(tempDir)) {
         fs.mkdirSync(tempDir, { recursive: true });
     }
 } catch (e) {
-    console.warn('Could not create temp directory (expected on Vercel):', e.message);
+    console.warn('Could not create temp directory:', e.message);
 }
 
 export const executeCode = async (req, res) => {
