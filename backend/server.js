@@ -1,4 +1,3 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -37,19 +36,42 @@ app.options('*', cors());
 
 app.use(express.json());
 
-
-
-// Database Connection
+// Database Connection (serverless-optimized with connection caching)
 const promptForDB = 'mongodb://localhost:27017/careercraft';
 const mongoURI = process.env.MONGODB_URI || promptForDB;
 
 if (mongoURI === promptForDB) {
-    console.warn('⚠️  WARNING: MONGODB_URI is not set in .env. Using local fallback which might not work if you intended to use Atlas.');
+    console.warn('⚠️  WARNING: MONGODB_URI is not set in .env. Using local fallback.');
 }
 
-mongoose.connect(mongoURI)
-    .then(() => console.log('✅ MongoDB connected successfully'))
-    .catch((err) => console.error('❌ MongoDB connection error:', err));
+// Cache connection for serverless reuse
+let isConnected = false;
+
+const connectDB = async () => {
+    if (isConnected) return;
+    try {
+        await mongoose.connect(mongoURI, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+        isConnected = true;
+        console.log('✅ MongoDB connected successfully');
+    } catch (err) {
+        console.error('❌ MongoDB connection error:', err.message);
+        isConnected = false;
+    }
+};
+
+// Connect on startup
+connectDB();
+
+// Middleware to ensure DB connection on each request (for serverless cold starts)
+app.use(async (req, res, next) => {
+    if (!isConnected) {
+        await connectDB();
+    }
+    next();
+});
 
 // Routes
 import resumeRoutes from './routes/resumeRoutes.js';
