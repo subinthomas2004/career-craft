@@ -37,6 +37,8 @@ app.options('*', cors());
 
 app.use(express.json());
 
+
+
 // Database Connection
 const promptForDB = 'mongodb://localhost:27017/careercraft';
 const mongoURI = process.env.MONGODB_URI || promptForDB;
@@ -71,6 +73,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/groq', groqRoutes);
 app.use('/api/upload', uploadRoutes);
+
+// Global error handler (must be after routes)
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal Server Error', message: err.message });
+});
 
 // Socket.io Logic
 io.on('connection', (socket) => {

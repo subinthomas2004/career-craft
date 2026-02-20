@@ -7,9 +7,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const tempDir = path.join(__dirname, '../temp');
 
-// Ensure temp directory exists
-if (!fs.existsSync(tempDir)) {
-    fs.mkdirSync(tempDir);
+// Ensure temp directory exists (wrapped for Vercel compatibility)
+try {
+    if (!fs.existsSync(tempDir)) {
+        fs.mkdirSync(tempDir, { recursive: true });
+    }
+} catch (e) {
+    console.warn('Could not create temp directory (expected on Vercel):', e.message);
 }
 
 export const executeCode = async (req, res) => {
