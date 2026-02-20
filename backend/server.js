@@ -96,8 +96,13 @@ io.on('connection', (socket) => {
     });
 });
 
-// Start Server
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`Uploads directory: ${path.join(process.cwd(), 'uploads/')}`);
-});
+// Start Server (only when not on Vercel)
+if (process.env.VERCEL !== '1') {
+    server.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Uploads directory: ${path.join(process.cwd(), 'uploads/')}`);
+    });
+}
+
+// Export for Vercel serverless deployment
+export default app;
