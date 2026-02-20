@@ -1,47 +1,105 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play } from 'lucide-react';
+import { Play, Zap, Bot, BarChart3, Trophy, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const DebateLanding = () => {
     const navigate = useNavigate();
 
-    return (
-        <div className="flex flex-col h-full font-sans relative overflow-hidden bg-background">
-            {/* Hero Section */}
-            <main className="flex-1 flex flex-col justify-center items-center relative p-8">
-                {/* Background Image / Gradient */}
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-background to-red-50/50" />
-                    <div className="absolute inset-0 bg-[url('/debate-bg-pattern.svg')] opacity-[0.03]" />
-                </div>
+    const features = [
+        {
+            icon: <Bot className="w-5 h-5 text-blue-500" />,
+            title: "Adaptive AI Opponent",
+            description: "Face off against an AI that adapts to your arguments."
+        },
+        {
+            icon: <Zap className="w-5 h-5 text-indigo-500" />,
+            title: "Instant Verification",
+            description: "Get immediate feedback on your argumentation style."
+        },
+        {
+            icon: <BarChart3 className="w-5 h-5 text-cyan-500" />,
+            title: "Performance Analytics",
+            description: "Track your improvement over time with detailed scoring."
+        }
+    ];
 
-                {/* Content */}
-                <div className="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                    <Badge variant="outline" className="mb-4 text-red-600 border-red-200 px-4 py-1 text-md uppercase tracking-widest bg-red-50 backdrop-blur-md">
-                        AI-Powered Debate
-                    </Badge>
-                    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight text-foreground drop-shadow-sm">
-                        Sharpen Your <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500">
-                            Argumentation Skills
+    return (
+        <div className="flex flex-col h-[calc(100vh-4rem)] font-sans relative overflow-hidden bg-background">
+            {/* Background Elements */}
+            <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/40 via-background to-background" />
+                <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-indigo-100/30 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
+                <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-blue-100/30 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
+                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]" />
+            </div>
+
+            <main className="flex-1 flex flex-col justify-center items-center relative p-4 z-10 w-full max-w-7xl mx-auto h-full">
+
+                {/* Hero Content */}
+                <div className="text-center w-full max-w-4xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700 flex flex-col items-center justify-center flex-grow pt-8">
+
+                    {/* Badge */}
+                    <div className="flex justify-center">
+                        <Badge variant="outline" className="px-3 py-1 text-xs font-medium tracking-wide uppercase text-blue-600 border-blue-200 bg-blue-50/50 backdrop-blur-sm rounded-full shadow-sm">
+                            <Trophy className="w-3 h-3 mr-1.5" />
+                            AI-Powered Debate Platform
+                        </Badge>
+                    </div>
+
+                    {/* Headline */}
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight text-foreground">
+                        Master the Art of <br className="hidden md:block" />
+                        <span className="relative inline-block">
+                            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500">
+                                Persuasion
+                            </span>
+                            <span className="absolute -bottom-1 left-0 right-0 h-3 bg-indigo-100/50 -rotate-1 -z-0 rounded-full blur-sm" />
                         </span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        Challenge AI opponents, structure your thoughts, and master the art of persuasion in a one-on-one debate simulation.
+
+                    {/* Subheadline */}
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
+                        Challenge advanced AI opponents, sharpen your critical thinking, and receive comprehensive feedback to win every argument.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+                    {/* CTA Button */}
+                    <div className="pt-2 pb-6 flex flex-col items-center">
                         <Button
                             size="lg"
                             onClick={() => navigate('/dashboard/debate/topic')}
-                            className="h-14 px-8 text-lg rounded-full bg-red-600 hover:bg-red-700 text-white transition-all transform hover:scale-105 shadow-xl shadow-red-200"
+                            className="h-12 px-8 text-lg font-semibold rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition-all transform hover:scale-105 shadow-lg shadow-blue-200 ring-2 ring-blue-50"
                         >
                             <Play className="w-5 h-5 mr-2 fill-white" />
-                            Start Debate
+                            Start New Debate
                         </Button>
+                        <p className="mt-3 text-xs text-muted-foreground flex items-center">
+                            <Users className="w-3 h-3 inline mr-1" />
+                            Join 10,000+ debaters improving daily
+                        </p>
                     </div>
                 </div>
+
+                {/* Features Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-5xl mt-auto mb-8 animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200 px-4">
+                    {features.map((feature, index) => (
+                        <div
+                            key={index}
+                            className="group p-5 rounded-xl bg-white/40 hover:bg-white border border-border/40 hover:border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 backdrop-blur-sm flex flex-col items-center text-center md:items-start md:text-left"
+                        >
+                            <div className="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                {feature.icon}
+                            </div>
+                            <h3 className="text-base font-bold mb-1.5 text-foreground group-hover:text-blue-700 transition-colors">
+                                {feature.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground leading-snug">
+                                {feature.description}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+
             </main>
         </div>
     );

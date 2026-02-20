@@ -1,0 +1,2046 @@
+[
+  {
+    "id": 1,
+    "question": "What is a computer network?",
+    "options": [
+      "Collection of hardware devices only",
+      "Interconnected devices sharing resources",
+      "Single computer system",
+      "Database system"
+    ],
+    "correct": 1,
+    "explanation": "A computer network connects multiple devices to share data and resources. It enables communication using protocols.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 2,
+    "question": "Which device connects different networks?",
+    "options": [
+      "Switch",
+      "Hub",
+      "Router",
+      "Repeater"
+    ],
+    "correct": 2,
+    "explanation": "Routers forward packets between networks using IP addresses. They determine optimal paths.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 3,
+    "question": "What does LAN stand for?",
+    "options": [
+      "Large Area Network",
+      "Local Area Network",
+      "Logical Area Network",
+      "Linked Area Network"
+    ],
+    "correct": 1,
+    "explanation": "LAN connects devices within a small geographic area like a building. It provides high-speed connectivity.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 4,
+    "question": "Which topology uses a central hub?",
+    "options": [
+      "Bus",
+      "Star",
+      "Ring",
+      "Mesh"
+    ],
+    "correct": 1,
+    "explanation": "In star topology, all nodes connect to a central hub or switch. Failure of the hub affects the entire network.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 5,
+    "question": "What is the primary function of a switch?",
+    "options": [
+      "Amplify signals",
+      "Forward data using MAC addresses",
+      "Assign IP addresses",
+      "Convert analog to digital"
+    ],
+    "correct": 1,
+    "explanation": "Switches operate at the data link layer. They forward frames based on MAC addresses.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 6,
+    "question": "Which protocol is used to assign IP addresses automatically?",
+    "options": [
+      "DNS",
+      "DHCP",
+      "FTP",
+      "HTTP"
+    ],
+    "correct": 1,
+    "explanation": "DHCP dynamically assigns IP addresses to devices. It simplifies network configuration.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 7,
+    "question": "What is an IP address?",
+    "options": [
+      "Hardware identifier",
+      "Logical address for device identification",
+      "File location",
+      "Network cable type"
+    ],
+    "correct": 1,
+    "explanation": "IP addresses uniquely identify devices on a network. They enable routing and communication.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 8,
+    "question": "Which layer of OSI model handles routing?",
+    "options": [
+      "Data Link",
+      "Network",
+      "Transport",
+      "Session"
+    ],
+    "correct": 1,
+    "explanation": "The network layer determines packet paths. It uses logical addressing like IP.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 9,
+    "question": "What is the OSI model?",
+    "options": [
+      "Hardware model",
+      "Seven-layer networking framework",
+      "File system",
+      "Database protocol"
+    ],
+    "correct": 1,
+    "explanation": "OSI model standardizes network communication. It divides functions into seven layers.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 10,
+    "question": "Which protocol is used for web browsing?",
+    "options": [
+      "FTP",
+      "HTTP",
+      "SMTP",
+      "SNMP"
+    ],
+    "correct": 1,
+    "explanation": "HTTP transfers web pages between client and server. HTTPS adds encryption for security.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 11,
+    "question": "Which layer ensures reliable data transfer?",
+    "options": [
+      "Network",
+      "Transport",
+      "Physical",
+      "Data Link"
+    ],
+    "correct": 1,
+    "explanation": "The transport layer provides reliability using protocols like TCP. It ensures error-free delivery.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 12,
+    "question": "What is TCP?",
+    "options": [
+      "Connectionless protocol",
+      "Reliable connection-oriented protocol",
+      "Routing protocol",
+      "Encryption protocol"
+    ],
+    "correct": 1,
+    "explanation": "TCP establishes connections and ensures reliable delivery. It uses acknowledgments and retransmissions.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 13,
+    "question": "What is UDP?",
+    "options": [
+      "Reliable protocol",
+      "Connectionless protocol",
+      "Routing protocol",
+      "Encryption protocol"
+    ],
+    "correct": 1,
+    "explanation": "UDP sends data without establishing a connection. It is faster but does not guarantee delivery.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 14,
+    "question": "Which protocol resolves domain names to IP addresses?",
+    "options": [
+      "DHCP",
+      "DNS",
+      "FTP",
+      "ARP"
+    ],
+    "correct": 1,
+    "explanation": "DNS translates human-readable domain names into IP addresses. This enables easier web navigation.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 15,
+    "question": "What is ARP used for?",
+    "options": [
+      "Finding MAC address from IP",
+      "Finding IP from MAC",
+      "Assigning IP",
+      "Encrypting data"
+    ],
+    "correct": 0,
+    "explanation": "ARP maps IP addresses to MAC addresses. It helps deliver data within a local network.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 16,
+    "question": "Which device operates at the physical layer?",
+    "options": [
+      "Router",
+      "Switch",
+      "Hub",
+      "Firewall"
+    ],
+    "correct": 2,
+    "explanation": "Hubs transmit data to all connected devices. They operate at the physical layer without filtering.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 17,
+    "question": "What is bandwidth?",
+    "options": [
+      "Data storage",
+      "Maximum data transfer rate",
+      "Network cable length",
+      "IP range"
+    ],
+    "correct": 1,
+    "explanation": "Bandwidth measures the capacity of a network. Higher bandwidth allows more data per second.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 18,
+    "question": "What is latency?",
+    "options": [
+      "Data speed",
+      "Delay in data transmission",
+      "Packet size",
+      "Signal strength"
+    ],
+    "correct": 1,
+    "explanation": "Latency is the time taken for data to travel from source to destination. Lower latency improves performance.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 19,
+    "question": "Which topology provides redundancy?",
+    "options": [
+      "Bus",
+      "Star",
+      "Mesh",
+      "Ring"
+    ],
+    "correct": 2,
+    "explanation": "Mesh topology connects nodes with multiple paths. This ensures reliability and fault tolerance.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 20,
+    "question": "What is a MAC address?",
+    "options": [
+      "Logical address",
+      "Physical hardware address",
+      "IP address",
+      "Port number"
+    ],
+    "correct": 1,
+    "explanation": "MAC addresses uniquely identify network interfaces. They are assigned by manufacturers.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 21,
+    "question": "Which protocol is used for email sending?",
+    "options": [
+      "SMTP",
+      "POP3",
+      "IMAP",
+      "FTP"
+    ],
+    "correct": 0,
+    "explanation": "SMTP transfers outgoing email from clients to servers. POP3 and IMAP retrieve emails.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 22,
+    "question": "What is FTP used for?",
+    "options": [
+      "Web browsing",
+      "File transfer",
+      "Email sending",
+      "DNS resolution"
+    ],
+    "correct": 1,
+    "explanation": "FTP transfers files between client and server. It supports upload and download operations.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 23,
+    "question": "Which layer handles encryption?",
+    "options": [
+      "Application",
+      "Presentation",
+      "Network",
+      "Physical"
+    ],
+    "correct": 1,
+    "explanation": "The presentation layer handles encryption and data formatting. It ensures secure and compatible data exchange.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 24,
+    "question": "What is a firewall?",
+    "options": [
+      "Network cable",
+      "Security system controlling traffic",
+      "Router",
+      "Switch"
+    ],
+    "correct": 1,
+    "explanation": "Firewalls monitor and filter incoming and outgoing traffic. They protect networks from unauthorized access.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 25,
+    "question": "What is packet switching?",
+    "options": [
+      "Sending data in fixed circuit",
+      "Dividing data into packets",
+      "Broadcasting data",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Packet switching divides data into smaller packets. These travel independently and reassemble at the destination.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 26,
+    "question": "Which protocol secures web communication?",
+    "options": [
+      "HTTP",
+      "HTTPS",
+      "FTP",
+      "SMTP"
+    ],
+    "correct": 1,
+    "explanation": "HTTPS uses SSL/TLS encryption. It protects data from interception.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 27,
+    "question": "What is a subnet?",
+    "options": [
+      "Small network within a larger network",
+      "Network cable",
+      "Routing protocol",
+      "Firewall rule"
+    ],
+    "correct": 0,
+    "explanation": "Subnets divide networks into smaller segments. They improve management and security.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 28,
+    "question": "What is NAT?",
+    "options": [
+      "Network Access Tool",
+      "Network Address Translation",
+      "Network Allocation Table",
+      "Network Application Transfer"
+    ],
+    "correct": 1,
+    "explanation": "NAT translates private IP addresses to public IPs. It conserves address space.",
+    "difficulty": "Easy",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 29,
+    "question": "Which device filters traffic based on IP?",
+    "options": [
+      "Hub",
+      "Switch",
+      "Router",
+      "Repeater"
+    ],
+    "correct": 2,
+    "explanation": "Routers use IP addresses to forward packets. They connect different networks.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 30,
+    "question": "What is a port number?",
+    "options": [
+      "IP address",
+      "Logical endpoint for communication",
+      "Hardware slot",
+      "Network cable"
+    ],
+    "correct": 1,
+    "explanation": "Port numbers identify specific services. They allow multiple applications to use network simultaneously.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 31,
+    "question": "Which protocol is used for remote login?",
+    "options": [
+      "HTTP",
+      "Telnet",
+      "FTP",
+      "DNS"
+    ],
+    "correct": 1,
+    "explanation": "Telnet allows remote command-line access. It is insecure compared to SSH.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 32,
+    "question": "Which protocol replaces Telnet securely?",
+    "options": [
+      "FTP",
+      "SSH",
+      "HTTP",
+      "SMTP"
+    ],
+    "correct": 1,
+    "explanation": "SSH encrypts remote connections. It provides secure authentication.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 33,
+    "question": "What is a gateway?",
+    "options": [
+      "Network cable",
+      "Device connecting different networks/protocols",
+      "Switch",
+      "Firewall"
+    ],
+    "correct": 1,
+    "explanation": "Gateways translate between different network protocols. They enable communication between dissimilar systems.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 34,
+    "question": "Which topology connects all nodes to a single cable?",
+    "options": [
+      "Star",
+      "Bus",
+      "Ring",
+      "Mesh"
+    ],
+    "correct": 1,
+    "explanation": "Bus topology uses a single backbone cable. Failure of the cable disrupts the network.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 35,
+    "question": "What is a ring topology?",
+    "options": [
+      "Nodes connected in circle",
+      "Nodes connected to hub",
+      "Nodes connected randomly",
+      "Nodes in mesh"
+    ],
+    "correct": 0,
+    "explanation": "Ring topology connects each node to two others. Data travels in one direction.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 36,
+    "question": "What is a repeater?",
+    "options": [
+      "Security device",
+      "Signal amplifier",
+      "Routing device",
+      "File server"
+    ],
+    "correct": 1,
+    "explanation": "Repeaters regenerate signals to extend network distance. They operate at physical layer.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 37,
+    "question": "What is jitter?",
+    "options": [
+      "Data speed",
+      "Variation in packet delay",
+      "Packet size",
+      "Signal strength"
+    ],
+    "correct": 1,
+    "explanation": "Jitter measures inconsistency in packet arrival times. It affects voice and video quality.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 38,
+    "question": "What is QoS?",
+    "options": [
+      "Quality of Service",
+      "Quantity of Signal",
+      "Quick Online Service",
+      "Query of System"
+    ],
+    "correct": 0,
+    "explanation": "QoS prioritizes network traffic. It ensures performance for critical applications.",
+    "difficulty": "Easy",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 39,
+    "question": "Which protocol is used for network management?",
+    "options": [
+      "SNMP",
+      "SMTP",
+      "FTP",
+      "DNS"
+    ],
+    "correct": 0,
+    "explanation": "SNMP monitors and manages network devices. It collects performance data.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 40,
+    "question": "What is a VPN?",
+    "options": [
+      "Virtual Private Network",
+      "Virtual Public Network",
+      "Variable Protocol Network",
+      "Verified Private Network"
+    ],
+    "correct": 0,
+    "explanation": "VPN creates secure encrypted connections over public networks. It protects data privacy.",
+    "difficulty": "Medium",
+    "topic": "Network Security"
+  },
+  {
+    "id": 41,
+    "question": "What is packet loss?",
+    "options": [
+      "Data encryption",
+      "Packets failing to reach destination",
+      "Packet duplication",
+      "Signal amplification"
+    ],
+    "correct": 1,
+    "explanation": "Packet loss occurs due to congestion or errors. It reduces network performance.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 42,
+    "question": "What is throughput?",
+    "options": [
+      "Delay",
+      "Actual data transfer rate",
+      "Packet size",
+      "Bandwidth"
+    ],
+    "correct": 1,
+    "explanation": "Throughput measures real data transfer. It may be lower than bandwidth.",
+    "difficulty": "Easy",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 43,
+    "question": "Which protocol is used for time synchronization?",
+    "options": [
+      "FTP",
+      "NTP",
+      "SMTP",
+      "SNMP"
+    ],
+    "correct": 1,
+    "explanation": "NTP synchronizes clocks across network devices. Accurate time is essential for logs and security.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 44,
+    "question": "What is collision in networking?",
+    "options": [
+      "Packet encryption",
+      "Two devices sending data simultaneously",
+      "Router failure",
+      "IP conflict"
+    ],
+    "correct": 1,
+    "explanation": "Collisions occur in shared media networks. They cause data corruption and retransmissions.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 45,
+    "question": "Which device prevents collisions?",
+    "options": [
+      "Hub",
+      "Switch",
+      "Repeater",
+      "Modem"
+    ],
+    "correct": 1,
+    "explanation": "Switches create separate collision domains. This reduces network congestion.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 46,
+    "question": "What is a broadcast address?",
+    "options": [
+      "Address for single device",
+      "Address for all devices in network",
+      "Router address",
+      "Firewall address"
+    ],
+    "correct": 1,
+    "explanation": "Broadcast addresses send data to all devices in a subnet. They are used for announcements.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 47,
+    "question": "What is IPv4 address size?",
+    "options": [
+      "16-bit",
+      "32-bit",
+      "64-bit",
+      "128-bit"
+    ],
+    "correct": 1,
+    "explanation": "IPv4 uses 32-bit addresses. This allows about 4.3 billion addresses.",
+    "difficulty": "Easy",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 48,
+    "question": "What is IPv6 address size?",
+    "options": [
+      "32-bit",
+      "64-bit",
+      "128-bit",
+      "256-bit"
+    ],
+    "correct": 2,
+    "explanation": "IPv6 uses 128-bit addresses. It provides a vast address space.",
+    "difficulty": "Easy",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 49,
+    "question": "What is a unicast transmission?",
+    "options": [
+      "One-to-one communication",
+      "One-to-many communication",
+      "Many-to-many communication",
+      "Broadcast communication"
+    ],
+    "correct": 0,
+    "explanation": "Unicast sends data from one sender to one receiver. It is the most common communication method.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 52,
+    "question": "What is the main function of the Transport layer?",
+    "options": [
+      "Routing",
+      "Reliable end-to-end communication",
+      "Signal transmission",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "The Transport layer ensures data is delivered reliably between hosts. Protocols like TCP manage sequencing and acknowledgments.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 53,
+    "question": "Which protocol is connectionless at the Transport layer?",
+    "options": [
+      "TCP",
+      "UDP",
+      "HTTP",
+      "FTP"
+    ],
+    "correct": 1,
+    "explanation": "UDP sends packets without establishing a connection. It is faster but does not guarantee delivery.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 54,
+    "question": "What is a socket?",
+    "options": [
+      "Network cable",
+      "Endpoint for communication",
+      "Routing table",
+      "IP address"
+    ],
+    "correct": 1,
+    "explanation": "A socket combines an IP address and port number. It uniquely identifies a communication endpoint.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 55,
+    "question": "What is a three-way handshake?",
+    "options": [
+      "TCP connection establishment process",
+      "DNS lookup",
+      "File transfer method",
+      "Encryption method"
+    ],
+    "correct": 0,
+    "explanation": "TCP uses SYN, SYN-ACK, and ACK to establish a connection. This ensures both sides are ready to communicate.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 56,
+    "question": "What is flow control?",
+    "options": [
+      "Controlling packet speed",
+      "Managing data transmission rate between sender and receiver",
+      "Encryption method",
+      "Routing algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Flow control prevents the sender from overwhelming the receiver. It ensures efficient data transfer.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 57,
+    "question": "Which protocol uses port 80 by default?",
+    "options": [
+      "FTP",
+      "HTTP",
+      "SMTP",
+      "DNS"
+    ],
+    "correct": 1,
+    "explanation": "HTTP uses port 80 for web traffic. HTTPS uses port 443.",
+    "difficulty": "Easy",
+    "topic": "Protocols"
+  },
+  {
+    "id": 58,
+    "question": "Which protocol uses port 443?",
+    "options": [
+      "HTTP",
+      "HTTPS",
+      "FTP",
+      "Telnet"
+    ],
+    "correct": 1,
+    "explanation": "HTTPS secures web communication using SSL/TLS. It operates on port 443.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 59,
+    "question": "What is congestion control?",
+    "options": [
+      "Increasing bandwidth",
+      "Managing network traffic to avoid overload",
+      "Encrypting packets",
+      "Assigning IP addresses"
+    ],
+    "correct": 1,
+    "explanation": "Congestion control prevents network overload. TCP adjusts transmission rates to reduce packet loss.",
+    "difficulty": "Hard",
+    "topic": "General Networking"
+  },
+  {
+    "id": 60,
+    "question": "Which TCP feature ensures ordered delivery?",
+    "options": [
+      "Checksums",
+      "Sequence numbers",
+      "Ports",
+      "ARP"
+    ],
+    "correct": 1,
+    "explanation": "TCP uses sequence numbers to reorder packets. This ensures correct data sequence.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 61,
+    "question": "What is a DNS server?",
+    "options": [
+      "Stores web pages",
+      "Resolves domain names to IP addresses",
+      "Assigns IP addresses",
+      "Filters traffic"
+    ],
+    "correct": 1,
+    "explanation": "DNS servers translate domain names into IP addresses. This enables user-friendly browsing.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 62,
+    "question": "What is a proxy server?",
+    "options": [
+      "Network cable",
+      "Intermediary between client and server",
+      "Firewall device",
+      "Router"
+    ],
+    "correct": 1,
+    "explanation": "Proxy servers forward client requests. They enhance security and caching.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 63,
+    "question": "What is a CDN?",
+    "options": [
+      "Content Delivery Network",
+      "Central Data Node",
+      "Computer Data Network",
+      "Core Distribution Node"
+    ],
+    "correct": 0,
+    "explanation": "CDNs distribute content across servers globally. This reduces latency and improves performance.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 64,
+    "question": "What is an intranet?",
+    "options": [
+      "Public network",
+      "Private internal network",
+      "Global network",
+      "Wireless network"
+    ],
+    "correct": 1,
+    "explanation": "Intranets are private networks used within organizations. They enhance internal communication.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 65,
+    "question": "What is an extranet?",
+    "options": [
+      "Internal network",
+      "Network accessible to partners",
+      "Public internet",
+      "Wireless LAN"
+    ],
+    "correct": 1,
+    "explanation": "Extranets allow controlled external access. They support collaboration with partners.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 66,
+    "question": "What is a MAN?",
+    "options": [
+      "Metropolitan Area Network",
+      "Massive Area Network",
+      "Main Access Network",
+      "Multiple Area Network"
+    ],
+    "correct": 0,
+    "explanation": "MAN covers a city-sized area. It connects multiple LANs.",
+    "difficulty": "Easy",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 67,
+    "question": "What is WAN?",
+    "options": [
+      "Wireless Area Network",
+      "Wide Area Network",
+      "Web Area Network",
+      "World Access Network"
+    ],
+    "correct": 1,
+    "explanation": "WAN spans large geographic areas. The internet is the largest WAN.",
+    "difficulty": "Easy",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 68,
+    "question": "What is a backbone network?",
+    "options": [
+      "Small network",
+      "High-capacity central network",
+      "Wireless network",
+      "Personal network"
+    ],
+    "correct": 1,
+    "explanation": "Backbone networks carry large volumes of traffic. They connect smaller networks.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 69,
+    "question": "What is MPLS?",
+    "options": [
+      "Routing protocol",
+      "Multi-Protocol Label Switching",
+      "Encryption method",
+      "File transfer protocol"
+    ],
+    "correct": 1,
+    "explanation": "MPLS speeds packet forwarding using labels. It improves performance and traffic engineering.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 70,
+    "question": "What is a VLAN?",
+    "options": [
+      "Virtual LAN",
+      "Variable LAN",
+      "Verified LAN",
+      "Visual LAN"
+    ],
+    "correct": 0,
+    "explanation": "VLANs logically separate networks within a switch. They improve security and management.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 71,
+    "question": "What is a trunk port?",
+    "options": [
+      "Port for single VLAN",
+      "Port carrying multiple VLAN traffic",
+      "Router port",
+      "Firewall port"
+    ],
+    "correct": 1,
+    "explanation": "Trunk ports carry traffic from multiple VLANs. They use tagging to identify VLANs.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 72,
+    "question": "What is STP?",
+    "options": [
+      "Secure Transfer Protocol",
+      "Spanning Tree Protocol",
+      "System Transport Protocol",
+      "Standard Transfer Process"
+    ],
+    "correct": 1,
+    "explanation": "STP prevents loops in network topologies. It creates a loop-free logical structure.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 73,
+    "question": "What is a collision domain?",
+    "options": [
+      "Area where packets collide",
+      "Network area sharing bandwidth",
+      "IP address range",
+      "VLAN"
+    ],
+    "correct": 0,
+    "explanation": "A collision domain is where packet collisions can occur. Switches reduce collision domains.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 74,
+    "question": "What is a broadcast domain?",
+    "options": [
+      "Area receiving broadcasts",
+      "Single device",
+      "IP address",
+      "Router port"
+    ],
+    "correct": 0,
+    "explanation": "Broadcast domains include all devices receiving broadcast messages. Routers separate broadcast domains.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 75,
+    "question": "Which protocol is used for secure file transfer?",
+    "options": [
+      "FTP",
+      "SFTP",
+      "HTTP",
+      "SMTP"
+    ],
+    "correct": 1,
+    "explanation": "SFTP uses SSH for secure file transfer. It encrypts data and authentication.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 76,
+    "question": "What is a checksum?",
+    "options": [
+      "Encryption key",
+      "Error detection method",
+      "IP address",
+      "Port number"
+    ],
+    "correct": 1,
+    "explanation": "Checksums verify data integrity. They detect errors during transmission.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 77,
+    "question": "What is MTU?",
+    "options": [
+      "Maximum Transfer Unit",
+      "Minimum Transmission Unit",
+      "Memory Transfer Unit",
+      "Media Transfer Utility"
+    ],
+    "correct": 0,
+    "explanation": "MTU defines the largest packet size that can be transmitted. Larger packets may be fragmented.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 78,
+    "question": "What is packet fragmentation?",
+    "options": [
+      "Combining packets",
+      "Breaking packets into smaller pieces",
+      "Encrypting packets",
+      "Dropping packets"
+    ],
+    "correct": 1,
+    "explanation": "Fragmentation occurs when packets exceed MTU. They are reassembled at the destination.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 79,
+    "question": "What is ICMP used for?",
+    "options": [
+      "File transfer",
+      "Error reporting and diagnostics",
+      "Email transfer",
+      "DNS resolution"
+    ],
+    "correct": 1,
+    "explanation": "ICMP reports errors and network conditions. Tools like ping use ICMP.",
+    "difficulty": "Easy",
+    "topic": "Protocols"
+  },
+  {
+    "id": 80,
+    "question": "What does ping use?",
+    "options": [
+      "TCP",
+      "ICMP",
+      "UDP",
+      "HTTP"
+    ],
+    "correct": 1,
+    "explanation": "Ping uses ICMP echo requests. It checks connectivity.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 81,
+    "question": "What is traceroute used for?",
+    "options": [
+      "File transfer",
+      "Tracking packet path",
+      "DNS lookup",
+      "IP assignment"
+    ],
+    "correct": 1,
+    "explanation": "Traceroute shows the path packets take. It helps diagnose network issues.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 82,
+    "question": "What is a network interface card (NIC)?",
+    "options": [
+      "Router",
+      "Hardware for network connectivity",
+      "Software driver",
+      "Protocol"
+    ],
+    "correct": 1,
+    "explanation": "NIC enables devices to connect to networks. It provides MAC addresses.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 83,
+    "question": "What is duplex communication?",
+    "options": [
+      "One-way communication",
+      "Two-way communication",
+      "Broadcast communication",
+      "Multicast communication"
+    ],
+    "correct": 1,
+    "explanation": "Duplex allows simultaneous sending and receiving. Full duplex improves efficiency.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 84,
+    "question": "What is half-duplex?",
+    "options": [
+      "Simultaneous communication",
+      "One direction at a time",
+      "Broadcast only",
+      "Multicast only"
+    ],
+    "correct": 1,
+    "explanation": "Half-duplex allows communication in both directions but not simultaneously. Walkie-talkies use this mode.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 85,
+    "question": "What is full duplex?",
+    "options": [
+      "One-way communication",
+      "Two-way simultaneous communication",
+      "Broadcast communication",
+      "Multicast communication"
+    ],
+    "correct": 1,
+    "explanation": "Full duplex allows simultaneous transmission and reception. It improves performance.",
+    "difficulty": "Medium",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 86,
+    "question": "What is a hotspot?",
+    "options": [
+      "Network error",
+      "Wireless internet access point",
+      "Router failure",
+      "Security breach"
+    ],
+    "correct": 1,
+    "explanation": "Hotspots provide wireless connectivity. They allow devices to connect to the internet.",
+    "difficulty": "Medium",
+    "topic": "Wireless Networking"
+  },
+  {
+    "id": 87,
+    "question": "What is WPA3?",
+    "options": [
+      "Wireless protocol",
+      "Wi-Fi security standard",
+      "Routing protocol",
+      "File transfer method"
+    ],
+    "correct": 1,
+    "explanation": "WPA3 provides improved wireless security. It protects against brute-force attacks.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 88,
+    "question": "What is SSID?",
+    "options": [
+      "Network password",
+      "Network name",
+      "IP address",
+      "MAC address"
+    ],
+    "correct": 1,
+    "explanation": "SSID identifies a wireless network. Users select it to connect.",
+    "difficulty": "Easy",
+    "topic": "Wireless Networking"
+  },
+  {
+    "id": 89,
+    "question": "What is MAC filtering?",
+    "options": [
+      "Blocking IP addresses",
+      "Allowing devices based on MAC address",
+      "Encrypting packets",
+      "DNS filtering"
+    ],
+    "correct": 1,
+    "explanation": "MAC filtering controls device access. It enhances network security.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 90,
+    "question": "What is a wireless access point?",
+    "options": [
+      "Router",
+      "Device providing Wi-Fi connectivity",
+      "Firewall",
+      "Modem"
+    ],
+    "correct": 1,
+    "explanation": "Access points enable wireless devices to connect to networks. They extend Wi-Fi coverage.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 91,
+    "question": "What is a modem?",
+    "options": [
+      "Switch",
+      "Modulator-demodulator",
+      "Router",
+      "Firewall"
+    ],
+    "correct": 1,
+    "explanation": "Modems convert digital data to analog signals and vice versa. They enable internet over phone lines.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 92,
+    "question": "What is broadband?",
+    "options": [
+      "Narrow bandwidth",
+      "High-speed internet connection",
+      "Wireless protocol",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Broadband provides high-speed internet. It supports multiple services simultaneously.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 93,
+    "question": "What is packet sniffing?",
+    "options": [
+      "Packet encryption",
+      "Monitoring network traffic",
+      "Packet loss",
+      "Packet routing"
+    ],
+    "correct": 1,
+    "explanation": "Packet sniffing analyzes network packets. It is used for troubleshooting and security monitoring.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 94,
+    "question": "What is spoofing?",
+    "options": [
+      "Data encryption",
+      "Impersonating another device",
+      "Packet routing",
+      "Network optimization"
+    ],
+    "correct": 1,
+    "explanation": "Spoofing involves falsifying identity. It is used in cyberattacks.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 95,
+    "question": "What is phishing?",
+    "options": [
+      "Network error",
+      "Fraudulent attempt to obtain sensitive data",
+      "Packet loss",
+      "Routing error"
+    ],
+    "correct": 1,
+    "explanation": "Phishing tricks users into revealing credentials. It is a common cyber threat.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 96,
+    "question": "What is DDoS attack?",
+    "options": [
+      "Data encryption",
+      "Overloading server with traffic",
+      "Packet routing",
+      "File transfer"
+    ],
+    "correct": 1,
+    "explanation": "Distributed Denial of Service floods servers. It disrupts services.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 97,
+    "question": "What is a honeypot?",
+    "options": [
+      "Network cable",
+      "Security system to trap attackers",
+      "Router",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Honeypots lure attackers to detect threats. They help improve security.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 98,
+    "question": "What is SSL/TLS?",
+    "options": [
+      "Routing protocol",
+      "Encryption protocol",
+      "File transfer protocol",
+      "Network topology"
+    ],
+    "correct": 1,
+    "explanation": "SSL/TLS encrypts data in transit. It ensures secure communication.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 99,
+    "question": "What is digital signature used for?",
+    "options": [
+      "Data compression",
+      "Authentication and integrity",
+      "Routing",
+      "IP assignment"
+    ],
+    "correct": 1,
+    "explanation": "Digital signatures verify sender identity. They ensure data integrity.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 102,
+    "question": "What is static routing?",
+    "options": [
+      "Routing that changes automatically",
+      "Manually configured routing",
+      "Routing using AI",
+      "Dynamic routing"
+    ],
+    "correct": 1,
+    "explanation": "Static routing requires manual configuration. It is simple but not adaptable to network changes.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 103,
+    "question": "What is dynamic routing?",
+    "options": [
+      "Manual routing",
+      "Routing that updates automatically",
+      "Routing without protocols",
+      "Static routing"
+    ],
+    "correct": 1,
+    "explanation": "Dynamic routing uses protocols to update routes automatically. It adapts to network changes.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 104,
+    "question": "Which protocol is used for dynamic routing?",
+    "options": [
+      "HTTP",
+      "RIP",
+      "FTP",
+      "SMTP"
+    ],
+    "correct": 1,
+    "explanation": "RIP (Routing Information Protocol) exchanges routing information. It uses hop count to determine best paths.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 105,
+    "question": "What is OSPF?",
+    "options": [
+      "File transfer protocol",
+      "Open Shortest Path First routing protocol",
+      "Security protocol",
+      "Email protocol"
+    ],
+    "correct": 1,
+    "explanation": "OSPF is a link-state routing protocol. It calculates shortest paths using Dijkstra’s algorithm.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 106,
+    "question": "What is BGP used for?",
+    "options": [
+      "Internal routing",
+      "Internet routing between autonomous systems",
+      "File transfer",
+      "DNS resolution"
+    ],
+    "correct": 1,
+    "explanation": "BGP manages routing between large networks. It is essential for internet backbone routing.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 107,
+    "question": "What is hop count?",
+    "options": [
+      "Packet size",
+      "Number of routers a packet passes",
+      "Network speed",
+      "IP address"
+    ],
+    "correct": 1,
+    "explanation": "Hop count measures the number of intermediate devices. It helps determine routing paths.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 108,
+    "question": "What is a loopback address?",
+    "options": [
+      "External IP",
+      "Address used to test local network stack",
+      "Broadcast address",
+      "Multicast address"
+    ],
+    "correct": 1,
+    "explanation": "Loopback addresses like 127.0.0.1 test local networking. They do not leave the device.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 109,
+    "question": "What is CIDR?",
+    "options": [
+      "Classless Inter-Domain Routing",
+      "Central Internet Data Routing",
+      "Controlled IP Data Routing",
+      "Classful Internet Domain Routing"
+    ],
+    "correct": 0,
+    "explanation": "CIDR replaces class-based addressing. It improves IP address allocation.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 110,
+    "question": "What is subnet mask used for?",
+    "options": [
+      "Encrypting data",
+      "Identifying network and host portions of IP",
+      "Assigning IP addresses",
+      "Filtering traffic"
+    ],
+    "correct": 1,
+    "explanation": "Subnet masks divide IP addresses into network and host parts. They enable subnetting.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 111,
+    "question": "What is private IP address?",
+    "options": [
+      "Public internet address",
+      "Address used within local networks",
+      "Router address",
+      "Broadcast address"
+    ],
+    "correct": 1,
+    "explanation": "Private IPs are used within local networks. They are not routable on the internet.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 112,
+    "question": "Which range is private IP (Class C)?",
+    "options": [
+      "10.0.0.0–10.255.255.255",
+      "172.16.0.0–172.31.255.255",
+      "192.168.0.0–192.168.255.255",
+      "8.8.8.8–8.8.8.8"
+    ],
+    "correct": 2,
+    "explanation": "192.168.x.x is reserved for private networks. It is commonly used in home routers.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 113,
+    "question": "What is a public IP address?",
+    "options": [
+      "Used inside LAN",
+      "Globally unique address",
+      "Router port",
+      "MAC address"
+    ],
+    "correct": 1,
+    "explanation": "Public IP addresses are globally unique. They enable internet communication.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 114,
+    "question": "What is IPv6 abbreviation?",
+    "options": [
+      "Internet Protocol version 6",
+      "Internal Protocol version 6",
+      "Internet Port version 6",
+      "Integrated Protocol version 6"
+    ],
+    "correct": 0,
+    "explanation": "IPv6 is the latest IP version. It solves IPv4 address exhaustion.",
+    "difficulty": "Easy",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 115,
+    "question": "What is tunneling?",
+    "options": [
+      "Encrypting packets",
+      "Encapsulating packets within another protocol",
+      "Dropping packets",
+      "Packet duplication"
+    ],
+    "correct": 1,
+    "explanation": "Tunneling wraps packets inside other packets. It enables VPNs and secure communication.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 116,
+    "question": "What is QoS used for?",
+    "options": [
+      "Encryption",
+      "Prioritizing network traffic",
+      "IP assignment",
+      "File transfer"
+    ],
+    "correct": 1,
+    "explanation": "QoS prioritizes critical traffic like voice. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "Network Concepts"
+  },
+  {
+    "id": 117,
+    "question": "What is VoIP?",
+    "options": [
+      "Video over Internet Protocol",
+      "Voice over Internet Protocol",
+      "Virtual Office IP",
+      "Variable Online IP"
+    ],
+    "correct": 1,
+    "explanation": "VoIP transmits voice over IP networks. It enables internet-based calls.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 118,
+    "question": "What is a gateway protocol?",
+    "options": [
+      "Protocol for file transfer",
+      "Protocol for routing between networks",
+      "Encryption protocol",
+      "DNS protocol"
+    ],
+    "correct": 1,
+    "explanation": "Gateway protocols like BGP route between networks. They enable large-scale connectivity.",
+    "difficulty": "Medium",
+    "topic": "Protocols"
+  },
+  {
+    "id": 119,
+    "question": "What is an autonomous system (AS)?",
+    "options": [
+      "Single computer",
+      "Network under one administrative control",
+      "Router",
+      "Switch"
+    ],
+    "correct": 1,
+    "explanation": "AS is a collection of networks managed by one organization. BGP routes between ASes.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 120,
+    "question": "What is load balancing in networks?",
+    "options": [
+      "Increasing bandwidth",
+      "Distributing traffic across servers",
+      "Encrypting packets",
+      "Assigning IP addresses"
+    ],
+    "correct": 1,
+    "explanation": "Load balancing improves performance and availability. It prevents server overload.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 121,
+    "question": "What is a reverse proxy?",
+    "options": [
+      "Proxy for clients",
+      "Proxy for servers",
+      "Firewall",
+      "Router"
+    ],
+    "correct": 1,
+    "explanation": "Reverse proxies handle client requests on behalf of servers. They improve security and load distribution.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 122,
+    "question": "What is caching in networking?",
+    "options": [
+      "Data deletion",
+      "Storing frequently accessed data",
+      "Packet loss",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "Caching reduces latency by storing data locally. It improves performance.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 123,
+    "question": "What is a content filter?",
+    "options": [
+      "Router",
+      "Blocking unwanted content",
+      "DNS server",
+      "Switch"
+    ],
+    "correct": 1,
+    "explanation": "Content filters restrict access to harmful sites. They enhance security.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 124,
+    "question": "What is DPI (Deep Packet Inspection)?",
+    "options": [
+      "Packet routing",
+      "Analyzing packet content",
+      "Packet encryption",
+      "Packet duplication"
+    ],
+    "correct": 1,
+    "explanation": "DPI examines packet data beyond headers. It is used for security and traffic management.",
+    "difficulty": "Medium",
+    "topic": "General Networking"
+  },
+  {
+    "id": 125,
+    "question": "What is a zero-day attack?",
+    "options": [
+      "Attack on first day",
+      "Exploit of unknown vulnerability",
+      "Network outage",
+      "DDoS attack"
+    ],
+    "correct": 1,
+    "explanation": "Zero-day attacks exploit unknown vulnerabilities. They are difficult to defend against.",
+    "difficulty": "Medium",
+    "topic": "Network Security"
+  },
+  {
+    "id": 126,
+    "question": "What is network segmentation?",
+    "options": [
+      "Combining networks",
+      "Dividing network into smaller parts",
+      "Increasing bandwidth",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Segmentation improves security and performance. It limits broadcast traffic.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 127,
+    "question": "What is a DMZ in networking?",
+    "options": [
+      "Secure internal network",
+      "Isolated network for public services",
+      "Wireless network",
+      "Backup network"
+    ],
+    "correct": 1,
+    "explanation": "DMZ hosts public-facing services. It protects internal networks.",
+    "difficulty": "Easy",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 128,
+    "question": "What is port forwarding?",
+    "options": [
+      "Blocking ports",
+      "Redirecting traffic to internal device",
+      "Encrypting ports",
+      "Assigning IP"
+    ],
+    "correct": 1,
+    "explanation": "Port forwarding maps external requests to internal devices. It enables remote access.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 129,
+    "question": "What is NAT overload?",
+    "options": [
+      "Multiple public IPs",
+      "Multiple private IPs sharing one public IP",
+      "IP conflict",
+      "Routing loop"
+    ],
+    "correct": 1,
+    "explanation": "NAT overload allows many devices to share one public IP. It uses port numbers to distinguish sessions.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 130,
+    "question": "What is a wireless channel?",
+    "options": [
+      "IP address",
+      "Frequency band for communication",
+      "MAC address",
+      "Port number"
+    ],
+    "correct": 1,
+    "explanation": "Wireless channels divide frequency bands. They reduce interference.",
+    "difficulty": "Easy",
+    "topic": "Wireless Networking"
+  },
+  {
+    "id": 131,
+    "question": "What is signal attenuation?",
+    "options": [
+      "Signal amplification",
+      "Signal weakening over distance",
+      "Packet duplication",
+      "Data encryption"
+    ],
+    "correct": 1,
+    "explanation": "Attenuation reduces signal strength. Repeaters can restore signals.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 132,
+    "question": "What is crosstalk?",
+    "options": [
+      "Data encryption",
+      "Signal interference between cables",
+      "Packet routing",
+      "IP conflict"
+    ],
+    "correct": 1,
+    "explanation": "Crosstalk occurs when signals interfere. Proper shielding reduces it.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 133,
+    "question": "What is fiber optic cable advantage?",
+    "options": [
+      "Cheap cost",
+      "High speed and low interference",
+      "Short distance",
+      "Easy installation"
+    ],
+    "correct": 1,
+    "explanation": "Fiber optics transmit data using light. They offer high bandwidth and immunity to interference.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 134,
+    "question": "What is UTP cable?",
+    "options": [
+      "Unshielded Twisted Pair",
+      "Universal Transmission Protocol",
+      "Unified Twisted Pair",
+      "Ultra Transfer Port"
+    ],
+    "correct": 0,
+    "explanation": "UTP cables are common in LANs. Twisting reduces interference.",
+    "difficulty": "Easy",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 135,
+    "question": "What is STP cable?",
+    "options": [
+      "Secure Twisted Pair",
+      "Shielded Twisted Pair",
+      "Standard Twisted Pair",
+      "Serial Transfer Pair"
+    ],
+    "correct": 1,
+    "explanation": "STP cables include shielding to reduce interference. They are used in noisy environments.",
+    "difficulty": "Medium",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 136,
+    "question": "What is a patch panel?",
+    "options": [
+      "Router",
+      "Network cable organizer",
+      "Firewall",
+      "Switch"
+    ],
+    "correct": 1,
+    "explanation": "Patch panels organize network cables. They simplify maintenance.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 137,
+    "question": "What is a network bridge?",
+    "options": [
+      "Connects two LAN segments",
+      "Router",
+      "Firewall",
+      "Modem"
+    ],
+    "correct": 0,
+    "explanation": "Bridges connect LAN segments at data link layer. They filter traffic using MAC addresses.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 138,
+    "question": "What is a wireless repeater?",
+    "options": [
+      "Router",
+      "Extends Wi-Fi coverage",
+      "Firewall",
+      "Modem"
+    ],
+    "correct": 1,
+    "explanation": "Wireless repeaters amplify Wi-Fi signals. They extend coverage areas.",
+    "difficulty": "Easy",
+    "topic": "Network Hardware"
+  },
+  {
+    "id": 139,
+    "question": "What is a captive portal?",
+    "options": [
+      "Firewall",
+      "Web page for network authentication",
+      "Router",
+      "DNS server"
+    ],
+    "correct": 1,
+    "explanation": "Captive portals require users to log in before accessing internet. Common in public Wi-Fi.",
+    "difficulty": "Medium",
+    "topic": "Addressing & Routing"
+  },
+  {
+    "id": 140,
+    "question": "What is WPA2?",
+    "options": [
+      "Wi-Fi standard",
+      "Wireless security protocol",
+      "Routing protocol",
+      "File transfer protocol"
+    ],
+    "correct": 1,
+    "explanation": "WPA2 secures wireless networks using encryption. WPA3 is the newer version.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 141,
+    "question": "What is SSID broadcasting?",
+    "options": [
+      "Hiding network name",
+      "Displaying network name",
+      "Encrypting Wi-Fi",
+      "Assigning IP"
+    ],
+    "correct": 1,
+    "explanation": "SSID broadcasting makes networks visible. Disabling hides the network.",
+    "difficulty": "Easy",
+    "topic": "Wireless Networking"
+  },
+  {
+    "id": 142,
+    "question": "What is MAC spoofing?",
+    "options": [
+      "Encrypting MAC address",
+      "Changing MAC address to impersonate device",
+      "Blocking MAC",
+      "Filtering MAC"
+    ],
+    "correct": 1,
+    "explanation": "MAC spoofing disguises device identity. It can bypass MAC filtering.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 143,
+    "question": "What is network sniffing tool example?",
+    "options": [
+      "Wireshark",
+      "Chrome",
+      "Excel",
+      "Notepad"
+    ],
+    "correct": 0,
+    "explanation": "Wireshark captures and analyzes packets. It is used for troubleshooting.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 144,
+    "question": "What is a botnet?",
+    "options": [
+      "Network cable",
+      "Group of compromised devices",
+      "Router",
+      "Firewall"
+    ],
+    "correct": 1,
+    "explanation": "Botnets are controlled by attackers. They perform DDoS attacks.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 145,
+    "question": "What is HTTPS encryption based on?",
+    "options": [
+      "SSL/TLS",
+      "FTP",
+      "SNMP",
+      "ARP"
+    ],
+    "correct": 0,
+    "explanation": "HTTPS uses SSL/TLS protocols. They secure web communication.",
+    "difficulty": "Easy",
+    "topic": "Protocols"
+  },
+  {
+    "id": 146,
+    "question": "What is end-to-end encryption?",
+    "options": [
+      "Encryption only at sender",
+      "Encryption between sender and receiver",
+      "Encryption at router",
+      "No encryption"
+    ],
+    "correct": 1,
+    "explanation": "End-to-end encryption ensures only sender and receiver can read data. Intermediaries cannot decrypt it.",
+    "difficulty": "Medium",
+    "topic": "Network Security"
+  },
+  {
+    "id": 147,
+    "question": "What is a network protocol?",
+    "options": [
+      "Hardware device",
+      "Rules for communication",
+      "Cable type",
+      "IP address"
+    ],
+    "correct": 1,
+    "explanation": "Protocols define how data is transmitted. Examples include TCP/IP.",
+    "difficulty": "Easy",
+    "topic": "Network Models & Layers"
+  },
+  {
+    "id": 148,
+    "question": "What is packet header?",
+    "options": [
+      "Data payload",
+      "Control information in packet",
+      "Encryption key",
+      "File format"
+    ],
+    "correct": 1,
+    "explanation": "Packet headers contain addressing and routing info. They guide data delivery.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 149,
+    "question": "What is payload?",
+    "options": [
+      "Packet header",
+      "Actual data carried by packet",
+      "Encryption key",
+      "Routing table"
+    ],
+    "correct": 1,
+    "explanation": "Payload is the actual content of a packet. It is delivered to the application.",
+    "difficulty": "Easy",
+    "topic": "General Networking"
+  },
+  {
+    "id": 150,
+    "question": "What is network reliability?",
+    "options": [
+      "Speed only",
+      "Ability to maintain service without failure",
+      "Encryption method",
+      "Cable length"
+    ],
+    "correct": 1,
+    "explanation": "Reliability ensures continuous network operation. Redundancy and failover improve it.",
+    "difficulty": "Medium",
+    "topic": "Network Models & Layers"
+  }
+]

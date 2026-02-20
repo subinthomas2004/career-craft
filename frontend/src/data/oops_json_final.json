@@ -1,0 +1,2046 @@
+[
+  {
+    "id": 1,
+    "question": "What is Object-Oriented Programming (OOP)?",
+    "options": [
+      "Programming using only functions",
+      "Programming based on objects and classes",
+      "Programming using databases",
+      "Programming using hardware"
+    ],
+    "correct": 1,
+    "explanation": "OOP organizes programs around objects that contain data and behavior. This approach improves modularity, reuse, and maintainability.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 2,
+    "question": "Which of the following is a core principle of OOP?",
+    "options": [
+      "Compilation",
+      "Encapsulation",
+      "Linking",
+      "Execution"
+    ],
+    "correct": 1,
+    "explanation": "Encapsulation binds data and methods within a class. It protects internal state and enforces controlled access.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 3,
+    "question": "What is a class?",
+    "options": [
+      "Instance of an object",
+      "Blueprint for creating objects",
+      "A function",
+      "A variable"
+    ],
+    "correct": 1,
+    "explanation": "A class defines attributes and behaviors that its objects will have. It acts as a template for object creation.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 4,
+    "question": "What is an object?",
+    "options": [
+      "Blueprint",
+      "Instance of a class",
+      "Function",
+      "Operator"
+    ],
+    "correct": 1,
+    "explanation": "An object is a real-world entity created from a class. It holds actual values for attributes defined in the class.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 5,
+    "question": "What is encapsulation?",
+    "options": [
+      "Wrapping data and methods together",
+      "Hiding functions only",
+      "Creating multiple objects",
+      "Destroying objects"
+    ],
+    "correct": 0,
+    "explanation": "Encapsulation combines data and methods into a single unit. It prevents unauthorized access and improves data security.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 6,
+    "question": "What is inheritance?",
+    "options": [
+      "Copying data",
+      "Acquiring properties from another class",
+      "Deleting class",
+      "Creating variables"
+    ],
+    "correct": 1,
+    "explanation": "Inheritance allows a class to reuse attributes and methods of another class. It promotes code reuse and hierarchy.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 7,
+    "question": "What is polymorphism?",
+    "options": [
+      "Multiple classes",
+      "One interface, multiple implementations",
+      "Single object",
+      "Data hiding"
+    ],
+    "correct": 1,
+    "explanation": "Polymorphism allows the same method to behave differently depending on context. It enhances flexibility and extensibility.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 8,
+    "question": "What is abstraction?",
+    "options": [
+      "Showing all details",
+      "Hiding implementation details",
+      "Deleting data",
+      "Copying objects"
+    ],
+    "correct": 1,
+    "explanation": "Abstraction exposes only essential features while hiding complexity. It simplifies interaction with objects.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 9,
+    "question": "Which access modifier restricts access to the same class only?",
+    "options": [
+      "Public",
+      "Protected",
+      "Private",
+      "Default"
+    ],
+    "correct": 2,
+    "explanation": "Private members are accessible only within the defining class. This ensures strict data hiding.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 10,
+    "question": "Which access modifier allows access everywhere?",
+    "options": [
+      "Private",
+      "Protected",
+      "Public",
+      "Default"
+    ],
+    "correct": 2,
+    "explanation": "Public members can be accessed from any part of the program. They define the class’s external interface.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 11,
+    "question": "What is method overloading?",
+    "options": [
+      "Multiple methods with same name but different parameters",
+      "Overwriting methods",
+      "Deleting methods",
+      "Creating new classes"
+    ],
+    "correct": 0,
+    "explanation": "Method overloading allows methods to share the same name but differ in parameters. It improves readability and flexibility.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 12,
+    "question": "What is method overriding?",
+    "options": [
+      "Same method name in same class",
+      "Redefining parent class method in child class",
+      "Deleting parent method",
+      "Creating new method"
+    ],
+    "correct": 1,
+    "explanation": "Overriding allows a subclass to provide its own implementation. It supports runtime polymorphism.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 13,
+    "question": "Which concept supports code reuse?",
+    "options": [
+      "Abstraction",
+      "Inheritance",
+      "Encapsulation",
+      "Polymorphism"
+    ],
+    "correct": 1,
+    "explanation": "Inheritance allows new classes to reuse existing code. This reduces redundancy and improves maintainability.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 14,
+    "question": "What is a constructor?",
+    "options": [
+      "Special method to initialize objects",
+      "Method to destroy objects",
+      "Function outside class",
+      "Variable declaration"
+    ],
+    "correct": 0,
+    "explanation": "Constructors initialize object state when created. They ensure objects start in a valid state.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 15,
+    "question": "What is a destructor?",
+    "options": [
+      "Method to initialize objects",
+      "Method to destroy objects",
+      "Method to copy objects",
+      "Method to override"
+    ],
+    "correct": 1,
+    "explanation": "Destructors release resources when an object is destroyed. They prevent memory leaks.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 16,
+    "question": "What is dynamic binding?",
+    "options": [
+      "Binding at compile time",
+      "Binding at runtime",
+      "Binding variables",
+      "Binding memory"
+    ],
+    "correct": 1,
+    "explanation": "Dynamic binding resolves method calls at runtime. It enables runtime polymorphism.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 17,
+    "question": "What is static binding?",
+    "options": [
+      "Binding at runtime",
+      "Binding at compile time",
+      "Binding memory",
+      "Binding objects"
+    ],
+    "correct": 1,
+    "explanation": "Static binding resolves method calls during compilation. It improves performance but reduces flexibility.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 18,
+    "question": "What is an abstract class?",
+    "options": [
+      "Class with only variables",
+      "Class that cannot be instantiated",
+      "Class without methods",
+      "Class without inheritance"
+    ],
+    "correct": 1,
+    "explanation": "Abstract classes define common behavior but cannot create objects. They are meant to be extended.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 19,
+    "question": "What is an interface?",
+    "options": [
+      "Class with implementation",
+      "Collection of abstract methods",
+      "Variable collection",
+      "Constructor collection"
+    ],
+    "correct": 1,
+    "explanation": "Interfaces define method signatures without implementation. They enable multiple inheritance of behavior.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 20,
+    "question": "Which concept allows multiple inheritance in Java?",
+    "options": [
+      "Classes",
+      "Interfaces",
+      "Constructors",
+      "Objects"
+    ],
+    "correct": 1,
+    "explanation": "Java supports multiple inheritance through interfaces. Classes can implement multiple interfaces.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 21,
+    "question": "What is a base class?",
+    "options": [
+      "Child class",
+      "Parent class",
+      "Interface",
+      "Object"
+    ],
+    "correct": 1,
+    "explanation": "A base class provides properties and methods to derived classes. It supports inheritance.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 22,
+    "question": "What is a derived class?",
+    "options": [
+      "Parent class",
+      "Child class",
+      "Interface",
+      "Abstract class"
+    ],
+    "correct": 1,
+    "explanation": "A derived class inherits from a base class. It can extend or modify behavior.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 23,
+    "question": "What is object composition?",
+    "options": [
+      "Inheritance",
+      "Object containing other objects",
+      "Method overriding",
+      "Data hiding"
+    ],
+    "correct": 1,
+    "explanation": "Composition builds complex objects using simpler objects. It promotes flexibility over inheritance.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 24,
+    "question": "What is aggregation?",
+    "options": [
+      "Strong ownership",
+      "Weak relationship between objects",
+      "Inheritance",
+      "Method overloading"
+    ],
+    "correct": 1,
+    "explanation": "Aggregation represents a \"has-a\" relationship. Objects can exist independently.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 25,
+    "question": "What is association?",
+    "options": [
+      "Strong ownership",
+      "Relationship between objects",
+      "Inheritance",
+      "Encapsulation"
+    ],
+    "correct": 1,
+    "explanation": "Association defines how objects relate to each other. It can be one-to-one or one-to-many.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 26,
+    "question": "What is cohesion?",
+    "options": [
+      "Degree of class independence",
+      "Degree to which elements belong together",
+      "Coupling measure",
+      "Data hiding"
+    ],
+    "correct": 1,
+    "explanation": "High cohesion means class elements are closely related. It improves maintainability.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 27,
+    "question": "What is coupling?",
+    "options": [
+      "Degree of independence between classes",
+      "Degree of dependence between classes",
+      "Data hiding",
+      "Encapsulation"
+    ],
+    "correct": 1,
+    "explanation": "Coupling measures interdependence between modules. Low coupling improves flexibility.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 28,
+    "question": "What is a virtual function (C++)?",
+    "options": [
+      "Function without body",
+      "Function overridden in derived class",
+      "Static function",
+      "Constructor"
+    ],
+    "correct": 1,
+    "explanation": "Virtual functions enable runtime polymorphism. They allow dynamic binding.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 29,
+    "question": "What is a pure virtual function?",
+    "options": [
+      "Function with body",
+      "Function without implementation in base class",
+      "Static function",
+      "Constructor"
+    ],
+    "correct": 1,
+    "explanation": "Pure virtual functions define interfaces in abstract classes. Derived classes must implement them.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 30,
+    "question": "What is method hiding?",
+    "options": [
+      "Overriding",
+      "Child class defining method with same name",
+      "Encapsulation",
+      "Abstraction"
+    ],
+    "correct": 1,
+    "explanation": "Method hiding occurs when a subclass defines a method with the same name. It hides the parent method.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 31,
+    "question": "What is late binding?",
+    "options": [
+      "Compile-time binding",
+      "Runtime binding",
+      "Static binding",
+      "Early binding"
+    ],
+    "correct": 1,
+    "explanation": "Late binding resolves method calls during execution. It enables polymorphism.",
+    "difficulty": "Easy",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 32,
+    "question": "What is early binding?",
+    "options": [
+      "Runtime binding",
+      "Compile-time binding",
+      "Dynamic binding",
+      "Late binding"
+    ],
+    "correct": 1,
+    "explanation": "Early binding occurs at compile time. It is faster but less flexible.",
+    "difficulty": "Easy",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 33,
+    "question": "What is a friend function (C++)?",
+    "options": [
+      "Public function",
+      "Function accessing private members",
+      "Constructor",
+      "Static method"
+    ],
+    "correct": 1,
+    "explanation": "Friend functions can access private data of a class. They are declared using the friend keyword.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 34,
+    "question": "What is a static member?",
+    "options": [
+      "Belongs to object",
+      "Belongs to class",
+      "Local variable",
+      "Constructor"
+    ],
+    "correct": 1,
+    "explanation": "Static members are shared by all objects. They belong to the class rather than instances.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 35,
+    "question": "What is a singleton class?",
+    "options": [
+      "Class with many objects",
+      "Class allowing only one object",
+      "Abstract class",
+      "Interface"
+    ],
+    "correct": 1,
+    "explanation": "Singleton restricts instantiation to one object. It ensures a single shared instance.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 36,
+    "question": "What is the \"this\" keyword?",
+    "options": [
+      "Refers to parent class",
+      "Refers to current object",
+      "Refers to static member",
+      "Refers to constructor"
+    ],
+    "correct": 1,
+    "explanation": "this refers to the current instance of the class. It distinguishes instance variables from parameters.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 37,
+    "question": "What is super keyword (Java)?",
+    "options": [
+      "Refers to current class",
+      "Refers to parent class",
+      "Refers to interface",
+      "Refers to object"
+    ],
+    "correct": 1,
+    "explanation": "super accesses parent class members. It is used in inheritance.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 38,
+    "question": "What is operator overloading?",
+    "options": [
+      "Redefining operators for objects",
+      "Deleting operators",
+      "Creating operators",
+      "Hiding operators"
+    ],
+    "correct": 0,
+    "explanation": "Operator overloading allows operators to work with user-defined types. It improves readability.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 39,
+    "question": "What is multiple inheritance?",
+    "options": [
+      "One parent class",
+      "Inheriting from multiple classes",
+      "No inheritance",
+      "Single class"
+    ],
+    "correct": 1,
+    "explanation": "Multiple inheritance allows a class to inherit from multiple parents. Some languages support it directly.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 40,
+    "question": "What is hierarchical inheritance?",
+    "options": [
+      "Multiple parents",
+      "Multiple child classes from one parent",
+      "Single child",
+      "No inheritance"
+    ],
+    "correct": 1,
+    "explanation": "Hierarchical inheritance allows one base class to have multiple derived classes. It promotes reuse.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 41,
+    "question": "What is multilevel inheritance?",
+    "options": [
+      "One parent multiple children",
+      "Chain of inheritance",
+      "Multiple parents",
+      "No inheritance"
+    ],
+    "correct": 1,
+    "explanation": "Multilevel inheritance forms a chain of classes. Each class derives from the previous one.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 42,
+    "question": "What is hybrid inheritance?",
+    "options": [
+      "Single inheritance",
+      "Combination of multiple inheritance types",
+      "No inheritance",
+      "Interface only"
+    ],
+    "correct": 1,
+    "explanation": "Hybrid inheritance combines multiple inheritance forms. It supports complex relationships.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 43,
+    "question": "What is object slicing (C++)?",
+    "options": [
+      "Cutting objects",
+      "Losing derived class data when assigned to base object",
+      "Copying objects",
+      "Deleting objects"
+    ],
+    "correct": 1,
+    "explanation": "Object slicing occurs when derived objects are assigned to base objects. Derived-specific data is lost.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 44,
+    "question": "What is a copy constructor?",
+    "options": [
+      "Initializes object",
+      "Creates object from another object",
+      "Deletes object",
+      "Static method"
+    ],
+    "correct": 1,
+    "explanation": "Copy constructors create new objects as copies of existing ones. They ensure proper duplication.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 45,
+    "question": "What is deep copy?",
+    "options": [
+      "Copying references",
+      "Copying actual data",
+      "Shallow copy",
+      "Memory deletion"
+    ],
+    "correct": 1,
+    "explanation": "Deep copy duplicates the actual data. It prevents shared references.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 46,
+    "question": "What is shallow copy?",
+    "options": [
+      "Copying actual data",
+      "Copying references only",
+      "Deep copy",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Shallow copy copies references, not actual data. Changes affect both objects.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 47,
+    "question": "What is polymorphic variable?",
+    "options": [
+      "Variable holding multiple types",
+      "Variable holding one type",
+      "Static variable",
+      "Local variable"
+    ],
+    "correct": 0,
+    "explanation": "Polymorphic variables can refer to different object types. They enable dynamic behavior.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 48,
+    "question": "What is object lifecycle?",
+    "options": [
+      "Object creation to destruction",
+      "Only creation",
+      "Only destruction",
+      "Memory allocation"
+    ],
+    "correct": 0,
+    "explanation": "Object lifecycle includes creation, usage, and destruction. Proper management prevents resource leaks.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 49,
+    "question": "What is dependency injection?",
+    "options": [
+      "Creating objects internally",
+      "Providing dependencies externally",
+      "Inheritance",
+      "Encapsulation"
+    ],
+    "correct": 1,
+    "explanation": "Dependency injection supplies required objects from outside. It improves modularity and testing.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 52,
+    "question": "What is the Open/Closed Principle?",
+    "options": [
+      "Classes should be open for modification",
+      "Classes should be closed for extension",
+      "Classes should be open for extension but closed for modification",
+      "Classes should be private"
+    ],
+    "correct": 2,
+    "explanation": "This principle encourages extending behavior without altering existing code. It helps prevent bugs in stable code.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 53,
+    "question": "What is the Liskov Substitution Principle?",
+    "options": [
+      "Subclasses cannot replace base classes",
+      "Subclasses should be replaceable for their base classes",
+      "Base classes replace subclasses",
+      "Classes should not inherit"
+    ],
+    "correct": 1,
+    "explanation": "Subclasses must behave in ways expected of the base class. Violations lead to unpredictable behavior.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 54,
+    "question": "What is the Interface Segregation Principle?",
+    "options": [
+      "One large interface is better",
+      "Clients should not depend on unused methods",
+      "Interfaces should be private",
+      "Interfaces should contain variables only"
+    ],
+    "correct": 1,
+    "explanation": "Small, specific interfaces prevent unnecessary dependencies. This improves modularity.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 55,
+    "question": "What is the Dependency Inversion Principle?",
+    "options": [
+      "High-level modules depend on low-level modules",
+      "Both depend on abstractions",
+      "Low-level modules depend on high-level modules",
+      "Modules should be tightly coupled"
+    ],
+    "correct": 1,
+    "explanation": "Both high- and low-level modules depend on abstractions. This reduces coupling and increases flexibility.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 56,
+    "question": "What is tight coupling?",
+    "options": [
+      "Modules independent",
+      "Modules highly dependent on each other",
+      "No dependencies",
+      "Loose relationships"
+    ],
+    "correct": 1,
+    "explanation": "Tight coupling makes code harder to maintain. Changes in one module affect others.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 57,
+    "question": "What is loose coupling?",
+    "options": [
+      "Modules dependent",
+      "Modules independent",
+      "No classes",
+      "No interfaces"
+    ],
+    "correct": 1,
+    "explanation": "Loose coupling minimizes dependencies between modules. It improves flexibility and maintainability.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 58,
+    "question": "What is a design pattern?",
+    "options": [
+      "Code error",
+      "Reusable solution to common problem",
+      "Programming language",
+      "Hardware model"
+    ],
+    "correct": 1,
+    "explanation": "Design patterns provide proven solutions to recurring problems. They improve code quality and communication.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 59,
+    "question": "Which pattern ensures only one instance exists?",
+    "options": [
+      "Factory",
+      "Singleton",
+      "Observer",
+      "Strategy"
+    ],
+    "correct": 1,
+    "explanation": "Singleton restricts class instantiation to one object. It ensures controlled access to shared resources.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 60,
+    "question": "Which pattern creates objects without exposing instantiation logic?",
+    "options": [
+      "Singleton",
+      "Factory",
+      "Observer",
+      "Adapter"
+    ],
+    "correct": 1,
+    "explanation": "Factory pattern delegates object creation to a method. It promotes flexibility and decoupling.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 61,
+    "question": "What is the Observer pattern used for?",
+    "options": [
+      "Creating objects",
+      "Notifying dependent objects of state changes",
+      "Encrypting data",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Observer pattern establishes a one-to-many relationship. Observers update automatically when the subject changes.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 62,
+    "question": "What is the Strategy pattern?",
+    "options": [
+      "Encapsulating algorithms",
+      "Managing memory",
+      "Handling exceptions",
+      "Creating objects"
+    ],
+    "correct": 0,
+    "explanation": "Strategy pattern allows selecting algorithms at runtime. It promotes flexibility.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 63,
+    "question": "What is the Adapter pattern?",
+    "options": [
+      "Changing interface compatibility",
+      "Creating objects",
+      "Managing threads",
+      "Handling exceptions"
+    ],
+    "correct": 0,
+    "explanation": "Adapter converts one interface into another. It enables incompatible classes to work together.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 64,
+    "question": "What is the Decorator pattern?",
+    "options": [
+      "Removing features",
+      "Adding behavior dynamically",
+      "Deleting objects",
+      "Managing memory"
+    ],
+    "correct": 1,
+    "explanation": "Decorator adds new functionality without modifying the original class. It supports open/closed principle.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 65,
+    "question": "What is composition over inheritance?",
+    "options": [
+      "Always use inheritance",
+      "Prefer using objects within objects",
+      "Avoid classes",
+      "Use only interfaces"
+    ],
+    "correct": 1,
+    "explanation": "Composition provides flexibility and avoids rigid hierarchies. It promotes reuse.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 66,
+    "question": "What is a sealed class?",
+    "options": [
+      "Class that cannot be inherited",
+      "Class without methods",
+      "Class without variables",
+      "Abstract class"
+    ],
+    "correct": 0,
+    "explanation": "Sealed classes prevent inheritance. They control class hierarchy.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 67,
+    "question": "What is a final class (Java)?",
+    "options": [
+      "Cannot be instantiated",
+      "Cannot be inherited",
+      "Cannot contain methods",
+      "Cannot contain variables"
+    ],
+    "correct": 1,
+    "explanation": "Final classes cannot be extended. This ensures security and immutability.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 68,
+    "question": "What is immutability?",
+    "options": [
+      "Object can change state",
+      "Object cannot change after creation",
+      "Object deletion",
+      "Object copying"
+    ],
+    "correct": 1,
+    "explanation": "Immutable objects maintain a constant state. They improve thread safety.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 69,
+    "question": "What is method chaining?",
+    "options": [
+      "Calling methods in sequence on same object",
+      "Overloading methods",
+      "Overriding methods",
+      "Hiding methods"
+    ],
+    "correct": 0,
+    "explanation": "Method chaining improves readability. Each method returns the object itself.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 70,
+    "question": "What is a fluent interface?",
+    "options": [
+      "Interface with many methods",
+      "Interface allowing method chaining",
+      "Abstract interface",
+      "Static interface"
+    ],
+    "correct": 1,
+    "explanation": "Fluent interfaces use method chaining for readable code. They improve usability.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 71,
+    "question": "What is object pooling?",
+    "options": [
+      "Creating many objects",
+      "Reusing objects to reduce overhead",
+      "Deleting objects",
+      "Copying objects"
+    ],
+    "correct": 1,
+    "explanation": "Object pooling reduces creation cost. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 72,
+    "question": "What is a marker interface?",
+    "options": [
+      "Interface with no methods",
+      "Interface with variables",
+      "Abstract class",
+      "Static interface"
+    ],
+    "correct": 0,
+    "explanation": "Marker interfaces signal behavior to the compiler or runtime. Example: Serializable.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 73,
+    "question": "What is reflection?",
+    "options": [
+      "Copying objects",
+      "Inspecting classes at runtime",
+      "Memory allocation",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "Reflection allows examining class structure at runtime. It supports dynamic programming.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 74,
+    "question": "What is dynamic dispatch?",
+    "options": [
+      "Compile-time method call",
+      "Runtime method selection",
+      "Static binding",
+      "Method hiding"
+    ],
+    "correct": 1,
+    "explanation": "Dynamic dispatch resolves overridden methods at runtime. It enables polymorphism.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 75,
+    "question": "What is a callback?",
+    "options": [
+      "Function passed as argument",
+      "Constructor call",
+      "Object copy",
+      "Static method"
+    ],
+    "correct": 0,
+    "explanation": "Callbacks allow functions to be executed later. They enable asynchronous behavior.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 76,
+    "question": "What is delegation?",
+    "options": [
+      "Inheritance",
+      "Passing responsibility to another object",
+      "Method overriding",
+      "Object deletion"
+    ],
+    "correct": 1,
+    "explanation": "Delegation allows one object to handle tasks for another. It promotes composition.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 77,
+    "question": "What is an anonymous class?",
+    "options": [
+      "Class without name",
+      "Class without methods",
+      "Class without variables",
+      "Abstract class"
+    ],
+    "correct": 0,
+    "explanation": "Anonymous classes are declared without names. They are used for short-lived tasks.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 78,
+    "question": "What is lambda expression?",
+    "options": [
+      "Named function",
+      "Anonymous function",
+      "Class definition",
+      "Variable"
+    ],
+    "correct": 1,
+    "explanation": "Lambda expressions define functions inline. They support functional programming.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 79,
+    "question": "What is a mixin?",
+    "options": [
+      "Base class",
+      "Class providing reusable functionality",
+      "Interface",
+      "Constructor"
+    ],
+    "correct": 1,
+    "explanation": "Mixins add behavior to classes without inheritance. They promote reuse.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 80,
+    "question": "What is multiple dispatch?",
+    "options": [
+      "Single method call",
+      "Method selection based on multiple object types",
+      "Static binding",
+      "Overloading"
+    ],
+    "correct": 1,
+    "explanation": "Multiple dispatch selects methods based on runtime types. It extends polymorphism.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 81,
+    "question": "What is covariance?",
+    "options": [
+      "Return type change in overridden method",
+      "Parameter change",
+      "Variable change",
+      "Class change"
+    ],
+    "correct": 0,
+    "explanation": "Covariance allows more specific return types. It improves flexibility.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 82,
+    "question": "What is contravariance?",
+    "options": [
+      "Return type change",
+      "Parameter type generalization",
+      "Variable deletion",
+      "Method hiding"
+    ],
+    "correct": 1,
+    "explanation": "Contravariance allows broader parameter types. It supports polymorphism.",
+    "difficulty": "Hard",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 83,
+    "question": "What is object serialization?",
+    "options": [
+      "Deleting objects",
+      "Converting object to byte stream",
+      "Copying objects",
+      "Encrypting objects"
+    ],
+    "correct": 1,
+    "explanation": "Serialization converts objects into storable format. It enables persistence and transmission.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 84,
+    "question": "What is deserialization?",
+    "options": [
+      "Deleting object",
+      "Converting byte stream back to object",
+      "Encrypting data",
+      "Copying data"
+    ],
+    "correct": 1,
+    "explanation": "Deserialization restores objects from stored data. It reconstructs original state.",
+    "difficulty": "Medium",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 85,
+    "question": "What is dependency injection benefit?",
+    "options": [
+      "Tight coupling",
+      "Loose coupling and testability",
+      "Memory leak",
+      "Slower performance"
+    ],
+    "correct": 1,
+    "explanation": "Dependency injection decouples classes. It improves testability and flexibility.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 86,
+    "question": "What is inversion of control?",
+    "options": [
+      "Class controlling dependencies",
+      "Framework controlling object flow",
+      "Static binding",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "IoC shifts control from application to framework. It improves modular design.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 87,
+    "question": "What is a service locator pattern?",
+    "options": [
+      "Finds services globally",
+      "Creates objects",
+      "Deletes objects",
+      "Hides classes"
+    ],
+    "correct": 0,
+    "explanation": "Service locator provides global access to services. It centralizes dependency retrieval.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 88,
+    "question": "What is an anti-pattern?",
+    "options": [
+      "Good design",
+      "Poor solution to common problem",
+      "Design pattern",
+      "Programming language"
+    ],
+    "correct": 1,
+    "explanation": "Anti-patterns represent ineffective practices. Avoiding them improves code quality.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 89,
+    "question": "What is code smell?",
+    "options": [
+      "Compilation error",
+      "Indicator of poor design",
+      "Runtime error",
+      "Syntax error"
+    ],
+    "correct": 1,
+    "explanation": "Code smells suggest potential problems. Refactoring improves maintainability.",
+    "difficulty": "Easy",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 90,
+    "question": "What is refactoring?",
+    "options": [
+      "Rewriting code without changing behavior",
+      "Deleting code",
+      "Adding features",
+      "Debugging only"
+    ],
+    "correct": 0,
+    "explanation": "Refactoring improves code structure. It enhances readability and maintainability.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 91,
+    "question": "What is method extraction?",
+    "options": [
+      "Combining methods",
+      "Splitting method into smaller methods",
+      "Deleting methods",
+      "Overriding methods"
+    ],
+    "correct": 1,
+    "explanation": "Method extraction improves readability. It reduces complexity.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 92,
+    "question": "What is cohesion vs coupling goal?",
+    "options": [
+      "Low cohesion, high coupling",
+      "High cohesion, low coupling",
+      "High coupling, low cohesion",
+      "No cohesion"
+    ],
+    "correct": 1,
+    "explanation": "High cohesion and low coupling improve maintainability. They create modular systems.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 93,
+    "question": "What is class responsibility?",
+    "options": [
+      "Tasks performed by class",
+      "Variables",
+      "Methods only",
+      "Constructors"
+    ],
+    "correct": 0,
+    "explanation": "Responsibilities define class behavior. Clear responsibilities improve design.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 94,
+    "question": "What is domain model?",
+    "options": [
+      "Database schema",
+      "Representation of real-world concepts",
+      "UI model",
+      "Network model"
+    ],
+    "correct": 1,
+    "explanation": "Domain models represent real-world entities. They guide system design.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 95,
+    "question": "What is a value object?",
+    "options": [
+      "Object with identity",
+      "Object defined by its values",
+      "Static object",
+      "Abstract object"
+    ],
+    "correct": 1,
+    "explanation": "Value objects are equal based on data. They are immutable.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 96,
+    "question": "What is an entity object?",
+    "options": [
+      "Object without identity",
+      "Object with unique identity",
+      "Static object",
+      "Interface"
+    ],
+    "correct": 1,
+    "explanation": "Entity objects have unique identifiers. They represent persistent data.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 97,
+    "question": "What is lazy initialization?",
+    "options": [
+      "Immediate object creation",
+      "Creating object when needed",
+      "Deleting object early",
+      "Copying object"
+    ],
+    "correct": 1,
+    "explanation": "Lazy initialization improves performance. Objects are created only when required.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 98,
+    "question": "What is eager initialization?",
+    "options": [
+      "Creating object when needed",
+      "Creating object immediately",
+      "Delaying object creation",
+      "Copying object"
+    ],
+    "correct": 1,
+    "explanation": "Eager initialization creates objects at startup. It ensures availability but uses memory.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 99,
+    "question": "What is thread safety in OOP?",
+    "options": [
+      "Single-thread execution",
+      "Safe object access in multithreading",
+      "Memory leak prevention",
+      "Data hiding"
+    ],
+    "correct": 1,
+    "explanation": "Thread-safe objects work correctly in concurrent environments. Synchronization ensures consistency.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 102,
+    "question": "What is an object diagram?",
+    "options": [
+      "Shows object instances at runtime",
+      "Shows class structure",
+      "Shows database tables",
+      "Shows network topology"
+    ],
+    "correct": 0,
+    "explanation": "Object diagrams represent actual instances of classes at a given time. They help visualize runtime behavior.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 103,
+    "question": "What is UML?",
+    "options": [
+      "Unified Modeling Language",
+      "Universal Machine Language",
+      "User Model Language",
+      "Unified Machine Logic"
+    ],
+    "correct": 0,
+    "explanation": "UML is a standardized modeling language for designing software systems. It supports visualization of OOP concepts.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 104,
+    "question": "What is aggregation in UML represented by?",
+    "options": [
+      "Filled diamond",
+      "Hollow diamond",
+      "Arrow",
+      "Circle"
+    ],
+    "correct": 1,
+    "explanation": "Aggregation is shown using a hollow diamond. It indicates a weak “has-a” relationship.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 105,
+    "question": "What does a filled diamond represent in UML?",
+    "options": [
+      "Association",
+      "Composition",
+      "Inheritance",
+      "Dependency"
+    ],
+    "correct": 1,
+    "explanation": "Composition uses a filled diamond. It represents strong ownership where the child cannot exist independently.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 106,
+    "question": "What is association multiplicity?",
+    "options": [
+      "Number of classes",
+      "Number of instances in a relationship",
+      "Number of methods",
+      "Number of variables"
+    ],
+    "correct": 1,
+    "explanation": "Multiplicity defines how many objects participate in a relationship. Example: one-to-many.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 107,
+    "question": "What is dependency in UML?",
+    "options": [
+      "Strong ownership",
+      "Weak relationship where one class uses another",
+      "Inheritance",
+      "Composition"
+    ],
+    "correct": 1,
+    "explanation": "Dependency indicates that a class relies on another temporarily. It is represented by a dashed arrow.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 108,
+    "question": "What is encapsulation benefit?",
+    "options": [
+      "Increased coupling",
+      "Data protection and modularity",
+      "Slower performance",
+      "Increased complexity"
+    ],
+    "correct": 1,
+    "explanation": "Encapsulation hides internal data. It improves security and modular design.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 109,
+    "question": "What is polymorphism advantage?",
+    "options": [
+      "Code duplication",
+      "Flexibility and extensibility",
+      "Increased coupling",
+      "Reduced readability"
+    ],
+    "correct": 1,
+    "explanation": "Polymorphism allows the same interface to support multiple behaviors. It simplifies code maintenance.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 110,
+    "question": "What is abstraction advantage?",
+    "options": [
+      "Exposes implementation",
+      "Reduces complexity",
+      "Increases memory usage",
+      "Removes classes"
+    ],
+    "correct": 1,
+    "explanation": "Abstraction hides unnecessary details. It makes systems easier to understand and maintain.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 111,
+    "question": "What is an interface default method (Java)?",
+    "options": [
+      "Static method",
+      "Method with implementation in interface",
+      "Abstract method",
+      "Constructor"
+    ],
+    "correct": 1,
+    "explanation": "Default methods allow interfaces to include implementation. They support backward compatibility.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 112,
+    "question": "What is a functional interface?",
+    "options": [
+      "Interface with many methods",
+      "Interface with one abstract method",
+      "Interface with variables",
+      "Interface without methods"
+    ],
+    "correct": 1,
+    "explanation": "Functional interfaces contain exactly one abstract method. They are used in lambda expressions.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 113,
+    "question": "What is multiple inheritance problem called?",
+    "options": [
+      "Diamond problem",
+      "Triangle problem",
+      "Square problem",
+      "Circle problem"
+    ],
+    "correct": 0,
+    "explanation": "The diamond problem occurs when a class inherits from two classes with a common base. It creates ambiguity.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 114,
+    "question": "How does Java resolve the diamond problem?",
+    "options": [
+      "Multiple inheritance",
+      "Interfaces with default methods",
+      "Abstract classes only",
+      "Removing inheritance"
+    ],
+    "correct": 1,
+    "explanation": "Java uses interfaces and explicit method overrides. This avoids ambiguity.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 115,
+    "question": "What is a mixin used for?",
+    "options": [
+      "Removing methods",
+      "Adding reusable behavior",
+      "Creating objects",
+      "Deleting classes"
+    ],
+    "correct": 1,
+    "explanation": "Mixins provide reusable functionality. They enhance composition.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 116,
+    "question": "What is the builder pattern used for?",
+    "options": [
+      "Simplifying object creation",
+      "Deleting objects",
+      "Managing memory",
+      "Overriding methods"
+    ],
+    "correct": 0,
+    "explanation": "Builder pattern constructs complex objects step-by-step. It improves readability and flexibility.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 117,
+    "question": "What is the prototype pattern?",
+    "options": [
+      "Creating objects using cloning",
+      "Creating objects using constructor",
+      "Deleting objects",
+      "Managing memory"
+    ],
+    "correct": 0,
+    "explanation": "Prototype pattern creates objects by copying existing ones. It avoids costly creation.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 118,
+    "question": "What is the facade pattern?",
+    "options": [
+      "Complex interface",
+      "Simplified interface to complex system",
+      "Multiple inheritance",
+      "Data hiding"
+    ],
+    "correct": 1,
+    "explanation": "Facade provides a simple interface. It hides subsystem complexity.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 119,
+    "question": "What is the command pattern?",
+    "options": [
+      "Encapsulating requests as objects",
+      "Creating objects",
+      "Managing memory",
+      "Handling exceptions"
+    ],
+    "correct": 0,
+    "explanation": "Command pattern encapsulates actions as objects. It enables undo/redo functionality.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 120,
+    "question": "What is the mediator pattern?",
+    "options": [
+      "Direct object communication",
+      "Central object managing communication",
+      "Inheritance",
+      "Encapsulation"
+    ],
+    "correct": 1,
+    "explanation": "Mediator reduces direct dependencies between objects. It centralizes communication.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 121,
+    "question": "What is the template method pattern?",
+    "options": [
+      "Defining algorithm structure in base class",
+      "Creating objects",
+      "Managing memory",
+      "Handling exceptions"
+    ],
+    "correct": 0,
+    "explanation": "Template method defines algorithm steps. Subclasses implement specific steps.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 122,
+    "question": "What is the state pattern?",
+    "options": [
+      "Changing object behavior based on state",
+      "Managing memory",
+      "Creating objects",
+      "Hiding methods"
+    ],
+    "correct": 0,
+    "explanation": "State pattern allows objects to change behavior dynamically. It simplifies conditional logic.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 123,
+    "question": "What is the chain of responsibility pattern?",
+    "options": [
+      "Passing request along handlers",
+      "Creating objects",
+      "Managing memory",
+      "Overriding methods"
+    ],
+    "correct": 0,
+    "explanation": "Requests pass through a chain of handlers. Each handler decides whether to process.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 124,
+    "question": "What is the visitor pattern?",
+    "options": [
+      "Adding operations without modifying classes",
+      "Creating objects",
+      "Managing memory",
+      "Handling exceptions"
+    ],
+    "correct": 0,
+    "explanation": "Visitor allows adding new operations. It follows open/closed principle.",
+    "difficulty": "Medium",
+    "topic": "Design Patterns"
+  },
+  {
+    "id": 125,
+    "question": "What is a data transfer object (DTO)?",
+    "options": [
+      "Object transferring data between layers",
+      "Database table",
+      "Interface",
+      "Abstract class"
+    ],
+    "correct": 0,
+    "explanation": "DTOs carry data across system layers. They reduce method calls.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 126,
+    "question": "What is lazy loading?",
+    "options": [
+      "Loading all data at startup",
+      "Loading data only when needed",
+      "Deleting data",
+      "Copying data"
+    ],
+    "correct": 1,
+    "explanation": "Lazy loading improves performance. Data loads only when required.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 127,
+    "question": "What is eager loading?",
+    "options": [
+      "Loading data on demand",
+      "Loading data immediately",
+      "Deleting data",
+      "Copying data"
+    ],
+    "correct": 1,
+    "explanation": "Eager loading fetches data upfront. It avoids repeated queries.",
+    "difficulty": "Easy",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 128,
+    "question": "What is an immutable class benefit?",
+    "options": [
+      "Easy modification",
+      "Thread safety",
+      "High coupling",
+      "Memory leaks"
+    ],
+    "correct": 1,
+    "explanation": "Immutable classes cannot change state. They are inherently thread-safe.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 129,
+    "question": "What is a mutable object?",
+    "options": [
+      "Cannot change state",
+      "Can change state after creation",
+      "Static object",
+      "Abstract object"
+    ],
+    "correct": 1,
+    "explanation": "Mutable objects allow state changes. They require careful synchronization.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 130,
+    "question": "What is a record class (modern languages)?",
+    "options": [
+      "Mutable class",
+      "Class for immutable data",
+      "Abstract class",
+      "Interface"
+    ],
+    "correct": 1,
+    "explanation": "Record classes store immutable data. They reduce boilerplate code.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 131,
+    "question": "What is pattern matching in OOP?",
+    "options": [
+      "Matching strings",
+      "Checking object types and structure",
+      "Encryption",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Pattern matching simplifies type checking. It improves readability.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 132,
+    "question": "What is object identity?",
+    "options": [
+      "Object value",
+      "Unique reference to object",
+      "Object method",
+      "Object variable"
+    ],
+    "correct": 1,
+    "explanation": "Object identity distinguishes instances. Even identical values may have different identities.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 133,
+    "question": "What is equality vs identity?",
+    "options": [
+      "Same concept",
+      "Equality compares values, identity compares references",
+      "Identity compares values",
+      "Equality compares references"
+    ],
+    "correct": 1,
+    "explanation": "Equality checks data equivalence. Identity checks if objects are the same instance.",
+    "difficulty": "Medium",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 134,
+    "question": "What is deep immutability?",
+    "options": [
+      "Immutable reference only",
+      "Object and nested objects immutable",
+      "Mutable object",
+      "Static object"
+    ],
+    "correct": 1,
+    "explanation": "Deep immutability ensures entire object graph cannot change. It improves reliability.",
+    "difficulty": "Medium",
+    "topic": "OOP Concepts"
+  },
+  {
+    "id": 135,
+    "question": "What is object cloning?",
+    "options": [
+      "Deleting object",
+      "Creating duplicate object",
+      "Hiding object",
+      "Encrypting object"
+    ],
+    "correct": 1,
+    "explanation": "Cloning creates a copy of an object. It can be shallow or deep.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 136,
+    "question": "What is a class invariant?",
+    "options": [
+      "Variable value",
+      "Condition that remains true for class",
+      "Method override",
+      "Constructor"
+    ],
+    "correct": 1,
+    "explanation": "Class invariants define valid object states. They ensure consistency.",
+    "difficulty": "Easy",
+    "topic": "Classes & Objects"
+  },
+  {
+    "id": 137,
+    "question": "What is defensive programming in OOP?",
+    "options": [
+      "Ignoring errors",
+      "Writing code to handle unexpected inputs",
+      "Deleting exceptions",
+      "Static binding"
+    ],
+    "correct": 1,
+    "explanation": "Defensive programming anticipates errors. It improves robustness.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 138,
+    "question": "What is exception handling role in OOP?",
+    "options": [
+      "Prevent errors",
+      "Manage runtime errors gracefully",
+      "Compile code",
+      "Allocate memory"
+    ],
+    "correct": 1,
+    "explanation": "Exception handling prevents program crashes. It ensures controlled error management.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  },
+  {
+    "id": 139,
+    "question": "What is custom exception?",
+    "options": [
+      "Built-in exception",
+      "User-defined exception class",
+      "Syntax error",
+      "Runtime error"
+    ],
+    "correct": 1,
+    "explanation": "Custom exceptions represent specific errors. They improve clarity.",
+    "difficulty": "Easy",
+    "topic": "Advanced OOP"
+  },
+  {
+    "id": 140,
+    "question": "What is fail-fast principle?",
+    "options": [
+      "Ignore errors",
+      "Detect errors early",
+      "Delay errors",
+      "Hide errors"
+    ],
+    "correct": 1,
+    "explanation": "Fail-fast detects problems early. It prevents cascading failures.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 141,
+    "question": "What is contract programming?",
+    "options": [
+      "Legal contract",
+      "Defining expectations between methods",
+      "Database contract",
+      "Network contract"
+    ],
+    "correct": 1,
+    "explanation": "Contracts define preconditions and postconditions. They ensure correctness.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 142,
+    "question": "What is a mock object?",
+    "options": [
+      "Real object",
+      "Simulated object for testing",
+      "Abstract class",
+      "Interface"
+    ],
+    "correct": 1,
+    "explanation": "Mock objects simulate dependencies. They support unit testing.",
+    "difficulty": "Easy",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 143,
+    "question": "What is test-driven development (TDD)?",
+    "options": [
+      "Writing tests after code",
+      "Writing tests before code",
+      "No testing",
+      "Debugging only"
+    ],
+    "correct": 1,
+    "explanation": "TDD improves design and reliability. Tests guide implementation.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 144,
+    "question": "What is SOLID goal?",
+    "options": [
+      "Faster execution",
+      "Maintainable and scalable design",
+      "Memory optimization",
+      "Network performance"
+    ],
+    "correct": 1,
+    "explanation": "SOLID principles improve code structure. They enhance scalability.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 145,
+    "question": "What is DRY principle?",
+    "options": [
+      "Repeat code",
+      "Don’t Repeat Yourself",
+      "Delete Repeated Yield",
+      "Data Reuse Yield"
+    ],
+    "correct": 1,
+    "explanation": "DRY avoids duplication. It improves maintainability.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 146,
+    "question": "What is YAGNI principle?",
+    "options": [
+      "You Aren’t Gonna Need It",
+      "You Always Gain New Ideas",
+      "Your Application Gets New Interfaces",
+      "Yield All Global Names Immediately"
+    ],
+    "correct": 0,
+    "explanation": "YAGNI discourages unnecessary features. It keeps design simple.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 147,
+    "question": "What is KISS principle?",
+    "options": [
+      "Keep It Simple, Stupid",
+      "Keep Interface Safe System",
+      "Kill Invalid System States",
+      "Keep Internal State Secure"
+    ],
+    "correct": 0,
+    "explanation": "KISS promotes simplicity. Simple systems are easier to maintain.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 148,
+    "question": "What is Law of Demeter?",
+    "options": [
+      "Classes should know everything",
+      "Objects should interact with close friends only",
+      "Use global variables",
+      "Avoid encapsulation"
+    ],
+    "correct": 1,
+    "explanation": "This law reduces coupling. Objects interact only with direct dependencies.",
+    "difficulty": "Hard",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 149,
+    "question": "What is cohesion improvement method?",
+    "options": [
+      "Add unrelated features",
+      "Split large classes into focused ones",
+      "Increase coupling",
+      "Remove methods"
+    ],
+    "correct": 1,
+    "explanation": "Smaller focused classes improve cohesion. They simplify maintenance.",
+    "difficulty": "Medium",
+    "topic": "Design & Best Practices"
+  },
+  {
+    "id": 150,
+    "question": "What is the ultimate goal of OOP?",
+    "options": [
+      "Increase complexity",
+      "Improve modularity, reuse, and maintainability",
+      "Reduce code readability",
+      "Eliminate classes"
+    ],
+    "correct": 1,
+    "explanation": "OOP promotes modular design and reuse. It helps build scalable and maintainable systems.",
+    "difficulty": "Medium",
+    "topic": "OOP Principles"
+  }
+]

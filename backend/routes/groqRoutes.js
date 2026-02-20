@@ -1,13 +1,15 @@
 import express from "express";
-import { testGroqConnection, generateInterviewQuestion, generateReport, generateDebateResponse, generateGroupDiscussionTopic, generateGDResponse } from "../controllers/groqController.js";
+import { testGroqConnection, generateInterviewQuestion, analyzeCodeSubmission, generateReport, generateDebateResponse, generateGroupDiscussionTopic, generateGDResponse, analyzeSpeech } from "../controllers/groqController.js";
 
 const router = express.Router();
 
 router.post("/test", testGroqConnection);
 router.post("/interview/question", generateInterviewQuestion);
+router.post("/interview/analyze-code", analyzeCodeSubmission);
 router.post("/interview/report", generateReport);
 router.post("/debate/response", generateDebateResponse);
 router.post("/debate/topic", generateGroupDiscussionTopic);
 router.post("/gd/response", generateGDResponse);
 
+router.post("/speech-analysis", analyzeSpeech);
 export default router;

@@ -1,0 +1,997 @@
+1. What is Artificial Intelligence?
+
+A. Programming hardware
+B. Simulation of human intelligence in machines
+C. Database management
+D. Network security
+
+Answer: B
+Why: AI enables machines to perform tasks requiring human intelligence. These include learning, reasoning, and decision-making.
+
+2. Which of the following is an application of AI?
+
+A. Word processing
+B. Self-driving cars
+C. File storage
+D. Spreadsheet formatting
+
+Answer: B
+Why: Self-driving cars use AI for perception and decision-making. They rely on machine learning and sensors.
+
+3. What is Machine Learning?
+
+A. Manual programming
+B. Learning from data without explicit programming
+C. Database querying
+D. Network configuration
+
+Answer: B
+Why: Machine learning enables systems to learn patterns from data. It improves performance over time.
+
+4. Which type of ML uses labeled data?
+
+A. Unsupervised learning
+B. Reinforcement learning
+C. Supervised learning
+D. Semi-supervised learning
+
+Answer: C
+Why: Supervised learning uses labeled datasets. It maps inputs to known outputs.
+
+5. Which type of ML finds patterns without labels?
+
+A. Supervised learning
+B. Unsupervised learning
+C. Reinforcement learning
+D. Deep learning
+
+Answer: B
+Why: Unsupervised learning identifies hidden patterns. Clustering is a common example.
+
+6. What is reinforcement learning?
+
+A. Learning with labeled data
+B. Learning through rewards and penalties
+C. Database learning
+D. Static learning
+
+Answer: B
+Why: Reinforcement learning uses feedback signals. Agents learn optimal actions through rewards.
+
+7. What is a dataset?
+
+A. Single value
+B. Collection of data used for training models
+C. Network device
+D. Encryption key
+
+Answer: B
+Why: Datasets provide training examples. Model performance depends on data quality.
+
+8. What is overfitting?
+
+A. Model performs well on new data
+B. Model memorizes training data
+C. Model fails to learn
+D. Model compresses data
+
+Answer: B
+Why: Overfitting reduces generalization. Regularization helps prevent it.
+
+9. What is underfitting?
+
+A. Model too complex
+B. Model fails to capture patterns
+C. Model memorizes data
+D. Model encrypts data
+
+Answer: B
+Why: Underfitting occurs when model is too simple. It leads to poor performance.
+
+10. What is a feature in ML?
+
+A. Output variable
+B. Input variable used for prediction
+C. Database field
+D. Network protocol
+
+Answer: B
+Why: Features represent input data. They influence predictions.
+
+11. What is a label?
+
+A. Input variable
+B. Output variable
+C. Database key
+D. Network address
+
+Answer: B
+Why: Labels are target outputs. They guide supervised learning.
+
+12. What is classification?
+
+A. Predicting continuous values
+B. Predicting categories
+C. Encrypting data
+D. Clustering data
+
+Answer: B
+Why: Classification assigns data to categories. Example: spam vs. not spam.
+
+13. What is regression?
+
+A. Predicting categories
+B. Predicting continuous values
+C. Clustering data
+D. Encrypting data
+
+Answer: B
+Why: Regression predicts numeric values. Example: house prices.
+
+14. What is clustering?
+
+A. Supervised learning
+B. Grouping similar data
+C. Encryption
+D. Regression
+
+Answer: B
+Why: Clustering identifies patterns. It is unsupervised learning.
+
+15. What is k-means algorithm used for?
+
+A. Classification
+B. Clustering
+C. Regression
+D. Encryption
+
+Answer: B
+Why: k-means groups data into clusters. It minimizes intra-cluster distance.
+
+16. What is decision tree?
+
+A. Neural network
+B. Model using tree-like decisions
+C. Database structure
+D. Network topology
+
+Answer: B
+Why: Decision trees split data based on features. They are interpretable models.
+
+17. What is random forest?
+
+A. Single decision tree
+B. Ensemble of decision trees
+C. Neural network
+D. Database
+
+Answer: B
+Why: Random forests combine multiple trees. They improve accuracy and reduce overfitting.
+
+18. What is support vector machine (SVM)?
+
+A. Clustering algorithm
+B. Classification algorithm using hyperplanes
+C. Database
+D. Encryption method
+
+Answer: B
+Why: SVM separates data using optimal boundaries. It works well in high dimensions.
+
+19. What is neural network?
+
+A. Database
+B. Model inspired by human brain
+C. Encryption method
+D. Network protocol
+
+Answer: B
+Why: Neural networks process data using interconnected nodes. They power deep learning.
+
+20. What is deep learning?
+
+A. Shallow learning
+B. ML using multi-layer neural networks
+C. Database optimization
+D. Encryption
+
+Answer: B
+Why: Deep learning handles complex patterns. It excels in vision and speech tasks.
+
+21. What is an epoch in training?
+
+A. Single data point
+B. One complete pass through dataset
+C. Network layer
+D. Feature set
+
+Answer: B
+Why: Epoch represents full training cycle. Multiple epochs improve learning.
+
+22. What is a loss function?
+
+A. Encryption function
+B. Measures prediction error
+C. Database function
+D. Network function
+
+Answer: B
+Why: Loss functions quantify model errors. Optimization minimizes loss.
+
+23. What is gradient descent?
+
+A. Clustering method
+B. Optimization algorithm to minimize loss
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: Gradient descent updates weights. It improves model accuracy.
+
+24. What is training data?
+
+A. Data for testing only
+B. Data used to train model
+C. Database schema
+D. Network logs
+
+Answer: B
+Why: Training data teaches patterns. It determines model performance.
+
+25. What is test data?
+
+A. Data used to evaluate model
+B. Training data
+C. Database records
+D. Network packets
+
+Answer: A
+Why: Test data measures generalization. It ensures unbiased evaluation.
+
+26. What is validation data?
+
+A. Training data
+B. Data used to tune model
+C. Database records
+D. Network packets
+
+Answer: B
+Why: Validation data helps tune parameters. It prevents overfitting.
+
+27. What is bias in ML?
+
+A. Random error
+B. Error from wrong assumptions
+C. Encryption method
+D. Network delay
+
+Answer: B
+Why: Bias leads to systematic errors. It affects fairness.
+
+28. What is variance in ML?
+
+A. Model simplicity
+B. Sensitivity to training data
+C. Encryption method
+D. Database error
+
+Answer: B
+Why: High variance causes overfitting. Regularization reduces it.
+
+29. What is natural language processing (NLP)?
+
+A. Image processing
+B. Interaction between computers and human language
+C. Database management
+D. Network security
+
+Answer: B
+Why: NLP enables text understanding. Examples include chatbots.
+
+30. What is tokenization in NLP?
+
+A. Encrypting text
+B. Splitting text into words/tokens
+C. Compressing text
+D. Translating text
+
+Answer: B
+Why: Tokenization prepares text for analysis. It is a preprocessing step.
+
+31. What is stemming?
+
+A. Encrypting text
+B. Reducing words to root form
+C. Translating text
+D. Compressing text
+
+Answer: B
+Why: Stemming normalizes words. Example: “running” → “run”.
+
+32. What is computer vision?
+
+A. Network monitoring
+B. Enabling machines to interpret images
+C. Database management
+D. Encryption method
+
+Answer: B
+Why: Computer vision analyzes visual data. Applications include facial recognition.
+
+33. What is image classification?
+
+A. Predicting numbers
+B. Assigning labels to images
+C. Encrypting images
+D. Compressing images
+
+Answer: B
+Why: Image classification identifies objects. It is widely used in AI.
+
+34. What is object detection?
+
+A. Detecting numbers
+B. Identifying objects and their locations
+C. Encrypting images
+D. Compressing images
+
+Answer: B
+Why: Object detection locates objects. It is used in autonomous vehicles.
+
+35. What is speech recognition?
+
+A. Text processing
+B. Converting speech to text
+C. Image processing
+D. Encryption
+
+Answer: B
+Why: Speech recognition enables voice assistants. It converts audio to text.
+
+36. What is chatbot?
+
+A. Database tool
+B. AI program simulating conversation
+C. Encryption tool
+D. Network protocol
+
+Answer: B
+Why: Chatbots use NLP. They automate customer support.
+
+37. What is recommendation system?
+
+A. Security system
+B. Suggesting items based on user behavior
+C. Encryption method
+D. Database tool
+
+Answer: B
+Why: Recommendation systems personalize content. Example: Netflix suggestions.
+
+38. What is reinforcement learning agent?
+
+A. Database
+B. Entity that learns by interacting with environment
+C. Encryption method
+D. Network protocol
+
+Answer: B
+Why: Agents take actions and receive rewards. They learn optimal strategies.
+
+39. What is Q-learning?
+
+A. Clustering method
+B. Reinforcement learning algorithm
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: Q-learning learns action values. It helps agents make decisions.
+
+40. What is heuristic in AI?
+
+A. Exact solution
+B. Rule-of-thumb for problem solving
+C. Encryption method
+D. Database index
+
+Answer: B
+Why: Heuristics speed up search. They provide approximate solutions.
+
+41. What is A* search algorithm?
+
+A. Sorting algorithm
+B. Pathfinding algorithm using heuristics
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: A* finds optimal paths efficiently. It combines cost and heuristic.
+
+42. What is breadth-first search (BFS)?
+
+A. Depth search
+B. Explores nodes level by level
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: BFS guarantees shortest path in unweighted graphs. It uses a queue.
+
+43. What is depth-first search (DFS)?
+
+A. Explores nodes level by level
+B. Explores deep before backtracking
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: DFS explores depth-first. It uses a stack or recursion.
+
+44. What is expert system?
+
+A. Database
+B. AI system mimicking human expertise
+C. Encryption tool
+D. Network protocol
+
+Answer: B
+Why: Expert systems use rules and knowledge bases. They support decision-making.
+
+45. What is knowledge base in AI?
+
+A. Database only
+B. Repository of facts and rules
+C. Encryption method
+D. Network log
+
+Answer: B
+Why: Knowledge bases store domain knowledge. They support inference.
+
+46. What is inference engine?
+
+A. Database engine
+B. Applies rules to derive conclusions
+C. Encryption tool
+D. Network tool
+
+Answer: B
+Why: Inference engines process knowledge bases. They generate decisions.
+
+47. What is Turing Test?
+
+A. Database test
+B. Test for machine intelligence
+C. Encryption test
+D. Network test
+
+Answer: B
+Why: Turing Test evaluates AI’s ability to mimic humans. It measures intelligence.
+
+48. What is strong AI?
+
+A. AI with narrow tasks
+B. AI with human-level intelligence
+C. Encryption system
+D. Database system
+
+Answer: B
+Why: Strong AI aims for general intelligence. It can perform any intellectual task.
+
+49. What is weak AI?
+
+A. AI with general intelligence
+B. AI designed for specific tasks
+C. Encryption tool
+D. Database system
+
+Answer: B
+Why: Weak AI focuses on narrow tasks. Examples include voice assistants.
+
+50. What is the goal of AI?
+
+A. Replace hardware
+B. Create intelligent systems that assist humans
+C. Remove data
+D. Reduce performance
+
+Answer: B
+Why: AI aims to enhance human capabilities. It improves efficiency and decision-making. 51. What is a perceptron?
+
+A. Database model
+B. Single-layer neural network unit
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: A perceptron is the simplest neural unit. It performs binary classification using weighted inputs.
+
+52. What is an activation function?
+
+A. Database function
+B. Function determining neuron output
+C. Encryption method
+D. Sorting function
+
+Answer: B
+Why: Activation functions introduce non-linearity. They enable neural networks to learn complex patterns.
+
+53. Which is a common activation function?
+
+A. JOIN
+B. ReLU
+C. SELECT
+D. INSERT
+
+Answer: B
+Why: ReLU (Rectified Linear Unit) is widely used. It improves training speed and avoids vanishing gradients.
+
+54. What is ReLU?
+
+A. Database query
+B. Activation function returning max(0, x)
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: ReLU outputs zero for negative inputs. It helps deep networks train efficiently.
+
+55. What is sigmoid function used for?
+
+A. Sorting
+B. Binary classification output
+C. Encryption
+D. Database indexing
+
+Answer: B
+Why: Sigmoid maps values between 0 and 1. It is useful for probability outputs.
+
+56. What is softmax function?
+
+A. Sorting method
+B. Converts outputs into probability distribution
+C. Encryption method
+D. Clustering algorithm
+
+Answer: B
+Why: Softmax is used in multi-class classification. It ensures probabilities sum to 1.
+
+57. What is backpropagation?
+
+A. Forward pass
+B. Algorithm for updating neural network weights
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: Backpropagation computes gradients. It adjusts weights to minimize loss.
+
+58. What is vanishing gradient problem?
+
+A. Exploding loss
+B. Gradients become too small to update weights
+C. Encryption error
+D. Database failure
+
+Answer: B
+Why: Small gradients slow learning in deep networks. ReLU helps mitigate this.
+
+59. What is exploding gradient?
+
+A. Gradients become extremely large
+B. Gradients become zero
+C. Encryption error
+D. Database failure
+
+Answer: A
+Why: Large gradients destabilize training. Gradient clipping prevents this.
+
+60. What is dropout in neural networks?
+
+A. Deleting dataset
+B. Randomly disabling neurons during training
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Dropout prevents overfitting. It improves generalization.
+
+61. What is convolutional neural network (CNN)?
+
+A. Text processing model
+B. Neural network for image processing
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: CNNs extract spatial features. They are used in computer vision.
+
+62. What is convolution operation?
+
+A. Database join
+B. Applying filter to input data
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Convolution extracts features like edges. It reduces parameters.
+
+63. What is pooling in CNN?
+
+A. Increasing resolution
+B. Reducing spatial dimensions
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Pooling reduces computation. It retains important features.
+
+64. What is recurrent neural network (RNN)?
+
+A. Image model
+B. Model for sequential data
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: RNNs handle time-series and text. They maintain memory of previous inputs.
+
+65. What is LSTM?
+
+A. Long Short-Term Memory network
+B. Sorting algorithm
+C. Encryption method
+D. Database
+
+Answer: A
+Why: LSTMs solve RNN memory issues. They capture long-term dependencies.
+
+66. What is GRU?
+
+A. Gated Recurrent Unit
+B. Sorting method
+C. Encryption method
+D. Database
+
+Answer: A
+Why: GRU is a simplified LSTM. It improves efficiency.
+
+67. What is transformer model?
+
+A. Image filter
+B. Deep learning model using attention
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Transformers use self-attention. They power modern NLP systems.
+
+68. What is attention mechanism?
+
+A. Sorting method
+B. Focus on important input parts
+C. Encryption method
+D. Database query
+
+Answer: B
+Why: Attention improves context understanding. It enhances NLP performance.
+
+69. What is BERT?
+
+A. Database tool
+B. NLP model using transformers
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: BERT understands context in text. It improves language tasks.
+
+70. What is GPT?
+
+A. Database engine
+B. Generative language model
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: GPT generates human-like text. It uses transformer architecture.
+
+71. What is transfer learning?
+
+A. Training from scratch
+B. Using pre-trained model for new task
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Transfer learning saves time and data. It leverages existing knowledge.
+
+72. What is fine-tuning?
+
+A. Deleting model
+B. Adjusting pre-trained model for specific task
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Fine-tuning adapts models to new data. It improves performance.
+
+73. What is data augmentation?
+
+A. Deleting data
+B. Increasing dataset size with transformations
+C. Encryption method
+D. Sorting algorithm
+
+Answer: B
+Why: Augmentation improves generalization. It prevents overfitting.
+
+74. What is feature scaling?
+
+A. Deleting features
+B. Normalizing feature values
+C. Encrypting features
+D. Sorting features
+
+Answer: B
+Why: Scaling improves model convergence. It ensures uniform feature contribution.
+
+75. What is normalization?
+
+A. Scaling data between 0 and 1
+B. Deleting data
+C. Encrypting data
+D. Sorting data
+
+Answer: A
+Why: Normalization standardizes ranges. It improves model performance.
+
+76. What is standardization?
+
+A. Scaling to mean 0 and variance 1
+B. Deleting data
+C. Encrypting data
+D. Sorting data
+
+Answer: A
+Why: Standardization centers data. It is useful for many algorithms.
+
+77. What is confusion matrix?
+
+A. Encryption table
+B. Table showing classification performance
+C. Database table
+D. Sorting table
+
+Answer: B
+Why: Confusion matrix shows true vs predicted values. It evaluates classifiers.
+
+78. What is accuracy?
+
+A. Correct predictions ratio
+B. Encryption method
+C. Database metric
+D. Sorting metric
+
+Answer: A
+Why: Accuracy measures overall correctness. It may be misleading for imbalanced data.
+
+79. What is precision?
+
+A. Correct positive predictions ratio
+B. Encryption method
+C. Database metric
+D. Sorting metric
+
+Answer: A
+Why: Precision measures prediction quality. It reduces false positives.
+
+80. What is recall?
+
+A. Correct positive detection ratio
+B. Encryption method
+C. Database metric
+D. Sorting metric
+
+Answer: A
+Why: Recall measures detection completeness. It reduces false negatives.
+
+81. What is F1-score?
+
+A. Average of precision and recall
+B. Encryption method
+C. Database metric
+D. Sorting metric
+
+Answer: A
+Why: F1-score balances precision and recall. It is useful for imbalanced datasets.
+
+82. What is ROC curve?
+
+A. Encryption graph
+B. Performance graph for classifiers
+C. Database chart
+D. Sorting graph
+
+Answer: B
+Why: ROC shows trade-off between true positive and false positive rates. It evaluates models.
+
+83. What is AUC?
+
+A. Encryption metric
+B. Area under ROC curve
+C. Database metric
+D. Sorting metric
+
+Answer: B
+Why: AUC measures classifier performance. Higher AUC indicates better model.
+
+84. What is cross-validation?
+
+A. Single test
+B. Splitting data multiple times for evaluation
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Cross-validation ensures robust evaluation. It reduces bias.
+
+85. What is k-fold cross-validation?
+
+A. Single split
+B. Splitting data into k subsets
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: k-fold improves reliability. Each subset is used for testing.
+
+86. What is hyperparameter tuning?
+
+A. Training model
+B. Optimizing model parameters
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Hyperparameters control model behavior. Tuning improves performance.
+
+87. What is grid search?
+
+A. Database query
+B. Exhaustive search for best parameters
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Grid search tests parameter combinations. It finds optimal settings.
+
+88. What is random search?
+
+A. Random predictions
+B. Random sampling of parameters
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Random search is efficient. It explores parameter space faster.
+
+89. What is ensemble learning?
+
+A. Single model
+B. Combining multiple models
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Ensembles improve accuracy. Examples include boosting and bagging.
+
+90. What is boosting?
+
+A. Combining weak learners sequentially
+B. Encryption method
+C. Database method
+D. Sorting method
+
+Answer: A
+Why: Boosting focuses on errors. It improves model performance.
+
+91. What is bagging?
+
+A. Sequential learning
+B. Training models on random subsets
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Bagging reduces variance. Random Forest uses bagging.
+
+92. What is anomaly detection?
+
+A. Classification
+B. Identifying unusual patterns
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Anomaly detection finds outliers. It is used in fraud detection.
+
+93. What is recommender system type?
+
+A. Collaborative filtering
+B. Encryption filtering
+C. Database filtering
+D. Sorting filtering
+
+Answer: A
+Why: Collaborative filtering uses user behavior. It powers recommendation engines.
+
+94. What is content-based filtering?
+
+A. Recommending based on item features
+B. Encryption method
+C. Database method
+D. Sorting method
+
+Answer: A
+Why: Content-based filtering uses item attributes. It matches user preferences.
+
+95. What is reinforcement learning policy?
+
+A. Database rule
+B. Strategy for choosing actions
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Policies guide agent decisions. They maximize rewards.
+
+96. What is reward function?
+
+A. Database function
+B. Defines feedback for agent actions
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Reward functions guide learning. They shape agent behavior.
+
+97. What is environment in reinforcement learning?
+
+A. Database
+B. External system interacting with agent
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Environment provides feedback. It influences learning.
+
+98. What is state in reinforcement learning?
+
+A. Database record
+B. Current situation of agent
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: State represents environment conditions. It affects decisions.
+
+99. What is action in reinforcement learning?
+
+A. Database query
+B. Decision taken by agent
+C. Encryption method
+D. Sorting method
+
+Answer: B
+Why: Actions influence outcomes. They determine rewards.
+
+100. What is exploration vs exploitation?
+
+A. Encryption method
+B. Balancing new actions and known rewards
+C. Database method
+D. Sorting method
+
+Answer: B
+Why: Exploration finds better strategies. Exploitation uses known best actions.

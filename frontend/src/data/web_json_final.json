@@ -1,0 +1,2046 @@
+[
+  {
+    "id": 1,
+    "question": "What does HTML stand for?",
+    "options": [
+      "Hyper Text Markup Language",
+      "High Text Machine Language",
+      "Hyper Transfer Markup Language",
+      "Hyperlink Text Management Language"
+    ],
+    "correct": 0,
+    "explanation": "HTML structures web content using tags. It defines elements like headings, paragraphs, and links.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 2,
+    "question": "What is the role of CSS?",
+    "options": [
+      "Structure web pages",
+      "Style and layout web pages",
+      "Store data",
+      "Handle server logic"
+    ],
+    "correct": 1,
+    "explanation": "CSS controls visual presentation such as colors, fonts, and layout. It separates design from content.",
+    "difficulty": "Easy",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 3,
+    "question": "Which language is used for client-side scripting?",
+    "options": [
+      "Python",
+      "Java",
+      "JavaScript",
+      "SQL"
+    ],
+    "correct": 2,
+    "explanation": "JavaScript runs in the browser. It adds interactivity to web pages.",
+    "difficulty": "Medium",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 4,
+    "question": "What is the purpose of the <head> tag?",
+    "options": [
+      "Display content",
+      "Store metadata",
+      "Create forms",
+      "Add images"
+    ],
+    "correct": 1,
+    "explanation": "The <head> contains metadata like title, styles, and scripts. It does not display content directly.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 5,
+    "question": "Which HTML tag creates a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "correct": 1,
+    "explanation": "The <a> tag defines hyperlinks. It uses the href attribute to specify the destination.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 6,
+    "question": "What is the default position of elements in CSS?",
+    "options": [
+      "Absolute",
+      "Relative",
+      "Static",
+      "Fixed"
+    ],
+    "correct": 2,
+    "explanation": "Static positioning is the default. Elements follow normal document flow.",
+    "difficulty": "Easy",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 7,
+    "question": "Which CSS property changes text color?",
+    "options": [
+      "font-color",
+      "text-color",
+      "color",
+      "text-style"
+    ],
+    "correct": 2,
+    "explanation": "The color property sets text color. It accepts named colors, HEX, RGB, etc.",
+    "difficulty": "Medium",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 8,
+    "question": "What is the DOM?",
+    "options": [
+      "Document Object Model",
+      "Data Object Model",
+      "Digital Output Mode",
+      "Display Object Method"
+    ],
+    "correct": 0,
+    "explanation": "DOM represents HTML as a tree structure. JavaScript manipulates it to update content dynamically.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 9,
+    "question": "Which HTTP method retrieves data?",
+    "options": [
+      "POST",
+      "GET",
+      "PUT",
+      "DELETE"
+    ],
+    "correct": 1,
+    "explanation": "GET requests fetch data from a server. They do not modify resources.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 10,
+    "question": "Which HTTP method sends data to server?",
+    "options": [
+      "GET",
+      "POST",
+      "FETCH",
+      "CONNECT"
+    ],
+    "correct": 1,
+    "explanation": "POST sends data to the server for processing. It is commonly used in forms.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 11,
+    "question": "What is responsive design?",
+    "options": [
+      "Fast loading pages",
+      "Design adapting to different screen sizes",
+      "Server-side rendering",
+      "Database optimization"
+    ],
+    "correct": 1,
+    "explanation": "Responsive design ensures websites work on phones, tablets, and desktops. CSS media queries enable this.",
+    "difficulty": "Medium",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 12,
+    "question": "What is a media query?",
+    "options": [
+      "JavaScript function",
+      "CSS feature for responsive design",
+      "HTML tag",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "Media queries apply styles based on screen size or device. They enable responsive layouts.",
+    "difficulty": "Medium",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 13,
+    "question": "Which tag is used for images?",
+    "options": [
+      "<image>",
+      "<img>",
+      "<src>",
+      "<pic>"
+    ],
+    "correct": 1,
+    "explanation": "The <img> tag embeds images. The src attribute specifies the image source.",
+    "difficulty": "Medium",
+    "topic": "HTML"
+  },
+  {
+    "id": 14,
+    "question": "What is the purpose of JavaScript?",
+    "options": [
+      "Styling pages",
+      "Adding interactivity",
+      "Storing data",
+      "Managing servers"
+    ],
+    "correct": 1,
+    "explanation": "JavaScript handles dynamic behavior like form validation and animations. It runs in browsers.",
+    "difficulty": "Easy",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 15,
+    "question": "Which keyword declares a variable in JavaScript?",
+    "options": [
+      "var",
+      "int",
+      "define",
+      "declare"
+    ],
+    "correct": 0,
+    "explanation": "var, let, and const declare variables. var is function-scoped.",
+    "difficulty": "Medium",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 16,
+    "question": "What is let in JavaScript?",
+    "options": [
+      "Global variable",
+      "Block-scoped variable",
+      "Constant variable",
+      "Function name"
+    ],
+    "correct": 1,
+    "explanation": "let is block-scoped. It prevents scope-related bugs.",
+    "difficulty": "Easy",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 17,
+    "question": "What is const used for?",
+    "options": [
+      "Mutable variable",
+      "Constant variable",
+      "Function declaration",
+      "Loop control"
+    ],
+    "correct": 1,
+    "explanation": "const declares variables that cannot be reassigned. It improves code safety.",
+    "difficulty": "Easy",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 18,
+    "question": "What is an event in JavaScript?",
+    "options": [
+      "Error",
+      "User interaction or browser action",
+      "Variable",
+      "Function"
+    ],
+    "correct": 1,
+    "explanation": "Events include clicks, keypresses, and loads. JavaScript responds using event listeners.",
+    "difficulty": "Medium",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 19,
+    "question": "What is an API?",
+    "options": [
+      "Application Programming Interface",
+      "Advanced Programming Input",
+      "Automated Process Integration",
+      "Application Process Interface"
+    ],
+    "correct": 0,
+    "explanation": "APIs allow communication between software systems. Web APIs enable client-server interaction.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 20,
+    "question": "What is JSON?",
+    "options": [
+      "JavaScript Object Notation",
+      "Java Syntax Object Network",
+      "JavaScript Output Name",
+      "Java Source Object Notation"
+    ],
+    "correct": 0,
+    "explanation": "JSON is a lightweight data format. It is used for data exchange in web apps.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 21,
+    "question": "What is AJAX?",
+    "options": [
+      "Asynchronous JavaScript and XML",
+      "Automatic Java and XML",
+      "Advanced JSON Access",
+      "Application Java Access"
+    ],
+    "correct": 0,
+    "explanation": "AJAX allows asynchronous server communication. It updates pages without reload.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 22,
+    "question": "What is a framework?",
+    "options": [
+      "Hardware component",
+      "Prebuilt structure for development",
+      "Database",
+      "Programming language"
+    ],
+    "correct": 1,
+    "explanation": "Frameworks provide reusable code and structure. Examples include React and Angular.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 23,
+    "question": "What is a library in web development?",
+    "options": [
+      "Programming language",
+      "Collection of reusable functions",
+      "Database",
+      "Server"
+    ],
+    "correct": 1,
+    "explanation": "Libraries provide reusable code. Developers call them as needed.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 24,
+    "question": "What is Bootstrap?",
+    "options": [
+      "Database",
+      "CSS framework",
+      "JavaScript engine",
+      "Server"
+    ],
+    "correct": 1,
+    "explanation": "Bootstrap provides prebuilt CSS components. It speeds up responsive design.",
+    "difficulty": "Easy",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 25,
+    "question": "What is Node.js?",
+    "options": [
+      "Browser",
+      "JavaScript runtime environment",
+      "CSS framework",
+      "Database"
+    ],
+    "correct": 1,
+    "explanation": "Node.js runs JavaScript on the server. It enables full-stack JavaScript development.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 26,
+    "question": "What is npm?",
+    "options": [
+      "Node Package Manager",
+      "Network Package Module",
+      "New Programming Method",
+      "Node Processing Manager"
+    ],
+    "correct": 0,
+    "explanation": "npm manages JavaScript packages. It installs dependencies.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 27,
+    "question": "What is REST?",
+    "options": [
+      "Random Execution State Transfer",
+      "Representational State Transfer",
+      "Remote Execution State Transfer",
+      "Rapid Execution Service Transfer"
+    ],
+    "correct": 1,
+    "explanation": "REST defines web service architecture. It uses HTTP methods.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 28,
+    "question": "What is a cookie?",
+    "options": [
+      "Server error",
+      "Small data stored in browser",
+      "Database record",
+      "CSS file"
+    ],
+    "correct": 1,
+    "explanation": "Cookies store session data. They help maintain user state.",
+    "difficulty": "Easy",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 29,
+    "question": "What is localStorage?",
+    "options": [
+      "Server storage",
+      "Browser storage for persistent data",
+      "Database",
+      "Session memory"
+    ],
+    "correct": 1,
+    "explanation": "localStorage stores data in the browser. Data persists after closing the tab.",
+    "difficulty": "Easy",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 30,
+    "question": "What is sessionStorage?",
+    "options": [
+      "Permanent storage",
+      "Temporary storage per session",
+      "Server storage",
+      "Database"
+    ],
+    "correct": 1,
+    "explanation": "sessionStorage stores data for a single session. It clears when the tab closes.",
+    "difficulty": "Medium",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 31,
+    "question": "What is SEO?",
+    "options": [
+      "Search Engine Optimization",
+      "Server Execution Operation",
+      "Site Engine Output",
+      "Secure Execution Order"
+    ],
+    "correct": 0,
+    "explanation": "SEO improves website visibility. It optimizes content for search engines.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 32,
+    "question": "What is a CDN?",
+    "options": [
+      "Content Delivery Network",
+      "Central Data Node",
+      "Code Deployment Network",
+      "Client Data Network"
+    ],
+    "correct": 0,
+    "explanation": "CDNs deliver content from nearby servers. They improve performance.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 33,
+    "question": "What is HTTPS?",
+    "options": [
+      "Secure HTTP",
+      "Hyper Transfer Protocol",
+      "High Transfer Protocol",
+      "Host Transfer Protocol"
+    ],
+    "correct": 0,
+    "explanation": "HTTPS encrypts data using SSL/TLS. It ensures secure communication.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 34,
+    "question": "What is CORS?",
+    "options": [
+      "Cross-Origin Resource Sharing",
+      "Client-Origin Request Service",
+      "Cross Output Rendering System",
+      "Core Object Request Service"
+    ],
+    "correct": 0,
+    "explanation": "CORS allows controlled cross-origin requests. It enhances security.",
+    "difficulty": "Hard",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 35,
+    "question": "What is a SPA?",
+    "options": [
+      "Single Page Application",
+      "Server Page Application",
+      "Secure Page Access",
+      "Static Page Application"
+    ],
+    "correct": 0,
+    "explanation": "SPAs load a single page and update dynamically. They improve user experience.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 36,
+    "question": "What is a progressive web app (PWA)?",
+    "options": [
+      "Desktop app",
+      "Web app with native app features",
+      "Server app",
+      "Database app"
+    ],
+    "correct": 1,
+    "explanation": "PWAs work offline and can be installed. They combine web and mobile features.",
+    "difficulty": "Medium",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 37,
+    "question": "What is version control?",
+    "options": [
+      "Code editing",
+      "Tracking code changes",
+      "Server management",
+      "Database storage"
+    ],
+    "correct": 1,
+    "explanation": "Version control tracks code history. Git is a popular tool.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 38,
+    "question": "What is Git?",
+    "options": [
+      "Programming language",
+      "Version control system",
+      "Database",
+      "Framework"
+    ],
+    "correct": 1,
+    "explanation": "Git tracks code changes and collaboration. It enables branching and merging.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 39,
+    "question": "What is GitHub?",
+    "options": [
+      "Local repository",
+      "Remote repository hosting",
+      "Database",
+      "Framework"
+    ],
+    "correct": 1,
+    "explanation": "GitHub hosts Git repositories. It supports collaboration.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 40,
+    "question": "What is deployment?",
+    "options": [
+      "Writing code",
+      "Publishing application to server",
+      "Debugging code",
+      "Designing UI"
+    ],
+    "correct": 1,
+    "explanation": "Deployment makes apps available to users. It involves servers and hosting.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 41,
+    "question": "What is web hosting?",
+    "options": [
+      "Writing HTML",
+      "Storing website files on server",
+      "Designing CSS",
+      "Running JavaScript"
+    ],
+    "correct": 1,
+    "explanation": "Hosting stores website files online. Users access them via domain.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 42,
+    "question": "What is a domain name?",
+    "options": [
+      "IP address",
+      "Human-readable website address",
+      "Database",
+      "Server"
+    ],
+    "correct": 1,
+    "explanation": "Domain names map to IP addresses. They make websites easy to access.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 43,
+    "question": "What is DNS?",
+    "options": [
+      "Domain Name System",
+      "Data Network Service",
+      "Digital Name Server",
+      "Domain Network Security"
+    ],
+    "correct": 0,
+    "explanation": "DNS translates domain names into IP addresses. It enables web navigation.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 44,
+    "question": "What is a web server?",
+    "options": [
+      "Browser",
+      "Software serving web content",
+      "Database",
+      "Programming language"
+    ],
+    "correct": 1,
+    "explanation": "Web servers handle HTTP requests. Examples include Apache and Nginx.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 45,
+    "question": "What is a browser?",
+    "options": [
+      "Server software",
+      "Client software to access websites",
+      "Database",
+      "Programming language"
+    ],
+    "correct": 1,
+    "explanation": "Browsers render web pages. Examples include Chrome and Firefox.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 46,
+    "question": "What is HTML semantic tag?",
+    "options": [
+      "Tag without meaning",
+      "Tag describing content meaning",
+      "CSS tag",
+      "JavaScript tag"
+    ],
+    "correct": 1,
+    "explanation": "Semantic tags like <article> improve accessibility. They describe content purpose.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 47,
+    "question": "What is flexbox used for?",
+    "options": [
+      "Database layout",
+      "CSS layout system",
+      "JavaScript function",
+      "HTML tag"
+    ],
+    "correct": 1,
+    "explanation": "Flexbox aligns and distributes space in layouts. It simplifies responsive design.",
+    "difficulty": "Medium",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 48,
+    "question": "What is grid in CSS?",
+    "options": [
+      "JavaScript layout",
+      "Two-dimensional layout system",
+      "Database grid",
+      "HTML structure"
+    ],
+    "correct": 1,
+    "explanation": "CSS Grid handles rows and columns. It enables complex layouts.",
+    "difficulty": "Easy",
+    "topic": "CSS/Styling"
+  },
+  {
+    "id": 49,
+    "question": "What is a promise in JavaScript?",
+    "options": [
+      "Variable",
+      "Object representing future result",
+      "Function",
+      "Loop"
+    ],
+    "correct": 1,
+    "explanation": "Promises handle asynchronous operations. They improve code readability.",
+    "difficulty": "Medium",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 52,
+    "question": "Which attribute specifies where to send form data?",
+    "options": [
+      "method",
+      "action",
+      "target",
+      "name"
+    ],
+    "correct": 1,
+    "explanation": "The action attribute defines the URL where form data is sent. It connects the frontend to backend processing.",
+    "difficulty": "Medium",
+    "topic": "HTML"
+  },
+  {
+    "id": 53,
+    "question": "Which HTTP method is commonly used for form submission?",
+    "options": [
+      "GET",
+      "POST",
+      "PUT",
+      "PATCH"
+    ],
+    "correct": 1,
+    "explanation": "POST sends form data securely in the request body. It is used when modifying server data.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 54,
+    "question": "What is the purpose of the method attribute in forms?",
+    "options": [
+      "Defines CSS style",
+      "Specifies HTTP method",
+      "Adds JavaScript",
+      "Defines layout"
+    ],
+    "correct": 1,
+    "explanation": "The method attribute determines how data is sent. Common values are GET and POST.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 55,
+    "question": "What is the difference between GET and POST?",
+    "options": [
+      "GET sends data in body",
+      "POST sends data in URL",
+      "GET sends data in URL, POST in body",
+      "No difference"
+    ],
+    "correct": 2,
+    "explanation": "GET appends data to URL, making it visible. POST sends data in the request body, improving security.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 56,
+    "question": "What is a query string?",
+    "options": [
+      "Database query",
+      "Data appended to URL",
+      "JavaScript function",
+      "CSS rule"
+    ],
+    "correct": 1,
+    "explanation": "Query strings contain key-value pairs in URLs. They are used in GET requests.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 57,
+    "question": "What is the purpose of <label> tag?",
+    "options": [
+      "Style input",
+      "Provide text for input field",
+      "Submit form",
+      "Add image"
+    ],
+    "correct": 1,
+    "explanation": "Labels improve accessibility. They associate text with form inputs.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 58,
+    "question": "What is the <input type=\"password\"> used for?",
+    "options": [
+      "Display text",
+      "Hide user input",
+      "Show images",
+      "Submit form"
+    ],
+    "correct": 1,
+    "explanation": "Password inputs mask characters. This enhances security.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 59,
+    "question": "What is client-side validation?",
+    "options": [
+      "Validation on server",
+      "Validation in browser",
+      "Database validation",
+      "Network validation"
+    ],
+    "correct": 1,
+    "explanation": "Client-side validation checks input before submission. It improves user experience.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 60,
+    "question": "What is server-side validation?",
+    "options": [
+      "Validation in browser",
+      "Validation on server",
+      "CSS validation",
+      "HTML validation"
+    ],
+    "correct": 1,
+    "explanation": "Server-side validation ensures data integrity. It protects against malicious input.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 61,
+    "question": "What is XSS?",
+    "options": [
+      "Cross-Site Scripting",
+      "Cross Server Security",
+      "Extra Secure System",
+      "Extended Style Sheet"
+    ],
+    "correct": 0,
+    "explanation": "XSS injects malicious scripts into web pages. It can steal user data.",
+    "difficulty": "Hard",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 62,
+    "question": "What is CSRF?",
+    "options": [
+      "Cross-Site Request Forgery",
+      "Cross Server Request File",
+      "Client-Side Rendering Format",
+      "Central Security Request Function"
+    ],
+    "correct": 0,
+    "explanation": "CSRF tricks users into submitting unwanted requests. Tokens prevent such attacks.",
+    "difficulty": "Hard",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 63,
+    "question": "What is SQL Injection?",
+    "options": [
+      "Styling attack",
+      "Injecting malicious SQL code",
+      "JavaScript error",
+      "Network failure"
+    ],
+    "correct": 1,
+    "explanation": "SQL injection manipulates database queries. It can expose sensitive data.",
+    "difficulty": "Easy",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 64,
+    "question": "What is HTTPS used for?",
+    "options": [
+      "Faster loading",
+      "Secure communication",
+      "Database access",
+      "Styling"
+    ],
+    "correct": 1,
+    "explanation": "HTTPS encrypts data in transit. It protects user information.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 65,
+    "question": "What is authentication?",
+    "options": [
+      "Styling pages",
+      "Verifying user identity",
+      "Encrypting data",
+      "Storing cookies"
+    ],
+    "correct": 1,
+    "explanation": "Authentication confirms user identity. Examples include login systems.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 66,
+    "question": "What is authorization?",
+    "options": [
+      "Verifying identity",
+      "Granting access rights",
+      "Encrypting data",
+      "Creating users"
+    ],
+    "correct": 1,
+    "explanation": "Authorization determines what users can access. It follows authentication.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 67,
+    "question": "What is JWT?",
+    "options": [
+      "Java Web Token",
+      "JSON Web Token",
+      "JavaScript Web Token",
+      "Joint Web Token"
+    ],
+    "correct": 1,
+    "explanation": "JWT securely transmits user data. It is used in authentication.",
+    "difficulty": "Hard",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 68,
+    "question": "What is session management?",
+    "options": [
+      "Styling pages",
+      "Tracking user activity",
+      "Database design",
+      "Server shutdown"
+    ],
+    "correct": 1,
+    "explanation": "Session management maintains user state. It enables login persistence.",
+    "difficulty": "Easy",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 69,
+    "question": "What is caching used for?",
+    "options": [
+      "Slowing performance",
+      "Storing data for faster access",
+      "Deleting data",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Caching reduces server load. It improves response time.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 70,
+    "question": "What is lazy loading in web development?",
+    "options": [
+      "Loading all content at once",
+      "Loading content when needed",
+      "Deleting content",
+      "Encrypting content"
+    ],
+    "correct": 1,
+    "explanation": "Lazy loading improves performance. Images load only when visible.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 71,
+    "question": "What is minification?",
+    "options": [
+      "Increasing file size",
+      "Removing unnecessary characters from code",
+      "Encrypting code",
+      "Compressing images"
+    ],
+    "correct": 1,
+    "explanation": "Minification reduces file size. It improves load speed.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 72,
+    "question": "What is bundling?",
+    "options": [
+      "Splitting files",
+      "Combining multiple files into one",
+      "Deleting files",
+      "Encrypting files"
+    ],
+    "correct": 1,
+    "explanation": "Bundling reduces HTTP requests. Tools like Webpack perform bundling.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 73,
+    "question": "What is transpiling?",
+    "options": [
+      "Running code",
+      "Converting code to compatible version",
+      "Compressing code",
+      "Encrypting code"
+    ],
+    "correct": 1,
+    "explanation": "Transpilers convert modern JavaScript to older versions. Example: Babel.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 74,
+    "question": "What is Webpack?",
+    "options": [
+      "Database",
+      "Module bundler",
+      "Browser",
+      "Server"
+    ],
+    "correct": 1,
+    "explanation": "Webpack bundles assets for deployment. It optimizes performance.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 75,
+    "question": "What is a virtual DOM?",
+    "options": [
+      "Real DOM",
+      "Lightweight copy of DOM",
+      "Database",
+      "Server"
+    ],
+    "correct": 1,
+    "explanation": "Virtual DOM improves performance. Frameworks update only changed parts.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 76,
+    "question": "Which library uses virtual DOM?",
+    "options": [
+      "jQuery",
+      "React",
+      "Bootstrap",
+      "Node.js"
+    ],
+    "correct": 1,
+    "explanation": "React uses virtual DOM to optimize rendering. It minimizes updates.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 77,
+    "question": "What is Angular?",
+    "options": [
+      "Database",
+      "Frontend framework",
+      "Server",
+      "CSS library"
+    ],
+    "correct": 1,
+    "explanation": "Angular is a full-featured frontend framework. It supports SPA development.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 78,
+    "question": "What is React?",
+    "options": [
+      "Database",
+      "JavaScript library for UI",
+      "Server",
+      "CSS tool"
+    ],
+    "correct": 1,
+    "explanation": "React builds interactive UIs. It uses components and virtual DOM.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 79,
+    "question": "What is Vue.js?",
+    "options": [
+      "Database",
+      "Frontend framework",
+      "Server",
+      "CSS preprocessor"
+    ],
+    "correct": 1,
+    "explanation": "Vue.js is a progressive JavaScript framework. It is lightweight and flexible.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 80,
+    "question": "What is component-based architecture?",
+    "options": [
+      "Single large file",
+      "UI built using reusable components",
+      "Database design",
+      "Network design"
+    ],
+    "correct": 1,
+    "explanation": "Components promote reuse and maintainability. They encapsulate UI logic.",
+    "difficulty": "Medium",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 81,
+    "question": "What is state in React?",
+    "options": [
+      "CSS style",
+      "Data managed within component",
+      "Database",
+      "Server"
+    ],
+    "correct": 1,
+    "explanation": "State stores dynamic data. Changes trigger UI updates.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 82,
+    "question": "What are props in React?",
+    "options": [
+      "CSS properties",
+      "Data passed to components",
+      "Database values",
+      "Server variables"
+    ],
+    "correct": 1,
+    "explanation": "Props pass data between components. They are read-only.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 83,
+    "question": "What is backend development?",
+    "options": [
+      "Designing UI",
+      "Server-side logic and database management",
+      "Styling pages",
+      "Writing HTML"
+    ],
+    "correct": 1,
+    "explanation": "Backend handles data processing and storage. It supports frontend functionality.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 84,
+    "question": "Which language is used for backend development?",
+    "options": [
+      "HTML",
+      "CSS",
+      "JavaScript (Node.js)",
+      "Photoshop"
+    ],
+    "correct": 2,
+    "explanation": "Node.js allows JavaScript backend development. It handles server logic.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 85,
+    "question": "What is Express.js?",
+    "options": [
+      "CSS framework",
+      "Node.js web framework",
+      "Database",
+      "Browser"
+    ],
+    "correct": 1,
+    "explanation": "Express simplifies server development. It handles routes and middleware.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 86,
+    "question": "What is middleware in Express?",
+    "options": [
+      "Database",
+      "Function handling request/response cycle",
+      "CSS rule",
+      "HTML tag"
+    ],
+    "correct": 1,
+    "explanation": "Middleware processes requests before responses. It enables logging and authentication.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 87,
+    "question": "What is RESTful API?",
+    "options": [
+      "API using HTTP methods",
+      "API using FTP",
+      "API using SMTP",
+      "API using CSS"
+    ],
+    "correct": 0,
+    "explanation": "RESTful APIs follow HTTP standards. They use GET, POST, PUT, DELETE.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 88,
+    "question": "What is CRUD?",
+    "options": [
+      "Create, Read, Update, Delete",
+      "Copy, Remove, Update, Delete",
+      "Create, Run, Update, Debug",
+      "Control, Read, Use, Deploy"
+    ],
+    "correct": 0,
+    "explanation": "CRUD represents basic database operations. It is used in APIs.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 89,
+    "question": "What is MongoDB?",
+    "options": [
+      "SQL database",
+      "NoSQL database",
+      "Programming language",
+      "Framework"
+    ],
+    "correct": 1,
+    "explanation": "MongoDB stores data in JSON-like documents. It supports flexible schemas.",
+    "difficulty": "Easy",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 90,
+    "question": "What is SQL database?",
+    "options": [
+      "Document database",
+      "Relational database",
+      "CSS tool",
+      "JavaScript library"
+    ],
+    "correct": 1,
+    "explanation": "SQL databases store data in tables. They use structured queries.",
+    "difficulty": "Easy",
+    "topic": "Data & Storage"
+  },
+  {
+    "id": 91,
+    "question": "What is ORM?",
+    "options": [
+      "Object Relational Mapping",
+      "Online Resource Manager",
+      "Object Rendering Model",
+      "Operational Resource Method"
+    ],
+    "correct": 0,
+    "explanation": "ORM maps database tables to objects. It simplifies database interaction.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 92,
+    "question": "What is environment variable?",
+    "options": [
+      "CSS variable",
+      "Configuration value stored outside code",
+      "HTML attribute",
+      "Database column"
+    ],
+    "correct": 1,
+    "explanation": "Environment variables store sensitive data. They improve security.",
+    "difficulty": "Easy",
+    "topic": "JavaScript"
+  },
+  {
+    "id": 93,
+    "question": "What is .env file used for?",
+    "options": [
+      "CSS styles",
+      "Storing environment variables",
+      "HTML layout",
+      "Database schema"
+    ],
+    "correct": 1,
+    "explanation": ".env files store configuration values. They keep secrets out of code.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 94,
+    "question": "What is API rate limiting?",
+    "options": [
+      "Increasing API calls",
+      "Restricting number of requests",
+      "Deleting requests",
+      "Encrypting requests"
+    ],
+    "correct": 1,
+    "explanation": "Rate limiting prevents abuse. It protects servers from overload.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 95,
+    "question": "What is load balancing?",
+    "options": [
+      "Slowing servers",
+      "Distributing traffic across servers",
+      "Deleting traffic",
+      "Encrypting traffic"
+    ],
+    "correct": 1,
+    "explanation": "Load balancing improves availability. It prevents server overload.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 96,
+    "question": "What is serverless architecture?",
+    "options": [
+      "No servers exist",
+      "Cloud-managed backend services",
+      "Static websites only",
+      "Database-only systems"
+    ],
+    "correct": 1,
+    "explanation": "Serverless uses cloud providers to manage infrastructure. Developers focus on code.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 97,
+    "question": "What is a webhook?",
+    "options": [
+      "Database trigger",
+      "HTTP callback triggered by events",
+      "CSS event",
+      "HTML tag"
+    ],
+    "correct": 1,
+    "explanation": "Webhooks notify systems of events. They enable real-time integration.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 98,
+    "question": "What is CI/CD?",
+    "options": [
+      "Continuous Integration and Continuous Deployment",
+      "Code Inspection and Code Debugging",
+      "Continuous Internet Connection and Data",
+      "Client Integration and Client Deployment"
+    ],
+    "correct": 0,
+    "explanation": "CI/CD automates testing and deployment. It improves delivery speed.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 99,
+    "question": "What is Docker used for?",
+    "options": [
+      "Styling",
+      "Containerization",
+      "Database management",
+      "UI design"
+    ],
+    "correct": 1,
+    "explanation": "Docker packages apps with dependencies. It ensures consistent environments.",
+    "difficulty": "Hard",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 102,
+    "question": "What is client-side rendering (CSR)?",
+    "options": [
+      "Rendering on the server",
+      "Rendering in the browser using JavaScript",
+      "Rendering using CSS",
+      "Rendering database queries"
+    ],
+    "correct": 1,
+    "explanation": "CSR loads a basic HTML file and builds the page using JavaScript. It enables dynamic SPAs.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 103,
+    "question": "What is hydration in web apps?",
+    "options": [
+      "Loading images",
+      "Attaching JavaScript to server-rendered HTML",
+      "Deleting DOM",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Hydration makes static HTML interactive. Frameworks like React use it after SSR.",
+    "difficulty": "Hard",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 104,
+    "question": "What is a static website?",
+    "options": [
+      "Website with dynamic data",
+      "Website with fixed content",
+      "Database-driven website",
+      "Serverless website"
+    ],
+    "correct": 1,
+    "explanation": "Static sites deliver prebuilt HTML files. They are fast and secure.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 105,
+    "question": "What is a dynamic website?",
+    "options": [
+      "Fixed content",
+      "Content generated at runtime",
+      "No server required",
+      "Only CSS"
+    ],
+    "correct": 1,
+    "explanation": "Dynamic websites generate content based on user input or database data. They provide personalized experiences.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 106,
+    "question": "What is a template engine?",
+    "options": [
+      "CSS framework",
+      "Tool for generating dynamic HTML",
+      "Database",
+      "Browser"
+    ],
+    "correct": 1,
+    "explanation": "Template engines combine templates with data. Examples include EJS and Handlebars.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 107,
+    "question": "What is MVC architecture?",
+    "options": [
+      "Model-View-Controller pattern",
+      "Multi-Version Control",
+      "Managed View Component",
+      "Model Value Controller"
+    ],
+    "correct": 0,
+    "explanation": "MVC separates application logic. It improves maintainability.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 108,
+    "question": "What is the role of the Model in MVC?",
+    "options": [
+      "UI rendering",
+      "Business logic and data",
+      "Routing",
+      "Styling"
+    ],
+    "correct": 1,
+    "explanation": "The Model manages data and rules. It interacts with databases.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 109,
+    "question": "What is the role of the View in MVC?",
+    "options": [
+      "Data storage",
+      "UI presentation",
+      "Business logic",
+      "Routing"
+    ],
+    "correct": 1,
+    "explanation": "Views display data to users. They handle UI rendering.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 110,
+    "question": "What is the role of the Controller in MVC?",
+    "options": [
+      "Styling",
+      "Handles user input and updates model/view",
+      "Database storage",
+      "CSS layout"
+    ],
+    "correct": 1,
+    "explanation": "Controllers process user input. They coordinate between Model and View.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 111,
+    "question": "What is REST statelessness?",
+    "options": [
+      "Server stores session",
+      "Each request contains all needed information",
+      "Server remembers users",
+      "Cookies required"
+    ],
+    "correct": 1,
+    "explanation": "REST APIs do not store client state. Each request is independent.",
+    "difficulty": "Easy",
+    "topic": "Frontend Frameworks"
+  },
+  {
+    "id": 112,
+    "question": "What is idempotent HTTP method?",
+    "options": [
+      "Method changing state",
+      "Method producing same result when repeated",
+      "Method deleting data",
+      "Method encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Idempotent methods like GET and PUT produce consistent results. They improve reliability.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 113,
+    "question": "Which HTTP method is idempotent?",
+    "options": [
+      "POST",
+      "PUT",
+      "PATCH",
+      "CONNECT"
+    ],
+    "correct": 1,
+    "explanation": "PUT replaces a resource consistently. Repeated requests have the same effect.",
+    "difficulty": "Medium",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 114,
+    "question": "What is WebSocket used for?",
+    "options": [
+      "Static content",
+      "Real-time communication",
+      "Database queries",
+      "CSS styling"
+    ],
+    "correct": 1,
+    "explanation": "WebSockets enable full-duplex communication. They support chat apps and live updates.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 115,
+    "question": "What is polling?",
+    "options": [
+      "Server pushes updates",
+      "Client repeatedly requests updates",
+      "Database replication",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "Polling checks for updates at intervals. It is less efficient than WebSockets.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 116,
+    "question": "What is long polling?",
+    "options": [
+      "Fast polling",
+      "Server holds request until data available",
+      "Database query",
+      "CSS loading"
+    ],
+    "correct": 1,
+    "explanation": "Long polling reduces frequent requests. The server responds when new data arrives.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 117,
+    "question": "What is a service worker?",
+    "options": [
+      "Database worker",
+      "Script enabling offline support",
+      "CSS worker",
+      "HTML tag"
+    ],
+    "correct": 1,
+    "explanation": "Service workers enable caching and offline functionality. They power PWAs.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 118,
+    "question": "What is web accessibility?",
+    "options": [
+      "Making websites fast",
+      "Making websites usable for people with disabilities",
+      "Encrypting data",
+      "Database optimization"
+    ],
+    "correct": 1,
+    "explanation": "Accessibility ensures inclusivity. It includes screen reader support.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 119,
+    "question": "What is ARIA?",
+    "options": [
+      "Accessible Rich Internet Applications",
+      "Advanced Resource Integration API",
+      "Application Routing Interface",
+      "Automatic Rendering Internet API"
+    ],
+    "correct": 0,
+    "explanation": "ARIA improves accessibility for dynamic content. It helps assistive technologies.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 120,
+    "question": "What is semantic HTML benefit?",
+    "options": [
+      "Faster CSS",
+      "Better accessibility and SEO",
+      "Smaller database",
+      "Faster server"
+    ],
+    "correct": 1,
+    "explanation": "Semantic HTML improves search engine understanding. It enhances accessibility.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 121,
+    "question": "What is web performance optimization?",
+    "options": [
+      "Slowing pages",
+      "Improving load speed and responsiveness",
+      "Adding images",
+      "Deleting CSS"
+    ],
+    "correct": 1,
+    "explanation": "Optimization improves user experience. It reduces bounce rates.",
+    "difficulty": "Medium",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 122,
+    "question": "What is critical rendering path?",
+    "options": [
+      "Path to database",
+      "Steps browser takes to render page",
+      "CSS layout path",
+      "API request path"
+    ],
+    "correct": 1,
+    "explanation": "Optimizing rendering path improves performance. It reduces load time.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 123,
+    "question": "What is code splitting?",
+    "options": [
+      "Combining files",
+      "Loading code in chunks",
+      "Deleting code",
+      "Encrypting code"
+    ],
+    "correct": 1,
+    "explanation": "Code splitting loads only required code. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 124,
+    "question": "What is tree shaking?",
+    "options": [
+      "Deleting files",
+      "Removing unused code",
+      "Compressing images",
+      "Encrypting code"
+    ],
+    "correct": 1,
+    "explanation": "Tree shaking eliminates dead code. It reduces bundle size.",
+    "difficulty": "Hard",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 125,
+    "question": "What is HTTP/2 advantage?",
+    "options": [
+      "Slower speed",
+      "Multiplexing multiple requests",
+      "No encryption",
+      "No headers"
+    ],
+    "correct": 1,
+    "explanation": "HTTP/2 allows multiple requests over one connection. It improves performance.",
+    "difficulty": "Medium",
+    "topic": "HTML"
+  },
+  {
+    "id": 126,
+    "question": "What is HTTP/3 based on?",
+    "options": [
+      "TCP",
+      "UDP (QUIC)",
+      "FTP",
+      "SMTP"
+    ],
+    "correct": 1,
+    "explanation": "HTTP/3 uses QUIC over UDP. It reduces latency.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 127,
+    "question": "What is a reverse proxy server?",
+    "options": [
+      "Client proxy",
+      "Server receiving client requests and forwarding to backend",
+      "Database",
+      "CSS engine"
+    ],
+    "correct": 1,
+    "explanation": "Reverse proxies improve security and load balancing. Example: Nginx.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 128,
+    "question": "What is edge computing in web development?",
+    "options": [
+      "Computing at central server",
+      "Processing data near users",
+      "Database replication",
+      "CSS rendering"
+    ],
+    "correct": 1,
+    "explanation": "Edge computing reduces latency. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 129,
+    "question": "What is Jamstack?",
+    "options": [
+      "Java, SQL, Stack",
+      "JavaScript, APIs, Markup",
+      "JSON, API, Storage",
+      "JavaScript, Angular, MongoDB"
+    ],
+    "correct": 1,
+    "explanation": "Jamstack builds fast static sites using APIs. It improves scalability.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 130,
+    "question": "What is headless CMS?",
+    "options": [
+      "CMS without database",
+      "CMS providing content via APIs",
+      "CMS without UI",
+      "Static CMS"
+    ],
+    "correct": 1,
+    "explanation": "Headless CMS separates content from presentation. It supports multiple platforms.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 131,
+    "question": "What is GraphQL?",
+    "options": [
+      "Database",
+      "Query language for APIs",
+      "CSS framework",
+      "Web server"
+    ],
+    "correct": 1,
+    "explanation": "GraphQL allows clients to request specific data. It reduces over-fetching.",
+    "difficulty": "Hard",
+    "topic": "Backend & APIs"
+  },
+  {
+    "id": 132,
+    "question": "What is rate limiting purpose?",
+    "options": [
+      "Increase traffic",
+      "Prevent abuse",
+      "Encrypt requests",
+      "Delete requests"
+    ],
+    "correct": 1,
+    "explanation": "Rate limiting protects servers. It prevents excessive requests.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 133,
+    "question": "What is CSRF token used for?",
+    "options": [
+      "Styling",
+      "Preventing CSRF attacks",
+      "Encrypting passwords",
+      "Database access"
+    ],
+    "correct": 1,
+    "explanation": "CSRF tokens verify legitimate requests. They protect users.",
+    "difficulty": "Hard",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 134,
+    "question": "What is password hashing?",
+    "options": [
+      "Encrypting passwords",
+      "Converting passwords into fixed hash",
+      "Storing plain text",
+      "Deleting passwords"
+    ],
+    "correct": 1,
+    "explanation": "Hashing protects passwords. Even if breached, originals are hidden.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 135,
+    "question": "What is salting in hashing?",
+    "options": [
+      "Removing hash",
+      "Adding random data before hashing",
+      "Encrypting database",
+      "Compressing password"
+    ],
+    "correct": 1,
+    "explanation": "Salting prevents rainbow table attacks. It improves security.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 136,
+    "question": "What is OAuth?",
+    "options": [
+      "Database protocol",
+      "Authorization framework",
+      "CSS tool",
+      "Web server"
+    ],
+    "correct": 1,
+    "explanation": "OAuth allows third-party login. It provides secure authorization.",
+    "difficulty": "Easy",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 137,
+    "question": "What is SSO?",
+    "options": [
+      "Single Sign-On",
+      "Secure Server Operation",
+      "Static Site Optimization",
+      "Session Storage Option"
+    ],
+    "correct": 0,
+    "explanation": "SSO allows one login for multiple services. It improves user experience.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 138,
+    "question": "What is CAPTCHA used for?",
+    "options": [
+      "Speed testing",
+      "Distinguishing humans from bots",
+      "Encrypting data",
+      "Database validation"
+    ],
+    "correct": 1,
+    "explanation": "CAPTCHA prevents automated abuse. It improves security.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 139,
+    "question": "What is WebAssembly?",
+    "options": [
+      "CSS framework",
+      "Binary format for high-performance web apps",
+      "Database",
+      "HTML tag"
+    ],
+    "correct": 1,
+    "explanation": "WebAssembly runs code at near-native speed. It supports heavy computations.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 140,
+    "question": "What is a sandbox in web security?",
+    "options": [
+      "Database",
+      "Isolated environment for running code",
+      "CSS tool",
+      "HTML feature"
+    ],
+    "correct": 1,
+    "explanation": "Sandboxing prevents code from affecting system. It improves security.",
+    "difficulty": "Medium",
+    "topic": "Security & DevOps"
+  },
+  {
+    "id": 141,
+    "question": "What is feature detection?",
+    "options": [
+      "Detect browser name",
+      "Detect browser capabilities",
+      "Detect server",
+      "Detect database"
+    ],
+    "correct": 1,
+    "explanation": "Feature detection checks browser support. It ensures compatibility.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 142,
+    "question": "What is progressive enhancement?",
+    "options": [
+      "Building for modern browsers only",
+      "Basic functionality first, enhancements later",
+      "Removing features",
+      "Database optimization"
+    ],
+    "correct": 1,
+    "explanation": "Progressive enhancement ensures accessibility. Advanced features load when supported.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 143,
+    "question": "What is graceful degradation?",
+    "options": [
+      "Removing features",
+      "Ensuring basic functionality on older browsers",
+      "Encrypting data",
+      "Improving performance"
+    ],
+    "correct": 1,
+    "explanation": "Graceful degradation maintains usability. It supports legacy browsers.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 144,
+    "question": "What is browser caching?",
+    "options": [
+      "Deleting files",
+      "Storing resources locally",
+      "Encrypting data",
+      "Compressing images"
+    ],
+    "correct": 1,
+    "explanation": "Browser caching reduces load time. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 145,
+    "question": "What is ETag in HTTP?",
+    "options": [
+      "Encryption key",
+      "Identifier for resource version",
+      "Database ID",
+      "CSS rule"
+    ],
+    "correct": 1,
+    "explanation": "ETags help caching. They detect resource changes.",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "id": 146,
+    "question": "What is a sitemap?",
+    "options": [
+      "CSS file",
+      "List of website pages for search engines",
+      "Database schema",
+      "API list"
+    ],
+    "correct": 1,
+    "explanation": "Sitemaps help search engines index pages. They improve SEO.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 147,
+    "question": "What is robots.txt?",
+    "options": [
+      "CSS file",
+      "File instructing search engine crawlers",
+      "JavaScript file",
+      "Database file"
+    ],
+    "correct": 1,
+    "explanation": "robots.txt controls crawler access. It manages indexing.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 148,
+    "question": "What is canonical URL?",
+    "options": [
+      "Duplicate URL",
+      "Preferred URL for search engines",
+      "CSS link",
+      "API endpoint"
+    ],
+    "correct": 1,
+    "explanation": "Canonical URLs prevent duplicate content issues. They improve SEO.",
+    "difficulty": "Easy",
+    "topic": "Web Concepts"
+  },
+  {
+    "id": 149,
+    "question": "What is Lighthouse tool used for?",
+    "options": [
+      "Database testing",
+      "Web performance auditing",
+      "CSS styling",
+      "API testing"
+    ],
+    "correct": 1,
+    "explanation": "Lighthouse analyzes performance and accessibility. It provides optimization suggestions.",
+    "difficulty": "Medium",
+    "topic": "General Web Dev"
+  },
+  {
+    "id": 150,
+    "question": "What is the goal of modern web development?",
+    "options": [
+      "Increase complexity",
+      "Build fast, secure, and scalable applications",
+      "Remove security",
+      "Avoid user experience"
+    ],
+    "correct": 1,
+    "explanation": "Modern web development focuses on performance, security, and usability. It ensures scalable user-friendly systems.",
+    "difficulty": "Easy",
+    "topic": "General Web Dev"
+  }
+]

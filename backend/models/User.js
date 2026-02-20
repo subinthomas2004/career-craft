@@ -41,7 +41,13 @@ const userSchema = new mongoose.Schema({
         quizzesTaken: { type: Number, default: 0 },
         averageScore: { type: Number, default: 0 },
         resumeScore: { type: Number, default: 0 }
-    }
+    },
+    recentActivities: [{
+        title: { type: String, required: true },
+        activityType: { type: String, required: true }, // 'interview', 'quiz', 'coding', 'resume', 'learning'
+        score: { type: String }, // Optional score or result
+        timestamp: { type: Date, default: Date.now }
+    }]
 });
 
 const User = mongoose.model('User', userSchema);

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Play, Edit3, Grid, ArrowLeft, Dices, Sparkles, Target, Zap, Brain } from 'lucide-react';
+import { Play, Edit3, Grid, ArrowLeft, Dices, Sparkles, Target, Zap, Brain, Clock } from 'lucide-react';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import axios from 'axios';
@@ -140,6 +140,7 @@ const GDTopicSelection = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('Technology & AI');
     const [activeTab, setActiveTab] = useState('manual');
     const [loadingRandom, setLoadingRandom] = useState(false);
+    const [timeLimit, setTimeLimit] = useState<number>(10);
 
     const handleRandomTopic = async () => {
         setLoadingRandom(true);
@@ -166,7 +167,7 @@ const GDTopicSelection = () => {
             toast.error("Please select or enter a topic to proceed.");
             return;
         }
-        navigate('/dashboard/group-discussion/room', { state: { topic: topicToUse } });
+        navigate('/group-discussion/room', { state: { topic: topicToUse, timeLimit } });
     };
 
     return (
@@ -314,6 +315,29 @@ const GDTopicSelection = () => {
                                 </div>
                             </TabsContent>
                         </Tabs>
+                        {/* Time Limit Selection */}
+                        <div className="pt-4 border-t border-border/50">
+                            <label className="text-sm font-medium flex items-center gap-2 mb-3">
+                                <Clock className="w-4 h-4 text-primary" /> Discussion Duration
+                            </label>
+                            <div className="grid grid-cols-6 gap-2">
+                                {[10, 11, 12, 13, 14, 15].map((minutes) => (
+                                    <div
+                                        key={minutes}
+                                        className={cn(
+                                            "cursor-pointer border rounded-xl p-2 text-center transition-all duration-300 hover:scale-[1.05] flex flex-col items-center justify-center gap-0.5",
+                                            timeLimit === minutes
+                                                ? "bg-primary/10 border-primary shadow-md shadow-primary/10 ring-1 ring-primary/50"
+                                                : "bg-background/50 border-border hover:border-primary/30 hover:bg-primary/5"
+                                        )}
+                                        onClick={() => setTimeLimit(minutes)}
+                                    >
+                                        <div className={cn("text-base font-bold", timeLimit === minutes ? "text-primary" : "text-muted-foreground")}>{minutes}</div>
+                                        <div className="text-[9px] text-muted-foreground uppercase">min</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Right Panel: Preview & Action */}
@@ -337,6 +361,9 @@ const GDTopicSelection = () => {
                                             </p>
                                         )}
                                     </div>
+                                    <Badge variant="secondary" className="mt-2 font-mono">
+                                        {timeLimit} Minutes
+                                    </Badge>
                                 </div>
 
                                 <div className="w-full pt-4">

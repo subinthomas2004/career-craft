@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { api } from "@/lib/api";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -53,15 +53,16 @@ const Auth = () => {
         },
       };
 
-      const endpoint = isRegister ? '/auth/register' : '/auth/login';
+      const endpoint = isRegister ? 'http://localhost:5003/api/auth/register' : 'http://localhost:5003/api/auth/login';
 
-      const { data } = await api.post(
+      const { data } = await axios.post(
         endpoint,
         {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-        }
+        },
+        config
       );
 
       if (isRegister) {
@@ -115,12 +116,13 @@ const Auth = () => {
         },
       };
 
-      const { data } = await api.post(
-        '/auth/verify-otp',
+      const { data } = await axios.post(
+        'http://localhost:5003/api/auth/verify-otp',
         {
           email: formData.email,
           otp
-        }
+        },
+        config
       );
 
       // Verification successful, log user in
@@ -155,14 +157,15 @@ const Auth = () => {
         },
       };
 
-      const { data } = await api.post(
-        '/auth/google',
+      const { data } = await axios.post(
+        'http://localhost:5003/api/auth/google',
         {
           name: user.displayName,
           email: user.email,
           googleId: user.uid,
           picture: user.photoURL
-        }
+        },
+        config
       );
 
       // Save backend user info (includes MongoDB _id and JWT)

@@ -1,0 +1,1495 @@
+1. What is Object-Oriented Programming (OOP)?
+
+A. Programming using only functions
+B. Programming based on objects and classes
+C. Programming using databases
+D. Programming using hardware
+
+Answer: B
+Why: OOP organizes programs around objects that contain data and behavior. This approach improves modularity, reuse, and maintainability.
+
+2. Which of the following is a core principle of OOP?
+
+A. Compilation
+B. Encapsulation
+C. Linking
+D. Execution
+
+Answer: B
+Why: Encapsulation binds data and methods within a class. It protects internal state and enforces controlled access.
+
+3. What is a class?
+
+A. Instance of an object
+B. Blueprint for creating objects
+C. A function
+D. A variable
+
+Answer: B
+Why: A class defines attributes and behaviors that its objects will have. It acts as a template for object creation.
+
+4. What is an object?
+
+A. Blueprint
+B. Instance of a class
+C. Function
+D. Operator
+
+Answer: B
+Why: An object is a real-world entity created from a class. It holds actual values for attributes defined in the class.
+
+5. What is encapsulation?
+
+A. Wrapping data and methods together
+B. Hiding functions only
+C. Creating multiple objects
+D. Destroying objects
+
+Answer: A
+Why: Encapsulation combines data and methods into a single unit. It prevents unauthorized access and improves data security.
+
+6. What is inheritance?
+
+A. Copying data
+B. Acquiring properties from another class
+C. Deleting class
+D. Creating variables
+
+Answer: B
+Why: Inheritance allows a class to reuse attributes and methods of another class. It promotes code reuse and hierarchy.
+
+7. What is polymorphism?
+
+A. Multiple classes
+B. One interface, multiple implementations
+C. Single object
+D. Data hiding
+
+Answer: B
+Why: Polymorphism allows the same method to behave differently depending on context. It enhances flexibility and extensibility.
+
+8. What is abstraction?
+
+A. Showing all details
+B. Hiding implementation details
+C. Deleting data
+D. Copying objects
+
+Answer: B
+Why: Abstraction exposes only essential features while hiding complexity. It simplifies interaction with objects.
+
+9. Which access modifier restricts access to the same class only?
+
+A. Public
+B. Protected
+C. Private
+D. Default
+
+Answer: C
+Why: Private members are accessible only within the defining class. This ensures strict data hiding.
+
+10. Which access modifier allows access everywhere?
+
+A. Private
+B. Protected
+C. Public
+D. Default
+
+Answer: C
+Why: Public members can be accessed from any part of the program. They define the class’s external interface.
+
+11. What is method overloading?
+
+A. Multiple methods with same name but different parameters
+B. Overwriting methods
+C. Deleting methods
+D. Creating new classes
+
+Answer: A
+Why: Method overloading allows methods to share the same name but differ in parameters. It improves readability and flexibility.
+
+12. What is method overriding?
+
+A. Same method name in same class
+B. Redefining parent class method in child class
+C. Deleting parent method
+D. Creating new method
+
+Answer: B
+Why: Overriding allows a subclass to provide its own implementation. It supports runtime polymorphism.
+
+13. Which concept supports code reuse?
+
+A. Abstraction
+B. Inheritance
+C. Encapsulation
+D. Polymorphism
+
+Answer: B
+Why: Inheritance allows new classes to reuse existing code. This reduces redundancy and improves maintainability.
+
+14. What is a constructor?
+
+A. Special method to initialize objects
+B. Method to destroy objects
+C. Function outside class
+D. Variable declaration
+
+Answer: A
+Why: Constructors initialize object state when created. They ensure objects start in a valid state.
+
+15. What is a destructor?
+
+A. Method to initialize objects
+B. Method to destroy objects
+C. Method to copy objects
+D. Method to override
+
+Answer: B
+Why: Destructors release resources when an object is destroyed. They prevent memory leaks.
+
+16. What is dynamic binding?
+
+A. Binding at compile time
+B. Binding at runtime
+C. Binding variables
+D. Binding memory
+
+Answer: B
+Why: Dynamic binding resolves method calls at runtime. It enables runtime polymorphism.
+
+17. What is static binding?
+
+A. Binding at runtime
+B. Binding at compile time
+C. Binding memory
+D. Binding objects
+
+Answer: B
+Why: Static binding resolves method calls during compilation. It improves performance but reduces flexibility.
+
+18. What is an abstract class?
+
+A. Class with only variables
+B. Class that cannot be instantiated
+C. Class without methods
+D. Class without inheritance
+
+Answer: B
+Why: Abstract classes define common behavior but cannot create objects. They are meant to be extended.
+
+19. What is an interface?
+
+A. Class with implementation
+B. Collection of abstract methods
+C. Variable collection
+D. Constructor collection
+
+Answer: B
+Why: Interfaces define method signatures without implementation. They enable multiple inheritance of behavior.
+
+20. Which concept allows multiple inheritance in Java?
+
+A. Classes
+B. Interfaces
+C. Constructors
+D. Objects
+
+Answer: B
+Why: Java supports multiple inheritance through interfaces. Classes can implement multiple interfaces.
+
+21. What is a base class?
+
+A. Child class
+B. Parent class
+C. Interface
+D. Object
+
+Answer: B
+Why: A base class provides properties and methods to derived classes. It supports inheritance.
+
+22. What is a derived class?
+
+A. Parent class
+B. Child class
+C. Interface
+D. Abstract class
+
+Answer: B
+Why: A derived class inherits from a base class. It can extend or modify behavior.
+
+23. What is object composition?
+
+A. Inheritance
+B. Object containing other objects
+C. Method overriding
+D. Data hiding
+
+Answer: B
+Why: Composition builds complex objects using simpler objects. It promotes flexibility over inheritance.
+
+24. What is aggregation?
+
+A. Strong ownership
+B. Weak relationship between objects
+C. Inheritance
+D. Method overloading
+
+Answer: B
+Why: Aggregation represents a "has-a" relationship. Objects can exist independently.
+
+25. What is association?
+
+A. Strong ownership
+B. Relationship between objects
+C. Inheritance
+D. Encapsulation
+
+Answer: B
+Why: Association defines how objects relate to each other. It can be one-to-one or one-to-many.
+
+26. What is cohesion?
+
+A. Degree of class independence
+B. Degree to which elements belong together
+C. Coupling measure
+D. Data hiding
+
+Answer: B
+Why: High cohesion means class elements are closely related. It improves maintainability.
+
+27. What is coupling?
+
+A. Degree of independence between classes
+B. Degree of dependence between classes
+C. Data hiding
+D. Encapsulation
+
+Answer: B
+Why: Coupling measures interdependence between modules. Low coupling improves flexibility.
+
+28. What is a virtual function (C++)?
+
+A. Function without body
+B. Function overridden in derived class
+C. Static function
+D. Constructor
+
+Answer: B
+Why: Virtual functions enable runtime polymorphism. They allow dynamic binding.
+
+29. What is a pure virtual function?
+
+A. Function with body
+B. Function without implementation in base class
+C. Static function
+D. Constructor
+
+Answer: B
+Why: Pure virtual functions define interfaces in abstract classes. Derived classes must implement them.
+
+30. What is method hiding?
+
+A. Overriding
+B. Child class defining method with same name
+C. Encapsulation
+D. Abstraction
+
+Answer: B
+Why: Method hiding occurs when a subclass defines a method with the same name. It hides the parent method.
+
+31. What is late binding?
+
+A. Compile-time binding
+B. Runtime binding
+C. Static binding
+D. Early binding
+
+Answer: B
+Why: Late binding resolves method calls during execution. It enables polymorphism.
+
+32. What is early binding?
+
+A. Runtime binding
+B. Compile-time binding
+C. Dynamic binding
+D. Late binding
+
+Answer: B
+Why: Early binding occurs at compile time. It is faster but less flexible.
+
+33. What is a friend function (C++)?
+
+A. Public function
+B. Function accessing private members
+C. Constructor
+D. Static method
+
+Answer: B
+Why: Friend functions can access private data of a class. They are declared using the friend keyword.
+
+34. What is a static member?
+
+A. Belongs to object
+B. Belongs to class
+C. Local variable
+D. Constructor
+
+Answer: B
+Why: Static members are shared by all objects. They belong to the class rather than instances.
+
+35. What is a singleton class?
+
+A. Class with many objects
+B. Class allowing only one object
+C. Abstract class
+D. Interface
+
+Answer: B
+Why: Singleton restricts instantiation to one object. It ensures a single shared instance.
+
+36. What is the "this" keyword?
+
+A. Refers to parent class
+B. Refers to current object
+C. Refers to static member
+D. Refers to constructor
+
+Answer: B
+Why: this refers to the current instance of the class. It distinguishes instance variables from parameters.
+
+37. What is super keyword (Java)?
+
+A. Refers to current class
+B. Refers to parent class
+C. Refers to interface
+D. Refers to object
+
+Answer: B
+Why: super accesses parent class members. It is used in inheritance.
+
+38. What is operator overloading?
+
+A. Redefining operators for objects
+B. Deleting operators
+C. Creating operators
+D. Hiding operators
+
+Answer: A
+Why: Operator overloading allows operators to work with user-defined types. It improves readability.
+
+39. What is multiple inheritance?
+
+A. One parent class
+B. Inheriting from multiple classes
+C. No inheritance
+D. Single class
+
+Answer: B
+Why: Multiple inheritance allows a class to inherit from multiple parents. Some languages support it directly.
+
+40. What is hierarchical inheritance?
+
+A. Multiple parents
+B. Multiple child classes from one parent
+C. Single child
+D. No inheritance
+
+Answer: B
+Why: Hierarchical inheritance allows one base class to have multiple derived classes. It promotes reuse.
+
+41. What is multilevel inheritance?
+
+A. One parent multiple children
+B. Chain of inheritance
+C. Multiple parents
+D. No inheritance
+
+Answer: B
+Why: Multilevel inheritance forms a chain of classes. Each class derives from the previous one.
+
+42. What is hybrid inheritance?
+
+A. Single inheritance
+B. Combination of multiple inheritance types
+C. No inheritance
+D. Interface only
+
+Answer: B
+Why: Hybrid inheritance combines multiple inheritance forms. It supports complex relationships.
+
+43. What is object slicing (C++)?
+
+A. Cutting objects
+B. Losing derived class data when assigned to base object
+C. Copying objects
+D. Deleting objects
+
+Answer: B
+Why: Object slicing occurs when derived objects are assigned to base objects. Derived-specific data is lost.
+
+44. What is a copy constructor?
+
+A. Initializes object
+B. Creates object from another object
+C. Deletes object
+D. Static method
+
+Answer: B
+Why: Copy constructors create new objects as copies of existing ones. They ensure proper duplication.
+
+45. What is deep copy?
+
+A. Copying references
+B. Copying actual data
+C. Shallow copy
+D. Memory deletion
+
+Answer: B
+Why: Deep copy duplicates the actual data. It prevents shared references.
+
+46. What is shallow copy?
+
+A. Copying actual data
+B. Copying references only
+C. Deep copy
+D. Memory allocation
+
+Answer: B
+Why: Shallow copy copies references, not actual data. Changes affect both objects.
+
+47. What is polymorphic variable?
+
+A. Variable holding multiple types
+B. Variable holding one type
+C. Static variable
+D. Local variable
+
+Answer: A
+Why: Polymorphic variables can refer to different object types. They enable dynamic behavior.
+
+48. What is object lifecycle?
+
+A. Object creation to destruction
+B. Only creation
+C. Only destruction
+D. Memory allocation
+
+Answer: A
+Why: Object lifecycle includes creation, usage, and destruction. Proper management prevents resource leaks.
+
+49. What is dependency injection?
+
+A. Creating objects internally
+B. Providing dependencies externally
+C. Inheritance
+D. Encapsulation
+
+Answer: B
+Why: Dependency injection supplies required objects from outside. It improves modularity and testing.
+
+50. What is SOLID in OOP?
+
+A. Programming language
+B. Design principles for maintainable code
+C. Database rules
+D. Networking protocol
+
+Answer: B
+Why: SOLID principles guide object-oriented design. They improve scalability, maintainability, and flexibility.          51. What does the Single Responsibility Principle state?
+
+A. A class should have multiple responsibilities
+B. A class should have only one reason to change
+C. A class should handle all logic
+D. A class should be abstract
+
+Answer: B
+Why: The Single Responsibility Principle states that a class should perform only one function. This reduces complexity and improves maintainability.
+
+52. What is the Open/Closed Principle?
+
+A. Classes should be open for modification
+B. Classes should be closed for extension
+C. Classes should be open for extension but closed for modification
+D. Classes should be private
+
+Answer: C
+Why: This principle encourages extending behavior without altering existing code. It helps prevent bugs in stable code.
+
+53. What is the Liskov Substitution Principle?
+
+A. Subclasses cannot replace base classes
+B. Subclasses should be replaceable for their base classes
+C. Base classes replace subclasses
+D. Classes should not inherit
+
+Answer: B
+Why: Subclasses must behave in ways expected of the base class. Violations lead to unpredictable behavior.
+
+54. What is the Interface Segregation Principle?
+
+A. One large interface is better
+B. Clients should not depend on unused methods
+C. Interfaces should be private
+D. Interfaces should contain variables only
+
+Answer: B
+Why: Small, specific interfaces prevent unnecessary dependencies. This improves modularity.
+
+55. What is the Dependency Inversion Principle?
+
+A. High-level modules depend on low-level modules
+B. Both depend on abstractions
+C. Low-level modules depend on high-level modules
+D. Modules should be tightly coupled
+
+Answer: B
+Why: Both high- and low-level modules depend on abstractions. This reduces coupling and increases flexibility.
+
+56. What is tight coupling?
+
+A. Modules independent
+B. Modules highly dependent on each other
+C. No dependencies
+D. Loose relationships
+
+Answer: B
+Why: Tight coupling makes code harder to maintain. Changes in one module affect others.
+
+57. What is loose coupling?
+
+A. Modules dependent
+B. Modules independent
+C. No classes
+D. No interfaces
+
+Answer: B
+Why: Loose coupling minimizes dependencies between modules. It improves flexibility and maintainability.
+
+58. What is a design pattern?
+
+A. Code error
+B. Reusable solution to common problem
+C. Programming language
+D. Hardware model
+
+Answer: B
+Why: Design patterns provide proven solutions to recurring problems. They improve code quality and communication.
+
+59. Which pattern ensures only one instance exists?
+
+A. Factory
+B. Singleton
+C. Observer
+D. Strategy
+
+Answer: B
+Why: Singleton restricts class instantiation to one object. It ensures controlled access to shared resources.
+
+60. Which pattern creates objects without exposing instantiation logic?
+
+A. Singleton
+B. Factory
+C. Observer
+D. Adapter
+
+Answer: B
+Why: Factory pattern delegates object creation to a method. It promotes flexibility and decoupling.
+
+61. What is the Observer pattern used for?
+
+A. Creating objects
+B. Notifying dependent objects of state changes
+C. Encrypting data
+D. Memory allocation
+
+Answer: B
+Why: Observer pattern establishes a one-to-many relationship. Observers update automatically when the subject changes.
+
+62. What is the Strategy pattern?
+
+A. Encapsulating algorithms
+B. Managing memory
+C. Handling exceptions
+D. Creating objects
+
+Answer: A
+Why: Strategy pattern allows selecting algorithms at runtime. It promotes flexibility.
+
+63. What is the Adapter pattern?
+
+A. Changing interface compatibility
+B. Creating objects
+C. Managing threads
+D. Handling exceptions
+
+Answer: A
+Why: Adapter converts one interface into another. It enables incompatible classes to work together.
+
+64. What is the Decorator pattern?
+
+A. Removing features
+B. Adding behavior dynamically
+C. Deleting objects
+D. Managing memory
+
+Answer: B
+Why: Decorator adds new functionality without modifying the original class. It supports open/closed principle.
+
+65. What is composition over inheritance?
+
+A. Always use inheritance
+B. Prefer using objects within objects
+C. Avoid classes
+D. Use only interfaces
+
+Answer: B
+Why: Composition provides flexibility and avoids rigid hierarchies. It promotes reuse.
+
+66. What is a sealed class?
+
+A. Class that cannot be inherited
+B. Class without methods
+C. Class without variables
+D. Abstract class
+
+Answer: A
+Why: Sealed classes prevent inheritance. They control class hierarchy.
+
+67. What is a final class (Java)?
+
+A. Cannot be instantiated
+B. Cannot be inherited
+C. Cannot contain methods
+D. Cannot contain variables
+
+Answer: B
+Why: Final classes cannot be extended. This ensures security and immutability.
+
+68. What is immutability?
+
+A. Object can change state
+B. Object cannot change after creation
+C. Object deletion
+D. Object copying
+
+Answer: B
+Why: Immutable objects maintain a constant state. They improve thread safety.
+
+69. What is method chaining?
+
+A. Calling methods in sequence on same object
+B. Overloading methods
+C. Overriding methods
+D. Hiding methods
+
+Answer: A
+Why: Method chaining improves readability. Each method returns the object itself.
+
+70. What is a fluent interface?
+
+A. Interface with many methods
+B. Interface allowing method chaining
+C. Abstract interface
+D. Static interface
+
+Answer: B
+Why: Fluent interfaces use method chaining for readable code. They improve usability.
+
+71. What is object pooling?
+
+A. Creating many objects
+B. Reusing objects to reduce overhead
+C. Deleting objects
+D. Copying objects
+
+Answer: B
+Why: Object pooling reduces creation cost. It improves performance.
+
+72. What is a marker interface?
+
+A. Interface with no methods
+B. Interface with variables
+C. Abstract class
+D. Static interface
+
+Answer: A
+Why: Marker interfaces signal behavior to the compiler or runtime. Example: Serializable.
+
+73. What is reflection?
+
+A. Copying objects
+B. Inspecting classes at runtime
+C. Memory allocation
+D. Encryption
+
+Answer: B
+Why: Reflection allows examining class structure at runtime. It supports dynamic programming.
+
+74. What is dynamic dispatch?
+
+A. Compile-time method call
+B. Runtime method selection
+C. Static binding
+D. Method hiding
+
+Answer: B
+Why: Dynamic dispatch resolves overridden methods at runtime. It enables polymorphism.
+
+75. What is a callback?
+
+A. Function passed as argument
+B. Constructor call
+C. Object copy
+D. Static method
+
+Answer: A
+Why: Callbacks allow functions to be executed later. They enable asynchronous behavior.
+
+76. What is delegation?
+
+A. Inheritance
+B. Passing responsibility to another object
+C. Method overriding
+D. Object deletion
+
+Answer: B
+Why: Delegation allows one object to handle tasks for another. It promotes composition.
+
+77. What is an anonymous class?
+
+A. Class without name
+B. Class without methods
+C. Class without variables
+D. Abstract class
+
+Answer: A
+Why: Anonymous classes are declared without names. They are used for short-lived tasks.
+
+78. What is lambda expression?
+
+A. Named function
+B. Anonymous function
+C. Class definition
+D. Variable
+
+Answer: B
+Why: Lambda expressions define functions inline. They support functional programming.
+
+79. What is a mixin?
+
+A. Base class
+B. Class providing reusable functionality
+C. Interface
+D. Constructor
+
+Answer: B
+Why: Mixins add behavior to classes without inheritance. They promote reuse.
+
+80. What is multiple dispatch?
+
+A. Single method call
+B. Method selection based on multiple object types
+C. Static binding
+D. Overloading
+
+Answer: B
+Why: Multiple dispatch selects methods based on runtime types. It extends polymorphism.
+
+81. What is covariance?
+
+A. Return type change in overridden method
+B. Parameter change
+C. Variable change
+D. Class change
+
+Answer: A
+Why: Covariance allows more specific return types. It improves flexibility.
+
+82. What is contravariance?
+
+A. Return type change
+B. Parameter type generalization
+C. Variable deletion
+D. Method hiding
+
+Answer: B
+Why: Contravariance allows broader parameter types. It supports polymorphism.
+
+83. What is object serialization?
+
+A. Deleting objects
+B. Converting object to byte stream
+C. Copying objects
+D. Encrypting objects
+
+Answer: B
+Why: Serialization converts objects into storable format. It enables persistence and transmission.
+
+84. What is deserialization?
+
+A. Deleting object
+B. Converting byte stream back to object
+C. Encrypting data
+D. Copying data
+
+Answer: B
+Why: Deserialization restores objects from stored data. It reconstructs original state.
+
+85. What is dependency injection benefit?
+
+A. Tight coupling
+B. Loose coupling and testability
+C. Memory leak
+D. Slower performance
+
+Answer: B
+Why: Dependency injection decouples classes. It improves testability and flexibility.
+
+86. What is inversion of control?
+
+A. Class controlling dependencies
+B. Framework controlling object flow
+C. Static binding
+D. Memory allocation
+
+Answer: B
+Why: IoC shifts control from application to framework. It improves modular design.
+
+87. What is a service locator pattern?
+
+A. Finds services globally
+B. Creates objects
+C. Deletes objects
+D. Hides classes
+
+Answer: A
+Why: Service locator provides global access to services. It centralizes dependency retrieval.
+
+88. What is an anti-pattern?
+
+A. Good design
+B. Poor solution to common problem
+C. Design pattern
+D. Programming language
+
+Answer: B
+Why: Anti-patterns represent ineffective practices. Avoiding them improves code quality.
+
+89. What is code smell?
+
+A. Compilation error
+B. Indicator of poor design
+C. Runtime error
+D. Syntax error
+
+Answer: B
+Why: Code smells suggest potential problems. Refactoring improves maintainability.
+
+90. What is refactoring?
+
+A. Rewriting code without changing behavior
+B. Deleting code
+C. Adding features
+D. Debugging only
+
+Answer: A
+Why: Refactoring improves code structure. It enhances readability and maintainability.
+
+91. What is method extraction?
+
+A. Combining methods
+B. Splitting method into smaller methods
+C. Deleting methods
+D. Overriding methods
+
+Answer: B
+Why: Method extraction improves readability. It reduces complexity.
+
+92. What is cohesion vs coupling goal?
+
+A. Low cohesion, high coupling
+B. High cohesion, low coupling
+C. High coupling, low cohesion
+D. No cohesion
+
+Answer: B
+Why: High cohesion and low coupling improve maintainability. They create modular systems.
+
+93. What is class responsibility?
+
+A. Tasks performed by class
+B. Variables
+C. Methods only
+D. Constructors
+
+Answer: A
+Why: Responsibilities define class behavior. Clear responsibilities improve design.
+
+94. What is domain model?
+
+A. Database schema
+B. Representation of real-world concepts
+C. UI model
+D. Network model
+
+Answer: B
+Why: Domain models represent real-world entities. They guide system design.
+
+95. What is a value object?
+
+A. Object with identity
+B. Object defined by its values
+C. Static object
+D. Abstract object
+
+Answer: B
+Why: Value objects are equal based on data. They are immutable.
+
+96. What is an entity object?
+
+A. Object without identity
+B. Object with unique identity
+C. Static object
+D. Interface
+
+Answer: B
+Why: Entity objects have unique identifiers. They represent persistent data.
+
+97. What is lazy initialization?
+
+A. Immediate object creation
+B. Creating object when needed
+C. Deleting object early
+D. Copying object
+
+Answer: B
+Why: Lazy initialization improves performance. Objects are created only when required.
+
+98. What is eager initialization?
+
+A. Creating object when needed
+B. Creating object immediately
+C. Delaying object creation
+D. Copying object
+
+Answer: B
+Why: Eager initialization creates objects at startup. It ensures availability but uses memory.
+
+99. What is thread safety in OOP?
+
+A. Single-thread execution
+B. Safe object access in multithreading
+C. Memory leak prevention
+D. Data hiding
+
+Answer: B
+Why: Thread-safe objects work correctly in concurrent environments. Synchronization ensures consistency.
+
+100. What is a reentrant method?
+
+A. Method called once
+B. Method safe to call concurrently
+C. Static method
+D. Constructor
+
+Answer: B
+Why: Reentrant methods can be executed by multiple threads simultaneously. They do not modify shared state. 101. What is a class diagram in UML?
+
+A. Diagram showing network structure
+B. Diagram representing classes and relationships
+C. Diagram showing program flow
+D. Database schema
+
+Answer: B
+Why: Class diagrams model system structure by showing classes, attributes, methods, and relationships. They are fundamental in OOP design.
+
+102. What is an object diagram?
+
+A. Shows object instances at runtime
+B. Shows class structure
+C. Shows database tables
+D. Shows network topology
+
+Answer: A
+Why: Object diagrams represent actual instances of classes at a given time. They help visualize runtime behavior.
+
+103. What is UML?
+
+A. Unified Modeling Language
+B. Universal Machine Language
+C. User Model Language
+D. Unified Machine Logic
+
+Answer: A
+Why: UML is a standardized modeling language for designing software systems. It supports visualization of OOP concepts.
+
+104. What is aggregation in UML represented by?
+
+A. Filled diamond
+B. Hollow diamond
+C. Arrow
+D. Circle
+
+Answer: B
+Why: Aggregation is shown using a hollow diamond. It indicates a weak “has-a” relationship.
+
+105. What does a filled diamond represent in UML?
+
+A. Association
+B. Composition
+C. Inheritance
+D. Dependency
+
+Answer: B
+Why: Composition uses a filled diamond. It represents strong ownership where the child cannot exist independently.
+
+106. What is association multiplicity?
+
+A. Number of classes
+B. Number of instances in a relationship
+C. Number of methods
+D. Number of variables
+
+Answer: B
+Why: Multiplicity defines how many objects participate in a relationship. Example: one-to-many.
+
+107. What is dependency in UML?
+
+A. Strong ownership
+B. Weak relationship where one class uses another
+C. Inheritance
+D. Composition
+
+Answer: B
+Why: Dependency indicates that a class relies on another temporarily. It is represented by a dashed arrow.
+
+108. What is encapsulation benefit?
+
+A. Increased coupling
+B. Data protection and modularity
+C. Slower performance
+D. Increased complexity
+
+Answer: B
+Why: Encapsulation hides internal data. It improves security and modular design.
+
+109. What is polymorphism advantage?
+
+A. Code duplication
+B. Flexibility and extensibility
+C. Increased coupling
+D. Reduced readability
+
+Answer: B
+Why: Polymorphism allows the same interface to support multiple behaviors. It simplifies code maintenance.
+
+110. What is abstraction advantage?
+
+A. Exposes implementation
+B. Reduces complexity
+C. Increases memory usage
+D. Removes classes
+
+Answer: B
+Why: Abstraction hides unnecessary details. It makes systems easier to understand and maintain.
+
+111. What is an interface default method (Java)?
+
+A. Static method
+B. Method with implementation in interface
+C. Abstract method
+D. Constructor
+
+Answer: B
+Why: Default methods allow interfaces to include implementation. They support backward compatibility.
+
+112. What is a functional interface?
+
+A. Interface with many methods
+B. Interface with one abstract method
+C. Interface with variables
+D. Interface without methods
+
+Answer: B
+Why: Functional interfaces contain exactly one abstract method. They are used in lambda expressions.
+
+113. What is multiple inheritance problem called?
+
+A. Diamond problem
+B. Triangle problem
+C. Square problem
+D. Circle problem
+
+Answer: A
+Why: The diamond problem occurs when a class inherits from two classes with a common base. It creates ambiguity.
+
+114. How does Java resolve the diamond problem?
+
+A. Multiple inheritance
+B. Interfaces with default methods
+C. Abstract classes only
+D. Removing inheritance
+
+Answer: B
+Why: Java uses interfaces and explicit method overrides. This avoids ambiguity.
+
+115. What is a mixin used for?
+
+A. Removing methods
+B. Adding reusable behavior
+C. Creating objects
+D. Deleting classes
+
+Answer: B
+Why: Mixins provide reusable functionality. They enhance composition.
+
+116. What is the builder pattern used for?
+
+A. Simplifying object creation
+B. Deleting objects
+C. Managing memory
+D. Overriding methods
+
+Answer: A
+Why: Builder pattern constructs complex objects step-by-step. It improves readability and flexibility.
+
+117. What is the prototype pattern?
+
+A. Creating objects using cloning
+B. Creating objects using constructor
+C. Deleting objects
+D. Managing memory
+
+Answer: A
+Why: Prototype pattern creates objects by copying existing ones. It avoids costly creation.
+
+118. What is the facade pattern?
+
+A. Complex interface
+B. Simplified interface to complex system
+C. Multiple inheritance
+D. Data hiding
+
+Answer: B
+Why: Facade provides a simple interface. It hides subsystem complexity.
+
+119. What is the command pattern?
+
+A. Encapsulating requests as objects
+B. Creating objects
+C. Managing memory
+D. Handling exceptions
+
+Answer: A
+Why: Command pattern encapsulates actions as objects. It enables undo/redo functionality.
+
+120. What is the mediator pattern?
+
+A. Direct object communication
+B. Central object managing communication
+C. Inheritance
+D. Encapsulation
+
+Answer: B
+Why: Mediator reduces direct dependencies between objects. It centralizes communication.
+
+121. What is the template method pattern?
+
+A. Defining algorithm structure in base class
+B. Creating objects
+C. Managing memory
+D. Handling exceptions
+
+Answer: A
+Why: Template method defines algorithm steps. Subclasses implement specific steps.
+
+122. What is the state pattern?
+
+A. Changing object behavior based on state
+B. Managing memory
+C. Creating objects
+D. Hiding methods
+
+Answer: A
+Why: State pattern allows objects to change behavior dynamically. It simplifies conditional logic.
+
+123. What is the chain of responsibility pattern?
+
+A. Passing request along handlers
+B. Creating objects
+C. Managing memory
+D. Overriding methods
+
+Answer: A
+Why: Requests pass through a chain of handlers. Each handler decides whether to process.
+
+124. What is the visitor pattern?
+
+A. Adding operations without modifying classes
+B. Creating objects
+C. Managing memory
+D. Handling exceptions
+
+Answer: A
+Why: Visitor allows adding new operations. It follows open/closed principle.
+
+125. What is a data transfer object (DTO)?
+
+A. Object transferring data between layers
+B. Database table
+C. Interface
+D. Abstract class
+
+Answer: A
+Why: DTOs carry data across system layers. They reduce method calls.
+
+126. What is lazy loading?
+
+A. Loading all data at startup
+B. Loading data only when needed
+C. Deleting data
+D. Copying data
+
+Answer: B
+Why: Lazy loading improves performance. Data loads only when required.
+
+127. What is eager loading?
+
+A. Loading data on demand
+B. Loading data immediately
+C. Deleting data
+D. Copying data
+
+Answer: B
+Why: Eager loading fetches data upfront. It avoids repeated queries.
+
+128. What is an immutable class benefit?
+
+A. Easy modification
+B. Thread safety
+C. High coupling
+D. Memory leaks
+
+Answer: B
+Why: Immutable classes cannot change state. They are inherently thread-safe.
+
+129. What is a mutable object?
+
+A. Cannot change state
+B. Can change state after creation
+C. Static object
+D. Abstract object
+
+Answer: B
+Why: Mutable objects allow state changes. They require careful synchronization.
+
+130. What is a record class (modern languages)?
+
+A. Mutable class
+B. Class for immutable data
+C. Abstract class
+D. Interface
+
+Answer: B
+Why: Record classes store immutable data. They reduce boilerplate code.
+
+131. What is pattern matching in OOP?
+
+A. Matching strings
+B. Checking object types and structure
+C. Encryption
+D. Memory allocation
+
+Answer: B
+Why: Pattern matching simplifies type checking. It improves readability.
+
+132. What is object identity?
+
+A. Object value
+B. Unique reference to object
+C. Object method
+D. Object variable
+
+Answer: B
+Why: Object identity distinguishes instances. Even identical values may have different identities.
+
+133. What is equality vs identity?
+
+A. Same concept
+B. Equality compares values, identity compares references
+C. Identity compares values
+D. Equality compares references
+
+Answer: B
+Why: Equality checks data equivalence. Identity checks if objects are the same instance.
+
+134. What is deep immutability?
+
+A. Immutable reference only
+B. Object and nested objects immutable
+C. Mutable object
+D. Static object
+
+Answer: B
+Why: Deep immutability ensures entire object graph cannot change. It improves reliability.
+
+135. What is object cloning?
+
+A. Deleting object
+B. Creating duplicate object
+C. Hiding object
+D. Encrypting object
+
+Answer: B
+Why: Cloning creates a copy of an object. It can be shallow or deep.
+
+136. What is a class invariant?
+
+A. Variable value
+B. Condition that remains true for class
+C. Method override
+D. Constructor
+
+Answer: B
+Why: Class invariants define valid object states. They ensure consistency.
+
+137. What is defensive programming in OOP?
+
+A. Ignoring errors
+B. Writing code to handle unexpected inputs
+C. Deleting exceptions
+D. Static binding
+
+Answer: B
+Why: Defensive programming anticipates errors. It improves robustness.
+
+138. What is exception handling role in OOP?
+
+A. Prevent errors
+B. Manage runtime errors gracefully
+C. Compile code
+D. Allocate memory
+
+Answer: B
+Why: Exception handling prevents program crashes. It ensures controlled error management.
+
+139. What is custom exception?
+
+A. Built-in exception
+B. User-defined exception class
+C. Syntax error
+D. Runtime error
+
+Answer: B
+Why: Custom exceptions represent specific errors. They improve clarity.
+
+140. What is fail-fast principle?
+
+A. Ignore errors
+B. Detect errors early
+C. Delay errors
+D. Hide errors
+
+Answer: B
+Why: Fail-fast detects problems early. It prevents cascading failures.
+
+141. What is contract programming?
+
+A. Legal contract
+B. Defining expectations between methods
+C. Database contract
+D. Network contract
+
+Answer: B
+Why: Contracts define preconditions and postconditions. They ensure correctness.
+
+142. What is a mock object?
+
+A. Real object
+B. Simulated object for testing
+C. Abstract class
+D. Interface
+
+Answer: B
+Why: Mock objects simulate dependencies. They support unit testing.
+
+143. What is test-driven development (TDD)?
+
+A. Writing tests after code
+B. Writing tests before code
+C. No testing
+D. Debugging only
+
+Answer: B
+Why: TDD improves design and reliability. Tests guide implementation.
+
+144. What is SOLID goal?
+
+A. Faster execution
+B. Maintainable and scalable design
+C. Memory optimization
+D. Network performance
+
+Answer: B
+Why: SOLID principles improve code structure. They enhance scalability.
+
+145. What is DRY principle?
+
+A. Repeat code
+B. Don’t Repeat Yourself
+C. Delete Repeated Yield
+D. Data Reuse Yield
+
+Answer: B
+Why: DRY avoids duplication. It improves maintainability.
+
+146. What is YAGNI principle?
+
+A. You Aren’t Gonna Need It
+B. You Always Gain New Ideas
+C. Your Application Gets New Interfaces
+D. Yield All Global Names Immediately
+
+Answer: A
+Why: YAGNI discourages unnecessary features. It keeps design simple.
+
+147. What is KISS principle?
+
+A. Keep It Simple, Stupid
+B. Keep Interface Safe System
+C. Kill Invalid System States
+D. Keep Internal State Secure
+
+Answer: A
+Why: KISS promotes simplicity. Simple systems are easier to maintain.
+
+148. What is Law of Demeter?
+
+A. Classes should know everything
+B. Objects should interact with close friends only
+C. Use global variables
+D. Avoid encapsulation
+
+Answer: B
+Why: This law reduces coupling. Objects interact only with direct dependencies.
+
+149. What is cohesion improvement method?
+
+A. Add unrelated features
+B. Split large classes into focused ones
+C. Increase coupling
+D. Remove methods
+
+Answer: B
+Why: Smaller focused classes improve cohesion. They simplify maintenance.
+
+150. What is the ultimate goal of OOP?
+
+A. Increase complexity
+B. Improve modularity, reuse, and maintainability
+C. Reduce code readability
+D. Eliminate classes
+
+Answer: B
+Why: OOP promotes modular design and reuse. It helps build scalable and maintainable systems.

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import { api } from "@/lib/api";
+import axios from "axios";
 import { cn } from "@/lib/utils";
 import InterviewTimer from "@/components/interview/InterviewTimer";
 import HrTechView from "@/components/interview/HrTechView";
@@ -50,13 +50,14 @@ const MockInterview = () => {
   const [isMicOn, setIsMicOn] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
 
-  // Hook for the new Engine
   const {
     sessionState,
     avatarState,
     currentTranscript,
+    isCodeQuestion,
     startSession,
     submitResponse,
+    submitCode,
     isListening,
     startListening,
     stopListening,
@@ -65,6 +66,7 @@ const MockInterview = () => {
   } = useInterviewSession({
     domain: selectedType === 'hr' ? '' : selectedDomain,
     includeHr: selectedType === 'hr' || selectedType === 'hr-tech',
+    interviewType: selectedType === 'hr-tech' ? 'hr-tech' : 'hr',
     difficulty: 'intermediate' as Difficulty,
     resumeText: resumeText
   });
@@ -96,17 +98,46 @@ const MockInterview = () => {
     toast.success("Interview started! Listen to the introduction.");
   };
 
-  const handleEndInterview = useCallback(() => {
+  const handleEndInterview = useCallback(async () => {
     endSession();
     setIsMicOn(false);
     setIsVideoOn(false);
     setStage("feedback");
-  }, [endSession]);
+
+    // Record Activity
+    try {
+      if (sessionState && sessionState.history.length > 0) {
+        const avgScore = Math.round(sessionState.history.reduce((a, b) => a + b.score, 0) / sessionState.history.length);
+
+        const userInfo = localStorage.getItem("userInfo");
+        if (userInfo) {
+          const { token } = JSON.parse(userInfo);
+          await fetch('http://localhost:5003/api/auth/activity', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              title: `Mock Interview: ${selectedDomain.toUpperCase()}`,
+              activityType: 'interview',
+              score: `${avgScore}%`
+            })
+          });
+        }
+      }
+    } catch (err) {
+      console.error("Failed to record activity", err);
+    }
+  }, [endSession, sessionState, selectedDomain]);
 
   const handleManualSubmit = () => {
     setIsMicOn(false);
     submitResponse();
   };
+
+  // Track previous avatar state to detect "Finish Talking" event
+  const prevAvatarState = useRef(avatarState);
 
   useEffect(() => {
     if (stage === 'interview') {
@@ -115,14 +146,26 @@ const MockInterview = () => {
       if (avatarState === 'talking') {
         if (isMicOn) setIsMicOn(false);
         if (isListening) stopListening();
-        return;
       }
 
-      // 2. If Avatar is IDLE (or listening), respect the Manual Toggle
-      if (isMicOn) {
-        if (!isListening) startListening();
-      } else {
-        stopListening();
+      // 2. AUTO-MIC: Detect transition directly from 'talking' to 'idle'
+      // This means the avatar just finished the question.
+      if (prevAvatarState.current === 'talking' && avatarState === 'idle') {
+        console.log("Avatar finished talking -> Auto-starting Mic");
+        setIsMicOn(true);
+        // Note: The next effect block will pick up isMicOn=true and call startListening()
+      }
+
+      // Update ref
+      prevAvatarState.current = avatarState;
+
+      // 3. If Avatar is IDLE (or listening), respect the Manual Toggle
+      if (avatarState !== 'talking') {
+        if (isMicOn) {
+          if (!isListening) startListening();
+        } else {
+          stopListening();
+        }
       }
     }
   }, [isMicOn, stage, startListening, stopListening, isListening, avatarState]);
@@ -136,9 +179,8 @@ const MockInterview = () => {
 
   const handleCodeSubmit = (code: string, language: string) => {
     setIsMicOn(false);
-    const formattedAnswer = `[Submitted Code - ${language}]\n${code}`;
-    submitResponse(formattedAnswer);
-    toast.success("Code submitted as answer!");
+    submitCode(code, language);
+    toast.success("Code submitted for analysis!");
   };
 
   const calculateScores = () => {
@@ -212,7 +254,7 @@ const MockInterview = () => {
 
                       try {
                         // Removed manual Content-Type header to let axios set it with boundary
-                        const { data } = await api.post("/upload/resume", formData);
+                        const { data } = await axios.post("http://localhost:5003/api/upload/resume", formData);
 
                         if (data.success) {
                           setResumeText(data.text);
@@ -400,7 +442,7 @@ const MockInterview = () => {
                 Question {sessionState.history.length + 1}
               </Badge>
             </div>
-            <InterviewTimer isRunning={true} />
+            <InterviewTimer isRunning={true} maxDurationSeconds={25 * 60} onTimeUp={handleEndInterview} />
           </div>
 
           <div className="flex-1 p-4 lg:p-6 overflow-hidden">
@@ -418,6 +460,7 @@ const MockInterview = () => {
               onManualSubmit={handleManualSubmit}
               onEndInterview={handleEndInterview}
               onCodeSubmit={handleCodeSubmit}
+              isCodeQuestion={isCodeQuestion}
             />
           </div>
         </div>
@@ -441,7 +484,6 @@ const MockInterview = () => {
               sessionState={sessionState}
               avatarState={avatarState}
               hrVideos={hrVideos}
-              techVideos={techVideos}
               isMicOn={isMicOn}
               setIsMicOn={setIsMicOn}
               isVideoOn={isVideoOn}
@@ -450,7 +492,6 @@ const MockInterview = () => {
               currentTranscript={currentTranscript}
               onManualSubmit={handleManualSubmit}
               onEndInterview={handleEndInterview}
-              selectedType={selectedType}
             />
           </div>
         </div>

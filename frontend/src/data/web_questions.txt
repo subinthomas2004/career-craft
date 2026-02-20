@@ -1,0 +1,1495 @@
+1. What does HTML stand for?
+
+A. Hyper Text Markup Language
+B. High Text Machine Language
+C. Hyper Transfer Markup Language
+D. Hyperlink Text Management Language
+
+Answer: A
+Why: HTML structures web content using tags. It defines elements like headings, paragraphs, and links.
+
+2. What is the role of CSS?
+
+A. Structure web pages
+B. Style and layout web pages
+C. Store data
+D. Handle server logic
+
+Answer: B
+Why: CSS controls visual presentation such as colors, fonts, and layout. It separates design from content.
+
+3. Which language is used for client-side scripting?
+
+A. Python
+B. Java
+C. JavaScript
+D. SQL
+
+Answer: C
+Why: JavaScript runs in the browser. It adds interactivity to web pages.
+
+4. What is the purpose of the <head> tag?
+
+A. Display content
+B. Store metadata
+C. Create forms
+D. Add images
+
+Answer: B
+Why: The <head> contains metadata like title, styles, and scripts. It does not display content directly.
+
+5. Which HTML tag creates a hyperlink?
+
+A. <link>
+B. <a>
+C. <href>
+D. <url>
+
+Answer: B
+Why: The <a> tag defines hyperlinks. It uses the href attribute to specify the destination.
+
+6. What is the default position of elements in CSS?
+
+A. Absolute
+B. Relative
+C. Static
+D. Fixed
+
+Answer: C
+Why: Static positioning is the default. Elements follow normal document flow.
+
+7. Which CSS property changes text color?
+
+A. font-color
+B. text-color
+C. color
+D. text-style
+
+Answer: C
+Why: The color property sets text color. It accepts named colors, HEX, RGB, etc.
+
+8. What is the DOM?
+
+A. Document Object Model
+B. Data Object Model
+C. Digital Output Mode
+D. Display Object Method
+
+Answer: A
+Why: DOM represents HTML as a tree structure. JavaScript manipulates it to update content dynamically.
+
+9. Which HTTP method retrieves data?
+
+A. POST
+B. GET
+C. PUT
+D. DELETE
+
+Answer: B
+Why: GET requests fetch data from a server. They do not modify resources.
+
+10. Which HTTP method sends data to server?
+
+A. GET
+B. POST
+C. FETCH
+D. CONNECT
+
+Answer: B
+Why: POST sends data to the server for processing. It is commonly used in forms.
+
+11. What is responsive design?
+
+A. Fast loading pages
+B. Design adapting to different screen sizes
+C. Server-side rendering
+D. Database optimization
+
+Answer: B
+Why: Responsive design ensures websites work on phones, tablets, and desktops. CSS media queries enable this.
+
+12. What is a media query?
+
+A. JavaScript function
+B. CSS feature for responsive design
+C. HTML tag
+D. Database query
+
+Answer: B
+Why: Media queries apply styles based on screen size or device. They enable responsive layouts.
+
+13. Which tag is used for images?
+
+A. <image>
+B. <img>
+C. <src>
+D. <pic>
+
+Answer: B
+Why: The <img> tag embeds images. The src attribute specifies the image source.
+
+14. What is the purpose of JavaScript?
+
+A. Styling pages
+B. Adding interactivity
+C. Storing data
+D. Managing servers
+
+Answer: B
+Why: JavaScript handles dynamic behavior like form validation and animations. It runs in browsers.
+
+15. Which keyword declares a variable in JavaScript?
+
+A. var
+B. int
+C. define
+D. declare
+
+Answer: A
+Why: var, let, and const declare variables. var is function-scoped.
+
+16. What is let in JavaScript?
+
+A. Global variable
+B. Block-scoped variable
+C. Constant variable
+D. Function name
+
+Answer: B
+Why: let is block-scoped. It prevents scope-related bugs.
+
+17. What is const used for?
+
+A. Mutable variable
+B. Constant variable
+C. Function declaration
+D. Loop control
+
+Answer: B
+Why: const declares variables that cannot be reassigned. It improves code safety.
+
+18. What is an event in JavaScript?
+
+A. Error
+B. User interaction or browser action
+C. Variable
+D. Function
+
+Answer: B
+Why: Events include clicks, keypresses, and loads. JavaScript responds using event listeners.
+
+19. What is an API?
+
+A. Application Programming Interface
+B. Advanced Programming Input
+C. Automated Process Integration
+D. Application Process Interface
+
+Answer: A
+Why: APIs allow communication between software systems. Web APIs enable client-server interaction.
+
+20. What is JSON?
+
+A. JavaScript Object Notation
+B. Java Syntax Object Network
+C. JavaScript Output Name
+D. Java Source Object Notation
+
+Answer: A
+Why: JSON is a lightweight data format. It is used for data exchange in web apps.
+
+21. What is AJAX?
+
+A. Asynchronous JavaScript and XML
+B. Automatic Java and XML
+C. Advanced JSON Access
+D. Application Java Access
+
+Answer: A
+Why: AJAX allows asynchronous server communication. It updates pages without reload.
+
+22. What is a framework?
+
+A. Hardware component
+B. Prebuilt structure for development
+C. Database
+D. Programming language
+
+Answer: B
+Why: Frameworks provide reusable code and structure. Examples include React and Angular.
+
+23. What is a library in web development?
+
+A. Programming language
+B. Collection of reusable functions
+C. Database
+D. Server
+
+Answer: B
+Why: Libraries provide reusable code. Developers call them as needed.
+
+24. What is Bootstrap?
+
+A. Database
+B. CSS framework
+C. JavaScript engine
+D. Server
+
+Answer: B
+Why: Bootstrap provides prebuilt CSS components. It speeds up responsive design.
+
+25. What is Node.js?
+
+A. Browser
+B. JavaScript runtime environment
+C. CSS framework
+D. Database
+
+Answer: B
+Why: Node.js runs JavaScript on the server. It enables full-stack JavaScript development.
+
+26. What is npm?
+
+A. Node Package Manager
+B. Network Package Module
+C. New Programming Method
+D. Node Processing Manager
+
+Answer: A
+Why: npm manages JavaScript packages. It installs dependencies.
+
+27. What is REST?
+
+A. Random Execution State Transfer
+B. Representational State Transfer
+C. Remote Execution State Transfer
+D. Rapid Execution Service Transfer
+
+Answer: B
+Why: REST defines web service architecture. It uses HTTP methods.
+
+28. What is a cookie?
+
+A. Server error
+B. Small data stored in browser
+C. Database record
+D. CSS file
+
+Answer: B
+Why: Cookies store session data. They help maintain user state.
+
+29. What is localStorage?
+
+A. Server storage
+B. Browser storage for persistent data
+C. Database
+D. Session memory
+
+Answer: B
+Why: localStorage stores data in the browser. Data persists after closing the tab.
+
+30. What is sessionStorage?
+
+A. Permanent storage
+B. Temporary storage per session
+C. Server storage
+D. Database
+
+Answer: B
+Why: sessionStorage stores data for a single session. It clears when the tab closes.
+
+31. What is SEO?
+
+A. Search Engine Optimization
+B. Server Execution Operation
+C. Site Engine Output
+D. Secure Execution Order
+
+Answer: A
+Why: SEO improves website visibility. It optimizes content for search engines.
+
+32. What is a CDN?
+
+A. Content Delivery Network
+B. Central Data Node
+C. Code Deployment Network
+D. Client Data Network
+
+Answer: A
+Why: CDNs deliver content from nearby servers. They improve performance.
+
+33. What is HTTPS?
+
+A. Secure HTTP
+B. Hyper Transfer Protocol
+C. High Transfer Protocol
+D. Host Transfer Protocol
+
+Answer: A
+Why: HTTPS encrypts data using SSL/TLS. It ensures secure communication.
+
+34. What is CORS?
+
+A. Cross-Origin Resource Sharing
+B. Client-Origin Request Service
+C. Cross Output Rendering System
+D. Core Object Request Service
+
+Answer: A
+Why: CORS allows controlled cross-origin requests. It enhances security.
+
+35. What is a SPA?
+
+A. Single Page Application
+B. Server Page Application
+C. Secure Page Access
+D. Static Page Application
+
+Answer: A
+Why: SPAs load a single page and update dynamically. They improve user experience.
+
+36. What is a progressive web app (PWA)?
+
+A. Desktop app
+B. Web app with native app features
+C. Server app
+D. Database app
+
+Answer: B
+Why: PWAs work offline and can be installed. They combine web and mobile features.
+
+37. What is version control?
+
+A. Code editing
+B. Tracking code changes
+C. Server management
+D. Database storage
+
+Answer: B
+Why: Version control tracks code history. Git is a popular tool.
+
+38. What is Git?
+
+A. Programming language
+B. Version control system
+C. Database
+D. Framework
+
+Answer: B
+Why: Git tracks code changes and collaboration. It enables branching and merging.
+
+39. What is GitHub?
+
+A. Local repository
+B. Remote repository hosting
+C. Database
+D. Framework
+
+Answer: B
+Why: GitHub hosts Git repositories. It supports collaboration.
+
+40. What is deployment?
+
+A. Writing code
+B. Publishing application to server
+C. Debugging code
+D. Designing UI
+
+Answer: B
+Why: Deployment makes apps available to users. It involves servers and hosting.
+
+41. What is web hosting?
+
+A. Writing HTML
+B. Storing website files on server
+C. Designing CSS
+D. Running JavaScript
+
+Answer: B
+Why: Hosting stores website files online. Users access them via domain.
+
+42. What is a domain name?
+
+A. IP address
+B. Human-readable website address
+C. Database
+D. Server
+
+Answer: B
+Why: Domain names map to IP addresses. They make websites easy to access.
+
+43. What is DNS?
+
+A. Domain Name System
+B. Data Network Service
+C. Digital Name Server
+D. Domain Network Security
+
+Answer: A
+Why: DNS translates domain names into IP addresses. It enables web navigation.
+
+44. What is a web server?
+
+A. Browser
+B. Software serving web content
+C. Database
+D. Programming language
+
+Answer: B
+Why: Web servers handle HTTP requests. Examples include Apache and Nginx.
+
+45. What is a browser?
+
+A. Server software
+B. Client software to access websites
+C. Database
+D. Programming language
+
+Answer: B
+Why: Browsers render web pages. Examples include Chrome and Firefox.
+
+46. What is HTML semantic tag?
+
+A. Tag without meaning
+B. Tag describing content meaning
+C. CSS tag
+D. JavaScript tag
+
+Answer: B
+Why: Semantic tags like <article> improve accessibility. They describe content purpose.
+
+47. What is flexbox used for?
+
+A. Database layout
+B. CSS layout system
+C. JavaScript function
+D. HTML tag
+
+Answer: B
+Why: Flexbox aligns and distributes space in layouts. It simplifies responsive design.
+
+48. What is grid in CSS?
+
+A. JavaScript layout
+B. Two-dimensional layout system
+C. Database grid
+D. HTML structure
+
+Answer: B
+Why: CSS Grid handles rows and columns. It enables complex layouts.
+
+49. What is a promise in JavaScript?
+
+A. Variable
+B. Object representing future result
+C. Function
+D. Loop
+
+Answer: B
+Why: Promises handle asynchronous operations. They improve code readability.
+
+50. What is async/await?
+
+A. Loop structure
+B. Syntax for handling asynchronous code
+C. CSS property
+D. HTML tag
+
+Answer: B
+Why: async/await simplifies asynchronous programming. It makes code look synchronous.    51. What is the purpose of the <form> tag in HTML?
+
+A. Display images
+B. Collect user input
+C. Create tables
+D. Add styles
+
+Answer: B
+Why: The <form> tag gathers user input through fields. It sends data to a server for processing.
+
+52. Which attribute specifies where to send form data?
+
+A. method
+B. action
+C. target
+D. name
+
+Answer: B
+Why: The action attribute defines the URL where form data is sent. It connects the frontend to backend processing.
+
+53. Which HTTP method is commonly used for form submission?
+
+A. GET
+B. POST
+C. PUT
+D. PATCH
+
+Answer: B
+Why: POST sends form data securely in the request body. It is used when modifying server data.
+
+54. What is the purpose of the method attribute in forms?
+
+A. Defines CSS style
+B. Specifies HTTP method
+C. Adds JavaScript
+D. Defines layout
+
+Answer: B
+Why: The method attribute determines how data is sent. Common values are GET and POST.
+
+55. What is the difference between GET and POST?
+
+A. GET sends data in body
+B. POST sends data in URL
+C. GET sends data in URL, POST in body
+D. No difference
+
+Answer: C
+Why: GET appends data to URL, making it visible. POST sends data in the request body, improving security.
+
+56. What is a query string?
+
+A. Database query
+B. Data appended to URL
+C. JavaScript function
+D. CSS rule
+
+Answer: B
+Why: Query strings contain key-value pairs in URLs. They are used in GET requests.
+
+57. What is the purpose of <label> tag?
+
+A. Style input
+B. Provide text for input field
+C. Submit form
+D. Add image
+
+Answer: B
+Why: Labels improve accessibility. They associate text with form inputs.
+
+58. What is the <input type="password"> used for?
+
+A. Display text
+B. Hide user input
+C. Show images
+D. Submit form
+
+Answer: B
+Why: Password inputs mask characters. This enhances security.
+
+59. What is client-side validation?
+
+A. Validation on server
+B. Validation in browser
+C. Database validation
+D. Network validation
+
+Answer: B
+Why: Client-side validation checks input before submission. It improves user experience.
+
+60. What is server-side validation?
+
+A. Validation in browser
+B. Validation on server
+C. CSS validation
+D. HTML validation
+
+Answer: B
+Why: Server-side validation ensures data integrity. It protects against malicious input.
+
+61. What is XSS?
+
+A. Cross-Site Scripting
+B. Cross Server Security
+C. Extra Secure System
+D. Extended Style Sheet
+
+Answer: A
+Why: XSS injects malicious scripts into web pages. It can steal user data.
+
+62. What is CSRF?
+
+A. Cross-Site Request Forgery
+B. Cross Server Request File
+C. Client-Side Rendering Format
+D. Central Security Request Function
+
+Answer: A
+Why: CSRF tricks users into submitting unwanted requests. Tokens prevent such attacks.
+
+63. What is SQL Injection?
+
+A. Styling attack
+B. Injecting malicious SQL code
+C. JavaScript error
+D. Network failure
+
+Answer: B
+Why: SQL injection manipulates database queries. It can expose sensitive data.
+
+64. What is HTTPS used for?
+
+A. Faster loading
+B. Secure communication
+C. Database access
+D. Styling
+
+Answer: B
+Why: HTTPS encrypts data in transit. It protects user information.
+
+65. What is authentication?
+
+A. Styling pages
+B. Verifying user identity
+C. Encrypting data
+D. Storing cookies
+
+Answer: B
+Why: Authentication confirms user identity. Examples include login systems.
+
+66. What is authorization?
+
+A. Verifying identity
+B. Granting access rights
+C. Encrypting data
+D. Creating users
+
+Answer: B
+Why: Authorization determines what users can access. It follows authentication.
+
+67. What is JWT?
+
+A. Java Web Token
+B. JSON Web Token
+C. JavaScript Web Token
+D. Joint Web Token
+
+Answer: B
+Why: JWT securely transmits user data. It is used in authentication.
+
+68. What is session management?
+
+A. Styling pages
+B. Tracking user activity
+C. Database design
+D. Server shutdown
+
+Answer: B
+Why: Session management maintains user state. It enables login persistence.
+
+69. What is caching used for?
+
+A. Slowing performance
+B. Storing data for faster access
+C. Deleting data
+D. Encrypting data
+
+Answer: B
+Why: Caching reduces server load. It improves response time.
+
+70. What is lazy loading in web development?
+
+A. Loading all content at once
+B. Loading content when needed
+C. Deleting content
+D. Encrypting content
+
+Answer: B
+Why: Lazy loading improves performance. Images load only when visible.
+
+71. What is minification?
+
+A. Increasing file size
+B. Removing unnecessary characters from code
+C. Encrypting code
+D. Compressing images
+
+Answer: B
+Why: Minification reduces file size. It improves load speed.
+
+72. What is bundling?
+
+A. Splitting files
+B. Combining multiple files into one
+C. Deleting files
+D. Encrypting files
+
+Answer: B
+Why: Bundling reduces HTTP requests. Tools like Webpack perform bundling.
+
+73. What is transpiling?
+
+A. Running code
+B. Converting code to compatible version
+C. Compressing code
+D. Encrypting code
+
+Answer: B
+Why: Transpilers convert modern JavaScript to older versions. Example: Babel.
+
+74. What is Webpack?
+
+A. Database
+B. Module bundler
+C. Browser
+D. Server
+
+Answer: B
+Why: Webpack bundles assets for deployment. It optimizes performance.
+
+75. What is a virtual DOM?
+
+A. Real DOM
+B. Lightweight copy of DOM
+C. Database
+D. Server
+
+Answer: B
+Why: Virtual DOM improves performance. Frameworks update only changed parts.
+
+76. Which library uses virtual DOM?
+
+A. jQuery
+B. React
+C. Bootstrap
+D. Node.js
+
+Answer: B
+Why: React uses virtual DOM to optimize rendering. It minimizes updates.
+
+77. What is Angular?
+
+A. Database
+B. Frontend framework
+C. Server
+D. CSS library
+
+Answer: B
+Why: Angular is a full-featured frontend framework. It supports SPA development.
+
+78. What is React?
+
+A. Database
+B. JavaScript library for UI
+C. Server
+D. CSS tool
+
+Answer: B
+Why: React builds interactive UIs. It uses components and virtual DOM.
+
+79. What is Vue.js?
+
+A. Database
+B. Frontend framework
+C. Server
+D. CSS preprocessor
+
+Answer: B
+Why: Vue.js is a progressive JavaScript framework. It is lightweight and flexible.
+
+80. What is component-based architecture?
+
+A. Single large file
+B. UI built using reusable components
+C. Database design
+D. Network design
+
+Answer: B
+Why: Components promote reuse and maintainability. They encapsulate UI logic.
+
+81. What is state in React?
+
+A. CSS style
+B. Data managed within component
+C. Database
+D. Server
+
+Answer: B
+Why: State stores dynamic data. Changes trigger UI updates.
+
+82. What are props in React?
+
+A. CSS properties
+B. Data passed to components
+C. Database values
+D. Server variables
+
+Answer: B
+Why: Props pass data between components. They are read-only.
+
+83. What is backend development?
+
+A. Designing UI
+B. Server-side logic and database management
+C. Styling pages
+D. Writing HTML
+
+Answer: B
+Why: Backend handles data processing and storage. It supports frontend functionality.
+
+84. Which language is used for backend development?
+
+A. HTML
+B. CSS
+C. JavaScript (Node.js)
+D. Photoshop
+
+Answer: C
+Why: Node.js allows JavaScript backend development. It handles server logic.
+
+85. What is Express.js?
+
+A. CSS framework
+B. Node.js web framework
+C. Database
+D. Browser
+
+Answer: B
+Why: Express simplifies server development. It handles routes and middleware.
+
+86. What is middleware in Express?
+
+A. Database
+B. Function handling request/response cycle
+C. CSS rule
+D. HTML tag
+
+Answer: B
+Why: Middleware processes requests before responses. It enables logging and authentication.
+
+87. What is RESTful API?
+
+A. API using HTTP methods
+B. API using FTP
+C. API using SMTP
+D. API using CSS
+
+Answer: A
+Why: RESTful APIs follow HTTP standards. They use GET, POST, PUT, DELETE.
+
+88. What is CRUD?
+
+A. Create, Read, Update, Delete
+B. Copy, Remove, Update, Delete
+C. Create, Run, Update, Debug
+D. Control, Read, Use, Deploy
+
+Answer: A
+Why: CRUD represents basic database operations. It is used in APIs.
+
+89. What is MongoDB?
+
+A. SQL database
+B. NoSQL database
+C. Programming language
+D. Framework
+
+Answer: B
+Why: MongoDB stores data in JSON-like documents. It supports flexible schemas.
+
+90. What is SQL database?
+
+A. Document database
+B. Relational database
+C. CSS tool
+D. JavaScript library
+
+Answer: B
+Why: SQL databases store data in tables. They use structured queries.
+
+91. What is ORM?
+
+A. Object Relational Mapping
+B. Online Resource Manager
+C. Object Rendering Model
+D. Operational Resource Method
+
+Answer: A
+Why: ORM maps database tables to objects. It simplifies database interaction.
+
+92. What is environment variable?
+
+A. CSS variable
+B. Configuration value stored outside code
+C. HTML attribute
+D. Database column
+
+Answer: B
+Why: Environment variables store sensitive data. They improve security.
+
+93. What is .env file used for?
+
+A. CSS styles
+B. Storing environment variables
+C. HTML layout
+D. Database schema
+
+Answer: B
+Why: .env files store configuration values. They keep secrets out of code.
+
+94. What is API rate limiting?
+
+A. Increasing API calls
+B. Restricting number of requests
+C. Deleting requests
+D. Encrypting requests
+
+Answer: B
+Why: Rate limiting prevents abuse. It protects servers from overload.
+
+95. What is load balancing?
+
+A. Slowing servers
+B. Distributing traffic across servers
+C. Deleting traffic
+D. Encrypting traffic
+
+Answer: B
+Why: Load balancing improves availability. It prevents server overload.
+
+96. What is serverless architecture?
+
+A. No servers exist
+B. Cloud-managed backend services
+C. Static websites only
+D. Database-only systems
+
+Answer: B
+Why: Serverless uses cloud providers to manage infrastructure. Developers focus on code.
+
+97. What is a webhook?
+
+A. Database trigger
+B. HTTP callback triggered by events
+C. CSS event
+D. HTML tag
+
+Answer: B
+Why: Webhooks notify systems of events. They enable real-time integration.
+
+98. What is CI/CD?
+
+A. Continuous Integration and Continuous Deployment
+B. Code Inspection and Code Debugging
+C. Continuous Internet Connection and Data
+D. Client Integration and Client Deployment
+
+Answer: A
+Why: CI/CD automates testing and deployment. It improves delivery speed.
+
+99. What is Docker used for?
+
+A. Styling
+B. Containerization
+C. Database management
+D. UI design
+
+Answer: B
+Why: Docker packages apps with dependencies. It ensures consistent environments.
+
+100. What is microservices architecture?
+
+A. Single large application
+B. Small independent services
+C. Database design
+D. CSS framework
+
+Answer: B
+Why: Microservices split apps into small services. They improve scalability. 101. What is server-side rendering (SSR)?
+
+A. Rendering pages in the browser
+B. Rendering pages on the server before sending to client
+C. Rendering using CSS
+D. Rendering images only
+
+Answer: B
+Why: SSR generates HTML on the server and sends it to the browser. It improves SEO and initial load performance.
+
+102. What is client-side rendering (CSR)?
+
+A. Rendering on the server
+B. Rendering in the browser using JavaScript
+C. Rendering using CSS
+D. Rendering database queries
+
+Answer: B
+Why: CSR loads a basic HTML file and builds the page using JavaScript. It enables dynamic SPAs.
+
+103. What is hydration in web apps?
+
+A. Loading images
+B. Attaching JavaScript to server-rendered HTML
+C. Deleting DOM
+D. Encrypting data
+
+Answer: B
+Why: Hydration makes static HTML interactive. Frameworks like React use it after SSR.
+
+104. What is a static website?
+
+A. Website with dynamic data
+B. Website with fixed content
+C. Database-driven website
+D. Serverless website
+
+Answer: B
+Why: Static sites deliver prebuilt HTML files. They are fast and secure.
+
+105. What is a dynamic website?
+
+A. Fixed content
+B. Content generated at runtime
+C. No server required
+D. Only CSS
+
+Answer: B
+Why: Dynamic websites generate content based on user input or database data. They provide personalized experiences.
+
+106. What is a template engine?
+
+A. CSS framework
+B. Tool for generating dynamic HTML
+C. Database
+D. Browser
+
+Answer: B
+Why: Template engines combine templates with data. Examples include EJS and Handlebars.
+
+107. What is MVC architecture?
+
+A. Model-View-Controller pattern
+B. Multi-Version Control
+C. Managed View Component
+D. Model Value Controller
+
+Answer: A
+Why: MVC separates application logic. It improves maintainability.
+
+108. What is the role of the Model in MVC?
+
+A. UI rendering
+B. Business logic and data
+C. Routing
+D. Styling
+
+Answer: B
+Why: The Model manages data and rules. It interacts with databases.
+
+109. What is the role of the View in MVC?
+
+A. Data storage
+B. UI presentation
+C. Business logic
+D. Routing
+
+Answer: B
+Why: Views display data to users. They handle UI rendering.
+
+110. What is the role of the Controller in MVC?
+
+A. Styling
+B. Handles user input and updates model/view
+C. Database storage
+D. CSS layout
+
+Answer: B
+Why: Controllers process user input. They coordinate between Model and View.
+
+111. What is REST statelessness?
+
+A. Server stores session
+B. Each request contains all needed information
+C. Server remembers users
+D. Cookies required
+
+Answer: B
+Why: REST APIs do not store client state. Each request is independent.
+
+112. What is idempotent HTTP method?
+
+A. Method changing state
+B. Method producing same result when repeated
+C. Method deleting data
+D. Method encrypting data
+
+Answer: B
+Why: Idempotent methods like GET and PUT produce consistent results. They improve reliability.
+
+113. Which HTTP method is idempotent?
+
+A. POST
+B. PUT
+C. PATCH
+D. CONNECT
+
+Answer: B
+Why: PUT replaces a resource consistently. Repeated requests have the same effect.
+
+114. What is WebSocket used for?
+
+A. Static content
+B. Real-time communication
+C. Database queries
+D. CSS styling
+
+Answer: B
+Why: WebSockets enable full-duplex communication. They support chat apps and live updates.
+
+115. What is polling?
+
+A. Server pushes updates
+B. Client repeatedly requests updates
+C. Database replication
+D. Encryption
+
+Answer: B
+Why: Polling checks for updates at intervals. It is less efficient than WebSockets.
+
+116. What is long polling?
+
+A. Fast polling
+B. Server holds request until data available
+C. Database query
+D. CSS loading
+
+Answer: B
+Why: Long polling reduces frequent requests. The server responds when new data arrives.
+
+117. What is a service worker?
+
+A. Database worker
+B. Script enabling offline support
+C. CSS worker
+D. HTML tag
+
+Answer: B
+Why: Service workers enable caching and offline functionality. They power PWAs.
+
+118. What is web accessibility?
+
+A. Making websites fast
+B. Making websites usable for people with disabilities
+C. Encrypting data
+D. Database optimization
+
+Answer: B
+Why: Accessibility ensures inclusivity. It includes screen reader support.
+
+119. What is ARIA?
+
+A. Accessible Rich Internet Applications
+B. Advanced Resource Integration API
+C. Application Routing Interface
+D. Automatic Rendering Internet API
+
+Answer: A
+Why: ARIA improves accessibility for dynamic content. It helps assistive technologies.
+
+120. What is semantic HTML benefit?
+
+A. Faster CSS
+B. Better accessibility and SEO
+C. Smaller database
+D. Faster server
+
+Answer: B
+Why: Semantic HTML improves search engine understanding. It enhances accessibility.
+
+121. What is web performance optimization?
+
+A. Slowing pages
+B. Improving load speed and responsiveness
+C. Adding images
+D. Deleting CSS
+
+Answer: B
+Why: Optimization improves user experience. It reduces bounce rates.
+
+122. What is critical rendering path?
+
+A. Path to database
+B. Steps browser takes to render page
+C. CSS layout path
+D. API request path
+
+Answer: B
+Why: Optimizing rendering path improves performance. It reduces load time.
+
+123. What is code splitting?
+
+A. Combining files
+B. Loading code in chunks
+C. Deleting code
+D. Encrypting code
+
+Answer: B
+Why: Code splitting loads only required code. It improves performance.
+
+124. What is tree shaking?
+
+A. Deleting files
+B. Removing unused code
+C. Compressing images
+D. Encrypting code
+
+Answer: B
+Why: Tree shaking eliminates dead code. It reduces bundle size.
+
+125. What is HTTP/2 advantage?
+
+A. Slower speed
+B. Multiplexing multiple requests
+C. No encryption
+D. No headers
+
+Answer: B
+Why: HTTP/2 allows multiple requests over one connection. It improves performance.
+
+126. What is HTTP/3 based on?
+
+A. TCP
+B. UDP (QUIC)
+C. FTP
+D. SMTP
+
+Answer: B
+Why: HTTP/3 uses QUIC over UDP. It reduces latency.
+
+127. What is a reverse proxy server?
+
+A. Client proxy
+B. Server receiving client requests and forwarding to backend
+C. Database
+D. CSS engine
+
+Answer: B
+Why: Reverse proxies improve security and load balancing. Example: Nginx.
+
+128. What is edge computing in web development?
+
+A. Computing at central server
+B. Processing data near users
+C. Database replication
+D. CSS rendering
+
+Answer: B
+Why: Edge computing reduces latency. It improves performance.
+
+129. What is Jamstack?
+
+A. Java, SQL, Stack
+B. JavaScript, APIs, Markup
+C. JSON, API, Storage
+D. JavaScript, Angular, MongoDB
+
+Answer: B
+Why: Jamstack builds fast static sites using APIs. It improves scalability.
+
+130. What is headless CMS?
+
+A. CMS without database
+B. CMS providing content via APIs
+C. CMS without UI
+D. Static CMS
+
+Answer: B
+Why: Headless CMS separates content from presentation. It supports multiple platforms.
+
+131. What is GraphQL?
+
+A. Database
+B. Query language for APIs
+C. CSS framework
+D. Web server
+
+Answer: B
+Why: GraphQL allows clients to request specific data. It reduces over-fetching.
+
+132. What is rate limiting purpose?
+
+A. Increase traffic
+B. Prevent abuse
+C. Encrypt requests
+D. Delete requests
+
+Answer: B
+Why: Rate limiting protects servers. It prevents excessive requests.
+
+133. What is CSRF token used for?
+
+A. Styling
+B. Preventing CSRF attacks
+C. Encrypting passwords
+D. Database access
+
+Answer: B
+Why: CSRF tokens verify legitimate requests. They protect users.
+
+134. What is password hashing?
+
+A. Encrypting passwords
+B. Converting passwords into fixed hash
+C. Storing plain text
+D. Deleting passwords
+
+Answer: B
+Why: Hashing protects passwords. Even if breached, originals are hidden.
+
+135. What is salting in hashing?
+
+A. Removing hash
+B. Adding random data before hashing
+C. Encrypting database
+D. Compressing password
+
+Answer: B
+Why: Salting prevents rainbow table attacks. It improves security.
+
+136. What is OAuth?
+
+A. Database protocol
+B. Authorization framework
+C. CSS tool
+D. Web server
+
+Answer: B
+Why: OAuth allows third-party login. It provides secure authorization.
+
+137. What is SSO?
+
+A. Single Sign-On
+B. Secure Server Operation
+C. Static Site Optimization
+D. Session Storage Option
+
+Answer: A
+Why: SSO allows one login for multiple services. It improves user experience.
+
+138. What is CAPTCHA used for?
+
+A. Speed testing
+B. Distinguishing humans from bots
+C. Encrypting data
+D. Database validation
+
+Answer: B
+Why: CAPTCHA prevents automated abuse. It improves security.
+
+139. What is WebAssembly?
+
+A. CSS framework
+B. Binary format for high-performance web apps
+C. Database
+D. HTML tag
+
+Answer: B
+Why: WebAssembly runs code at near-native speed. It supports heavy computations.
+
+140. What is a sandbox in web security?
+
+A. Database
+B. Isolated environment for running code
+C. CSS tool
+D. HTML feature
+
+Answer: B
+Why: Sandboxing prevents code from affecting system. It improves security.
+
+141. What is feature detection?
+
+A. Detect browser name
+B. Detect browser capabilities
+C. Detect server
+D. Detect database
+
+Answer: B
+Why: Feature detection checks browser support. It ensures compatibility.
+
+142. What is progressive enhancement?
+
+A. Building for modern browsers only
+B. Basic functionality first, enhancements later
+C. Removing features
+D. Database optimization
+
+Answer: B
+Why: Progressive enhancement ensures accessibility. Advanced features load when supported.
+
+143. What is graceful degradation?
+
+A. Removing features
+B. Ensuring basic functionality on older browsers
+C. Encrypting data
+D. Improving performance
+
+Answer: B
+Why: Graceful degradation maintains usability. It supports legacy browsers.
+
+144. What is browser caching?
+
+A. Deleting files
+B. Storing resources locally
+C. Encrypting data
+D. Compressing images
+
+Answer: B
+Why: Browser caching reduces load time. It improves performance.
+
+145. What is ETag in HTTP?
+
+A. Encryption key
+B. Identifier for resource version
+C. Database ID
+D. CSS rule
+
+Answer: B
+Why: ETags help caching. They detect resource changes.
+
+146. What is a sitemap?
+
+A. CSS file
+B. List of website pages for search engines
+C. Database schema
+D. API list
+
+Answer: B
+Why: Sitemaps help search engines index pages. They improve SEO.
+
+147. What is robots.txt?
+
+A. CSS file
+B. File instructing search engine crawlers
+C. JavaScript file
+D. Database file
+
+Answer: B
+Why: robots.txt controls crawler access. It manages indexing.
+
+148. What is canonical URL?
+
+A. Duplicate URL
+B. Preferred URL for search engines
+C. CSS link
+D. API endpoint
+
+Answer: B
+Why: Canonical URLs prevent duplicate content issues. They improve SEO.
+
+149. What is Lighthouse tool used for?
+
+A. Database testing
+B. Web performance auditing
+C. CSS styling
+D. API testing
+
+Answer: B
+Why: Lighthouse analyzes performance and accessibility. It provides optimization suggestions.
+
+150. What is the goal of modern web development?
+
+A. Increase complexity
+B. Build fast, secure, and scalable applications
+C. Remove security
+D. Avoid user experience
+
+Answer: B
+Why: Modern web development focuses on performance, security, and usability. It ensures scalable user-friendly systems.

@@ -28,11 +28,51 @@ interface CodeEditorPanelProps {
     defaultLanguage?: string;
     onRun?: (code: string, language: string) => void;
     onSubmit?: (code: string, language: string) => void;
+    question?: string;
 }
 
-export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onSubmit }: CodeEditorPanelProps) {
+export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onSubmit, question }: CodeEditorPanelProps) {
     const [language, setLanguage] = useState(defaultLanguage);
-    const [code, setCode] = useState(`# Write your ${LANGUAGES.find(l => l.id === defaultLanguage)?.label} code here\n\ndef solve():\n    # Your solution\n    pass\n`);
+
+    // Parse question to restrict languages
+    const getAllowedLanguages = () => {
+        if (!question) return LANGUAGES;
+        const q = question.toLowerCase();
+
+        // Map keywords to language IDs
+        const map: Record<string, string[]> = {
+            "python": ["python"],
+            "javascript": ["javascript", "typescript"],
+            "java": ["java"],
+            "c++": ["cpp"],
+            "c#": ["csharp"],
+            "sql": ["sql"],
+            "typescript": ["typescript", "javascript"],
+        };
+
+        const allowedIds = new Set<string>();
+        Object.keys(map).forEach(key => {
+            if (q.includes(key)) {
+                map[key].forEach(id => allowedIds.add(id));
+            }
+        });
+
+        if (allowedIds.size > 0) {
+            return LANGUAGES.filter(l => allowedIds.has(l.id));
+        }
+        return LANGUAGES;
+    };
+
+    const allowedLanguages = getAllowedLanguages();
+
+    // Reset language if current is not allowed (unless empty allowed list)
+    /* useEffect(() => {
+       if (allowedLanguages.length > 0 && !allowedLanguages.find(l => l.id === language)) {
+           setLanguage(allowedLanguages[0].id);
+       }
+    }, [question]); */
+
+    const [code, setCode] = useState(`# Write your ${LANGUAGES.find(l => l.id === language)?.label} code here\n\ndef solve():\n    # Your solution\n    pass\n`);
     const [output, setOutput] = useState<string>("");
     const [isRunning, setIsRunning] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
@@ -64,7 +104,7 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
         setOutput("Running code...\n");
 
         try {
-            const response = await fetch("http://localhost:5000/api/code/execute", {
+            const response = await fetch("http://localhost:5003/api/code/execute", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ language, code })
@@ -107,6 +147,17 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
 
     return (
         <div className="flex flex-col h-full bg-[#1e1e1e] border-l border-white/10 text-gray-300 font-mono text-sm relative">
+
+            {/* Context/Question Header */}
+            {question && (
+                <div className="bg-[#0e0e0e] border-b border-white/10 p-3 shrink-0">
+                    <div className="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-1">Current Task</div>
+                    <div className="text-sm text-gray-200 leading-relaxed line-clamp-3 hover:line-clamp-none transition-all">
+                        {question}
+                    </div>
+                </div>
+            )}
+
             {/* Toolbar */}
             <div className="flex items-center justify-between px-4 py-2 bg-[#252526] border-b border-black/40">
                 <div className="flex items-center gap-3">
@@ -115,7 +166,7 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
                             <SelectValue placeholder="Select Language" />
                         </SelectTrigger>
                         <SelectContent className="bg-[#252526] border-black/40 text-gray-300">
-                            {LANGUAGES.map((lang) => (
+                            {allowedLanguages.map((lang) => (
                                 <SelectItem key={lang.id} value={lang.id} className="focus:bg-[#094771] focus:text-white cursor-pointer">
                                     {lang.label}
                                 </SelectItem>

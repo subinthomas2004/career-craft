@@ -34,6 +34,7 @@ export interface InterviewState {
 export interface InterviewConfig {
     domain: string; // e.g., "web", "android"
     includeHr: boolean;
+    interviewType: 'hr' | 'hr-tech' | 'intro-prep'; // Explicit type to distinguish modes
     difficulty: Difficulty;
     resumeText?: string;
 }

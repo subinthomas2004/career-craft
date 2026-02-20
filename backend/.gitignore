@@ -1,6 +1,9 @@
 node_modules
 .env
-.DS_Store
-dist
+npm-debug.log
+yarn-error.log
+logs
+*.log
 coverage
-.vscode
+dist
+.DS_Store

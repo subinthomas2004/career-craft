@@ -1,0 +1,1374 @@
+[
+  {
+    "id": 1,
+    "question": "What is Artificial Intelligence?",
+    "options": [
+      "Programming hardware",
+      "Simulation of human intelligence in machines",
+      "Database management",
+      "Network security"
+    ],
+    "correct": 1,
+    "explanation": "AI enables machines to perform tasks requiring human intelligence. These include learning, reasoning, and decision-making.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 2,
+    "question": "Which of the following is an application of AI?",
+    "options": [
+      "Word processing",
+      "Self-driving cars",
+      "File storage",
+      "Spreadsheet formatting"
+    ],
+    "correct": 1,
+    "explanation": "Self-driving cars use AI for perception and decision-making. They rely on machine learning and sensors.",
+    "difficulty": "Medium",
+    "topic": "General AI"
+  },
+  {
+    "id": 3,
+    "question": "What is Machine Learning?",
+    "options": [
+      "Manual programming",
+      "Learning from data without explicit programming",
+      "Database querying",
+      "Network configuration"
+    ],
+    "correct": 1,
+    "explanation": "Machine learning enables systems to learn patterns from data. It improves performance over time.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 4,
+    "question": "Which type of ML uses labeled data?",
+    "options": [
+      "Unsupervised learning",
+      "Reinforcement learning",
+      "Supervised learning",
+      "Semi-supervised learning"
+    ],
+    "correct": 2,
+    "explanation": "Supervised learning uses labeled datasets. It maps inputs to known outputs.",
+    "difficulty": "Medium",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 5,
+    "question": "Which type of ML finds patterns without labels?",
+    "options": [
+      "Supervised learning",
+      "Unsupervised learning",
+      "Reinforcement learning",
+      "Deep learning"
+    ],
+    "correct": 1,
+    "explanation": "Unsupervised learning identifies hidden patterns. Clustering is a common example.",
+    "difficulty": "Medium",
+    "topic": "General AI"
+  },
+  {
+    "id": 6,
+    "question": "What is reinforcement learning?",
+    "options": [
+      "Learning with labeled data",
+      "Learning through rewards and penalties",
+      "Database learning",
+      "Static learning"
+    ],
+    "correct": 1,
+    "explanation": "Reinforcement learning uses feedback signals. Agents learn optimal actions through rewards.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 7,
+    "question": "What is a dataset?",
+    "options": [
+      "Single value",
+      "Collection of data used for training models",
+      "Network device",
+      "Encryption key"
+    ],
+    "correct": 1,
+    "explanation": "Datasets provide training examples. Model performance depends on data quality.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 8,
+    "question": "What is overfitting?",
+    "options": [
+      "Model performs well on new data",
+      "Model memorizes training data",
+      "Model fails to learn",
+      "Model compresses data"
+    ],
+    "correct": 1,
+    "explanation": "Overfitting reduces generalization. Regularization helps prevent it.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 9,
+    "question": "What is underfitting?",
+    "options": [
+      "Model too complex",
+      "Model fails to capture patterns",
+      "Model memorizes data",
+      "Model encrypts data"
+    ],
+    "correct": 1,
+    "explanation": "Underfitting occurs when model is too simple. It leads to poor performance.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 10,
+    "question": "What is a feature in ML?",
+    "options": [
+      "Output variable",
+      "Input variable used for prediction",
+      "Database field",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Features represent input data. They influence predictions.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 11,
+    "question": "What is a label?",
+    "options": [
+      "Input variable",
+      "Output variable",
+      "Database key",
+      "Network address"
+    ],
+    "correct": 1,
+    "explanation": "Labels are target outputs. They guide supervised learning.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 12,
+    "question": "What is classification?",
+    "options": [
+      "Predicting continuous values",
+      "Predicting categories",
+      "Encrypting data",
+      "Clustering data"
+    ],
+    "correct": 1,
+    "explanation": "Classification assigns data to categories. Example: spam vs. not spam.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 13,
+    "question": "What is regression?",
+    "options": [
+      "Predicting categories",
+      "Predicting continuous values",
+      "Clustering data",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Regression predicts numeric values. Example: house prices.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 14,
+    "question": "What is clustering?",
+    "options": [
+      "Supervised learning",
+      "Grouping similar data",
+      "Encryption",
+      "Regression"
+    ],
+    "correct": 1,
+    "explanation": "Clustering identifies patterns. It is unsupervised learning.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 15,
+    "question": "What is k-means algorithm used for?",
+    "options": [
+      "Classification",
+      "Clustering",
+      "Regression",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "k-means groups data into clusters. It minimizes intra-cluster distance.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 16,
+    "question": "What is decision tree?",
+    "options": [
+      "Neural network",
+      "Model using tree-like decisions",
+      "Database structure",
+      "Network topology"
+    ],
+    "correct": 1,
+    "explanation": "Decision trees split data based on features. They are interpretable models.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 17,
+    "question": "What is random forest?",
+    "options": [
+      "Single decision tree",
+      "Ensemble of decision trees",
+      "Neural network",
+      "Database"
+    ],
+    "correct": 1,
+    "explanation": "Random forests combine multiple trees. They improve accuracy and reduce overfitting.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 18,
+    "question": "What is support vector machine (SVM)?",
+    "options": [
+      "Clustering algorithm",
+      "Classification algorithm using hyperplanes",
+      "Database",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "SVM separates data using optimal boundaries. It works well in high dimensions.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 19,
+    "question": "What is neural network?",
+    "options": [
+      "Database",
+      "Model inspired by human brain",
+      "Encryption method",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Neural networks process data using interconnected nodes. They power deep learning.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 20,
+    "question": "What is deep learning?",
+    "options": [
+      "Shallow learning",
+      "ML using multi-layer neural networks",
+      "Database optimization",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "Deep learning handles complex patterns. It excels in vision and speech tasks.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 21,
+    "question": "What is an epoch in training?",
+    "options": [
+      "Single data point",
+      "One complete pass through dataset",
+      "Network layer",
+      "Feature set"
+    ],
+    "correct": 1,
+    "explanation": "Epoch represents full training cycle. Multiple epochs improve learning.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 22,
+    "question": "What is a loss function?",
+    "options": [
+      "Encryption function",
+      "Measures prediction error",
+      "Database function",
+      "Network function"
+    ],
+    "correct": 1,
+    "explanation": "Loss functions quantify model errors. Optimization minimizes loss.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 23,
+    "question": "What is gradient descent?",
+    "options": [
+      "Clustering method",
+      "Optimization algorithm to minimize loss",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "Gradient descent updates weights. It improves model accuracy.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 24,
+    "question": "What is training data?",
+    "options": [
+      "Data for testing only",
+      "Data used to train model",
+      "Database schema",
+      "Network logs"
+    ],
+    "correct": 1,
+    "explanation": "Training data teaches patterns. It determines model performance.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 25,
+    "question": "What is test data?",
+    "options": [
+      "Data used to evaluate model",
+      "Training data",
+      "Database records",
+      "Network packets"
+    ],
+    "correct": 0,
+    "explanation": "Test data measures generalization. It ensures unbiased evaluation.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 26,
+    "question": "What is validation data?",
+    "options": [
+      "Training data",
+      "Data used to tune model",
+      "Database records",
+      "Network packets"
+    ],
+    "correct": 1,
+    "explanation": "Validation data helps tune parameters. It prevents overfitting.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 27,
+    "question": "What is bias in ML?",
+    "options": [
+      "Random error",
+      "Error from wrong assumptions",
+      "Encryption method",
+      "Network delay"
+    ],
+    "correct": 1,
+    "explanation": "Bias leads to systematic errors. It affects fairness.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 28,
+    "question": "What is variance in ML?",
+    "options": [
+      "Model simplicity",
+      "Sensitivity to training data",
+      "Encryption method",
+      "Database error"
+    ],
+    "correct": 1,
+    "explanation": "High variance causes overfitting. Regularization reduces it.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 29,
+    "question": "What is natural language processing (NLP)?",
+    "options": [
+      "Image processing",
+      "Interaction between computers and human language",
+      "Database management",
+      "Network security"
+    ],
+    "correct": 1,
+    "explanation": "NLP enables text understanding. Examples include chatbots.",
+    "difficulty": "Easy",
+    "topic": "NLP"
+  },
+  {
+    "id": 30,
+    "question": "What is tokenization in NLP?",
+    "options": [
+      "Encrypting text",
+      "Splitting text into words/tokens",
+      "Compressing text",
+      "Translating text"
+    ],
+    "correct": 1,
+    "explanation": "Tokenization prepares text for analysis. It is a preprocessing step.",
+    "difficulty": "Easy",
+    "topic": "NLP"
+  },
+  {
+    "id": 31,
+    "question": "What is stemming?",
+    "options": [
+      "Encrypting text",
+      "Reducing words to root form",
+      "Translating text",
+      "Compressing text"
+    ],
+    "correct": 1,
+    "explanation": "Stemming normalizes words. Example: “running” → “run”.",
+    "difficulty": "Easy",
+    "topic": "NLP"
+  },
+  {
+    "id": 32,
+    "question": "What is computer vision?",
+    "options": [
+      "Network monitoring",
+      "Enabling machines to interpret images",
+      "Database management",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Computer vision analyzes visual data. Applications include facial recognition.",
+    "difficulty": "Easy",
+    "topic": "Computer Vision"
+  },
+  {
+    "id": 33,
+    "question": "What is image classification?",
+    "options": [
+      "Predicting numbers",
+      "Assigning labels to images",
+      "Encrypting images",
+      "Compressing images"
+    ],
+    "correct": 1,
+    "explanation": "Image classification identifies objects. It is widely used in AI.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 34,
+    "question": "What is object detection?",
+    "options": [
+      "Detecting numbers",
+      "Identifying objects and their locations",
+      "Encrypting images",
+      "Compressing images"
+    ],
+    "correct": 1,
+    "explanation": "Object detection locates objects. It is used in autonomous vehicles.",
+    "difficulty": "Easy",
+    "topic": "Computer Vision"
+  },
+  {
+    "id": 35,
+    "question": "What is speech recognition?",
+    "options": [
+      "Text processing",
+      "Converting speech to text",
+      "Image processing",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "Speech recognition enables voice assistants. It converts audio to text.",
+    "difficulty": "Easy",
+    "topic": "NLP"
+  },
+  {
+    "id": 36,
+    "question": "What is chatbot?",
+    "options": [
+      "Database tool",
+      "AI program simulating conversation",
+      "Encryption tool",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Chatbots use NLP. They automate customer support.",
+    "difficulty": "Easy",
+    "topic": "NLP"
+  },
+  {
+    "id": 37,
+    "question": "What is recommendation system?",
+    "options": [
+      "Security system",
+      "Suggesting items based on user behavior",
+      "Encryption method",
+      "Database tool"
+    ],
+    "correct": 1,
+    "explanation": "Recommendation systems personalize content. Example: Netflix suggestions.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 38,
+    "question": "What is reinforcement learning agent?",
+    "options": [
+      "Database",
+      "Entity that learns by interacting with environment",
+      "Encryption method",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Agents take actions and receive rewards. They learn optimal strategies.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 39,
+    "question": "What is Q-learning?",
+    "options": [
+      "Clustering method",
+      "Reinforcement learning algorithm",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "Q-learning learns action values. It helps agents make decisions.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 40,
+    "question": "What is heuristic in AI?",
+    "options": [
+      "Exact solution",
+      "Rule-of-thumb for problem solving",
+      "Encryption method",
+      "Database index"
+    ],
+    "correct": 1,
+    "explanation": "Heuristics speed up search. They provide approximate solutions.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 41,
+    "question": "What is A* search algorithm?",
+    "options": [
+      "Sorting algorithm",
+      "Pathfinding algorithm using heuristics",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "A* finds optimal paths efficiently. It combines cost and heuristic.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 42,
+    "question": "What is breadth-first search (BFS)?",
+    "options": [
+      "Depth search",
+      "Explores nodes level by level",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "BFS guarantees shortest path in unweighted graphs. It uses a queue.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 43,
+    "question": "What is depth-first search (DFS)?",
+    "options": [
+      "Explores nodes level by level",
+      "Explores deep before backtracking",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "DFS explores depth-first. It uses a stack or recursion.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 44,
+    "question": "What is expert system?",
+    "options": [
+      "Database",
+      "AI system mimicking human expertise",
+      "Encryption tool",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Expert systems use rules and knowledge bases. They support decision-making.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 45,
+    "question": "What is knowledge base in AI?",
+    "options": [
+      "Database only",
+      "Repository of facts and rules",
+      "Encryption method",
+      "Network log"
+    ],
+    "correct": 1,
+    "explanation": "Knowledge bases store domain knowledge. They support inference.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 46,
+    "question": "What is inference engine?",
+    "options": [
+      "Database engine",
+      "Applies rules to derive conclusions",
+      "Encryption tool",
+      "Network tool"
+    ],
+    "correct": 1,
+    "explanation": "Inference engines process knowledge bases. They generate decisions.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 47,
+    "question": "What is Turing Test?",
+    "options": [
+      "Database test",
+      "Test for machine intelligence",
+      "Encryption test",
+      "Network test"
+    ],
+    "correct": 1,
+    "explanation": "Turing Test evaluates AI’s ability to mimic humans. It measures intelligence.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 48,
+    "question": "What is strong AI?",
+    "options": [
+      "AI with narrow tasks",
+      "AI with human-level intelligence",
+      "Encryption system",
+      "Database system"
+    ],
+    "correct": 1,
+    "explanation": "Strong AI aims for general intelligence. It can perform any intellectual task.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 49,
+    "question": "What is weak AI?",
+    "options": [
+      "AI with general intelligence",
+      "AI designed for specific tasks",
+      "Encryption tool",
+      "Database system"
+    ],
+    "correct": 1,
+    "explanation": "Weak AI focuses on narrow tasks. Examples include voice assistants.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 52,
+    "question": "What is an activation function?",
+    "options": [
+      "Database function",
+      "Function determining neuron output",
+      "Encryption method",
+      "Sorting function"
+    ],
+    "correct": 1,
+    "explanation": "Activation functions introduce non-linearity. They enable neural networks to learn complex patterns.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 53,
+    "question": "Which is a common activation function?",
+    "options": [
+      "JOIN",
+      "ReLU",
+      "SELECT",
+      "INSERT"
+    ],
+    "correct": 1,
+    "explanation": "ReLU (Rectified Linear Unit) is widely used. It improves training speed and avoids vanishing gradients.",
+    "difficulty": "Medium",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 54,
+    "question": "What is ReLU?",
+    "options": [
+      "Database query",
+      "Activation function returning max(0, x)",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "ReLU outputs zero for negative inputs. It helps deep networks train efficiently.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 55,
+    "question": "What is sigmoid function used for?",
+    "options": [
+      "Sorting",
+      "Binary classification output",
+      "Encryption",
+      "Database indexing"
+    ],
+    "correct": 1,
+    "explanation": "Sigmoid maps values between 0 and 1. It is useful for probability outputs.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 56,
+    "question": "What is softmax function?",
+    "options": [
+      "Sorting method",
+      "Converts outputs into probability distribution",
+      "Encryption method",
+      "Clustering algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Softmax is used in multi-class classification. It ensures probabilities sum to 1.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 57,
+    "question": "What is backpropagation?",
+    "options": [
+      "Forward pass",
+      "Algorithm for updating neural network weights",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "Backpropagation computes gradients. It adjusts weights to minimize loss.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 58,
+    "question": "What is vanishing gradient problem?",
+    "options": [
+      "Exploding loss",
+      "Gradients become too small to update weights",
+      "Encryption error",
+      "Database failure"
+    ],
+    "correct": 1,
+    "explanation": "Small gradients slow learning in deep networks. ReLU helps mitigate this.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 59,
+    "question": "What is exploding gradient?",
+    "options": [
+      "Gradients become extremely large",
+      "Gradients become zero",
+      "Encryption error",
+      "Database failure"
+    ],
+    "correct": 0,
+    "explanation": "Large gradients destabilize training. Gradient clipping prevents this.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 60,
+    "question": "What is dropout in neural networks?",
+    "options": [
+      "Deleting dataset",
+      "Randomly disabling neurons during training",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Dropout prevents overfitting. It improves generalization.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 61,
+    "question": "What is convolutional neural network (CNN)?",
+    "options": [
+      "Text processing model",
+      "Neural network for image processing",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "CNNs extract spatial features. They are used in computer vision.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 62,
+    "question": "What is convolution operation?",
+    "options": [
+      "Database join",
+      "Applying filter to input data",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Convolution extracts features like edges. It reduces parameters.",
+    "difficulty": "Easy",
+    "topic": "Computer Vision"
+  },
+  {
+    "id": 63,
+    "question": "What is pooling in CNN?",
+    "options": [
+      "Increasing resolution",
+      "Reducing spatial dimensions",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Pooling reduces computation. It retains important features.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 64,
+    "question": "What is recurrent neural network (RNN)?",
+    "options": [
+      "Image model",
+      "Model for sequential data",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "RNNs handle time-series and text. They maintain memory of previous inputs.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 65,
+    "question": "What is LSTM?",
+    "options": [
+      "Long Short-Term Memory network",
+      "Sorting algorithm",
+      "Encryption method",
+      "Database"
+    ],
+    "correct": 0,
+    "explanation": "LSTMs solve RNN memory issues. They capture long-term dependencies.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 66,
+    "question": "What is GRU?",
+    "options": [
+      "Gated Recurrent Unit",
+      "Sorting method",
+      "Encryption method",
+      "Database"
+    ],
+    "correct": 0,
+    "explanation": "GRU is a simplified LSTM. It improves efficiency.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 67,
+    "question": "What is transformer model?",
+    "options": [
+      "Image filter",
+      "Deep learning model using attention",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Transformers use self-attention. They power modern NLP systems.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 68,
+    "question": "What is attention mechanism?",
+    "options": [
+      "Sorting method",
+      "Focus on important input parts",
+      "Encryption method",
+      "Database query"
+    ],
+    "correct": 1,
+    "explanation": "Attention improves context understanding. It enhances NLP performance.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 69,
+    "question": "What is BERT?",
+    "options": [
+      "Database tool",
+      "NLP model using transformers",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "BERT understands context in text. It improves language tasks.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 70,
+    "question": "What is GPT?",
+    "options": [
+      "Database engine",
+      "Generative language model",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "GPT generates human-like text. It uses transformer architecture.",
+    "difficulty": "Easy",
+    "topic": "Deep Learning"
+  },
+  {
+    "id": 71,
+    "question": "What is transfer learning?",
+    "options": [
+      "Training from scratch",
+      "Using pre-trained model for new task",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Transfer learning saves time and data. It leverages existing knowledge.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 72,
+    "question": "What is fine-tuning?",
+    "options": [
+      "Deleting model",
+      "Adjusting pre-trained model for specific task",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Fine-tuning adapts models to new data. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 73,
+    "question": "What is data augmentation?",
+    "options": [
+      "Deleting data",
+      "Increasing dataset size with transformations",
+      "Encryption method",
+      "Sorting algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Augmentation improves generalization. It prevents overfitting.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 74,
+    "question": "What is feature scaling?",
+    "options": [
+      "Deleting features",
+      "Normalizing feature values",
+      "Encrypting features",
+      "Sorting features"
+    ],
+    "correct": 1,
+    "explanation": "Scaling improves model convergence. It ensures uniform feature contribution.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 75,
+    "question": "What is normalization?",
+    "options": [
+      "Scaling data between 0 and 1",
+      "Deleting data",
+      "Encrypting data",
+      "Sorting data"
+    ],
+    "correct": 0,
+    "explanation": "Normalization standardizes ranges. It improves model performance.",
+    "difficulty": "Easy",
+    "topic": "Data Processing"
+  },
+  {
+    "id": 76,
+    "question": "What is standardization?",
+    "options": [
+      "Scaling to mean 0 and variance 1",
+      "Deleting data",
+      "Encrypting data",
+      "Sorting data"
+    ],
+    "correct": 0,
+    "explanation": "Standardization centers data. It is useful for many algorithms.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 77,
+    "question": "What is confusion matrix?",
+    "options": [
+      "Encryption table",
+      "Table showing classification performance",
+      "Database table",
+      "Sorting table"
+    ],
+    "correct": 1,
+    "explanation": "Confusion matrix shows true vs predicted values. It evaluates classifiers.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 78,
+    "question": "What is accuracy?",
+    "options": [
+      "Correct predictions ratio",
+      "Encryption method",
+      "Database metric",
+      "Sorting metric"
+    ],
+    "correct": 0,
+    "explanation": "Accuracy measures overall correctness. It may be misleading for imbalanced data.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 79,
+    "question": "What is precision?",
+    "options": [
+      "Correct positive predictions ratio",
+      "Encryption method",
+      "Database metric",
+      "Sorting metric"
+    ],
+    "correct": 0,
+    "explanation": "Precision measures prediction quality. It reduces false positives.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 80,
+    "question": "What is recall?",
+    "options": [
+      "Correct positive detection ratio",
+      "Encryption method",
+      "Database metric",
+      "Sorting metric"
+    ],
+    "correct": 0,
+    "explanation": "Recall measures detection completeness. It reduces false negatives.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 81,
+    "question": "What is F1-score?",
+    "options": [
+      "Average of precision and recall",
+      "Encryption method",
+      "Database metric",
+      "Sorting metric"
+    ],
+    "correct": 0,
+    "explanation": "F1-score balances precision and recall. It is useful for imbalanced datasets.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 82,
+    "question": "What is ROC curve?",
+    "options": [
+      "Encryption graph",
+      "Performance graph for classifiers",
+      "Database chart",
+      "Sorting graph"
+    ],
+    "correct": 1,
+    "explanation": "ROC shows trade-off between true positive and false positive rates. It evaluates models.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 83,
+    "question": "What is AUC?",
+    "options": [
+      "Encryption metric",
+      "Area under ROC curve",
+      "Database metric",
+      "Sorting metric"
+    ],
+    "correct": 1,
+    "explanation": "AUC measures classifier performance. Higher AUC indicates better model.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 84,
+    "question": "What is cross-validation?",
+    "options": [
+      "Single test",
+      "Splitting data multiple times for evaluation",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Cross-validation ensures robust evaluation. It reduces bias.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 85,
+    "question": "What is k-fold cross-validation?",
+    "options": [
+      "Single split",
+      "Splitting data into k subsets",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "k-fold improves reliability. Each subset is used for testing.",
+    "difficulty": "Easy",
+    "topic": "Model Evaluation"
+  },
+  {
+    "id": 86,
+    "question": "What is hyperparameter tuning?",
+    "options": [
+      "Training model",
+      "Optimizing model parameters",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Hyperparameters control model behavior. Tuning improves performance.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 87,
+    "question": "What is grid search?",
+    "options": [
+      "Database query",
+      "Exhaustive search for best parameters",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Grid search tests parameter combinations. It finds optimal settings.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 88,
+    "question": "What is random search?",
+    "options": [
+      "Random predictions",
+      "Random sampling of parameters",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Random search is efficient. It explores parameter space faster.",
+    "difficulty": "Easy",
+    "topic": "AI Concepts"
+  },
+  {
+    "id": 89,
+    "question": "What is ensemble learning?",
+    "options": [
+      "Single model",
+      "Combining multiple models",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Ensembles improve accuracy. Examples include boosting and bagging.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 90,
+    "question": "What is boosting?",
+    "options": [
+      "Combining weak learners sequentially",
+      "Encryption method",
+      "Database method",
+      "Sorting method"
+    ],
+    "correct": 0,
+    "explanation": "Boosting focuses on errors. It improves model performance.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 91,
+    "question": "What is bagging?",
+    "options": [
+      "Sequential learning",
+      "Training models on random subsets",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Bagging reduces variance. Random Forest uses bagging.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 92,
+    "question": "What is anomaly detection?",
+    "options": [
+      "Classification",
+      "Identifying unusual patterns",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Anomaly detection finds outliers. It is used in fraud detection.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 93,
+    "question": "What is recommender system type?",
+    "options": [
+      "Collaborative filtering",
+      "Encryption filtering",
+      "Database filtering",
+      "Sorting filtering"
+    ],
+    "correct": 0,
+    "explanation": "Collaborative filtering uses user behavior. It powers recommendation engines.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 94,
+    "question": "What is content-based filtering?",
+    "options": [
+      "Recommending based on item features",
+      "Encryption method",
+      "Database method",
+      "Sorting method"
+    ],
+    "correct": 0,
+    "explanation": "Content-based filtering uses item attributes. It matches user preferences.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 95,
+    "question": "What is reinforcement learning policy?",
+    "options": [
+      "Database rule",
+      "Strategy for choosing actions",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Policies guide agent decisions. They maximize rewards.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 96,
+    "question": "What is reward function?",
+    "options": [
+      "Database function",
+      "Defines feedback for agent actions",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Reward functions guide learning. They shape agent behavior.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  },
+  {
+    "id": 97,
+    "question": "What is environment in reinforcement learning?",
+    "options": [
+      "Database",
+      "External system interacting with agent",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Environment provides feedback. It influences learning.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 98,
+    "question": "What is state in reinforcement learning?",
+    "options": [
+      "Database record",
+      "Current situation of agent",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "State represents environment conditions. It affects decisions.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 99,
+    "question": "What is action in reinforcement learning?",
+    "options": [
+      "Database query",
+      "Decision taken by agent",
+      "Encryption method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Actions influence outcomes. They determine rewards.",
+    "difficulty": "Easy",
+    "topic": "Machine Learning"
+  },
+  {
+    "id": 100,
+    "question": "What is exploration vs exploitation?",
+    "options": [
+      "Encryption method",
+      "Balancing new actions and known rewards",
+      "Database method",
+      "Sorting method"
+    ],
+    "correct": 1,
+    "explanation": "Exploration finds better strategies. Exploitation uses known best actions.",
+    "difficulty": "Easy",
+    "topic": "General AI"
+  }
+]

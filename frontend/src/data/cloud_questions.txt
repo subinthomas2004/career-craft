@@ -1,0 +1,1495 @@
+1. What is cloud computing?
+
+A. Using local servers only
+B. Delivering computing services over the internet
+C. Storing data on personal devices
+D. Using offline software
+
+Answer: B
+Why: Cloud computing provides resources like storage and computing over the internet. It eliminates the need for local infrastructure.
+
+2. Which of the following is a cloud service provider?
+
+A. Microsoft Azure
+B. Windows OS
+C. MySQL
+D. HTML
+
+Answer: A
+Why: Microsoft Azure offers cloud services including computing and storage. It is a major cloud provider.
+
+3. What does IaaS stand for?
+
+A. Internet as a Service
+B. Infrastructure as a Service
+C. Integration as a Service
+D. Interface as a Service
+
+Answer: B
+Why: IaaS provides virtualized computing resources. Users manage OS and applications.
+
+4. Which service model provides virtual machines?
+
+A. SaaS
+B. PaaS
+C. IaaS
+D. FaaS
+
+Answer: C
+Why: IaaS offers virtual machines and storage. Users control the operating system.
+
+5. What does PaaS stand for?
+
+A. Platform as a Service
+B. Process as a Service
+C. Program as a Service
+D. Performance as a Service
+
+Answer: A
+Why: PaaS provides a platform for developing applications. Developers focus on code rather than infrastructure.
+
+6. What does SaaS stand for?
+
+A. Software as a Service
+B. Storage as a Service
+C. System as a Service
+D. Server as a Service
+
+Answer: A
+Why: SaaS delivers software over the internet. Users access applications via browsers.
+
+7. Which is an example of SaaS?
+
+A. Google Docs
+B. Amazon EC2
+C. Docker
+D. Kubernetes
+
+Answer: A
+Why: Google Docs is accessed via browser. Users do not manage infrastructure.
+
+8. Which is an example of IaaS?
+
+A. Gmail
+B. Amazon EC2
+C. Google Docs
+D. Slack
+
+Answer: B
+Why: Amazon EC2 provides virtual servers. Users control OS and applications.
+
+9. Which is an example of PaaS?
+
+A. Heroku
+B. Dropbox
+C. Microsoft Word
+D. Gmail
+
+Answer: A
+Why: Heroku provides a platform for deploying apps. Developers focus on code.
+
+10. What is virtualization?
+
+A. Physical server creation
+B. Creating virtual versions of resources
+C. Deleting servers
+D. Encrypting data
+
+Answer: B
+Why: Virtualization allows multiple virtual machines on one physical server. It improves resource utilization.
+
+11. What is a virtual machine (VM)?
+
+A. Physical server
+B. Software-based computer
+C. Network cable
+D. Database
+
+Answer: B
+Why: VMs emulate physical computers. They run operating systems independently.
+
+12. What is a hypervisor?
+
+A. Database manager
+B. Software that manages virtual machines
+C. Network switch
+D. Cloud storage
+
+Answer: B
+Why: Hypervisors create and manage VMs. Examples include VMware and Hyper-V.
+
+13. What is Type 1 hypervisor?
+
+A. Runs on host OS
+B. Runs directly on hardware
+C. Runs in browser
+D. Runs in database
+
+Answer: B
+Why: Type 1 hypervisors run directly on hardware. They offer better performance.
+
+14. What is Type 2 hypervisor?
+
+A. Runs on host OS
+B. Runs on hardware directly
+C. Runs in cloud
+D. Runs in database
+
+Answer: A
+Why: Type 2 hypervisors run on top of an operating system. Example: VirtualBox.
+
+15. What is containerization?
+
+A. Creating virtual machines
+B. Packaging applications with dependencies
+C. Encrypting data
+D. Deleting servers
+
+Answer: B
+Why: Containers package apps with dependencies. They ensure consistent environments.
+
+16. Which tool is used for containerization?
+
+A. Docker
+B. MySQL
+C. HTML
+D. Apache
+
+Answer: A
+Why: Docker creates and manages containers. It simplifies deployment.
+
+17. What is Kubernetes?
+
+A. Database
+B. Container orchestration platform
+C. Programming language
+D. Web server
+
+Answer: B
+Why: Kubernetes manages container deployment and scaling. It automates operations.
+
+18. What is cloud storage?
+
+A. Local storage
+B. Storing data on remote servers
+C. USB storage
+D. RAM storage
+
+Answer: B
+Why: Cloud storage stores data on remote servers. Users access it via internet.
+
+19. Which is an example of cloud storage?
+
+A. Google Drive
+B. RAM
+C. Hard disk
+D. CPU
+
+Answer: A
+Why: Google Drive stores files in the cloud. Users can access them anywhere.
+
+20. What is elasticity in cloud computing?
+
+A. Fixed resources
+B. Ability to scale resources automatically
+C. Deleting resources
+D. Encrypting data
+
+Answer: B
+Why: Elasticity allows automatic scaling. It matches resource usage with demand.
+
+21. What is scalability?
+
+A. Increasing performance by adding resources
+B. Deleting resources
+C. Encrypting data
+D. Reducing storage
+
+Answer: A
+Why: Scalability ensures systems handle increased load. It improves performance.
+
+22. What is load balancing?
+
+A. Increasing server load
+B. Distributing traffic across servers
+C. Deleting servers
+D. Encrypting data
+
+Answer: B
+Why: Load balancing improves availability. It prevents server overload.
+
+23. What is multi-tenancy?
+
+A. Single user system
+B. Multiple users sharing resources
+C. Local storage
+D. Dedicated server only
+
+Answer: B
+Why: Multi-tenancy allows multiple users to share cloud resources. It reduces costs.
+
+24. What is a public cloud?
+
+A. Private infrastructure
+B. Cloud services available to public
+C. Local server
+D. Offline system
+
+Answer: B
+Why: Public clouds are accessible over internet. Examples: AWS, Azure.
+
+25. What is a private cloud?
+
+A. Cloud used by one organization
+B. Public cloud
+C. Offline system
+D. Free cloud
+
+Answer: A
+Why: Private clouds are dedicated to one organization. They provide greater control.
+
+26. What is a hybrid cloud?
+
+A. Only public cloud
+B. Combination of public and private clouds
+C. Local server
+D. Offline network
+
+Answer: B
+Why: Hybrid cloud combines public and private environments. It offers flexibility.
+
+27. What is community cloud?
+
+A. Cloud for single user
+B. Cloud shared by organizations with common goals
+C. Public cloud
+D. Offline cloud
+
+Answer: B
+Why: Community clouds serve organizations with shared concerns. They improve collaboration.
+
+28. What is serverless computing?
+
+A. No servers exist
+B. Cloud provider manages infrastructure
+C. Offline computing
+D. Local computing
+
+Answer: B
+Why: Serverless allows developers to focus on code. Infrastructure is managed by provider.
+
+29. What is FaaS?
+
+A. Function as a Service
+B. File as a Service
+C. Firewall as a Service
+D. Framework as a Service
+
+Answer: A
+Why: FaaS executes functions in response to events. It supports serverless architecture.
+
+30. What is auto-scaling?
+
+A. Manual scaling
+B. Automatic adjustment of resources
+C. Deleting servers
+D. Encrypting data
+
+Answer: B
+Why: Auto-scaling adjusts resources based on demand. It optimizes performance and cost.
+
+31. What is cloud security?
+
+A. Protecting local devices
+B. Protecting cloud resources and data
+C. Deleting data
+D. Encrypting hardware
+
+Answer: B
+Why: Cloud security ensures data confidentiality and integrity. It uses encryption and access control.
+
+32. What is IAM in cloud computing?
+
+A. Internet Access Mode
+B. Identity and Access Management
+C. Internal Access Method
+D. Integrated Application Model
+
+Answer: B
+Why: IAM controls user access. It ensures secure authentication and authorization.
+
+33. What is encryption in cloud computing?
+
+A. Deleting data
+B. Converting data into secure format
+C. Copying data
+D. Compressing data
+
+Answer: B
+Why: Encryption protects data from unauthorized access. It ensures confidentiality.
+
+34. What is data redundancy?
+
+A. Single copy of data
+B. Multiple copies for reliability
+C. Deleting data
+D. Encrypting data
+
+Answer: B
+Why: Redundancy improves data availability. It prevents data loss.
+
+35. What is disaster recovery?
+
+A. Deleting data
+B. Restoring systems after failure
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Disaster recovery ensures business continuity. It restores data and services.
+
+36. What is uptime in cloud services?
+
+A. Downtime duration
+B. Time service is operational
+C. Data storage time
+D. Backup time
+
+Answer: B
+Why: Uptime measures service availability. High uptime ensures reliability.
+
+37. What is SLA in cloud computing?
+
+A. Service Level Agreement
+B. Secure Login Access
+C. System Load Analysis
+D. Server Link Application
+
+Answer: A
+Why: SLA defines service expectations. It includes uptime and performance guarantees.
+
+38. What is pay-as-you-go pricing?
+
+A. Fixed cost
+B. Pay only for resources used
+C. Free service
+D. Annual billing only
+
+Answer: B
+Why: Pay-as-you-go reduces costs. Users pay for actual usage.
+
+39. What is edge computing?
+
+A. Centralized computing
+B. Processing data near source
+C. Offline computing
+D. Local storage
+
+Answer: B
+Why: Edge computing reduces latency. It processes data near users.
+
+40. What is CDN in cloud computing?
+
+A. Content Delivery Network
+B. Central Data Node
+C. Cloud Data Network
+D. Code Delivery Network
+
+Answer: A
+Why: CDNs deliver content from nearby servers. They improve performance.
+
+41. What is cloud bursting?
+
+A. Deleting resources
+B. Using public cloud during peak demand
+C. Encrypting data
+D. Offline computing
+
+Answer: B
+Why: Cloud bursting handles peak loads. It extends private cloud capacity.
+
+42. What is resource pooling?
+
+A. Dedicated resources
+B. Sharing resources among users
+C. Deleting resources
+D. Encrypting resources
+
+Answer: B
+Why: Resource pooling improves efficiency. It supports multi-tenancy.
+
+43. What is a region in cloud computing?
+
+A. Single server
+B. Geographic area with data centers
+C. Database
+D. Network cable
+
+Answer: B
+Why: Regions group data centers. They ensure availability and compliance.
+
+44. What is an availability zone?
+
+A. Single server
+B. Isolated data center within region
+C. Database cluster
+D. Network cable
+
+Answer: B
+Why: Availability zones improve fault tolerance. They isolate failures.
+
+45. What is cloud migration?
+
+A. Deleting data
+B. Moving applications to cloud
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Migration moves workloads to cloud. It improves scalability.
+
+46. What is vendor lock-in?
+
+A. Freedom to switch providers
+B. Difficulty switching providers
+C. Free cloud services
+D. Security feature
+
+Answer: B
+Why: Vendor lock-in limits flexibility. It makes migration harder.
+
+47. What is cloud orchestration?
+
+A. Manual management
+B. Automated management of cloud resources
+C. Database management
+D. Security feature
+
+Answer: B
+Why: Orchestration automates deployment and scaling. It improves efficiency.
+
+48. What is a snapshot in cloud computing?
+
+A. Image file
+B. Backup of system state
+C. CSS file
+D. Network packet
+
+Answer: B
+Why: Snapshots capture system state. They support recovery.
+
+49. What is object storage?
+
+A. Block storage
+B. Storage for unstructured data
+C. RAM storage
+D. CPU storage
+
+Answer: B
+Why: Object storage stores files like images and videos. It is scalable.
+
+50. What is block storage?
+
+A. File storage
+B. Storage divided into blocks
+C. Object storage
+D. Cache storage
+
+Answer: B
+Why: Block storage stores data in blocks. It is used for databases and VMs. 51. What is object lifecycle management in cloud storage?
+
+A. Deleting servers
+B. Automating data transitions between storage classes
+C. Encrypting data
+D. Scaling VMs
+
+Answer: B
+Why: Lifecycle policies move data to cheaper storage tiers. This reduces costs while maintaining availability.
+
+52. What is cold storage?
+
+A. High-speed storage
+B. Low-cost storage for infrequently accessed data
+C. RAM storage
+D. Cache storage
+
+Answer: B
+Why: Cold storage is cost-efficient. It is used for backups and archives.
+
+53. What is hot storage?
+
+A. Storage for rarely used data
+B. High-speed storage for frequently accessed data
+C. Offline storage
+D. Encrypted storage
+
+Answer: B
+Why: Hot storage provides fast access. It is used for active workloads.
+
+54. What is cloud monitoring?
+
+A. Deleting logs
+B. Tracking performance and health of resources
+C. Encrypting data
+D. Creating VMs
+
+Answer: B
+Why: Monitoring helps detect issues early. Tools provide metrics and alerts.
+
+55. What is logging in cloud computing?
+
+A. Deleting data
+B. Recording system events
+C. Encrypting data
+D. Scaling resources
+
+Answer: B
+Why: Logs help troubleshoot and audit systems. They improve security and reliability.
+
+56. What is autoscaling group?
+
+A. Manual scaling
+B. Group of instances that scale automatically
+C. Single VM
+D. Database cluster
+
+Answer: B
+Why: Autoscaling groups adjust instance numbers. They ensure performance and cost efficiency.
+
+57. What is horizontal scaling?
+
+A. Adding more servers
+B. Increasing server capacity
+C. Deleting servers
+D. Encrypting data
+
+Answer: A
+Why: Horizontal scaling adds more machines. It improves availability and scalability.
+
+58. What is vertical scaling?
+
+A. Adding more servers
+B. Increasing server resources (CPU, RAM)
+C. Deleting servers
+D. Encrypting data
+
+Answer: B
+Why: Vertical scaling upgrades existing hardware. It is limited by machine capacity.
+
+59. What is cloud load balancer?
+
+A. Database tool
+B. Distributes traffic across instances
+C. Encrypts data
+D. Deletes resources
+
+Answer: B
+Why: Load balancers improve reliability. They route traffic to healthy instances.
+
+60. What is health check in load balancing?
+
+A. Database query
+B. Monitoring instance availability
+C. Encrypting data
+D. Creating backups
+
+Answer: B
+Why: Health checks detect failed instances. Traffic is redirected automatically.
+
+61. What is VPC?
+
+A. Virtual Private Cloud
+B. Virtual Public Connection
+C. Variable Private Cloud
+D. Verified Public Cloud
+
+Answer: A
+Why: VPC provides isolated network environments. It enhances security and control.
+
+62. What is subnet in cloud networking?
+
+A. Entire network
+B. Segment of VPC network
+C. Database table
+D. Storage unit
+
+Answer: B
+Why: Subnets divide networks into smaller segments. They improve organization and security.
+
+63. What is a public subnet?
+
+A. Accessible from internet
+B. Private network only
+C. Database subnet
+D. Storage subnet
+
+Answer: A
+Why: Public subnets host internet-facing resources. They allow external access.
+
+64. What is a private subnet?
+
+A. Accessible from internet
+B. Internal network only
+C. Public cloud
+D. Storage unit
+
+Answer: B
+Why: Private subnets protect internal resources. They enhance security.
+
+65. What is NAT gateway?
+
+A. Database gateway
+B. Enables private subnet internet access
+C. Storage gateway
+D. Security firewall
+
+Answer: B
+Why: NAT gateways allow outbound internet access. They protect private IPs.
+
+66. What is a security group?
+
+A. Database
+B. Virtual firewall controlling traffic
+C. Storage service
+D. Load balancer
+
+Answer: B
+Why: Security groups filter inbound/outbound traffic. They enforce access rules.
+
+67. What is network ACL?
+
+A. Database rule
+B. Stateless firewall at subnet level
+C. Storage rule
+D. VM setting
+
+Answer: B
+Why: Network ACLs control subnet traffic. They add another security layer.
+
+68. What is IAM role?
+
+A. User account
+B. Temporary permissions for services
+C. Database role
+D. Network role
+
+Answer: B
+Why: IAM roles grant permissions to services. They avoid storing credentials.
+
+69. What is multi-factor authentication (MFA)?
+
+A. Single password login
+B. Multiple verification methods
+C. Encryption method
+D. Storage method
+
+Answer: B
+Why: MFA adds extra security. It requires additional verification like OTP.
+
+70. What is data sovereignty?
+
+A. Data encryption
+B. Data governed by local laws
+C. Data deletion
+D. Data compression
+
+Answer: B
+Why: Data sovereignty ensures compliance. It controls where data is stored.
+
+71. What is compliance in cloud computing?
+
+A. Ignoring regulations
+B. Meeting legal and security standards
+C. Deleting logs
+D. Scaling servers
+
+Answer: B
+Why: Compliance ensures regulatory adherence. It protects user data.
+
+72. What is shared responsibility model?
+
+A. Provider responsible for everything
+B. Security responsibilities shared between provider and user
+C. User responsible for hardware
+D. No security needed
+
+Answer: B
+Why: Providers manage infrastructure security. Users secure applications and data.
+
+73. What is cloud cost optimization?
+
+A. Increasing expenses
+B. Reducing costs while maintaining performance
+C. Deleting resources
+D. Encrypting data
+
+Answer: B
+Why: Optimization ensures efficient resource use. It prevents overspending.
+
+74. What is reserved instance pricing?
+
+A. Pay hourly
+B. Discount for long-term commitment
+C. Free usage
+D. Pay per request
+
+Answer: B
+Why: Reserved instances lower costs. Users commit to usage.
+
+75. What is spot instance?
+
+A. Dedicated server
+B. Low-cost instance with possible interruption
+C. Permanent instance
+D. High-cost instance
+
+Answer: B
+Why: Spot instances use unused capacity. They are cheaper but may terminate.
+
+76. What is cloud billing dashboard?
+
+A. Database
+B. Tool to track usage and costs
+C. Security tool
+D. Storage tool
+
+Answer: B
+Why: Billing dashboards provide cost visibility. They help manage expenses.
+
+77. What is resource tagging?
+
+A. Deleting resources
+B. Labeling resources for organization
+C. Encrypting resources
+D. Scaling resources
+
+Answer: B
+Why: Tags help manage and track resources. They support billing and organization.
+
+78. What is a cloud API?
+
+A. Hardware interface
+B. Interface to manage cloud resources
+C. Database table
+D. Storage device
+
+Answer: B
+Why: Cloud APIs automate resource management. They enable infrastructure as code.
+
+79. What is Infrastructure as Code (IaC)?
+
+A. Manual infrastructure setup
+B. Managing infrastructure using code
+C. Database scripting
+D. CSS styling
+
+Answer: B
+Why: IaC automates infrastructure deployment. Tools include Terraform.
+
+80. What is Terraform?
+
+A. Programming language
+B. IaC tool for cloud provisioning
+C. Database
+D. Web server
+
+Answer: B
+Why: Terraform automates infrastructure. It supports multiple cloud providers.
+
+81. What is cloud automation?
+
+A. Manual tasks
+B. Automatic management of resources
+C. Deleting resources
+D. Encrypting data
+
+Answer: B
+Why: Automation reduces manual errors. It improves efficiency.
+
+82. What is a cloud sandbox environment?
+
+A. Production environment
+B. Testing environment
+C. Database server
+D. Storage unit
+
+Answer: B
+Why: Sandboxes allow safe testing. They prevent affecting production systems.
+
+83. What is blue-green deployment?
+
+A. Deleting servers
+B. Running two environments for zero downtime
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Blue-green deployment reduces downtime. Traffic shifts to new version.
+
+84. What is canary deployment?
+
+A. Full deployment
+B. Gradual rollout to small users
+C. Deleting version
+D. Database migration
+
+Answer: B
+Why: Canary releases reduce risk. Issues are detected early.
+
+85. What is cloud backup?
+
+A. Deleting data
+B. Copying data to cloud for recovery
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Backups protect data. They enable disaster recovery.
+
+86. What is snapshot backup?
+
+A. Full backup
+B. Point-in-time system copy
+C. Incremental backup
+D. Database backup
+
+Answer: B
+Why: Snapshots capture system state. They support quick recovery.
+
+87. What is replication in cloud storage?
+
+A. Deleting data
+B. Copying data across locations
+C. Encrypting data
+D. Compressing data
+
+Answer: B
+Why: Replication improves availability. It protects against failures.
+
+88. What is latency in cloud computing?
+
+A. Storage size
+B. Delay in data transfer
+C. Encryption level
+D. CPU speed
+
+Answer: B
+Why: Lower latency improves performance. It affects user experience.
+
+89. What is throughput?
+
+A. Delay
+B. Data transfer rate
+C. Storage size
+D. CPU speed
+
+Answer: B
+Why: Throughput measures actual performance. It indicates system efficiency.
+
+90. What is cloud bursting benefit?
+
+A. Reduced performance
+B. Handling peak loads
+C. Deleting resources
+D. Encrypting data
+
+Answer: B
+Why: Cloud bursting ensures scalability. It handles sudden demand.
+
+91. What is container registry?
+
+A. Database
+B. Storage for container images
+C. Web server
+D. Load balancer
+
+Answer: B
+Why: Registries store container images. Example: Docker Hub.
+
+92. What is serverless cold start?
+
+A. Fast response
+B. Delay when function initializes
+C. Database error
+D. Encryption failure
+
+Answer: B
+Why: Cold starts occur when functions are idle. They cause initial latency.
+
+93. What is event-driven architecture?
+
+A. Time-based execution
+B. Triggered by events
+C. Manual execution
+D. Database-driven execution
+
+Answer: B
+Why: Events trigger functions automatically. It improves scalability.
+
+94. What is cloud-native application?
+
+A. Traditional app
+B. Built specifically for cloud environments
+C. Desktop app
+D. Offline app
+
+Answer: B
+Why: Cloud-native apps leverage cloud features. They are scalable and resilient.
+
+95. What is service mesh?
+
+A. Database
+B. Infrastructure layer for service communication
+C. Storage system
+D. Web server
+
+Answer: B
+Why: Service mesh manages microservices communication. It improves security and observability.
+
+96. What is observability?
+
+A. Deleting logs
+B. Monitoring system behavior using metrics, logs, traces
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Observability helps diagnose issues. It improves reliability.
+
+97. What is fault tolerance?
+
+A. System failure
+B. Ability to continue operation despite failures
+C. Deleting data
+D. Encrypting data
+
+Answer: B
+Why: Fault tolerance ensures reliability. Systems recover from failures.
+
+98. What is high availability?
+
+A. Frequent downtime
+B. System operational most of the time
+C. Data deletion
+D. Encryption
+
+Answer: B
+Why: High availability ensures minimal downtime. It improves reliability.
+
+99. What is cloud governance?
+
+A. Ignoring policies
+B. Managing cloud usage and compliance
+C. Deleting resources
+D. Encrypting data
+
+Answer: B
+Why: Governance ensures policy compliance. It controls costs and security.
+
+100. What is cloud sprawl?
+
+A. Organized resources
+B. Uncontrolled growth of cloud resources
+C. Data encryption
+D. Database scaling
+
+Answer: B
+Why: Cloud sprawl increases costs. Proper governance prevents it. 101. What is cloud federation?
+
+A. Single cloud provider
+B. Collaboration between multiple cloud providers
+C. Local server network
+D. Offline computing
+
+Answer: B
+Why: Cloud federation allows interoperability between providers. It improves flexibility and avoids vendor lock-in.
+
+102. What is multi-cloud strategy?
+
+A. Using one cloud provider
+B. Using multiple cloud providers
+C. Using private cloud only
+D. Using offline systems
+
+Answer: B
+Why: Multi-cloud improves reliability and avoids dependency on one vendor. It enhances resilience.
+
+103. What is cloud interoperability?
+
+A. Incompatible systems
+B. Ability of different cloud systems to work together
+C. Database integration only
+D. Local network
+
+Answer: B
+Why: Interoperability enables seamless data and application exchange. It supports multi-cloud strategies.
+
+104. What is cloud portability?
+
+A. Data cannot be moved
+B. Ability to move apps between clouds
+C. Local storage
+D. Database backup
+
+Answer: B
+Why: Portability reduces vendor lock-in. It enables migration across providers.
+
+105. What is cloud broker?
+
+A. Database tool
+B. Intermediary managing cloud services
+C. Storage device
+D. Hypervisor
+
+Answer: B
+Why: Cloud brokers help manage multiple providers. They optimize cost and performance.
+
+106. What is API gateway?
+
+A. Database gateway
+B. Entry point for API requests
+C. Storage gateway
+D. Security firewall
+
+Answer: B
+Why: API gateways manage routing, authentication, and rate limiting. They simplify microservices communication.
+
+107. What is service discovery?
+
+A. Finding databases
+B. Automatic detection of services in a network
+C. Manual configuration
+D. Data encryption
+
+Answer: B
+Why: Service discovery enables dynamic service communication. It supports microservices architecture.
+
+108. What is container orchestration?
+
+A. Running single container
+B. Managing container deployment and scaling
+C. Encrypting containers
+D. Deleting containers
+
+Answer: B
+Why: Orchestration automates container lifecycle. Kubernetes is a common tool.
+
+109. What is rolling deployment?
+
+A. Deploy all at once
+B. Gradually updating instances
+C. Deleting instances
+D. Encrypting instances
+
+Answer: B
+Why: Rolling deployments update services gradually. They minimize downtime.
+
+110. What is immutable infrastructure?
+
+A. Changing servers manually
+B. Replacing servers instead of modifying
+C. Deleting servers
+D. Encrypting servers
+
+Answer: B
+Why: Immutable infrastructure improves consistency. It reduces configuration drift.
+
+111. What is configuration drift?
+
+A. Consistent configuration
+B. Differences between environments over time
+C. Data encryption
+D. Network failure
+
+Answer: B
+Why: Drift causes inconsistencies. Automation prevents it.
+
+112. What is secrets management?
+
+A. Storing passwords in code
+B. Secure storage of sensitive credentials
+C. Deleting credentials
+D. Encrypting hardware
+
+Answer: B
+Why: Secrets management protects credentials. Tools include AWS Secrets Manager.
+
+113. What is key management service (KMS)?
+
+A. Database tool
+B. Service to manage encryption keys
+C. Storage service
+D. Load balancer
+
+Answer: B
+Why: KMS securely stores encryption keys. It supports data protection.
+
+114. What is zero trust security model?
+
+A. Trust all users
+B. Verify every access request
+C. Disable authentication
+D. Allow public access
+
+Answer: B
+Why: Zero trust requires verification for all access. It enhances security.
+
+115. What is DDoS protection in cloud?
+
+A. Deleting traffic
+B. Protecting against traffic flooding attacks
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Cloud providers mitigate DDoS attacks. They ensure service availability.
+
+116. What is WAF (Web Application Firewall)?
+
+A. Database firewall
+B. Protects web applications from attacks
+C. Storage firewall
+D. Network cable
+
+Answer: B
+Why: WAF filters HTTP traffic. It blocks malicious requests.
+
+117. What is SIEM?
+
+A. Security Information and Event Management
+B. System Integration Event Module
+C. Secure Internet Email Management
+D. Server Infrastructure Execution Model
+
+Answer: A
+Why: SIEM collects and analyzes security events. It helps detect threats.
+
+118. What is threat modeling?
+
+A. Ignoring threats
+B. Identifying and mitigating security risks
+C. Deleting threats
+D. Encrypting threats
+
+Answer: B
+Why: Threat modeling improves security planning. It identifies vulnerabilities.
+
+119. What is penetration testing?
+
+A. Deleting data
+B. Simulating attacks to find vulnerabilities
+C. Encrypting systems
+D. Scaling servers
+
+Answer: B
+Why: Pen testing identifies security weaknesses. It improves defense.
+
+120. What is cloud audit?
+
+A. Ignoring logs
+B. Reviewing cloud usage and compliance
+C. Deleting data
+D. Encrypting logs
+
+Answer: B
+Why: Audits ensure compliance and security. They detect misuse.
+
+121. What is edge location in cloud CDN?
+
+A. Central server
+B. Data center near users
+C. Database server
+D. Storage device
+
+Answer: B
+Why: Edge locations reduce latency. They deliver content faster.
+
+122. What is cold start mitigation?
+
+A. Increasing delay
+B. Keeping functions warm
+C. Deleting functions
+D. Encrypting functions
+
+Answer: B
+Why: Warm functions reduce latency. They improve performance.
+
+123. What is function timeout in serverless?
+
+A. Unlimited execution
+B. Maximum execution time limit
+C. Database timeout
+D. Network timeout
+
+Answer: B
+Why: Timeouts prevent runaway processes. They control costs.
+
+124. What is API throttling?
+
+A. Increasing requests
+B. Limiting request rate
+C. Deleting requests
+D. Encrypting requests
+
+Answer: B
+Why: Throttling protects APIs. It prevents abuse.
+
+125. What is message queue?
+
+A. Database table
+B. Service for asynchronous communication
+C. Storage system
+D. Load balancer
+
+Answer: B
+Why: Message queues decouple services. They improve scalability.
+
+126. What is publish/subscribe model?
+
+A. Direct communication
+B. Messaging pattern with publishers and subscribers
+C. Database replication
+D. Storage method
+
+Answer: B
+Why: Pub/Sub enables event-driven systems. It improves scalability.
+
+127. What is event sourcing?
+
+A. Storing final state only
+B. Storing sequence of events
+C. Deleting events
+D. Encrypting events
+
+Answer: B
+Why: Event sourcing tracks changes over time. It improves traceability.
+
+128. What is CQRS?
+
+A. Command Query Responsibility Segregation
+B. Cloud Query Resource System
+C. Central Queue Response System
+D. Cloud Quality Routing Service
+
+Answer: A
+Why: CQRS separates read and write operations. It improves performance.
+
+129. What is cloud-native security?
+
+A. Traditional security
+B. Security designed for cloud environments
+C. Offline security
+D. Local firewall
+
+Answer: B
+Why: Cloud-native security uses automation and monitoring. It improves protection.
+
+130. What is data encryption at rest?
+
+A. Encryption during transmission
+B. Encryption of stored data
+C. Encryption in RAM
+D. Encryption in CPU
+
+Answer: B
+Why: Encryption at rest protects stored data. It prevents unauthorized access.
+
+131. What is encryption in transit?
+
+A. Encrypt stored data
+B. Encrypt data during transmission
+C. Encrypt CPU
+D. Encrypt RAM
+
+Answer: B
+Why: Encryption in transit protects data from interception. It uses TLS.
+
+132. What is TLS?
+
+A. Transport Layer Security
+B. Transmission Link System
+C. Trusted Login Service
+D. Total Load Security
+
+Answer: A
+Why: TLS encrypts network communication. It secures web traffic.
+
+133. What is certificate authority (CA)?
+
+A. Database authority
+B. Entity issuing digital certificates
+C. Storage provider
+D. Network switch
+
+Answer: B
+Why: CAs verify identities. They enable secure connections.
+
+134. What is autoscaling cooldown period?
+
+A. Scaling delay
+B. Time between scaling actions
+C. Database timeout
+D. Network delay
+
+Answer: B
+Why: Cooldown prevents rapid scaling. It stabilizes systems.
+
+135. What is failover?
+
+A. System crash
+B. Switching to backup system
+C. Data deletion
+D. Encryption
+
+Answer: B
+Why: Failover ensures continuity. It activates backup systems.
+
+136. What is disaster recovery site?
+
+A. Primary data center
+B. Backup site for recovery
+C. Database cluster
+D. Load balancer
+
+Answer: B
+Why: DR sites restore operations after disasters. They ensure business continuity.
+
+137. What is RTO?
+
+A. Recovery Time Objective
+B. Resource Transfer Operation
+C. Remote Task Operation
+D. Runtime Transfer Option
+
+Answer: A
+Why: RTO defines acceptable downtime. It guides recovery planning.
+
+138. What is RPO?
+
+A. Recovery Point Objective
+B. Remote Processing Option
+C. Resource Protection Operation
+D. Runtime Performance Output
+
+Answer: A
+Why: RPO defines acceptable data loss. It guides backup frequency.
+
+139. What is cloud workload?
+
+A. Hardware
+B. Application or service running in cloud
+C. Database
+D. Network cable
+
+Answer: B
+Why: Workloads include apps and services. They consume cloud resources.
+
+140. What is container image?
+
+A. Running container
+B. Snapshot of container environment
+C. Database
+D. Network packet
+
+Answer: B
+Why: Images contain app and dependencies. Containers run from images.
+
+141. What is blue/green environment?
+
+A. Single deployment
+B. Two identical environments for deployment
+C. Database replication
+D. Load balancing
+
+Answer: B
+Why: Blue/green deployment ensures zero downtime. Traffic switches between environments.
+
+142. What is autoscaling policy?
+
+A. Manual scaling
+B. Rules defining scaling behavior
+C. Database policy
+D. Security rule
+
+Answer: B
+Why: Policies define when to scale. They optimize performance.
+
+143. What is cloud sandbox testing?
+
+A. Production testing
+B. Safe environment for experimentation
+C. Database testing
+D. Network testing
+
+Answer: B
+Why: Sandboxes prevent affecting production. They allow safe testing.
+
+144. What is green computing in cloud?
+
+A. Using more energy
+B. Energy-efficient computing
+C. Deleting servers
+D. Encrypting data
+
+Answer: B
+Why: Green computing reduces environmental impact. Cloud optimizes resource usage.
+
+145. What is cloud elasticity vs scalability?
+
+A. Same concept
+B. Elasticity is automatic scaling, scalability is planned scaling
+C. Scalability is automatic
+D. Elasticity is manual
+
+Answer: B
+Why: Elasticity responds automatically. Scalability prepares for growth.
+
+146. What is a bastion host?
+
+A. Database server
+B. Secure gateway to access private network
+C. Storage device
+D. Load balancer
+
+Answer: B
+Why: Bastion hosts secure remote access. They protect internal resources.
+
+147. What is cloud-native CI/CD?
+
+A. Manual deployment
+B. Automated pipeline in cloud environment
+C. Database replication
+D. Network monitoring
+
+Answer: B
+Why: Cloud-native CI/CD automates builds and deployments. It improves agility.
+
+148. What is serverless event trigger?
+
+A. Manual function execution
+B. Automatic function execution on event
+C. Database query
+D. Network request
+
+Answer: B
+Why: Events trigger serverless functions. It supports automation.
+
+149. What is observability pillar?
+
+A. Encryption
+B. Metrics, logs, traces
+C. Storage
+D. Networking
+
+Answer: B
+Why: Observability uses metrics, logs, and traces. It helps diagnose issues.
+
+150. What is the main goal of cloud computing?
+
+A. Increase hardware usage
+B. Provide scalable, reliable, and cost-efficient computing
+C. Remove security
+D. Reduce performance
+
+Answer: B
+Why: Cloud computing improves scalability and reliability. It reduces infrastructure costs.

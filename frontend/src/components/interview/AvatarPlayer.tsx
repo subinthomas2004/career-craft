@@ -73,8 +73,8 @@ const AvatarPlayer = ({ state, videoSet, isActive, className }: AvatarPlayerProp
 
             {/* Render all video states simultaneously for instant switching */}
 
-            {/* Idle */}
-            {renderVideoLayer(videoSet.idle, 'idle', internalState === 'idle' && !isActive)}
+            {/* Idle - show when idle regardless of active status */}
+            {renderVideoLayer(videoSet.idle, 'idle', internalState === 'idle')}
 
             {/* Talking */}
             {renderVideoLayer(videoSet.talking, 'talking', internalState === 'talking')}

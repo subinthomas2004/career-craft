@@ -1,0 +1,999 @@
+51. What is the time complexity of inserting an element into a hash table (average case)?
+
+A. O(n)
+B. O(log n)
+C. O(1)
+D. O(n log n)
+
+Answer: C
+Why: In a well-designed hash table, the hash function distributes keys uniformly. This allows constant-time insertion on average, assuming minimal collisions.
+
+52. Which data structure is used for level-order traversal of a tree?
+
+A. Stack
+B. Queue
+C. Array
+D. Heap
+
+Answer: B
+Why: Level-order traversal processes nodes one level at a time. A queue ensures nodes are visited in the order they are discovered.
+
+53. What is the worst-case time complexity of searching in a hash table?
+
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n log n)
+
+Answer: C
+Why: In the worst case, all keys collide into the same bucket. This reduces the hash table to a linked list, resulting in linear search time.
+
+54. Which sorting algorithm repeatedly swaps adjacent elements?
+
+A. Selection sort
+B. Bubble sort
+C. Merge sort
+D. Quick sort
+
+Answer: B
+Why: Bubble sort compares adjacent elements and swaps them if they are in the wrong order. This process repeats until the array is sorted.
+
+55. Which data structure is best for checking balanced parentheses?
+
+A. Queue
+B. Stack
+C. Tree
+D. Heap
+
+Answer: B
+Why: A stack tracks opening brackets and ensures each closing bracket matches the most recent opening bracket. This LIFO behavior makes validation efficient.
+
+56. What is the space complexity of merge sort?
+
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n²)
+
+Answer: C
+Why: Merge sort requires additional memory to store temporary arrays during merging. This extra space grows linearly with input size.
+
+57. Which tree property ensures efficient search operations?
+
+A. Completeness
+B. Balance
+C. Depth
+D. Degree
+
+Answer: B
+Why: Balanced trees maintain minimal height relative to nodes. This ensures operations like search, insert, and delete remain logarithmic.
+
+58. Which algorithm is used to detect cycles in an undirected graph?
+
+A. BFS with parent tracking
+B. Dijkstra
+C. Prim
+D. Floyd-Warshall
+
+Answer: A
+Why: BFS can detect cycles by checking visited nodes that are not the parent. This indicates a back connection forming a cycle.
+
+59. Which data structure allows fast minimum element retrieval?
+
+A. Stack
+B. Queue
+C. Min-Heap
+D. Linked List
+
+Answer: C
+Why: A min-heap maintains the smallest element at the root. This allows constant-time retrieval of the minimum value.
+
+60. What is the time complexity of deleting the root from a heap?
+
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n log n)
+
+Answer: B
+Why: After removing the root, the last element moves to the root and percolates down. This process takes logarithmic time.
+
+61. Which traversal method is used to copy a tree?
+
+A. Inorder
+B. Preorder
+C. Postorder
+D. Level order
+
+Answer: B
+Why: Preorder processes the root before its children. This ensures the structure is recreated correctly during copying.
+
+62. Which data structure is used in depth-first search?
+
+A. Queue
+B. Stack
+C. Heap
+D. Array
+
+Answer: B
+Why: DFS uses a stack (explicit or recursion) to explore as far as possible along each branch. This ensures depth-wise traversal.
+
+63. What is the time complexity of selection sort?
+
+A. O(n log n)
+B. O(n²)
+C. O(n)
+D. O(log n)
+
+Answer: B
+Why: Selection sort compares each element with the remaining unsorted portion. This results in quadratic comparisons.
+
+64. Which structure is used for implementing recursion?
+
+A. Queue
+B. Stack
+C. Graph
+D. Tree
+
+Answer: B
+Why: Recursion relies on the call stack to store intermediate states. Each function call pushes a new frame onto the stack.
+
+65. Which algorithm finds shortest path in graphs with negative weights?
+
+A. Dijkstra
+B. Prim
+C. Bellman-Ford
+D. Kruskal
+
+Answer: C
+Why: Bellman-Ford handles negative edge weights by relaxing edges repeatedly. It can also detect negative weight cycles.
+
+66. Which operation in a binary heap takes constant time?
+
+A. Insert
+B. Delete
+C. Find min/max
+D. Heapify
+
+Answer: C
+Why: The root of the heap contains the minimum or maximum element. Accessing it does not require traversal.
+
+67. Which data structure is best for implementing a queue?
+
+A. Array
+B. Linked List
+C. Stack
+D. Tree
+
+Answer: B
+Why: Linked lists allow efficient insertion at rear and deletion at front. This ensures O(1) enqueue and dequeue operations.
+
+68. What is the height of a complete binary tree with n nodes?
+
+A. O(n)
+B. O(log n)
+C. O(n log n)
+D. O(1)
+
+Answer: B
+Why: Complete binary trees are filled level by level. Their height grows logarithmically with the number of nodes.
+
+69. Which sorting algorithm is best for nearly sorted data?
+
+A. Bubble sort
+B. Insertion sort
+C. Selection sort
+D. Heap sort
+
+Answer: B
+Why: Insertion sort performs minimal shifts when elements are nearly in order. This makes it efficient for nearly sorted arrays.
+
+70. Which algorithm uses relaxation technique?
+
+A. Dijkstra
+B. BFS
+C. DFS
+D. Selection sort
+
+Answer: A
+Why: Dijkstra updates shortest path estimates using relaxation. It improves distance values when a shorter path is found.
+
+71. Which data structure supports fast union and find operations?
+
+A. Stack
+B. Queue
+C. Disjoint Set (Union-Find)
+D. Tree
+
+Answer: C
+Why: Union-Find supports efficient merging of sets and finding representatives. Path compression and union by rank optimize operations.
+
+72. Which tree is used in database indexing?
+
+A. AVL Tree
+B. B-Tree
+C. Heap
+D. BST
+
+Answer: B
+Why: B-Trees maintain balanced multi-level indexing. They minimize disk reads, making them ideal for databases.
+
+73. What is the time complexity of heap sort?
+
+A. O(n²)
+B. O(n log n)
+C. O(n)
+D. O(log n)
+
+Answer: B
+Why: Heap sort builds a heap in linear time and performs n deletions. Each deletion takes log n time.
+
+74. Which graph traversal uses recursion naturally?
+
+A. BFS
+B. DFS
+C. Dijkstra
+D. Prim
+
+Answer: B
+Why: DFS explores depth-wise and can be implemented recursively. The recursion stack mirrors the traversal path.
+
+75. Which data structure is used for scheduling tasks?
+
+A. Stack
+B. Queue
+C. Heap
+D. Graph
+
+Answer: B
+Why: Queues process tasks in arrival order. This is useful in CPU scheduling and task management.
+
+76. Which property is required for binary search?
+
+A. Random access
+B. Sorted data
+C. Balanced tree
+D. Linked structure
+
+Answer: B
+Why: Binary search relies on sorted data to eliminate half the search space. Without sorting, comparisons are meaningless.
+
+77. Which algorithm finds strongly connected components?
+
+A. Dijkstra
+B. Kosaraju’s
+C. Prim
+D. Kruskal
+
+Answer: B
+Why: Kosaraju’s algorithm uses two DFS passes. It identifies strongly connected components in directed graphs.
+
+78. Which structure is best for representing hierarchical data?
+
+A. Array
+B. Tree
+C. Queue
+D. Stack
+
+Answer: B
+Why: Trees naturally represent parent-child relationships. They are used in file systems and organizational charts.
+
+79. Which sorting algorithm is based on heap data structure?
+
+A. Merge sort
+B. Heap sort
+C. Quick sort
+D. Insertion sort
+
+Answer: B
+Why: Heap sort builds a heap to repeatedly extract the largest or smallest element. This ensures efficient sorting.
+
+80. Which data structure provides O(1) average search?
+
+A. Linked list
+B. Hash table
+C. Binary tree
+D. Stack
+
+Answer: B
+Why: Hash tables use hash functions to compute direct indices. This enables constant-time average search performance.
+
+81. Which tree traversal is used in expression trees to produce postfix?
+
+A. Inorder
+B. Preorder
+C. Postorder
+D. Level order
+
+Answer: C
+Why: Postorder traversal evaluates children before the root. This produces postfix expressions used in evaluation.
+
+82. Which algorithm is used for network routing?
+
+A. Dijkstra
+B. Merge sort
+C. DFS
+D. Selection sort
+
+Answer: A
+Why: Dijkstra computes shortest paths between nodes. It is widely used in routing protocols.
+
+83. Which data structure is used for undo-redo operations?
+
+A. Queue
+B. Stack
+C. Heap
+D. Graph
+
+Answer: B
+Why: Undo operations use one stack and redo uses another. This allows reversing and reapplying actions efficiently.
+
+84. Which algorithm is stable?
+
+A. Heap sort
+B. Quick sort
+C. Merge sort
+D. Selection sort
+
+Answer: C
+Why: Merge sort preserves the order of equal elements. Stability is important in multi-key sorting.
+
+85. Which graph representation uses more space?
+
+A. Adjacency list
+B. Adjacency matrix
+C. Edge list
+D. Tree
+
+Answer: B
+Why: Adjacency matrices store all possible edges. This results in O(V²) space usage.
+
+86. Which data structure is used in BFS for shortest path in unweighted graph?
+
+A. Stack
+B. Queue
+C. Heap
+D. Tree
+
+Answer: B
+Why: BFS uses a queue to explore nodes by distance. This ensures the shortest path in unweighted graphs.
+
+87. Which sorting algorithm has worst-case O(n log n)?
+
+A. Quick sort
+B. Merge sort
+C. Bubble sort
+D. Insertion sort
+
+Answer: B
+Why: Merge sort guarantees O(n log n) performance regardless of input. Quick sort can degrade to O(n²).
+
+88. Which data structure is used in compiler parsing?
+
+A. Queue
+B. Stack
+C. Heap
+D. Graph
+
+Answer: B
+Why: Parsing uses stacks to manage grammar symbols. This supports syntax analysis and expression evaluation.
+
+89. Which algorithm is used to find bridges in a graph?
+
+A. DFS
+B. BFS
+C. Dijkstra
+D. Prim
+
+Answer: A
+Why: DFS with discovery and low times identifies bridges. A bridge is an edge whose removal increases components.
+
+90. Which data structure is best for fast insertion and deletion?
+
+A. Array
+B. Linked list
+C. Stack
+D. Heap
+
+Answer: B
+Why: Linked lists allow insertion and deletion without shifting elements. Only pointer updates are required.
+
+91. Which tree structure keeps keys sorted and balanced?
+
+A. Heap
+B. AVL Tree
+C. Stack
+D. Queue
+
+Answer: B
+Why: AVL trees maintain height balance through rotations. This ensures sorted order and efficient operations.
+
+92. Which algorithm is used for topological sorting in DAG?
+
+A. BFS (Kahn’s Algorithm)
+B. Dijkstra
+C. Prim
+D. Bellman-Ford
+
+Answer: A
+Why: Kahn’s algorithm uses BFS and in-degree tracking. It produces a valid topological ordering.
+
+93. Which data structure is used for memory management in OS?
+
+A. Stack
+B. Queue
+C. Linked list
+D. Heap
+
+Answer: D
+Why: The heap manages dynamic memory allocation. Operating systems use it to allocate runtime memory.
+
+94. Which sorting algorithm is adaptive?
+
+A. Insertion sort
+B. Selection sort
+C. Heap sort
+D. Merge sort
+
+Answer: A
+Why: Insertion sort adapts to existing order in data. It performs fewer operations when the array is nearly sorted.
+
+95. Which graph algorithm detects negative cycles?
+
+A. Dijkstra
+B. Bellman-Ford
+C. Prim
+D. BFS
+
+Answer: B
+Why: Bellman-Ford detects negative cycles by checking further relaxation. If distances keep decreasing, a negative cycle exists.
+
+96. Which data structure is used in expression parsing?
+
+A. Queue
+B. Stack
+C. Tree
+D. Graph
+
+Answer: B
+Why: Stacks help manage operators and operands. They enforce precedence and associativity rules.
+
+97. Which traversal method is best for deleting a tree?
+
+A. Preorder
+B. Inorder
+C. Postorder
+D. Level order
+
+Answer: C
+Why: Postorder deletes children before the parent. This prevents dangling references.
+
+98. Which data structure supports bidirectional traversal?
+
+A. Singly linked list
+B. Doubly linked list
+C. Stack
+D. Queue
+
+Answer: B
+Why: Doubly linked lists store pointers to both next and previous nodes. This enables forward and backward traversal.
+
+99. Which algorithm is used in AI pathfinding (e.g., games)?
+
+A. A* Search
+B. Merge sort
+C. DFS
+D. Selection sort
+
+Answer: A
+Why: A* uses heuristics to find optimal paths efficiently. It is widely used in game AI and robotics.
+
+100. Which data structure is best for implementing a deque?
+
+A. Array
+B. Doubly linked list
+C. Stack
+D. Tree
+
+Answer: B
+Why: A doubly linked list allows insertion and deletion from both ends. This matches the requirements of a deque.
+
+101. Which data structure is best for implementing a stack?
+
+A. Array
+B. Linked List
+C. Both A and B
+D. Heap
+
+Answer: C
+Why: Stacks can be implemented using arrays or linked lists. Arrays provide fast indexing, while linked lists allow dynamic size.
+
+102. What is the time complexity of pushing an element onto a stack?
+
+A. O(n)
+B. O(log n)
+C. O(1)
+D. O(n log n)
+
+Answer: C
+Why: Push operation adds an element at the top of the stack. This requires only pointer or index update, making it constant time.
+
+103. Which data structure is ideal for breadth-first search?
+
+A. Stack
+B. Queue
+C. Tree
+D. Heap
+
+Answer: B
+Why: BFS processes nodes level by level. A queue ensures nodes are explored in the order they are discovered.
+
+104. Which sorting algorithm divides the array around a pivot?
+
+A. Merge sort
+B. Quick sort
+C. Bubble sort
+D. Selection sort
+
+Answer: B
+Why: Quick sort partitions the array into elements less than and greater than the pivot. This divide-and-conquer approach improves efficiency.
+
+105. What is the time complexity of accessing an element in a linked list?
+
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n log n)
+
+Answer: C
+Why: Linked lists require traversal from the head to reach a specific index. This results in linear time access.
+
+106. Which algorithm is used to reverse a linked list?
+
+A. DFS
+B. Iterative pointer reversal
+C. Binary search
+D. Heapify
+
+Answer: B
+Why: Reversing a linked list involves changing next pointers of each node. This can be done iteratively in linear time.
+
+107. Which data structure is used to implement recursion internally?
+
+A. Queue
+B. Stack
+C. Heap
+D. Tree
+
+Answer: B
+Why: Recursion uses the call stack to store function states. Each recursive call pushes a new frame onto the stack.
+
+108. Which tree traversal visits nodes level by level?
+
+A. Preorder
+B. Inorder
+C. Postorder
+D. Level order
+
+Answer: D
+Why: Level order traversal processes nodes by depth. It uses a queue to visit nodes layer by layer.
+
+109. Which data structure allows duplicate elements?
+
+A. Set
+B. HashSet
+C. Array
+D. Map
+
+Answer: C
+Why: Arrays can store duplicate values without restriction. Sets typically enforce uniqueness.
+
+110. Which algorithm is used to detect a cycle in a directed graph?
+
+A. DFS with recursion stack
+B. BFS
+C. Dijkstra
+D. Prim
+
+Answer: A
+Why: A recursion stack helps detect back edges in directed graphs. This indicates a cycle.
+
+111. Which data structure stores key-value pairs?
+
+A. Stack
+B. Queue
+C. Hash Map
+D. Tree
+
+Answer: C
+Why: Hash maps associate keys with values using hashing. This allows fast retrieval based on keys.
+
+112. What is the average time complexity of quicksort?
+
+A. O(n²)
+B. O(n log n)
+C. O(n)
+D. O(log n)
+
+Answer: B
+Why: Balanced partitioning divides the array efficiently. This results in logarithmic recursion depth and linear work per level.
+
+113. Which structure is used for implementing graphs?
+
+A. Adjacency list
+B. Stack
+C. Queue
+D. Heap
+
+Answer: A
+Why: Adjacency lists store neighbors for each vertex. This is memory-efficient for sparse graphs.
+
+114. Which operation removes the top element of a stack?
+
+A. Push
+B. Pop
+C. Peek
+D. Insert
+
+Answer: B
+Why: Pop removes and returns the top element. This follows the LIFO principle of stacks.
+
+115. Which algorithm is used for sorting integers in linear time under constraints?
+
+A. Merge sort
+B. Counting sort
+C. Quick sort
+D. Heap sort
+
+Answer: B
+Why: Counting sort uses frequency counts rather than comparisons. It achieves linear time when the range of values is limited.
+
+116. Which data structure is used for priority queues?
+
+A. Array
+B. Linked list
+C. Heap
+D. Stack
+
+Answer: C
+Why: Heaps maintain priority ordering efficiently. Insertions and deletions occur in logarithmic time.
+
+117. Which tree has at most two children per node?
+
+A. Binary tree
+B. B-tree
+C. Heap
+D. Trie
+
+Answer: A
+Why: Binary trees restrict nodes to two children. This structure is used in BSTs and heaps.
+
+118. Which traversal prints root first?
+
+A. Inorder
+B. Preorder
+C. Postorder
+D. Level order
+
+Answer: B
+Why: Preorder traversal visits the root before its subtrees. This is useful for copying trees.
+
+119. Which algorithm is used in minimum spanning tree construction?
+
+A. Kruskal
+B. Binary search
+C. DFS
+D. Counting sort
+
+Answer: A
+Why: Kruskal’s algorithm builds MST by selecting smallest edges without forming cycles. It uses Union-Find for efficiency.
+
+120. Which data structure is best for implementing undo functionality?
+
+A. Queue
+B. Stack
+C. Heap
+D. Graph
+
+Answer: B
+Why: Undo operations reverse the most recent action first. Stacks naturally support this LIFO behavior.
+
+121. Which algorithm finds shortest path in unweighted graphs?
+
+A. DFS
+B. BFS
+C. Dijkstra
+D. Prim
+
+Answer: B
+Why: BFS explores nodes by distance from the source. This guarantees shortest path when all edges have equal weight.
+
+122. Which structure allows insertion at both ends?
+
+A. Stack
+B. Queue
+C. Deque
+D. Heap
+
+Answer: C
+Why: A deque supports insertion and deletion from both front and rear. This provides flexibility for double-ended operations.
+
+123. Which sorting algorithm is unstable?
+
+A. Merge sort
+B. Insertion sort
+C. Quick sort
+D. Bubble sort
+
+Answer: C
+Why: Quick sort may reorder equal elements during partitioning. This makes it unstable.
+
+124. Which data structure is used in autocomplete systems?
+
+A. Heap
+B. Trie
+C. Stack
+D. Queue
+
+Answer: B
+Why: Tries store strings character by character. This allows efficient prefix-based searches.
+
+125. Which graph representation is best for dense graphs?
+
+A. Adjacency list
+B. Adjacency matrix
+C. Edge list
+D. Tree
+
+Answer: B
+Why: Dense graphs have many edges. Adjacency matrices allow constant-time edge lookup.
+
+126. Which algorithm sorts by comparing adjacent elements repeatedly?
+
+A. Bubble sort
+B. Merge sort
+C. Quick sort
+D. Heap sort
+
+Answer: A
+Why: Bubble sort repeatedly swaps adjacent elements. Larger elements “bubble” to the end.
+
+127. Which data structure is used for implementing DFS iteratively?
+
+A. Queue
+B. Stack
+C. Heap
+D. Array
+
+Answer: B
+Why: DFS uses a stack to explore deeper nodes first. This mimics recursive behavior.
+
+128. Which operation is performed by enqueue?
+
+A. Remove element
+B. Add element to rear
+C. View front element
+D. Sort queue
+
+Answer: B
+Why: Enqueue inserts an element at the rear of the queue. This maintains FIFO order.
+
+129. Which algorithm is used for finding articulation points?
+
+A. DFS
+B. BFS
+C. Dijkstra
+D. Kruskal
+
+Answer: A
+Why: DFS tracks discovery times and low values. These help identify articulation points in graphs.
+
+130. Which data structure is used in LIFO scheduling?
+
+A. Queue
+B. Stack
+C. Heap
+D. Tree
+
+Answer: B
+Why: LIFO scheduling processes the most recent task first. This behavior matches stack operations.
+
+131. Which tree structure is used in prefix matching?
+
+A. AVL Tree
+B. Trie
+C. Heap
+D. BST
+
+Answer: B
+Why: Tries store characters in a tree structure. This allows efficient prefix matching.
+
+132. Which sorting algorithm is fastest on average?
+
+A. Bubble sort
+B. Quick sort
+C. Selection sort
+D. Insertion sort
+
+Answer: B
+Why: Quick sort has average O(n log n) complexity with good cache performance. It is widely used in practice.
+
+133. Which data structure is used to detect palindrome using stack?
+
+A. Queue
+B. Stack
+C. Heap
+D. Tree
+
+Answer: B
+Why: A stack reverses order of elements. Comparing with original sequence helps detect palindromes.
+
+134. Which algorithm is used in GPS navigation systems?
+
+A. BFS
+B. Dijkstra
+C. Selection sort
+D. DFS
+
+Answer: B
+Why: Dijkstra computes shortest paths in weighted graphs. GPS systems use it to find optimal routes.
+
+135. Which data structure is used in expression trees?
+
+A. Graph
+B. Tree
+C. Stack
+D. Queue
+
+Answer: B
+Why: Expression trees represent operators as internal nodes. Operands appear as leaf nodes.
+
+136. Which algorithm uses a heuristic to improve search?
+
+A. BFS
+B. A* Search
+C. DFS
+D. Prim
+
+Answer: B
+Why: A* uses heuristics to estimate distance to goal. This speeds up pathfinding.
+
+137. Which data structure supports fast lookup and insertion?
+
+A. Linked list
+B. Hash table
+C. Stack
+D. Queue
+
+Answer: B
+Why: Hash tables use hashing for direct access. This provides average O(1) lookup and insertion.
+
+138. Which traversal is used to evaluate expression trees?
+
+A. Inorder
+B. Preorder
+C. Postorder
+D. Level order
+
+Answer: C
+Why: Postorder evaluates children before the operator. This matches postfix evaluation.
+
+139. Which data structure is used in compiler syntax checking?
+
+A. Stack
+B. Queue
+C. Heap
+D. Graph
+
+Answer: A
+Why: Stacks help manage grammar symbols. They ensure syntactic correctness.
+
+140. Which sorting algorithm is best for small datasets?
+
+A. Merge sort
+B. Insertion sort
+C. Heap sort
+D. Quick sort
+
+Answer: B
+Why: Insertion sort has low overhead. It performs well for small or nearly sorted datasets.
+
+141. Which data structure is used for breadth-first search in graphs?
+
+A. Stack
+B. Queue
+C. Heap
+D. Tree
+
+Answer: B
+Why: BFS uses a queue to explore nodes by layers. This ensures shortest path discovery in unweighted graphs.
+
+142. Which algorithm detects strongly connected components?
+
+A. Kosaraju
+B. Dijkstra
+C. Prim
+D. Binary search
+
+Answer: A
+Why: Kosaraju’s algorithm performs two DFS passes. It identifies strongly connected components efficiently.
+
+143. Which data structure stores elements in sorted order automatically?
+
+A. Stack
+B. Heap
+C. Queue
+D. Array
+
+Answer: B
+Why: Heaps maintain partial ordering with the smallest or largest element at the root. This ensures priority-based access.
+
+144. Which algorithm is used for merging two sorted arrays?
+
+A. Bubble sort
+B. Merge procedure
+C. DFS
+D. Selection sort
+
+Answer: B
+Why: The merge procedure combines two sorted arrays into one. It compares elements sequentially to maintain order.
+
+145. Which data structure is used for implementing graphs in memory-efficient way?
+
+A. Adjacency matrix
+B. Adjacency list
+C. Heap
+D. Stack
+
+Answer: B
+Why: Adjacency lists store only existing edges. This is memory-efficient for sparse graphs.
+
+146. Which algorithm is used for finding Eulerian paths?
+
+A. Fleury’s Algorithm
+B. Dijkstra
+C. BFS
+D. Prim
+
+Answer: A
+Why: Fleury’s algorithm traverses edges without repetition. It constructs Eulerian paths in graphs.
+
+147. Which data structure is used in operating systems for process scheduling?
+
+A. Stack
+B. Queue
+C. Tree
+D. Graph
+
+Answer: B
+Why: Queues manage processes in scheduling policies like FIFO. They ensure fair CPU allocation.
+
+148. Which tree is used for dictionary word storage?
+
+A. Heap
+B. Trie
+C. AVL
+D. BST
+
+Answer: B
+Why: Tries store words character by character. This enables efficient prefix searches.
+
+149. Which sorting algorithm repeatedly inserts elements into sorted portion?
+
+A. Insertion sort
+B. Selection sort
+C. Heap sort
+D. Merge sort
+
+Answer: A
+Why: Insertion sort builds a sorted section one element at a time. Each new element is placed in its correct position.
+
+150. Which data structure is best for implementing circular buffers?
+
+A. Array
+B. Linked list
+C. Stack
+D. Heap
+
+Answer: A
+Why: Arrays allow fixed-size cyclic indexing. Circular buffers use modulo arithmetic for efficient wrapping.

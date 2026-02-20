@@ -59,9 +59,66 @@ export class InterviewEngine {
 
     public startSession(): Question | null {
         // Reset Logic if reusing instance (though usually new instance per session)
-        this.state = { ...INITIAL_STATE, isOver: false, history: [] }; // Explicit reset
+        this.state = { ...INITIAL_STATE, isOver: false, history: [] };
 
-        // For HR mode, ALWAYS start with the greeting
+        // For HR+Tech mode: randomize who starts and use varied greetings
+        if (this.config.interviewType === 'hr-tech') {
+            // Randomly pick who starts: Sarah (HR) or David (Tech)
+            const startsWithHr = Math.random() > 0.5;
+            this.state.currentInterviewer = startsWithHr ? 'hr_manager' : 'tech_lead';
+
+            const sarahGreetings = [
+                "Hi there! Good morning. I'm Sarah, and I'll be handling the HR side of this interview today. My colleague David will join in for the technical portion. Let's start — could you tell me a bit about yourself?",
+                "Hello! Welcome, it's great to have you here. I'm Sarah, one of the interviewers today. David, our Technical Lead, will also be chatting with you shortly. So, let's begin — what brings you here today?",
+                "Hey, good to meet you! I'm Sarah from HR. David will be joining us for the technical round. Before we dive in, I'd love to hear a quick introduction about yourself.",
+                "Good morning! Thanks for coming in. I'm Sarah, your HR interviewer for today. David will cover the technical side later on. To kick things off, could you give us a brief overview of your background?",
+                "Hi! I'm Sarah. Welcome to your interview. I'll be asking you some behavioral and background questions, and my colleague David will cover the technical aspects. Ready to get started? Tell me about yourself."
+            ];
+
+            const davidGreetings = [
+                "Hey, good morning! I'm David, the Technical Lead here. I'll be starting off with some technical questions today, and my colleague Sarah from HR will also be chatting with you. So, let's jump right in — could you start by telling me about your technical background?",
+                "Hi there! I'm David, and I'll be handling the technical portion of this interview. Sarah will cover the HR side as well. Let's get started — what technologies have you been working with recently?",
+                "Hello! Welcome. I'm David, your technical interviewer today. Sarah from HR will join in shortly for behavioral questions. To begin, can you walk me through your most recent project?",
+                "Good morning! I'm David. I'll be assessing the technical side today, along with Sarah who handles the behavioral aspects. Let's dive in — tell me about your experience in your domain.",
+                "Hey! I'm David, the Tech Lead. Great to have you here. Sarah and I will be interviewing you today. I'll kick things off — can you give me a quick overview of your technical skills?"
+            ];
+
+            const greetings = startsWithHr ? sarahGreetings : davidGreetings;
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+
+            const greetingQuestion: Question = {
+                id: `dynamic_greeting_${Date.now()}`,
+                text: randomGreeting,
+                type: startsWithHr ? 'hr' : 'technical',
+                difficulty: 'beginner',
+                topic: 'greeting',
+                keywords: ['ready', 'yes', 'hello', 'hi'],
+                expectedKeywords: ['yes', 'okay', 'sure', 'ready'],
+                followUpIds: []
+            };
+
+            this.state.currentQuestion = greetingQuestion;
+            return greetingQuestion;
+            return greetingQuestion;
+        }
+
+        // Introduction Prep Mode
+        if (this.config.interviewType === 'intro-prep') {
+            const introGreeting: Question = {
+                id: 'intro_greeting',
+                text: "Hello! I'm Sarah, your personal interview coach. I'm here to help you perfect your self-introduction. Let's start—please introduce yourself as you would in a real interview.",
+                type: 'hr',
+                difficulty: 'beginner',
+                topic: 'introduction',
+                keywords: [],
+                expectedKeywords: []
+            };
+            this.state.currentInterviewer = 'hr_manager';
+            this.state.currentQuestion = introGreeting;
+            return introGreeting;
+        }
+
+        // HR Only mode: use static greeting from JSON (unchanged)
         if (this.config.includeHr) {
             const greeting = this.questionsPool.find(q => q.id === 'hr_greeting');
             if (greeting) {
@@ -95,10 +152,11 @@ export class InterviewEngine {
             metrics
         });
 
-        // 4. Switch Interviewer 
-        // In "HR Only" mode, all are HR Managers.
-        // Sarah (hr_manager) -> David (tech_lead used as ID for 2nd avatar)
-        this.state.currentInterviewer = this.state.currentInterviewer === 'hr_manager' ? 'tech_lead' : 'hr_manager';
+        // 4. Switch Interviewer (only in HR+Tech mode)
+        if (this.config.interviewType === 'hr-tech') {
+            this.state.currentInterviewer = this.state.currentInterviewer === 'hr_manager' ? 'tech_lead' : 'hr_manager';
+        }
+        // In HR Only mode, currentInterviewer stays as 'hr_manager'
     }
 
     public getNextQuestion(): Question | null {

@@ -1,0 +1,2046 @@
+[
+  {
+    "id": 1,
+    "question": "What is an operating system?",
+    "options": [
+      "Hardware component",
+      "Software that manages hardware and software resources",
+      "Programming language",
+      "Database system"
+    ],
+    "correct": 1,
+    "explanation": "An operating system acts as an interface between users and hardware. It manages processes, memory, files, and devices.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 2,
+    "question": "Which of the following is not a function of an OS?",
+    "options": [
+      "Process management",
+      "Memory management",
+      "Compilation",
+      "File management"
+    ],
+    "correct": 2,
+    "explanation": "Compilation is performed by compilers, not the OS. The OS focuses on resource management and system coordination.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 3,
+    "question": "What is a process?",
+    "options": [
+      "Program in execution",
+      "Program file",
+      "Hardware unit",
+      "Memory block"
+    ],
+    "correct": 0,
+    "explanation": "A process is an active instance of a program. It includes code, data, stack, and execution state.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 4,
+    "question": "What is a thread?",
+    "options": [
+      "Independent program",
+      "Lightweight process",
+      "Memory unit",
+      "Scheduling algorithm"
+    ],
+    "correct": 1,
+    "explanation": "Threads are smaller units of a process that share resources. They enable parallel execution within the same process.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 5,
+    "question": "Which scheduling algorithm uses time slices?",
+    "options": [
+      "FCFS",
+      "Round Robin",
+      "Priority Scheduling",
+      "SJF"
+    ],
+    "correct": 1,
+    "explanation": "Round Robin assigns a fixed time quantum to each process. This ensures fair CPU allocation.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 6,
+    "question": "What is context switching?",
+    "options": [
+      "Switching users",
+      "Saving and loading process state",
+      "Changing OS",
+      "Restarting process"
+    ],
+    "correct": 1,
+    "explanation": "Context switching saves the state of a running process and loads another. It enables multitasking.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 7,
+    "question": "Which scheduling algorithm may cause starvation?",
+    "options": [
+      "Round Robin",
+      "Priority Scheduling",
+      "FCFS",
+      "FIFO"
+    ],
+    "correct": 1,
+    "explanation": "Low-priority processes may never execute if higher-priority tasks keep arriving. This leads to starvation.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 8,
+    "question": "What is deadlock?",
+    "options": [
+      "CPU failure",
+      "Processes waiting indefinitely for resources",
+      "Memory overflow",
+      "Program crash"
+    ],
+    "correct": 1,
+    "explanation": "Deadlock occurs when processes hold resources and wait for each other. None can proceed.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 9,
+    "question": "Which condition is necessary for deadlock?",
+    "options": [
+      "Mutual exclusion",
+      "Preemption",
+      "Multiprocessing",
+      "Virtual memory"
+    ],
+    "correct": 0,
+    "explanation": "Mutual exclusion means only one process can use a resource at a time. It is one of the four necessary deadlock conditions.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 10,
+    "question": "What is paging?",
+    "options": [
+      "Memory fragmentation",
+      "Memory management technique using fixed-size blocks",
+      "Disk scheduling",
+      "File allocation"
+    ],
+    "correct": 1,
+    "explanation": "Paging divides memory into fixed-size pages and frames. It reduces external fragmentation.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 11,
+    "question": "What is virtual memory?",
+    "options": [
+      "Physical RAM",
+      "Memory on disk used as extension of RAM",
+      "Cache memory",
+      "ROM"
+    ],
+    "correct": 1,
+    "explanation": "Virtual memory allows programs to use more memory than physically available. It uses disk space to simulate RAM.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 12,
+    "question": "Which memory is fastest?",
+    "options": [
+      "Hard disk",
+      "Cache",
+      "RAM",
+      "Virtual memory"
+    ],
+    "correct": 1,
+    "explanation": "Cache memory is closest to CPU and has the fastest access time. It stores frequently used data.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 13,
+    "question": "What is thrashing?",
+    "options": [
+      "CPU overheating",
+      "Excessive paging activity",
+      "Disk failure",
+      "Process termination"
+    ],
+    "correct": 1,
+    "explanation": "Thrashing occurs when the system spends more time swapping pages than executing processes. It degrades performance.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 14,
+    "question": "Which OS is single-user?",
+    "options": [
+      "Windows Server",
+      "Linux",
+      "MS-DOS",
+      "UNIX"
+    ],
+    "correct": 2,
+    "explanation": "MS-DOS supports one user at a time. Modern OSs support multiple users.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 15,
+    "question": "What is a system call?",
+    "options": [
+      "Hardware interrupt",
+      "Interface between user program and OS",
+      "Scheduling method",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "System calls allow programs to request OS services. Examples include file operations and process control.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 16,
+    "question": "What is a semaphore?",
+    "options": [
+      "Scheduling algorithm",
+      "Synchronization tool",
+      "Memory unit",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "Semaphores control access to shared resources. They prevent race conditions in concurrent processes.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 17,
+    "question": "Which scheduling algorithm is non-preemptive?",
+    "options": [
+      "Round Robin",
+      "FCFS",
+      "Priority (preemptive)",
+      "Multilevel queue"
+    ],
+    "correct": 1,
+    "explanation": "FCFS executes processes in arrival order without interruption. Once started, a process runs to completion.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 18,
+    "question": "What is a critical section?",
+    "options": [
+      "OS kernel",
+      "Code accessing shared resource",
+      "Memory block",
+      "Disk partition"
+    ],
+    "correct": 1,
+    "explanation": "Critical sections access shared data. They must be protected to avoid race conditions.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 19,
+    "question": "Which file allocation method uses linked blocks?",
+    "options": [
+      "Contiguous",
+      "Linked allocation",
+      "Indexed allocation",
+      "Sequential"
+    ],
+    "correct": 1,
+    "explanation": "Linked allocation stores file blocks as a linked list. It avoids external fragmentation.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 20,
+    "question": "What is fragmentation?",
+    "options": [
+      "Data encryption",
+      "Wasted memory space",
+      "File compression",
+      "Disk scheduling"
+    ],
+    "correct": 1,
+    "explanation": "Fragmentation occurs when memory is inefficiently used. It can be internal or external.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 21,
+    "question": "What is internal fragmentation?",
+    "options": [
+      "Unused space inside allocated block",
+      "Unused memory outside blocks",
+      "Disk error",
+      "CPU idle time"
+    ],
+    "correct": 0,
+    "explanation": "Internal fragmentation happens when allocated memory is larger than needed. The extra space is wasted.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 22,
+    "question": "What is external fragmentation?",
+    "options": [
+      "Unused memory inside block",
+      "Scattered free memory blocks",
+      "Disk crash",
+      "CPU overload"
+    ],
+    "correct": 1,
+    "explanation": "External fragmentation occurs when free memory is divided into small blocks. This prevents allocation of large blocks.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 23,
+    "question": "Which disk scheduling algorithm moves in one direction?",
+    "options": [
+      "FCFS",
+      "SCAN",
+      "SSTF",
+      "FIFO"
+    ],
+    "correct": 1,
+    "explanation": "SCAN (elevator algorithm) moves the disk arm in one direction servicing requests. It reduces seek time.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 24,
+    "question": "What is a file system?",
+    "options": [
+      "Hardware device",
+      "Method to organize and store files",
+      "Programming language",
+      "CPU component"
+    ],
+    "correct": 1,
+    "explanation": "A file system manages how data is stored and retrieved. It organizes files on storage devices.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 25,
+    "question": "Which OS component manages memory?",
+    "options": [
+      "Scheduler",
+      "Memory manager",
+      "File system",
+      "Device driver"
+    ],
+    "correct": 1,
+    "explanation": "Memory manager handles allocation and deallocation. It ensures efficient use of RAM.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 26,
+    "question": "What is a zombie process?",
+    "options": [
+      "Running process",
+      "Terminated process with entry in process table",
+      "Suspended process",
+      "Deadlock state"
+    ],
+    "correct": 1,
+    "explanation": "Zombie processes have finished execution but still exist in the process table. They await parent process acknowledgment.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 27,
+    "question": "What is a device driver?",
+    "options": [
+      "Hardware device",
+      "Software controlling hardware",
+      "File system",
+      "Memory unit"
+    ],
+    "correct": 1,
+    "explanation": "Device drivers allow OS to communicate with hardware. They provide control and functionality.",
+    "difficulty": "Medium",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 28,
+    "question": "Which scheduling algorithm minimizes average waiting time?",
+    "options": [
+      "FCFS",
+      "SJF",
+      "Round Robin",
+      "FIFO"
+    ],
+    "correct": 1,
+    "explanation": "Shortest Job First executes shortest tasks first. This reduces average waiting time.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 29,
+    "question": "What is multitasking?",
+    "options": [
+      "Multiple CPUs",
+      "Running multiple processes simultaneously",
+      "Multiple users",
+      "Multiple disks"
+    ],
+    "correct": 1,
+    "explanation": "Multitasking allows several processes to share CPU time. It improves system utilization.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 30,
+    "question": "What is multiprogramming?",
+    "options": [
+      "Running one program",
+      "Multiple programs in memory at once",
+      "Multiple CPUs",
+      "Disk scheduling"
+    ],
+    "correct": 1,
+    "explanation": "Multiprogramming keeps multiple programs in memory. CPU switches among them to improve efficiency.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 31,
+    "question": "Which memory is volatile?",
+    "options": [
+      "ROM",
+      "Hard disk",
+      "RAM",
+      "SSD"
+    ],
+    "correct": 2,
+    "explanation": "RAM loses data when power is off. It is used for temporary storage.",
+    "difficulty": "Easy",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 32,
+    "question": "What is swapping?",
+    "options": [
+      "Disk scheduling",
+      "Moving processes between RAM and disk",
+      "File compression",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Swapping temporarily moves processes to disk to free RAM. It supports multiprogramming.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 33,
+    "question": "What is a kernel?",
+    "options": [
+      "Hardware component",
+      "Core of operating system",
+      "Application program",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "The kernel manages hardware and system resources. It provides essential OS services.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 34,
+    "question": "Which OS type supports multiple users?",
+    "options": [
+      "Single-user OS",
+      "Multi-user OS",
+      "Embedded OS",
+      "Batch OS"
+    ],
+    "correct": 1,
+    "explanation": "Multi-user OS allows multiple users to access the system simultaneously. Examples include UNIX and Linux.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 35,
+    "question": "What is batch processing?",
+    "options": [
+      "Interactive processing",
+      "Processing jobs in groups",
+      "Real-time processing",
+      "Multitasking"
+    ],
+    "correct": 1,
+    "explanation": "Batch processing executes jobs in batches without user interaction. It improves efficiency for repetitive tasks.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 36,
+    "question": "What is real-time OS?",
+    "options": [
+      "Slow OS",
+      "OS with guaranteed response time",
+      "Single-user OS",
+      "Batch OS"
+    ],
+    "correct": 1,
+    "explanation": "Real-time OS ensures responses within strict time limits. It is used in embedded systems and robotics.",
+    "difficulty": "Medium",
+    "topic": "Advanced OS"
+  },
+  {
+    "id": 37,
+    "question": "Which OS is open source?",
+    "options": [
+      "Windows",
+      "Linux",
+      "macOS",
+      "iOS"
+    ],
+    "correct": 1,
+    "explanation": "Linux is open source and freely modifiable. It is widely used in servers and embedded systems.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 38,
+    "question": "What is spooling?",
+    "options": [
+      "Disk scheduling",
+      "Buffering data for devices",
+      "Memory allocation",
+      "CPU scheduling"
+    ],
+    "correct": 1,
+    "explanation": "Spooling stores data temporarily before sending it to devices like printers. It allows asynchronous processing.",
+    "difficulty": "Medium",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 39,
+    "question": "Which scheduling algorithm selects nearest track?",
+    "options": [
+      "FCFS",
+      "SSTF",
+      "SCAN",
+      "LOOK"
+    ],
+    "correct": 1,
+    "explanation": "SSTF selects the request closest to current head position. It reduces seek time.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 40,
+    "question": "What is a pipe in OS?",
+    "options": [
+      "Hardware connection",
+      "Communication channel between processes",
+      "Memory unit",
+      "File type"
+    ],
+    "correct": 1,
+    "explanation": "Pipes allow inter-process communication. They transfer data between processes.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 41,
+    "question": "What is a shell?",
+    "options": [
+      "Hardware device",
+      "User interface for OS",
+      "Memory manager",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "The shell interprets user commands. It provides interaction with the OS.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 42,
+    "question": "Which memory allocation avoids fragmentation?",
+    "options": [
+      "Paging",
+      "Contiguous allocation",
+      "Segmentation",
+      "Swapping"
+    ],
+    "correct": 0,
+    "explanation": "Paging uses fixed-size blocks. This eliminates external fragmentation.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 43,
+    "question": "What is segmentation?",
+    "options": [
+      "Fixed memory blocks",
+      "Variable memory blocks based on logical divisions",
+      "Disk scheduling",
+      "File allocation"
+    ],
+    "correct": 1,
+    "explanation": "Segmentation divides memory into logical segments like code and data. It supports logical organization.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 44,
+    "question": "What is a race condition?",
+    "options": [
+      "CPU failure",
+      "Multiple processes accessing shared data simultaneously",
+      "Memory leak",
+      "Disk error"
+    ],
+    "correct": 1,
+    "explanation": "Race conditions occur when process timing affects results. Synchronization prevents inconsistencies.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 45,
+    "question": "Which OS handles hardware interrupts?",
+    "options": [
+      "Compiler",
+      "Kernel",
+      "Application",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "The kernel handles interrupts and coordinates hardware responses. It ensures proper execution flow.",
+    "difficulty": "Medium",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 46,
+    "question": "What is a daemon?",
+    "options": [
+      "Hardware device",
+      "Background process",
+      "Scheduling algorithm",
+      "Memory unit"
+    ],
+    "correct": 1,
+    "explanation": "Daemons run in the background performing system tasks. Examples include print and network services.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 47,
+    "question": "Which scheduling algorithm is preemptive?",
+    "options": [
+      "FCFS",
+      "Round Robin",
+      "SJF (non-preemptive)",
+      "FIFO"
+    ],
+    "correct": 1,
+    "explanation": "Round Robin allows preemption after time quantum. This ensures fairness.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 48,
+    "question": "What is a page fault?",
+    "options": [
+      "Disk error",
+      "Accessing page not in memory",
+      "CPU failure",
+      "Memory leak"
+    ],
+    "correct": 1,
+    "explanation": "A page fault occurs when a required page is not in RAM. The OS loads it from disk.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 49,
+    "question": "Which OS component manages files?",
+    "options": [
+      "Scheduler",
+      "File system",
+      "Kernel",
+      "Memory manager"
+    ],
+    "correct": 1,
+    "explanation": "The file system organizes and manages files on storage devices. It controls access and storage.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 52,
+    "question": "Which scheduling algorithm is best for time-sharing systems?",
+    "options": [
+      "FCFS",
+      "Round Robin",
+      "SJF",
+      "Priority"
+    ],
+    "correct": 1,
+    "explanation": "Round Robin allocates time slices to each process. This provides responsiveness and fairness in time-sharing environments.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 53,
+    "question": "What is aging in OS scheduling?",
+    "options": [
+      "Increasing process priority over time",
+      "Decreasing memory usage",
+      "Killing old processes",
+      "Increasing CPU speed"
+    ],
+    "correct": 0,
+    "explanation": "Aging gradually increases the priority of waiting processes. This prevents starvation in priority scheduling.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 54,
+    "question": "What is the main goal of multiprogramming?",
+    "options": [
+      "Reduce CPU speed",
+      "Maximize CPU utilization",
+      "Increase disk usage",
+      "Reduce memory size"
+    ],
+    "correct": 1,
+    "explanation": "Multiprogramming keeps multiple jobs ready in memory. This ensures the CPU always has work to do.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 55,
+    "question": "Which state comes after \"Ready\" in process lifecycle?",
+    "options": [
+      "Terminated",
+      "Running",
+      "Waiting",
+      "Suspended"
+    ],
+    "correct": 1,
+    "explanation": "A ready process moves to running when scheduled. It begins execution on the CPU.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 56,
+    "question": "What is a waiting state?",
+    "options": [
+      "Process finished",
+      "Process waiting for I/O or resource",
+      "Process ready for execution",
+      "Process terminated"
+    ],
+    "correct": 1,
+    "explanation": "Processes enter waiting state when they need I/O or resources. They resume when the event completes.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 57,
+    "question": "What is a PCB (Process Control Block)?",
+    "options": [
+      "Memory block",
+      "Data structure storing process information",
+      "Scheduling algorithm",
+      "File descriptor"
+    ],
+    "correct": 1,
+    "explanation": "PCB contains process state, registers, and scheduling info. It allows the OS to manage processes.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 58,
+    "question": "Which OS supports multitasking?",
+    "options": [
+      "MS-DOS",
+      "Windows",
+      "Early batch systems",
+      "Single-user OS"
+    ],
+    "correct": 1,
+    "explanation": "Windows supports multiple processes simultaneously. It uses time-sharing and multitasking techniques.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 59,
+    "question": "What is a system interrupt?",
+    "options": [
+      "File error",
+      "Signal to CPU for attention",
+      "Memory leak",
+      "Disk failure"
+    ],
+    "correct": 1,
+    "explanation": "Interrupts notify the CPU about events requiring attention. They enable efficient device communication.",
+    "difficulty": "Medium",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 60,
+    "question": "What is DMA (Direct Memory Access)?",
+    "options": [
+      "CPU scheduling",
+      "Device accessing memory without CPU",
+      "Memory allocation",
+      "Disk formatting"
+    ],
+    "correct": 1,
+    "explanation": "DMA allows devices to transfer data directly to memory. This reduces CPU overhead.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 61,
+    "question": "Which memory management technique uses logical segments?",
+    "options": [
+      "Paging",
+      "Segmentation",
+      "Swapping",
+      "Contiguous allocation"
+    ],
+    "correct": 1,
+    "explanation": "Segmentation divides memory based on logical units like code and data. It supports modular programming.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 62,
+    "question": "What is a page table?",
+    "options": [
+      "Disk map",
+      "Maps virtual pages to physical frames",
+      "File index",
+      "Process list"
+    ],
+    "correct": 1,
+    "explanation": "Page tables translate virtual addresses to physical addresses. They enable virtual memory.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 63,
+    "question": "What is TLB (Translation Lookaside Buffer)?",
+    "options": [
+      "Cache for page table entries",
+      "Disk buffer",
+      "File system cache",
+      "CPU register"
+    ],
+    "correct": 0,
+    "explanation": "TLB stores recent page table entries. It speeds up address translation.",
+    "difficulty": "Hard",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 64,
+    "question": "What is demand paging?",
+    "options": [
+      "Loading all pages at once",
+      "Loading pages only when needed",
+      "Swapping processes",
+      "Disk scheduling"
+    ],
+    "correct": 1,
+    "explanation": "Demand paging loads pages into memory only when accessed. This saves memory and improves efficiency.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 65,
+    "question": "What is page replacement?",
+    "options": [
+      "Removing unused files",
+      "Replacing pages in memory when full",
+      "Changing disk sectors",
+      "Allocating CPU time"
+    ],
+    "correct": 1,
+    "explanation": "Page replacement selects which page to remove when memory is full. Algorithms like FIFO and LRU are used.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 66,
+    "question": "Which page replacement algorithm removes oldest page?",
+    "options": [
+      "LRU",
+      "FIFO",
+      "Optimal",
+      "LFU"
+    ],
+    "correct": 1,
+    "explanation": "FIFO replaces the page that entered memory first. It is simple but may not be efficient.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 67,
+    "question": "Which algorithm gives best page replacement theoretically?",
+    "options": [
+      "FIFO",
+      "LRU",
+      "Optimal",
+      "Random"
+    ],
+    "correct": 2,
+    "explanation": "Optimal replaces the page not used for the longest future time. It minimizes page faults but is impractical.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 68,
+    "question": "What is LRU algorithm?",
+    "options": [
+      "Removes least recently used page",
+      "Removes oldest page",
+      "Removes random page",
+      "Removes largest page"
+    ],
+    "correct": 0,
+    "explanation": "LRU replaces the page that hasn’t been used recently. It approximates optimal performance.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 69,
+    "question": "What is Belady’s anomaly?",
+    "options": [
+      "More memory causing more page faults",
+      "Disk failure",
+      "CPU crash",
+      "File corruption"
+    ],
+    "correct": 0,
+    "explanation": "In FIFO, increasing memory frames can increase page faults. This counterintuitive behavior is Belady’s anomaly.",
+    "difficulty": "Hard",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 70,
+    "question": "Which file allocation method avoids fragmentation?",
+    "options": [
+      "Contiguous",
+      "Linked",
+      "Indexed",
+      "Sequential"
+    ],
+    "correct": 2,
+    "explanation": "Indexed allocation uses an index block for pointers. It avoids external fragmentation.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 71,
+    "question": "What is disk seek time?",
+    "options": [
+      "Time to read data",
+      "Time to move head to track",
+      "Time to transfer data",
+      "Time to rotate disk"
+    ],
+    "correct": 1,
+    "explanation": "Seek time is the time required to position the disk head. It affects disk performance.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 72,
+    "question": "What is rotational latency?",
+    "options": [
+      "Disk speed",
+      "Time waiting for sector to rotate under head",
+      "File transfer time",
+      "Memory delay"
+    ],
+    "correct": 1,
+    "explanation": "Rotational latency is the delay waiting for the desired sector. It depends on disk rotation speed.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 73,
+    "question": "Which disk scheduling minimizes head movement?",
+    "options": [
+      "FCFS",
+      "SSTF",
+      "SCAN",
+      "C-SCAN"
+    ],
+    "correct": 1,
+    "explanation": "SSTF selects the closest request. This reduces total head movement.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 74,
+    "question": "What is C-SCAN algorithm?",
+    "options": [
+      "Moves in one direction only",
+      "Circular SCAN disk scheduling",
+      "Random scheduling",
+      "Priority scheduling"
+    ],
+    "correct": 1,
+    "explanation": "C-SCAN services requests in one direction and jumps back. It provides uniform wait time.",
+    "difficulty": "Hard",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 75,
+    "question": "What is a mount point?",
+    "options": [
+      "Disk partition",
+      "Directory where file system is attached",
+      "Memory block",
+      "CPU register"
+    ],
+    "correct": 1,
+    "explanation": "Mount points connect storage devices to directory structure. They allow access to files.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 76,
+    "question": "What is inode in UNIX?",
+    "options": [
+      "File name",
+      "Data structure storing file metadata",
+      "Disk block",
+      "Process ID"
+    ],
+    "correct": 1,
+    "explanation": "Inodes store file permissions, size, and pointers. They do not store file names.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 77,
+    "question": "What is a hard link?",
+    "options": [
+      "Shortcut file",
+      "Multiple names for same file",
+      "Backup copy",
+      "Symbolic reference"
+    ],
+    "correct": 1,
+    "explanation": "Hard links point to the same inode. Deleting one link does not remove the file.",
+    "difficulty": "Easy",
+    "topic": "File Systems"
+  },
+  {
+    "id": 78,
+    "question": "What is a soft link?",
+    "options": [
+      "Duplicate file",
+      "Symbolic link to another file",
+      "Hard disk",
+      "Backup link"
+    ],
+    "correct": 1,
+    "explanation": "Soft links store path references. They break if the original file is deleted.",
+    "difficulty": "Easy",
+    "topic": "File Systems"
+  },
+  {
+    "id": 79,
+    "question": "What is user mode?",
+    "options": [
+      "Full hardware access",
+      "Restricted execution mode",
+      "Kernel execution",
+      "Memory mode"
+    ],
+    "correct": 1,
+    "explanation": "User mode limits access to hardware. It protects system integrity.",
+    "difficulty": "Easy",
+    "topic": "Security"
+  },
+  {
+    "id": 80,
+    "question": "What is kernel mode?",
+    "options": [
+      "Restricted mode",
+      "Full access to hardware",
+      "File mode",
+      "User interface mode"
+    ],
+    "correct": 1,
+    "explanation": "Kernel mode allows direct hardware access. It executes critical OS operations.",
+    "difficulty": "Easy",
+    "topic": "Security"
+  },
+  {
+    "id": 81,
+    "question": "What is a system boot?",
+    "options": [
+      "Shutting down",
+      "Starting computer and loading OS",
+      "Formatting disk",
+      "Installing software"
+    ],
+    "correct": 1,
+    "explanation": "Booting loads the OS into memory. It prepares the system for use.",
+    "difficulty": "Easy",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 82,
+    "question": "What is BIOS?",
+    "options": [
+      "Operating system",
+      "Firmware initializing hardware",
+      "Memory manager",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "BIOS initializes hardware during startup. It loads the bootloader.",
+    "difficulty": "Easy",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 83,
+    "question": "What is a bootloader?",
+    "options": [
+      "OS kernel",
+      "Program loading OS into memory",
+      "Device driver",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "Bootloader loads the OS kernel. It starts system initialization.",
+    "difficulty": "Easy",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 84,
+    "question": "What is process synchronization?",
+    "options": [
+      "Running processes simultaneously",
+      "Coordinating processes accessing shared data",
+      "CPU scheduling",
+      "File management"
+    ],
+    "correct": 1,
+    "explanation": "Synchronization ensures safe access to shared resources. It prevents race conditions.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 85,
+    "question": "What is mutual exclusion?",
+    "options": [
+      "Multiple processes accessing resource simultaneously",
+      "Only one process accessing resource at a time",
+      "Deadlock prevention",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Mutual exclusion ensures exclusive access. It prevents data inconsistency.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 86,
+    "question": "What is a monitor in OS?",
+    "options": [
+      "Display device",
+      "Synchronization construct",
+      "Memory manager",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "Monitors provide high-level synchronization. They manage shared resources safely.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 87,
+    "question": "What is inter-process communication (IPC)?",
+    "options": [
+      "CPU scheduling",
+      "Data exchange between processes",
+      "Memory allocation",
+      "Disk scheduling"
+    ],
+    "correct": 1,
+    "explanation": "IPC allows processes to share data. Methods include pipes, message queues, and shared memory.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 88,
+    "question": "What is shared memory?",
+    "options": [
+      "Private memory",
+      "Memory accessible by multiple processes",
+      "Cache memory",
+      "Disk memory"
+    ],
+    "correct": 1,
+    "explanation": "Shared memory allows processes to communicate efficiently. It reduces overhead compared to message passing.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 89,
+    "question": "What is message passing?",
+    "options": [
+      "File transfer",
+      "IPC method sending messages between processes",
+      "Disk scheduling",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Message passing allows processes to exchange data without shared memory. It ensures isolation.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 90,
+    "question": "What is starvation?",
+    "options": [
+      "Process termination",
+      "Process waiting indefinitely",
+      "Memory overflow",
+      "CPU crash"
+    ],
+    "correct": 1,
+    "explanation": "Starvation occurs when a process never gets CPU time. Aging can prevent this.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 91,
+    "question": "What is throughput in scheduling?",
+    "options": [
+      "CPU speed",
+      "Number of completed processes per time",
+      "Memory size",
+      "Disk space"
+    ],
+    "correct": 1,
+    "explanation": "Throughput measures system productivity. Higher throughput indicates better performance.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 92,
+    "question": "What is turnaround time?",
+    "options": [
+      "Execution time only",
+      "Time from submission to completion",
+      "Waiting time only",
+      "CPU idle time"
+    ],
+    "correct": 1,
+    "explanation": "Turnaround time includes waiting and execution. It measures overall job completion time.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 93,
+    "question": "What is waiting time?",
+    "options": [
+      "CPU execution time",
+      "Time spent in ready queue",
+      "Disk access time",
+      "I/O time"
+    ],
+    "correct": 1,
+    "explanation": "Waiting time measures time in the ready queue. It affects responsiveness.",
+    "difficulty": "Easy",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 94,
+    "question": "What is response time?",
+    "options": [
+      "Time to finish execution",
+      "Time to first response",
+      "Waiting time",
+      "CPU time"
+    ],
+    "correct": 1,
+    "explanation": "Response time measures how quickly the system reacts. It is critical in interactive systems.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 95,
+    "question": "What is load balancing?",
+    "options": [
+      "Memory allocation",
+      "Distributing workload evenly",
+      "Disk scheduling",
+      "CPU overheating"
+    ],
+    "correct": 1,
+    "explanation": "Load balancing spreads tasks across resources. It improves performance and reliability.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 96,
+    "question": "What is a distributed OS?",
+    "options": [
+      "Single computer OS",
+      "OS managing multiple computers as one system",
+      "Embedded OS",
+      "Real-time OS"
+    ],
+    "correct": 1,
+    "explanation": "Distributed OS coordinates multiple systems. It provides transparency and resource sharing.",
+    "difficulty": "Medium",
+    "topic": "Advanced OS"
+  },
+  {
+    "id": 97,
+    "question": "What is an embedded OS?",
+    "options": [
+      "Desktop OS",
+      "OS for dedicated devices",
+      "Server OS",
+      "Distributed OS"
+    ],
+    "correct": 1,
+    "explanation": "Embedded OS runs on devices like routers and appliances. It is optimized for specific tasks.",
+    "difficulty": "Medium",
+    "topic": "Advanced OS"
+  },
+  {
+    "id": 98,
+    "question": "What is virtualization?",
+    "options": [
+      "Hardware failure",
+      "Creating virtual machines",
+      "Disk formatting",
+      "Memory leak"
+    ],
+    "correct": 1,
+    "explanation": "Virtualization allows multiple OS instances on one machine. It improves resource utilization.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 99,
+    "question": "What is a hypervisor?",
+    "options": [
+      "Operating system",
+      "Software managing virtual machines",
+      "Device driver",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "Hypervisors create and manage virtual machines. Examples include VMware and Hyper-V.",
+    "difficulty": "Medium",
+    "topic": "Advanced OS"
+  },
+  {
+    "id": 102,
+    "question": "What is priority inversion?",
+    "options": [
+      "High-priority process waiting for low-priority process",
+      "Low-priority process waiting for high-priority process",
+      "CPU switching priorities",
+      "Deadlock condition"
+    ],
+    "correct": 0,
+    "explanation": "Priority inversion occurs when a high-priority process is blocked by a lower-priority one holding a resource. Priority inheritance helps mitigate this issue.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 103,
+    "question": "Which scheduling algorithm uses multiple queues?",
+    "options": [
+      "FCFS",
+      "Multilevel Queue Scheduling",
+      "Round Robin",
+      "SJF"
+    ],
+    "correct": 1,
+    "explanation": "Multilevel queue scheduling separates processes into categories with different priorities. Each queue can have its own scheduling policy.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 104,
+    "question": "What is multilevel feedback queue scheduling?",
+    "options": [
+      "Fixed queue scheduling",
+      "Dynamic queue with process movement",
+      "Single queue scheduling",
+      "Disk scheduling"
+    ],
+    "correct": 1,
+    "explanation": "Multilevel feedback queues allow processes to move between queues based on behavior. This balances responsiveness and fairness.",
+    "difficulty": "Medium",
+    "topic": "CPU Scheduling"
+  },
+  {
+    "id": 105,
+    "question": "What is CPU affinity?",
+    "options": [
+      "CPU overheating",
+      "Binding process to specific CPU core",
+      "CPU scheduling algorithm",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "CPU affinity keeps a process on a specific core. This improves cache performance and reduces context switching.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 106,
+    "question": "What is symmetric multiprocessing (SMP)?",
+    "options": [
+      "Single CPU system",
+      "Multiple CPUs sharing memory and OS",
+      "Multiple OS instances",
+      "Distributed system"
+    ],
+    "correct": 1,
+    "explanation": "SMP systems use multiple processors that share memory. The OS treats them equally for scheduling tasks.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 107,
+    "question": "What is asymmetric multiprocessing?",
+    "options": [
+      "All CPUs equal",
+      "One master CPU controls others",
+      "No CPU control",
+      "Single-core processing"
+    ],
+    "correct": 1,
+    "explanation": "In asymmetric multiprocessing, one processor manages tasks. Other processors execute assigned work.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 108,
+    "question": "What is a spinlock?",
+    "options": [
+      "Lock that puts thread to sleep",
+      "Lock where thread repeatedly checks until free",
+      "Disk lock",
+      "File lock"
+    ],
+    "correct": 1,
+    "explanation": "Spinlocks cause threads to loop while waiting for a lock. They are efficient for short wait times.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 109,
+    "question": "What is busy waiting?",
+    "options": [
+      "CPU idle state",
+      "Loop checking condition repeatedly",
+      "Disk waiting",
+      "Process termination"
+    ],
+    "correct": 1,
+    "explanation": "Busy waiting wastes CPU cycles by repeatedly checking a condition. It is inefficient for long waits.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 110,
+    "question": "What is a race condition solution?",
+    "options": [
+      "Remove processes",
+      "Use synchronization mechanisms",
+      "Increase CPU speed",
+      "Disable interrupts"
+    ],
+    "correct": 1,
+    "explanation": "Synchronization tools like mutexes and semaphores prevent race conditions. They ensure orderly access to shared resources.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 111,
+    "question": "What is a mutex?",
+    "options": [
+      "Scheduling algorithm",
+      "Mutual exclusion lock",
+      "Memory unit",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "Mutex ensures only one thread accesses a resource at a time. It prevents concurrent conflicts.",
+    "difficulty": "Medium",
+    "topic": "Concurrency"
+  },
+  {
+    "id": 112,
+    "question": "What is a condition variable?",
+    "options": [
+      "Memory variable",
+      "Synchronization primitive for waiting threads",
+      "Disk variable",
+      "CPU register"
+    ],
+    "correct": 1,
+    "explanation": "Condition variables allow threads to wait until a condition is true. They work with mutexes for synchronization.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 113,
+    "question": "What is a kernel thread?",
+    "options": [
+      "Thread managed by OS kernel",
+      "User-level thread",
+      "Background process",
+      "File system thread"
+    ],
+    "correct": 0,
+    "explanation": "Kernel threads are managed directly by the OS. They allow true parallel execution on multi-core systems.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 114,
+    "question": "What is a user-level thread?",
+    "options": [
+      "Managed by OS kernel",
+      "Managed by user library",
+      "Hardware thread",
+      "Device thread"
+    ],
+    "correct": 1,
+    "explanation": "User-level threads are managed in user space. They are faster but lack true parallelism without kernel support.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 115,
+    "question": "What is thread starvation?",
+    "options": [
+      "Thread termination",
+      "Thread waiting indefinitely for CPU",
+      "Memory leak",
+      "Disk failure"
+    ],
+    "correct": 1,
+    "explanation": "Starvation occurs when threads never receive CPU time. Priority adjustments can prevent this.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 116,
+    "question": "What is copy-on-write?",
+    "options": [
+      "Copying files",
+      "Copy memory only when modified",
+      "Disk copying",
+      "Process duplication"
+    ],
+    "correct": 1,
+    "explanation": "Copy-on-write delays copying memory until changes occur. It saves memory during process creation.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 117,
+    "question": "What is fork() in UNIX?",
+    "options": [
+      "Delete process",
+      "Create child process",
+      "Schedule process",
+      "Kill process"
+    ],
+    "correct": 1,
+    "explanation": "fork() creates a new child process. The child is a duplicate of the parent.",
+    "difficulty": "Easy",
+    "topic": "Process Management"
+  },
+  {
+    "id": 118,
+    "question": "What is exec() in UNIX?",
+    "options": [
+      "Create process",
+      "Replace process memory with new program",
+      "Delete process",
+      "Pause process"
+    ],
+    "correct": 1,
+    "explanation": "exec() loads a new program into the current process. It replaces the existing code.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 119,
+    "question": "What is a zombie process caused by?",
+    "options": [
+      "OS crash",
+      "Parent not reading child exit status",
+      "Memory leak",
+      "Deadlock"
+    ],
+    "correct": 1,
+    "explanation": "Zombies occur when a child terminates but the parent hasn’t acknowledged it. The process remains in the table.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 120,
+    "question": "What is an orphan process?",
+    "options": [
+      "Process without parent",
+      "Process without child",
+      "Suspended process",
+      "Zombie process"
+    ],
+    "correct": 0,
+    "explanation": "Orphan processes occur when the parent terminates. They are adopted by the init process.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 121,
+    "question": "What is loadable kernel module?",
+    "options": [
+      "Hardware driver",
+      "Dynamically loaded kernel code",
+      "User application",
+      "File system"
+    ],
+    "correct": 1,
+    "explanation": "Kernel modules allow adding functionality without rebooting. Examples include device drivers.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 122,
+    "question": "What is a device queue?",
+    "options": [
+      "CPU queue",
+      "Queue of processes waiting for device",
+      "Disk partition",
+      "Memory block"
+    ],
+    "correct": 1,
+    "explanation": "Device queues hold processes waiting for I/O. They help manage device access.",
+    "difficulty": "Medium",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 123,
+    "question": "What is interrupt latency?",
+    "options": [
+      "Disk delay",
+      "Time to respond to interrupt",
+      "Memory delay",
+      "CPU speed"
+    ],
+    "correct": 1,
+    "explanation": "Interrupt latency measures time between interrupt and response. Low latency is critical for real-time systems.",
+    "difficulty": "Medium",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 124,
+    "question": "What is journaling in file systems?",
+    "options": [
+      "File compression",
+      "Logging changes for recovery",
+      "Disk defragmentation",
+      "File indexing"
+    ],
+    "correct": 1,
+    "explanation": "Journaling records changes before applying them. It ensures recovery after crashes.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 125,
+    "question": "What is RAID used for?",
+    "options": [
+      "Memory management",
+      "Disk redundancy and performance",
+      "CPU scheduling",
+      "Process management"
+    ],
+    "correct": 1,
+    "explanation": "RAID combines multiple disks for reliability and speed. It prevents data loss.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 126,
+    "question": "Which RAID level provides mirroring?",
+    "options": [
+      "RAID 0",
+      "RAID 1",
+      "RAID 5",
+      "RAID 6"
+    ],
+    "correct": 1,
+    "explanation": "RAID 1 duplicates data across disks. It provides fault tolerance.",
+    "difficulty": "Medium",
+    "topic": "File Systems"
+  },
+  {
+    "id": 127,
+    "question": "What is RAID 0?",
+    "options": [
+      "Mirroring",
+      "Striping without redundancy",
+      "Parity-based storage",
+      "Backup storage"
+    ],
+    "correct": 1,
+    "explanation": "RAID 0 improves performance by striping data. It provides no fault tolerance.",
+    "difficulty": "Easy",
+    "topic": "File Systems"
+  },
+  {
+    "id": 128,
+    "question": "What is swap space?",
+    "options": [
+      "CPU memory",
+      "Disk space used as virtual memory",
+      "Cache memory",
+      "File storage"
+    ],
+    "correct": 1,
+    "explanation": "Swap space extends RAM using disk. It allows more processes to run.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 129,
+    "question": "What is memory leak?",
+    "options": [
+      "Extra memory usage not released",
+      "Disk failure",
+      "CPU crash",
+      "File corruption"
+    ],
+    "correct": 0,
+    "explanation": "Memory leaks occur when programs fail to free memory. This reduces available RAM.",
+    "difficulty": "Medium",
+    "topic": "Memory Management"
+  },
+  {
+    "id": 130,
+    "question": "What is kernel panic?",
+    "options": [
+      "OS shutdown command",
+      "Critical OS error causing system halt",
+      "User error",
+      "File system error"
+    ],
+    "correct": 1,
+    "explanation": "Kernel panic occurs when the OS encounters a fatal error. The system stops to prevent damage.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 131,
+    "question": "What is sandboxing?",
+    "options": [
+      "Disk partitioning",
+      "Running programs in isolated environment",
+      "Memory allocation",
+      "CPU scheduling"
+    ],
+    "correct": 1,
+    "explanation": "Sandboxing restricts program access to system resources. It improves security.",
+    "difficulty": "Easy",
+    "topic": "Security"
+  },
+  {
+    "id": 132,
+    "question": "What is process migration?",
+    "options": [
+      "Deleting process",
+      "Moving process to another CPU or machine",
+      "Suspending process",
+      "Copying process"
+    ],
+    "correct": 1,
+    "explanation": "Process migration balances load across systems. It improves performance in distributed systems.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 133,
+    "question": "What is time-sharing?",
+    "options": [
+      "One user at a time",
+      "Multiple users sharing CPU time",
+      "Disk sharing",
+      "Memory sharing"
+    ],
+    "correct": 1,
+    "explanation": "Time-sharing allows multiple users to interact with the system. CPU time is divided into small slices.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 134,
+    "question": "What is a tick in OS?",
+    "options": [
+      "CPU instruction",
+      "Timer interrupt interval",
+      "Disk operation",
+      "Memory block"
+    ],
+    "correct": 1,
+    "explanation": "A tick is a periodic timer interrupt. It helps in scheduling and timekeeping.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 135,
+    "question": "What is a soft interrupt?",
+    "options": [
+      "Hardware interrupt",
+      "Software-triggered interrupt",
+      "Disk interrupt",
+      "Memory interrupt"
+    ],
+    "correct": 1,
+    "explanation": "Soft interrupts are generated by software. They handle deferred tasks.",
+    "difficulty": "Easy",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 136,
+    "question": "What is a hard interrupt?",
+    "options": [
+      "Software signal",
+      "Hardware-generated interrupt",
+      "Disk scheduling",
+      "Memory error"
+    ],
+    "correct": 1,
+    "explanation": "Hard interrupts come from hardware devices. They notify the CPU of events.",
+    "difficulty": "Easy",
+    "topic": "I/O Management"
+  },
+  {
+    "id": 137,
+    "question": "What is NUMA architecture?",
+    "options": [
+      "Uniform memory access",
+      "Non-uniform memory access",
+      "Single memory access",
+      "Virtual memory access"
+    ],
+    "correct": 1,
+    "explanation": "NUMA systems have different memory access times. CPUs access local memory faster.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 138,
+    "question": "What is a system daemon example?",
+    "options": [
+      "Text editor",
+      "Print spooler",
+      "Web browser",
+      "Calculator"
+    ],
+    "correct": 1,
+    "explanation": "Print spooler runs in the background managing print jobs. It is a daemon service.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 139,
+    "question": "What is OS portability?",
+    "options": [
+      "Running OS on multiple hardware platforms",
+      "Disk compatibility",
+      "File transfer",
+      "Memory sharing"
+    ],
+    "correct": 0,
+    "explanation": "Portability allows OS to run on different hardware. It increases flexibility.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 140,
+    "question": "What is POSIX?",
+    "options": [
+      "Programming language",
+      "OS standard interface",
+      "File system",
+      "CPU architecture"
+    ],
+    "correct": 1,
+    "explanation": "POSIX defines standards for OS compatibility. It ensures software portability.",
+    "difficulty": "Easy",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 141,
+    "question": "What is system throughput affected by?",
+    "options": [
+      "CPU speed only",
+      "Scheduling and resource management",
+      "Disk color",
+      "File names"
+    ],
+    "correct": 1,
+    "explanation": "Throughput depends on scheduling efficiency and resource allocation. Good management improves performance.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 142,
+    "question": "What is a process group?",
+    "options": [
+      "Collection of CPUs",
+      "Collection of related processes",
+      "Disk partitions",
+      "Memory segments"
+    ],
+    "correct": 1,
+    "explanation": "Process groups manage related processes together. They simplify signal handling.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 143,
+    "question": "What is a signal in OS?",
+    "options": [
+      "Hardware device",
+      "Notification to process",
+      "Disk request",
+      "Memory block"
+    ],
+    "correct": 1,
+    "explanation": "Signals notify processes about events. Examples include termination or interrupts.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 144,
+    "question": "What is a foreground process?",
+    "options": [
+      "Background task",
+      "Process interacting with user",
+      "Suspended process",
+      "Kernel thread"
+    ],
+    "correct": 1,
+    "explanation": "Foreground processes interact directly with users. They receive input and display output.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 145,
+    "question": "What is a background process?",
+    "options": [
+      "User-interactive process",
+      "Process running without user interaction",
+      "Kernel thread",
+      "Suspended process"
+    ],
+    "correct": 1,
+    "explanation": "Background processes run without direct user input. They handle system tasks.",
+    "difficulty": "Medium",
+    "topic": "Process Management"
+  },
+  {
+    "id": 146,
+    "question": "What is a run queue?",
+    "options": [
+      "Disk queue",
+      "List of ready processes",
+      "Memory block",
+      "File list"
+    ],
+    "correct": 1,
+    "explanation": "Run queue stores processes ready to execute. The scheduler selects from this queue.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 147,
+    "question": "What is kernel preemption?",
+    "options": [
+      "Kernel cannot be interrupted",
+      "Kernel tasks can be interrupted",
+      "CPU shutdown",
+      "Memory allocation"
+    ],
+    "correct": 1,
+    "explanation": "Kernel preemption allows higher-priority tasks to interrupt kernel tasks. It improves responsiveness.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 148,
+    "question": "What is a microkernel?",
+    "options": [
+      "Large kernel",
+      "Minimal kernel with core functions",
+      "File system kernel",
+      "Hardware kernel"
+    ],
+    "correct": 1,
+    "explanation": "Microkernels include only essential services. Other services run in user space.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 149,
+    "question": "What is a monolithic kernel?",
+    "options": [
+      "Minimal kernel",
+      "Kernel with all services included",
+      "Distributed kernel",
+      "Virtual kernel"
+    ],
+    "correct": 1,
+    "explanation": "Monolithic kernels include many services in kernel space. This improves performance but reduces modularity.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  },
+  {
+    "id": 150,
+    "question": "What is system reliability?",
+    "options": [
+      "CPU speed",
+      "Ability to operate without failure",
+      "Memory size",
+      "Disk capacity"
+    ],
+    "correct": 1,
+    "explanation": "Reliability ensures consistent system operation. Fault tolerance and recovery mechanisms improve it.",
+    "difficulty": "Medium",
+    "topic": "OS Concepts"
+  }
+]

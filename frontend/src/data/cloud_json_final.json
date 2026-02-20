@@ -1,0 +1,2046 @@
+[
+  {
+    "id": 1,
+    "question": "What is cloud computing?",
+    "options": [
+      "Using local servers only",
+      "Delivering computing services over the internet",
+      "Storing data on personal devices",
+      "Using offline software"
+    ],
+    "correct": 1,
+    "explanation": "Cloud computing provides resources like storage and computing over the internet. It eliminates the need for local infrastructure.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 2,
+    "question": "Which of the following is a cloud service provider?",
+    "options": [
+      "Microsoft Azure",
+      "Windows OS",
+      "MySQL",
+      "HTML"
+    ],
+    "correct": 0,
+    "explanation": "Microsoft Azure offers cloud services including computing and storage. It is a major cloud provider.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 3,
+    "question": "What does IaaS stand for?",
+    "options": [
+      "Internet as a Service",
+      "Infrastructure as a Service",
+      "Integration as a Service",
+      "Interface as a Service"
+    ],
+    "correct": 1,
+    "explanation": "IaaS provides virtualized computing resources. Users manage OS and applications.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 4,
+    "question": "Which service model provides virtual machines?",
+    "options": [
+      "SaaS",
+      "PaaS",
+      "IaaS",
+      "FaaS"
+    ],
+    "correct": 2,
+    "explanation": "IaaS offers virtual machines and storage. Users control the operating system.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 5,
+    "question": "What does PaaS stand for?",
+    "options": [
+      "Platform as a Service",
+      "Process as a Service",
+      "Program as a Service",
+      "Performance as a Service"
+    ],
+    "correct": 0,
+    "explanation": "PaaS provides a platform for developing applications. Developers focus on code rather than infrastructure.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 6,
+    "question": "What does SaaS stand for?",
+    "options": [
+      "Software as a Service",
+      "Storage as a Service",
+      "System as a Service",
+      "Server as a Service"
+    ],
+    "correct": 0,
+    "explanation": "SaaS delivers software over the internet. Users access applications via browsers.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 7,
+    "question": "Which is an example of SaaS?",
+    "options": [
+      "Google Docs",
+      "Amazon EC2",
+      "Docker",
+      "Kubernetes"
+    ],
+    "correct": 0,
+    "explanation": "Google Docs is accessed via browser. Users do not manage infrastructure.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 8,
+    "question": "Which is an example of IaaS?",
+    "options": [
+      "Gmail",
+      "Amazon EC2",
+      "Google Docs",
+      "Slack"
+    ],
+    "correct": 1,
+    "explanation": "Amazon EC2 provides virtual servers. Users control OS and applications.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 9,
+    "question": "Which is an example of PaaS?",
+    "options": [
+      "Heroku",
+      "Dropbox",
+      "Microsoft Word",
+      "Gmail"
+    ],
+    "correct": 0,
+    "explanation": "Heroku provides a platform for deploying apps. Developers focus on code.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 10,
+    "question": "What is virtualization?",
+    "options": [
+      "Physical server creation",
+      "Creating virtual versions of resources",
+      "Deleting servers",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Virtualization allows multiple virtual machines on one physical server. It improves resource utilization.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 11,
+    "question": "What is a virtual machine (VM)?",
+    "options": [
+      "Physical server",
+      "Software-based computer",
+      "Network cable",
+      "Database"
+    ],
+    "correct": 1,
+    "explanation": "VMs emulate physical computers. They run operating systems independently.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 12,
+    "question": "What is a hypervisor?",
+    "options": [
+      "Database manager",
+      "Software that manages virtual machines",
+      "Network switch",
+      "Cloud storage"
+    ],
+    "correct": 1,
+    "explanation": "Hypervisors create and manage VMs. Examples include VMware and Hyper-V.",
+    "difficulty": "Easy",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 13,
+    "question": "What is Type 1 hypervisor?",
+    "options": [
+      "Runs on host OS",
+      "Runs directly on hardware",
+      "Runs in browser",
+      "Runs in database"
+    ],
+    "correct": 1,
+    "explanation": "Type 1 hypervisors run directly on hardware. They offer better performance.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 14,
+    "question": "What is Type 2 hypervisor?",
+    "options": [
+      "Runs on host OS",
+      "Runs on hardware directly",
+      "Runs in cloud",
+      "Runs in database"
+    ],
+    "correct": 0,
+    "explanation": "Type 2 hypervisors run on top of an operating system. Example: VirtualBox.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 15,
+    "question": "What is containerization?",
+    "options": [
+      "Creating virtual machines",
+      "Packaging applications with dependencies",
+      "Encrypting data",
+      "Deleting servers"
+    ],
+    "correct": 1,
+    "explanation": "Containers package apps with dependencies. They ensure consistent environments.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 16,
+    "question": "Which tool is used for containerization?",
+    "options": [
+      "Docker",
+      "MySQL",
+      "HTML",
+      "Apache"
+    ],
+    "correct": 0,
+    "explanation": "Docker creates and manages containers. It simplifies deployment.",
+    "difficulty": "Medium",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 17,
+    "question": "What is Kubernetes?",
+    "options": [
+      "Database",
+      "Container orchestration platform",
+      "Programming language",
+      "Web server"
+    ],
+    "correct": 1,
+    "explanation": "Kubernetes manages container deployment and scaling. It automates operations.",
+    "difficulty": "Hard",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 18,
+    "question": "What is cloud storage?",
+    "options": [
+      "Local storage",
+      "Storing data on remote servers",
+      "USB storage",
+      "RAM storage"
+    ],
+    "correct": 1,
+    "explanation": "Cloud storage stores data on remote servers. Users access it via internet.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 19,
+    "question": "Which is an example of cloud storage?",
+    "options": [
+      "Google Drive",
+      "RAM",
+      "Hard disk",
+      "CPU"
+    ],
+    "correct": 0,
+    "explanation": "Google Drive stores files in the cloud. Users can access them anywhere.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 20,
+    "question": "What is elasticity in cloud computing?",
+    "options": [
+      "Fixed resources",
+      "Ability to scale resources automatically",
+      "Deleting resources",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Elasticity allows automatic scaling. It matches resource usage with demand.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 21,
+    "question": "What is scalability?",
+    "options": [
+      "Increasing performance by adding resources",
+      "Deleting resources",
+      "Encrypting data",
+      "Reducing storage"
+    ],
+    "correct": 0,
+    "explanation": "Scalability ensures systems handle increased load. It improves performance.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 22,
+    "question": "What is load balancing?",
+    "options": [
+      "Increasing server load",
+      "Distributing traffic across servers",
+      "Deleting servers",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Load balancing improves availability. It prevents server overload.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 23,
+    "question": "What is multi-tenancy?",
+    "options": [
+      "Single user system",
+      "Multiple users sharing resources",
+      "Local storage",
+      "Dedicated server only"
+    ],
+    "correct": 1,
+    "explanation": "Multi-tenancy allows multiple users to share cloud resources. It reduces costs.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 24,
+    "question": "What is a public cloud?",
+    "options": [
+      "Private infrastructure",
+      "Cloud services available to public",
+      "Local server",
+      "Offline system"
+    ],
+    "correct": 1,
+    "explanation": "Public clouds are accessible over internet. Examples: AWS, Azure.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 25,
+    "question": "What is a private cloud?",
+    "options": [
+      "Cloud used by one organization",
+      "Public cloud",
+      "Offline system",
+      "Free cloud"
+    ],
+    "correct": 0,
+    "explanation": "Private clouds are dedicated to one organization. They provide greater control.",
+    "difficulty": "Medium",
+    "topic": "Service Models"
+  },
+  {
+    "id": 26,
+    "question": "What is a hybrid cloud?",
+    "options": [
+      "Only public cloud",
+      "Combination of public and private clouds",
+      "Local server",
+      "Offline network"
+    ],
+    "correct": 1,
+    "explanation": "Hybrid cloud combines public and private environments. It offers flexibility.",
+    "difficulty": "Medium",
+    "topic": "Service Models"
+  },
+  {
+    "id": 27,
+    "question": "What is community cloud?",
+    "options": [
+      "Cloud for single user",
+      "Cloud shared by organizations with common goals",
+      "Public cloud",
+      "Offline cloud"
+    ],
+    "correct": 1,
+    "explanation": "Community clouds serve organizations with shared concerns. They improve collaboration.",
+    "difficulty": "Medium",
+    "topic": "Service Models"
+  },
+  {
+    "id": 28,
+    "question": "What is serverless computing?",
+    "options": [
+      "No servers exist",
+      "Cloud provider manages infrastructure",
+      "Offline computing",
+      "Local computing"
+    ],
+    "correct": 1,
+    "explanation": "Serverless allows developers to focus on code. Infrastructure is managed by provider.",
+    "difficulty": "Medium",
+    "topic": "Service Models"
+  },
+  {
+    "id": 29,
+    "question": "What is FaaS?",
+    "options": [
+      "Function as a Service",
+      "File as a Service",
+      "Firewall as a Service",
+      "Framework as a Service"
+    ],
+    "correct": 0,
+    "explanation": "FaaS executes functions in response to events. It supports serverless architecture.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 30,
+    "question": "What is auto-scaling?",
+    "options": [
+      "Manual scaling",
+      "Automatic adjustment of resources",
+      "Deleting servers",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Auto-scaling adjusts resources based on demand. It optimizes performance and cost.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 31,
+    "question": "What is cloud security?",
+    "options": [
+      "Protecting local devices",
+      "Protecting cloud resources and data",
+      "Deleting data",
+      "Encrypting hardware"
+    ],
+    "correct": 1,
+    "explanation": "Cloud security ensures data confidentiality and integrity. It uses encryption and access control.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 32,
+    "question": "What is IAM in cloud computing?",
+    "options": [
+      "Internet Access Mode",
+      "Identity and Access Management",
+      "Internal Access Method",
+      "Integrated Application Model"
+    ],
+    "correct": 1,
+    "explanation": "IAM controls user access. It ensures secure authentication and authorization.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 33,
+    "question": "What is encryption in cloud computing?",
+    "options": [
+      "Deleting data",
+      "Converting data into secure format",
+      "Copying data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Encryption protects data from unauthorized access. It ensures confidentiality.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 34,
+    "question": "What is data redundancy?",
+    "options": [
+      "Single copy of data",
+      "Multiple copies for reliability",
+      "Deleting data",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Redundancy improves data availability. It prevents data loss.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 35,
+    "question": "What is disaster recovery?",
+    "options": [
+      "Deleting data",
+      "Restoring systems after failure",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Disaster recovery ensures business continuity. It restores data and services.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 36,
+    "question": "What is uptime in cloud services?",
+    "options": [
+      "Downtime duration",
+      "Time service is operational",
+      "Data storage time",
+      "Backup time"
+    ],
+    "correct": 1,
+    "explanation": "Uptime measures service availability. High uptime ensures reliability.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 37,
+    "question": "What is SLA in cloud computing?",
+    "options": [
+      "Service Level Agreement",
+      "Secure Login Access",
+      "System Load Analysis",
+      "Server Link Application"
+    ],
+    "correct": 0,
+    "explanation": "SLA defines service expectations. It includes uptime and performance guarantees.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 38,
+    "question": "What is pay-as-you-go pricing?",
+    "options": [
+      "Fixed cost",
+      "Pay only for resources used",
+      "Free service",
+      "Annual billing only"
+    ],
+    "correct": 1,
+    "explanation": "Pay-as-you-go reduces costs. Users pay for actual usage.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 39,
+    "question": "What is edge computing?",
+    "options": [
+      "Centralized computing",
+      "Processing data near source",
+      "Offline computing",
+      "Local storage"
+    ],
+    "correct": 1,
+    "explanation": "Edge computing reduces latency. It processes data near users.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 40,
+    "question": "What is CDN in cloud computing?",
+    "options": [
+      "Content Delivery Network",
+      "Central Data Node",
+      "Cloud Data Network",
+      "Code Delivery Network"
+    ],
+    "correct": 0,
+    "explanation": "CDNs deliver content from nearby servers. They improve performance.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 41,
+    "question": "What is cloud bursting?",
+    "options": [
+      "Deleting resources",
+      "Using public cloud during peak demand",
+      "Encrypting data",
+      "Offline computing"
+    ],
+    "correct": 1,
+    "explanation": "Cloud bursting handles peak loads. It extends private cloud capacity.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 42,
+    "question": "What is resource pooling?",
+    "options": [
+      "Dedicated resources",
+      "Sharing resources among users",
+      "Deleting resources",
+      "Encrypting resources"
+    ],
+    "correct": 1,
+    "explanation": "Resource pooling improves efficiency. It supports multi-tenancy.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 43,
+    "question": "What is a region in cloud computing?",
+    "options": [
+      "Single server",
+      "Geographic area with data centers",
+      "Database",
+      "Network cable"
+    ],
+    "correct": 1,
+    "explanation": "Regions group data centers. They ensure availability and compliance.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 44,
+    "question": "What is an availability zone?",
+    "options": [
+      "Single server",
+      "Isolated data center within region",
+      "Database cluster",
+      "Network cable"
+    ],
+    "correct": 1,
+    "explanation": "Availability zones improve fault tolerance. They isolate failures.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 45,
+    "question": "What is cloud migration?",
+    "options": [
+      "Deleting data",
+      "Moving applications to cloud",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Migration moves workloads to cloud. It improves scalability.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 46,
+    "question": "What is vendor lock-in?",
+    "options": [
+      "Freedom to switch providers",
+      "Difficulty switching providers",
+      "Free cloud services",
+      "Security feature"
+    ],
+    "correct": 1,
+    "explanation": "Vendor lock-in limits flexibility. It makes migration harder.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 47,
+    "question": "What is cloud orchestration?",
+    "options": [
+      "Manual management",
+      "Automated management of cloud resources",
+      "Database management",
+      "Security feature"
+    ],
+    "correct": 1,
+    "explanation": "Orchestration automates deployment and scaling. It improves efficiency.",
+    "difficulty": "Easy",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 48,
+    "question": "What is a snapshot in cloud computing?",
+    "options": [
+      "Image file",
+      "Backup of system state",
+      "CSS file",
+      "Network packet"
+    ],
+    "correct": 1,
+    "explanation": "Snapshots capture system state. They support recovery.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 49,
+    "question": "What is object storage?",
+    "options": [
+      "Block storage",
+      "Storage for unstructured data",
+      "RAM storage",
+      "CPU storage"
+    ],
+    "correct": 1,
+    "explanation": "Object storage stores files like images and videos. It is scalable.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 52,
+    "question": "What is cold storage?",
+    "options": [
+      "High-speed storage",
+      "Low-cost storage for infrequently accessed data",
+      "RAM storage",
+      "Cache storage"
+    ],
+    "correct": 1,
+    "explanation": "Cold storage is cost-efficient. It is used for backups and archives.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 53,
+    "question": "What is hot storage?",
+    "options": [
+      "Storage for rarely used data",
+      "High-speed storage for frequently accessed data",
+      "Offline storage",
+      "Encrypted storage"
+    ],
+    "correct": 1,
+    "explanation": "Hot storage provides fast access. It is used for active workloads.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 54,
+    "question": "What is cloud monitoring?",
+    "options": [
+      "Deleting logs",
+      "Tracking performance and health of resources",
+      "Encrypting data",
+      "Creating VMs"
+    ],
+    "correct": 1,
+    "explanation": "Monitoring helps detect issues early. Tools provide metrics and alerts.",
+    "difficulty": "Easy",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 55,
+    "question": "What is logging in cloud computing?",
+    "options": [
+      "Deleting data",
+      "Recording system events",
+      "Encrypting data",
+      "Scaling resources"
+    ],
+    "correct": 1,
+    "explanation": "Logs help troubleshoot and audit systems. They improve security and reliability.",
+    "difficulty": "Medium",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 56,
+    "question": "What is autoscaling group?",
+    "options": [
+      "Manual scaling",
+      "Group of instances that scale automatically",
+      "Single VM",
+      "Database cluster"
+    ],
+    "correct": 1,
+    "explanation": "Autoscaling groups adjust instance numbers. They ensure performance and cost efficiency.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 57,
+    "question": "What is horizontal scaling?",
+    "options": [
+      "Adding more servers",
+      "Increasing server capacity",
+      "Deleting servers",
+      "Encrypting data"
+    ],
+    "correct": 0,
+    "explanation": "Horizontal scaling adds more machines. It improves availability and scalability.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 58,
+    "question": "What is vertical scaling?",
+    "options": [
+      "Adding more servers",
+      "Increasing server resources (CPU, RAM)",
+      "Deleting servers",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Vertical scaling upgrades existing hardware. It is limited by machine capacity.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 59,
+    "question": "What is cloud load balancer?",
+    "options": [
+      "Database tool",
+      "Distributes traffic across instances",
+      "Encrypts data",
+      "Deletes resources"
+    ],
+    "correct": 1,
+    "explanation": "Load balancers improve reliability. They route traffic to healthy instances.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 60,
+    "question": "What is health check in load balancing?",
+    "options": [
+      "Database query",
+      "Monitoring instance availability",
+      "Encrypting data",
+      "Creating backups"
+    ],
+    "correct": 1,
+    "explanation": "Health checks detect failed instances. Traffic is redirected automatically.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 61,
+    "question": "What is VPC?",
+    "options": [
+      "Virtual Private Cloud",
+      "Virtual Public Connection",
+      "Variable Private Cloud",
+      "Verified Public Cloud"
+    ],
+    "correct": 0,
+    "explanation": "VPC provides isolated network environments. It enhances security and control.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 62,
+    "question": "What is subnet in cloud networking?",
+    "options": [
+      "Entire network",
+      "Segment of VPC network",
+      "Database table",
+      "Storage unit"
+    ],
+    "correct": 1,
+    "explanation": "Subnets divide networks into smaller segments. They improve organization and security.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 63,
+    "question": "What is a public subnet?",
+    "options": [
+      "Accessible from internet",
+      "Private network only",
+      "Database subnet",
+      "Storage subnet"
+    ],
+    "correct": 0,
+    "explanation": "Public subnets host internet-facing resources. They allow external access.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 64,
+    "question": "What is a private subnet?",
+    "options": [
+      "Accessible from internet",
+      "Internal network only",
+      "Public cloud",
+      "Storage unit"
+    ],
+    "correct": 1,
+    "explanation": "Private subnets protect internal resources. They enhance security.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 65,
+    "question": "What is NAT gateway?",
+    "options": [
+      "Database gateway",
+      "Enables private subnet internet access",
+      "Storage gateway",
+      "Security firewall"
+    ],
+    "correct": 1,
+    "explanation": "NAT gateways allow outbound internet access. They protect private IPs.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 66,
+    "question": "What is a security group?",
+    "options": [
+      "Database",
+      "Virtual firewall controlling traffic",
+      "Storage service",
+      "Load balancer"
+    ],
+    "correct": 1,
+    "explanation": "Security groups filter inbound/outbound traffic. They enforce access rules.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 67,
+    "question": "What is network ACL?",
+    "options": [
+      "Database rule",
+      "Stateless firewall at subnet level",
+      "Storage rule",
+      "VM setting"
+    ],
+    "correct": 1,
+    "explanation": "Network ACLs control subnet traffic. They add another security layer.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 68,
+    "question": "What is IAM role?",
+    "options": [
+      "User account",
+      "Temporary permissions for services",
+      "Database role",
+      "Network role"
+    ],
+    "correct": 1,
+    "explanation": "IAM roles grant permissions to services. They avoid storing credentials.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 69,
+    "question": "What is multi-factor authentication (MFA)?",
+    "options": [
+      "Single password login",
+      "Multiple verification methods",
+      "Encryption method",
+      "Storage method"
+    ],
+    "correct": 1,
+    "explanation": "MFA adds extra security. It requires additional verification like OTP.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 70,
+    "question": "What is data sovereignty?",
+    "options": [
+      "Data encryption",
+      "Data governed by local laws",
+      "Data deletion",
+      "Data compression"
+    ],
+    "correct": 1,
+    "explanation": "Data sovereignty ensures compliance. It controls where data is stored.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 71,
+    "question": "What is compliance in cloud computing?",
+    "options": [
+      "Ignoring regulations",
+      "Meeting legal and security standards",
+      "Deleting logs",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Compliance ensures regulatory adherence. It protects user data.",
+    "difficulty": "Medium",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 72,
+    "question": "What is shared responsibility model?",
+    "options": [
+      "Provider responsible for everything",
+      "Security responsibilities shared between provider and user",
+      "User responsible for hardware",
+      "No security needed"
+    ],
+    "correct": 1,
+    "explanation": "Providers manage infrastructure security. Users secure applications and data.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 73,
+    "question": "What is cloud cost optimization?",
+    "options": [
+      "Increasing expenses",
+      "Reducing costs while maintaining performance",
+      "Deleting resources",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Optimization ensures efficient resource use. It prevents overspending.",
+    "difficulty": "Easy",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 74,
+    "question": "What is reserved instance pricing?",
+    "options": [
+      "Pay hourly",
+      "Discount for long-term commitment",
+      "Free usage",
+      "Pay per request"
+    ],
+    "correct": 1,
+    "explanation": "Reserved instances lower costs. Users commit to usage.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 75,
+    "question": "What is spot instance?",
+    "options": [
+      "Dedicated server",
+      "Low-cost instance with possible interruption",
+      "Permanent instance",
+      "High-cost instance"
+    ],
+    "correct": 1,
+    "explanation": "Spot instances use unused capacity. They are cheaper but may terminate.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 76,
+    "question": "What is cloud billing dashboard?",
+    "options": [
+      "Database",
+      "Tool to track usage and costs",
+      "Security tool",
+      "Storage tool"
+    ],
+    "correct": 1,
+    "explanation": "Billing dashboards provide cost visibility. They help manage expenses.",
+    "difficulty": "Easy",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 77,
+    "question": "What is resource tagging?",
+    "options": [
+      "Deleting resources",
+      "Labeling resources for organization",
+      "Encrypting resources",
+      "Scaling resources"
+    ],
+    "correct": 1,
+    "explanation": "Tags help manage and track resources. They support billing and organization.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 78,
+    "question": "What is a cloud API?",
+    "options": [
+      "Hardware interface",
+      "Interface to manage cloud resources",
+      "Database table",
+      "Storage device"
+    ],
+    "correct": 1,
+    "explanation": "Cloud APIs automate resource management. They enable infrastructure as code.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 79,
+    "question": "What is Infrastructure as Code (IaC)?",
+    "options": [
+      "Manual infrastructure setup",
+      "Managing infrastructure using code",
+      "Database scripting",
+      "CSS styling"
+    ],
+    "correct": 1,
+    "explanation": "IaC automates infrastructure deployment. Tools include Terraform.",
+    "difficulty": "Hard",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 80,
+    "question": "What is Terraform?",
+    "options": [
+      "Programming language",
+      "IaC tool for cloud provisioning",
+      "Database",
+      "Web server"
+    ],
+    "correct": 1,
+    "explanation": "Terraform automates infrastructure. It supports multiple cloud providers.",
+    "difficulty": "Hard",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 81,
+    "question": "What is cloud automation?",
+    "options": [
+      "Manual tasks",
+      "Automatic management of resources",
+      "Deleting resources",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Automation reduces manual errors. It improves efficiency.",
+    "difficulty": "Easy",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 82,
+    "question": "What is a cloud sandbox environment?",
+    "options": [
+      "Production environment",
+      "Testing environment",
+      "Database server",
+      "Storage unit"
+    ],
+    "correct": 1,
+    "explanation": "Sandboxes allow safe testing. They prevent affecting production systems.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 83,
+    "question": "What is blue-green deployment?",
+    "options": [
+      "Deleting servers",
+      "Running two environments for zero downtime",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Blue-green deployment reduces downtime. Traffic shifts to new version.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 84,
+    "question": "What is canary deployment?",
+    "options": [
+      "Full deployment",
+      "Gradual rollout to small users",
+      "Deleting version",
+      "Database migration"
+    ],
+    "correct": 1,
+    "explanation": "Canary releases reduce risk. Issues are detected early.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 85,
+    "question": "What is cloud backup?",
+    "options": [
+      "Deleting data",
+      "Copying data to cloud for recovery",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Backups protect data. They enable disaster recovery.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 86,
+    "question": "What is snapshot backup?",
+    "options": [
+      "Full backup",
+      "Point-in-time system copy",
+      "Incremental backup",
+      "Database backup"
+    ],
+    "correct": 1,
+    "explanation": "Snapshots capture system state. They support quick recovery.",
+    "difficulty": "Easy",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 87,
+    "question": "What is replication in cloud storage?",
+    "options": [
+      "Deleting data",
+      "Copying data across locations",
+      "Encrypting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Replication improves availability. It protects against failures.",
+    "difficulty": "Medium",
+    "topic": "Storage & Data"
+  },
+  {
+    "id": 88,
+    "question": "What is latency in cloud computing?",
+    "options": [
+      "Storage size",
+      "Delay in data transfer",
+      "Encryption level",
+      "CPU speed"
+    ],
+    "correct": 1,
+    "explanation": "Lower latency improves performance. It affects user experience.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 89,
+    "question": "What is throughput?",
+    "options": [
+      "Delay",
+      "Data transfer rate",
+      "Storage size",
+      "CPU speed"
+    ],
+    "correct": 1,
+    "explanation": "Throughput measures actual performance. It indicates system efficiency.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 90,
+    "question": "What is cloud bursting benefit?",
+    "options": [
+      "Reduced performance",
+      "Handling peak loads",
+      "Deleting resources",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Cloud bursting ensures scalability. It handles sudden demand.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 91,
+    "question": "What is container registry?",
+    "options": [
+      "Database",
+      "Storage for container images",
+      "Web server",
+      "Load balancer"
+    ],
+    "correct": 1,
+    "explanation": "Registries store container images. Example: Docker Hub.",
+    "difficulty": "Easy",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 92,
+    "question": "What is serverless cold start?",
+    "options": [
+      "Fast response",
+      "Delay when function initializes",
+      "Database error",
+      "Encryption failure"
+    ],
+    "correct": 1,
+    "explanation": "Cold starts occur when functions are idle. They cause initial latency.",
+    "difficulty": "Medium",
+    "topic": "Service Models"
+  },
+  {
+    "id": 93,
+    "question": "What is event-driven architecture?",
+    "options": [
+      "Time-based execution",
+      "Triggered by events",
+      "Manual execution",
+      "Database-driven execution"
+    ],
+    "correct": 1,
+    "explanation": "Events trigger functions automatically. It improves scalability.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 94,
+    "question": "What is cloud-native application?",
+    "options": [
+      "Traditional app",
+      "Built specifically for cloud environments",
+      "Desktop app",
+      "Offline app"
+    ],
+    "correct": 1,
+    "explanation": "Cloud-native apps leverage cloud features. They are scalable and resilient.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 95,
+    "question": "What is service mesh?",
+    "options": [
+      "Database",
+      "Infrastructure layer for service communication",
+      "Storage system",
+      "Web server"
+    ],
+    "correct": 1,
+    "explanation": "Service mesh manages microservices communication. It improves security and observability.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 96,
+    "question": "What is observability?",
+    "options": [
+      "Deleting logs",
+      "Monitoring system behavior using metrics, logs, traces",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Observability helps diagnose issues. It improves reliability.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 97,
+    "question": "What is fault tolerance?",
+    "options": [
+      "System failure",
+      "Ability to continue operation despite failures",
+      "Deleting data",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Fault tolerance ensures reliability. Systems recover from failures.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 98,
+    "question": "What is high availability?",
+    "options": [
+      "Frequent downtime",
+      "System operational most of the time",
+      "Data deletion",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "High availability ensures minimal downtime. It improves reliability.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 99,
+    "question": "What is cloud governance?",
+    "options": [
+      "Ignoring policies",
+      "Managing cloud usage and compliance",
+      "Deleting resources",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Governance ensures policy compliance. It controls costs and security.",
+    "difficulty": "Easy",
+    "topic": "DevOps & Management"
+  },
+  {
+    "id": 102,
+    "question": "What is multi-cloud strategy?",
+    "options": [
+      "Using one cloud provider",
+      "Using multiple cloud providers",
+      "Using private cloud only",
+      "Using offline systems"
+    ],
+    "correct": 1,
+    "explanation": "Multi-cloud improves reliability and avoids dependency on one vendor. It enhances resilience.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 103,
+    "question": "What is cloud interoperability?",
+    "options": [
+      "Incompatible systems",
+      "Ability of different cloud systems to work together",
+      "Database integration only",
+      "Local network"
+    ],
+    "correct": 1,
+    "explanation": "Interoperability enables seamless data and application exchange. It supports multi-cloud strategies.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 104,
+    "question": "What is cloud portability?",
+    "options": [
+      "Data cannot be moved",
+      "Ability to move apps between clouds",
+      "Local storage",
+      "Database backup"
+    ],
+    "correct": 1,
+    "explanation": "Portability reduces vendor lock-in. It enables migration across providers.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 105,
+    "question": "What is cloud broker?",
+    "options": [
+      "Database tool",
+      "Intermediary managing cloud services",
+      "Storage device",
+      "Hypervisor"
+    ],
+    "correct": 1,
+    "explanation": "Cloud brokers help manage multiple providers. They optimize cost and performance.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 106,
+    "question": "What is API gateway?",
+    "options": [
+      "Database gateway",
+      "Entry point for API requests",
+      "Storage gateway",
+      "Security firewall"
+    ],
+    "correct": 1,
+    "explanation": "API gateways manage routing, authentication, and rate limiting. They simplify microservices communication.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 107,
+    "question": "What is service discovery?",
+    "options": [
+      "Finding databases",
+      "Automatic detection of services in a network",
+      "Manual configuration",
+      "Data encryption"
+    ],
+    "correct": 1,
+    "explanation": "Service discovery enables dynamic service communication. It supports microservices architecture.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 108,
+    "question": "What is container orchestration?",
+    "options": [
+      "Running single container",
+      "Managing container deployment and scaling",
+      "Encrypting containers",
+      "Deleting containers"
+    ],
+    "correct": 1,
+    "explanation": "Orchestration automates container lifecycle. Kubernetes is a common tool.",
+    "difficulty": "Hard",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 109,
+    "question": "What is rolling deployment?",
+    "options": [
+      "Deploy all at once",
+      "Gradually updating instances",
+      "Deleting instances",
+      "Encrypting instances"
+    ],
+    "correct": 1,
+    "explanation": "Rolling deployments update services gradually. They minimize downtime.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 110,
+    "question": "What is immutable infrastructure?",
+    "options": [
+      "Changing servers manually",
+      "Replacing servers instead of modifying",
+      "Deleting servers",
+      "Encrypting servers"
+    ],
+    "correct": 1,
+    "explanation": "Immutable infrastructure improves consistency. It reduces configuration drift.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 111,
+    "question": "What is configuration drift?",
+    "options": [
+      "Consistent configuration",
+      "Differences between environments over time",
+      "Data encryption",
+      "Network failure"
+    ],
+    "correct": 1,
+    "explanation": "Drift causes inconsistencies. Automation prevents it.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 112,
+    "question": "What is secrets management?",
+    "options": [
+      "Storing passwords in code",
+      "Secure storage of sensitive credentials",
+      "Deleting credentials",
+      "Encrypting hardware"
+    ],
+    "correct": 1,
+    "explanation": "Secrets management protects credentials. Tools include AWS Secrets Manager.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 113,
+    "question": "What is key management service (KMS)?",
+    "options": [
+      "Database tool",
+      "Service to manage encryption keys",
+      "Storage service",
+      "Load balancer"
+    ],
+    "correct": 1,
+    "explanation": "KMS securely stores encryption keys. It supports data protection.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 114,
+    "question": "What is zero trust security model?",
+    "options": [
+      "Trust all users",
+      "Verify every access request",
+      "Disable authentication",
+      "Allow public access"
+    ],
+    "correct": 1,
+    "explanation": "Zero trust requires verification for all access. It enhances security.",
+    "difficulty": "Hard",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 115,
+    "question": "What is DDoS protection in cloud?",
+    "options": [
+      "Deleting traffic",
+      "Protecting against traffic flooding attacks",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Cloud providers mitigate DDoS attacks. They ensure service availability.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 116,
+    "question": "What is WAF (Web Application Firewall)?",
+    "options": [
+      "Database firewall",
+      "Protects web applications from attacks",
+      "Storage firewall",
+      "Network cable"
+    ],
+    "correct": 1,
+    "explanation": "WAF filters HTTP traffic. It blocks malicious requests.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 117,
+    "question": "What is SIEM?",
+    "options": [
+      "Security Information and Event Management",
+      "System Integration Event Module",
+      "Secure Internet Email Management",
+      "Server Infrastructure Execution Model"
+    ],
+    "correct": 0,
+    "explanation": "SIEM collects and analyzes security events. It helps detect threats.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 118,
+    "question": "What is threat modeling?",
+    "options": [
+      "Ignoring threats",
+      "Identifying and mitigating security risks",
+      "Deleting threats",
+      "Encrypting threats"
+    ],
+    "correct": 1,
+    "explanation": "Threat modeling improves security planning. It identifies vulnerabilities.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 119,
+    "question": "What is penetration testing?",
+    "options": [
+      "Deleting data",
+      "Simulating attacks to find vulnerabilities",
+      "Encrypting systems",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Pen testing identifies security weaknesses. It improves defense.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 120,
+    "question": "What is cloud audit?",
+    "options": [
+      "Ignoring logs",
+      "Reviewing cloud usage and compliance",
+      "Deleting data",
+      "Encrypting logs"
+    ],
+    "correct": 1,
+    "explanation": "Audits ensure compliance and security. They detect misuse.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 121,
+    "question": "What is edge location in cloud CDN?",
+    "options": [
+      "Central server",
+      "Data center near users",
+      "Database server",
+      "Storage device"
+    ],
+    "correct": 1,
+    "explanation": "Edge locations reduce latency. They deliver content faster.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 122,
+    "question": "What is cold start mitigation?",
+    "options": [
+      "Increasing delay",
+      "Keeping functions warm",
+      "Deleting functions",
+      "Encrypting functions"
+    ],
+    "correct": 1,
+    "explanation": "Warm functions reduce latency. They improve performance.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 123,
+    "question": "What is function timeout in serverless?",
+    "options": [
+      "Unlimited execution",
+      "Maximum execution time limit",
+      "Database timeout",
+      "Network timeout"
+    ],
+    "correct": 1,
+    "explanation": "Timeouts prevent runaway processes. They control costs.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 124,
+    "question": "What is API throttling?",
+    "options": [
+      "Increasing requests",
+      "Limiting request rate",
+      "Deleting requests",
+      "Encrypting requests"
+    ],
+    "correct": 1,
+    "explanation": "Throttling protects APIs. It prevents abuse.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 125,
+    "question": "What is message queue?",
+    "options": [
+      "Database table",
+      "Service for asynchronous communication",
+      "Storage system",
+      "Load balancer"
+    ],
+    "correct": 1,
+    "explanation": "Message queues decouple services. They improve scalability.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 126,
+    "question": "What is publish/subscribe model?",
+    "options": [
+      "Direct communication",
+      "Messaging pattern with publishers and subscribers",
+      "Database replication",
+      "Storage method"
+    ],
+    "correct": 1,
+    "explanation": "Pub/Sub enables event-driven systems. It improves scalability.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 127,
+    "question": "What is event sourcing?",
+    "options": [
+      "Storing final state only",
+      "Storing sequence of events",
+      "Deleting events",
+      "Encrypting events"
+    ],
+    "correct": 1,
+    "explanation": "Event sourcing tracks changes over time. It improves traceability.",
+    "difficulty": "Hard",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 128,
+    "question": "What is CQRS?",
+    "options": [
+      "Command Query Responsibility Segregation",
+      "Cloud Query Resource System",
+      "Central Queue Response System",
+      "Cloud Quality Routing Service"
+    ],
+    "correct": 0,
+    "explanation": "CQRS separates read and write operations. It improves performance.",
+    "difficulty": "Hard",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 129,
+    "question": "What is cloud-native security?",
+    "options": [
+      "Traditional security",
+      "Security designed for cloud environments",
+      "Offline security",
+      "Local firewall"
+    ],
+    "correct": 1,
+    "explanation": "Cloud-native security uses automation and monitoring. It improves protection.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 130,
+    "question": "What is data encryption at rest?",
+    "options": [
+      "Encryption during transmission",
+      "Encryption of stored data",
+      "Encryption in RAM",
+      "Encryption in CPU"
+    ],
+    "correct": 1,
+    "explanation": "Encryption at rest protects stored data. It prevents unauthorized access.",
+    "difficulty": "Medium",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 131,
+    "question": "What is encryption in transit?",
+    "options": [
+      "Encrypt stored data",
+      "Encrypt data during transmission",
+      "Encrypt CPU",
+      "Encrypt RAM"
+    ],
+    "correct": 1,
+    "explanation": "Encryption in transit protects data from interception. It uses TLS.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 132,
+    "question": "What is TLS?",
+    "options": [
+      "Transport Layer Security",
+      "Transmission Link System",
+      "Trusted Login Service",
+      "Total Load Security"
+    ],
+    "correct": 0,
+    "explanation": "TLS encrypts network communication. It secures web traffic.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 133,
+    "question": "What is certificate authority (CA)?",
+    "options": [
+      "Database authority",
+      "Entity issuing digital certificates",
+      "Storage provider",
+      "Network switch"
+    ],
+    "correct": 1,
+    "explanation": "CAs verify identities. They enable secure connections.",
+    "difficulty": "Easy",
+    "topic": "Network & Security"
+  },
+  {
+    "id": 134,
+    "question": "What is autoscaling cooldown period?",
+    "options": [
+      "Scaling delay",
+      "Time between scaling actions",
+      "Database timeout",
+      "Network delay"
+    ],
+    "correct": 1,
+    "explanation": "Cooldown prevents rapid scaling. It stabilizes systems.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 135,
+    "question": "What is failover?",
+    "options": [
+      "System crash",
+      "Switching to backup system",
+      "Data deletion",
+      "Encryption"
+    ],
+    "correct": 1,
+    "explanation": "Failover ensures continuity. It activates backup systems.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 136,
+    "question": "What is disaster recovery site?",
+    "options": [
+      "Primary data center",
+      "Backup site for recovery",
+      "Database cluster",
+      "Load balancer"
+    ],
+    "correct": 1,
+    "explanation": "DR sites restore operations after disasters. They ensure business continuity.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 137,
+    "question": "What is RTO?",
+    "options": [
+      "Recovery Time Objective",
+      "Resource Transfer Operation",
+      "Remote Task Operation",
+      "Runtime Transfer Option"
+    ],
+    "correct": 0,
+    "explanation": "RTO defines acceptable downtime. It guides recovery planning.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 138,
+    "question": "What is RPO?",
+    "options": [
+      "Recovery Point Objective",
+      "Remote Processing Option",
+      "Resource Protection Operation",
+      "Runtime Performance Output"
+    ],
+    "correct": 0,
+    "explanation": "RPO defines acceptable data loss. It guides backup frequency.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 139,
+    "question": "What is cloud workload?",
+    "options": [
+      "Hardware",
+      "Application or service running in cloud",
+      "Database",
+      "Network cable"
+    ],
+    "correct": 1,
+    "explanation": "Workloads include apps and services. They consume cloud resources.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 140,
+    "question": "What is container image?",
+    "options": [
+      "Running container",
+      "Snapshot of container environment",
+      "Database",
+      "Network packet"
+    ],
+    "correct": 1,
+    "explanation": "Images contain app and dependencies. Containers run from images.",
+    "difficulty": "Easy",
+    "topic": "Virtualization"
+  },
+  {
+    "id": 141,
+    "question": "What is blue/green environment?",
+    "options": [
+      "Single deployment",
+      "Two identical environments for deployment",
+      "Database replication",
+      "Load balancing"
+    ],
+    "correct": 1,
+    "explanation": "Blue/green deployment ensures zero downtime. Traffic switches between environments.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 142,
+    "question": "What is autoscaling policy?",
+    "options": [
+      "Manual scaling",
+      "Rules defining scaling behavior",
+      "Database policy",
+      "Security rule"
+    ],
+    "correct": 1,
+    "explanation": "Policies define when to scale. They optimize performance.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 143,
+    "question": "What is cloud sandbox testing?",
+    "options": [
+      "Production testing",
+      "Safe environment for experimentation",
+      "Database testing",
+      "Network testing"
+    ],
+    "correct": 1,
+    "explanation": "Sandboxes prevent affecting production. They allow safe testing.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 144,
+    "question": "What is green computing in cloud?",
+    "options": [
+      "Using more energy",
+      "Energy-efficient computing",
+      "Deleting servers",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Green computing reduces environmental impact. Cloud optimizes resource usage.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 145,
+    "question": "What is cloud elasticity vs scalability?",
+    "options": [
+      "Same concept",
+      "Elasticity is automatic scaling, scalability is planned scaling",
+      "Scalability is automatic",
+      "Elasticity is manual"
+    ],
+    "correct": 1,
+    "explanation": "Elasticity responds automatically. Scalability prepares for growth.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 146,
+    "question": "What is a bastion host?",
+    "options": [
+      "Database server",
+      "Secure gateway to access private network",
+      "Storage device",
+      "Load balancer"
+    ],
+    "correct": 1,
+    "explanation": "Bastion hosts secure remote access. They protect internal resources.",
+    "difficulty": "Easy",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 147,
+    "question": "What is cloud-native CI/CD?",
+    "options": [
+      "Manual deployment",
+      "Automated pipeline in cloud environment",
+      "Database replication",
+      "Network monitoring"
+    ],
+    "correct": 1,
+    "explanation": "Cloud-native CI/CD automates builds and deployments. It improves agility.",
+    "difficulty": "Easy",
+    "topic": "Architecture"
+  },
+  {
+    "id": 148,
+    "question": "What is serverless event trigger?",
+    "options": [
+      "Manual function execution",
+      "Automatic function execution on event",
+      "Database query",
+      "Network request"
+    ],
+    "correct": 1,
+    "explanation": "Events trigger serverless functions. It supports automation.",
+    "difficulty": "Easy",
+    "topic": "Service Models"
+  },
+  {
+    "id": 149,
+    "question": "What is observability pillar?",
+    "options": [
+      "Encryption",
+      "Metrics, logs, traces",
+      "Storage",
+      "Networking"
+    ],
+    "correct": 1,
+    "explanation": "Observability uses metrics, logs, and traces. It helps diagnose issues.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  },
+  {
+    "id": 150,
+    "question": "What is the main goal of cloud computing?",
+    "options": [
+      "Increase hardware usage",
+      "Provide scalable, reliable, and cost-efficient computing",
+      "Remove security",
+      "Reduce performance"
+    ],
+    "correct": 1,
+    "explanation": "Cloud computing improves scalability and reliability. It reduces infrastructure costs.",
+    "difficulty": "Medium",
+    "topic": "Cloud Concepts"
+  }
+]

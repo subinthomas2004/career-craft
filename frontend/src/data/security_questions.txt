@@ -1,0 +1,1495 @@
+1. What is cybersecurity?
+
+A. Protecting hardware only
+B. Protecting systems, networks, and data from attacks
+C. Designing websites
+D. Managing databases
+
+Answer: B
+Why: Cybersecurity safeguards digital assets from unauthorized access and attacks. It ensures confidentiality, integrity, and availability.
+
+2. What does CIA triad stand for?
+
+A. Control, Integrity, Access
+B. Confidentiality, Integrity, Availability
+C. Cyber, Internet, Access
+D. Control, Internet, Authorization
+
+Answer: B
+Why: CIA triad defines core security principles. It ensures data protection and system reliability.
+
+3. What is confidentiality?
+
+A. Data accuracy
+B. Protecting data from unauthorized access
+C. Data availability
+D. Data duplication
+
+Answer: B
+Why: Confidentiality ensures only authorized users access data. Encryption supports this principle.
+
+4. What is integrity in cybersecurity?
+
+A. Data encryption
+B. Ensuring data accuracy and consistency
+C. Data deletion
+D. Data storage
+
+Answer: B
+Why: Integrity ensures data remains unchanged and trustworthy. Hashing helps verify integrity.
+
+5. What is availability?
+
+A. Data deletion
+B. Ensuring systems are accessible when needed
+C. Encrypting data
+D. Blocking users
+
+Answer: B
+Why: Availability ensures users can access systems. Redundancy improves availability.
+
+6. What is a firewall?
+
+A. Database
+B. Network security device filtering traffic
+C. Web server
+D. Programming language
+
+Answer: B
+Why: Firewalls control incoming and outgoing traffic. They enforce security rules.
+
+7. What is malware?
+
+A. Security tool
+B. Malicious software
+C. Database
+D. Network protocol
+
+Answer: B
+Why: Malware includes viruses, worms, and ransomware. It harms systems and data.
+
+8. What is a virus?
+
+A. Self-replicating malware attached to files
+B. Network device
+C. Encryption method
+D. Firewall
+
+Answer: A
+Why: Viruses spread by attaching to files. They execute when the file runs.
+
+9. What is a worm?
+
+A. Requires host file
+B. Self-spreading malware
+C. Encryption tool
+D. Firewall rule
+
+Answer: B
+Why: Worms spread across networks without user action. They exploit vulnerabilities.
+
+10. What is ransomware?
+
+A. Software update
+B. Malware that encrypts data for payment
+C. Firewall rule
+D. Network protocol
+
+Answer: B
+Why: Ransomware locks files until payment is made. Backups help recovery.
+
+11. What is phishing?
+
+A. Network attack
+B. Fraudulent attempt to obtain sensitive data
+C. Encryption method
+D. Firewall configuration
+
+Answer: B
+Why: Phishing uses fake messages to steal credentials. User awareness prevents attacks.
+
+12. What is social engineering?
+
+A. Programming technique
+B. Manipulating people to reveal information
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Social engineering exploits human behavior. Training helps prevent it.
+
+13. What is a strong password?
+
+A. Short and simple
+B. Long and complex
+C. Same as username
+D. Only numbers
+
+Answer: B
+Why: Strong passwords include letters, numbers, and symbols. They resist brute-force attacks.
+
+14. What is multi-factor authentication (MFA)?
+
+A. Single password login
+B. Multiple verification methods
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: MFA adds extra security layers. It combines passwords with OTP or biometrics.
+
+15. What is encryption?
+
+A. Data deletion
+B. Converting data into secure format
+C. Copying data
+D. Compressing data
+
+Answer: B
+Why: Encryption protects data confidentiality. Only authorized parties can decrypt.
+
+16. What is decryption?
+
+A. Encrypting data
+B. Converting encrypted data back to original
+C. Deleting data
+D. Compressing data
+
+Answer: B
+Why: Decryption restores readable data. It requires the correct key.
+
+17. What is symmetric encryption?
+
+A. Different keys for encryption/decryption
+B. Same key for encryption and decryption
+C. No keys used
+D. Public key only
+
+Answer: B
+Why: Symmetric encryption uses one shared key. It is fast but requires secure key sharing.
+
+18. What is asymmetric encryption?
+
+A. Same key for encryption
+B. Public and private key pair
+C. No encryption
+D. Single password
+
+Answer: B
+Why: Asymmetric encryption uses two keys. It improves secure communication.
+
+19. What is a digital signature?
+
+A. Handwritten signature
+B. Electronic method to verify authenticity
+C. Password
+D. Firewall rule
+
+Answer: B
+Why: Digital signatures ensure integrity and authenticity. They use cryptography.
+
+20. What is hashing?
+
+A. Encryption method
+B. Converting data into fixed-length value
+C. Data deletion
+D. Data copying
+
+Answer: B
+Why: Hashing verifies data integrity. Hash values change if data is altered.
+
+21. What is brute-force attack?
+
+A. Guessing passwords using trial and error
+B. Encrypting data
+C. Firewall configuration
+D. Network monitoring
+
+Answer: A
+Why: Brute-force tries many combinations. Strong passwords prevent it.
+
+22. What is a DDoS attack?
+
+A. Data encryption
+B. Overloading system with traffic
+C. Password cracking
+D. Firewall rule
+
+Answer: B
+Why: DDoS floods servers. It disrupts services.
+
+23. What is a botnet?
+
+A. Security tool
+B. Network of infected devices
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Botnets perform coordinated attacks. They are controlled remotely.
+
+24. What is spyware?
+
+A. Security software
+B. Malware that collects user information
+C. Encryption tool
+D. Firewall
+
+Answer: B
+Why: Spyware monitors user activity. It steals sensitive data.
+
+25. What is adware?
+
+A. Displays unwanted advertisements
+B. Firewall rule
+C. Encryption tool
+D. Network protocol
+
+Answer: A
+Why: Adware shows intrusive ads. It may track user behavior.
+
+26. What is a Trojan horse?
+
+A. Self-replicating malware
+B. Malware disguised as legitimate software
+C. Encryption tool
+D. Firewall rule
+
+Answer: B
+Why: Trojans trick users into installing them. They create backdoors.
+
+27. What is a backdoor?
+
+A. Secure login
+B. Hidden access to system
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Backdoors bypass authentication. Attackers use them for access.
+
+28. What is patch management?
+
+A. Deleting software
+B. Updating software to fix vulnerabilities
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Patches fix security flaws. Regular updates improve protection.
+
+29. What is vulnerability?
+
+A. Security strength
+B. Weakness exploitable by attackers
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Vulnerabilities expose systems to threats. Regular scanning identifies them.
+
+30. What is penetration testing?
+
+A. Encrypting data
+B. Simulating attacks to find weaknesses
+C. Deleting data
+D. Scaling servers
+
+Answer: B
+Why: Pen testing identifies vulnerabilities. It improves defenses.
+
+31. What is network sniffing?
+
+A. Encrypting traffic
+B. Monitoring network packets
+C. Deleting packets
+D. Blocking traffic
+
+Answer: B
+Why: Sniffing analyzes traffic. It helps detect threats.
+
+32. What is spoofing?
+
+A. Data encryption
+B. Impersonating another device/user
+C. Firewall rule
+D. Network protocol
+
+Answer: B
+Why: Spoofing falsifies identity. It enables attacks.
+
+33. What is man-in-the-middle attack?
+
+A. Direct attack
+B. Intercepting communication between parties
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: MITM attackers intercept data. Encryption prevents this.
+
+34. What is secure protocol for web browsing?
+
+A. HTTP
+B. HTTPS
+C. FTP
+D. SMTP
+
+Answer: B
+Why: HTTPS uses encryption. It protects data in transit.
+
+35. What is SSL/TLS?
+
+A. Encryption protocols
+B. Firewall rule
+C. Database
+D. Network cable
+
+Answer: A
+Why: SSL/TLS secure communication. They encrypt data.
+
+36. What is VPN?
+
+A. Virtual Private Network
+B. Variable Public Network
+C. Verified Private Node
+D. Virtual Processing Network
+
+Answer: A
+Why: VPN encrypts internet traffic. It protects privacy.
+
+37. What is endpoint security?
+
+A. Network firewall
+B. Protecting devices like laptops and phones
+C. Database security
+D. Cloud storage
+
+Answer: B
+Why: Endpoint security protects user devices. It prevents malware.
+
+38. What is antivirus software?
+
+A. Database tool
+B. Software to detect and remove malware
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Antivirus scans for threats. It protects systems.
+
+39. What is spam?
+
+A. Legitimate email
+B. Unwanted messages
+C. Encryption tool
+D. Firewall rule
+
+Answer: B
+Why: Spam clutters inboxes. It may contain phishing attempts.
+
+40. What is data breach?
+
+A. Secure data transfer
+B. Unauthorized access to data
+C. Encryption method
+D. Database backup
+
+Answer: B
+Why: Data breaches expose sensitive information. Security controls prevent them.
+
+41. What is least privilege principle?
+
+A. Maximum access
+B. Minimum necessary access
+C. Full admin rights
+D. No access
+
+Answer: B
+Why: Least privilege reduces risk. Users get only needed permissions.
+
+42. What is access control?
+
+A. Data deletion
+B. Restricting system access
+C. Encryption
+D. Backup
+
+Answer: B
+Why: Access control ensures authorized usage. It uses authentication and authorization.
+
+43. What is role-based access control (RBAC)?
+
+A. Access based on user roles
+B. Access based on passwords
+C. Open access
+D. No access
+
+Answer: A
+Why: RBAC assigns permissions by role. It simplifies management.
+
+44. What is audit log?
+
+A. Database
+B. Record of system activities
+C. Encryption tool
+D. Firewall rule
+
+Answer: B
+Why: Audit logs track actions. They support compliance.
+
+45. What is security policy?
+
+A. Database rule
+B. Guidelines for protecting systems
+C. Encryption method
+D. Firewall device
+
+Answer: B
+Why: Security policies define rules. They ensure consistent protection.
+
+46. What is incident response?
+
+A. Ignoring attacks
+B. Handling security breaches
+C. Deleting data
+D. Encrypting data
+
+Answer: B
+Why: Incident response manages security events. It minimizes damage.
+
+47. What is backup in cybersecurity?
+
+A. Deleting data
+B. Copying data for recovery
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Backups protect against data loss. They enable recovery.
+
+48. What is disaster recovery?
+
+A. Ignoring failures
+B. Restoring systems after incidents
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Disaster recovery ensures continuity. It restores operations.
+
+49. What is security awareness training?
+
+A. Technical training only
+B. Educating users about security threats
+C. Encrypting data
+D. Deleting logs
+
+Answer: B
+Why: Training reduces human errors. Users learn to avoid threats.
+
+50. What is the main goal of cybersecurity?
+
+A. Increase system complexity
+B. Protect data and systems from threats
+C. Remove encryption
+D. Reduce performance
+
+Answer: B
+Why: Cybersecurity ensures confidentiality, integrity, and availability. It protects digital assets. 51. What is a zero-day vulnerability?
+
+A. Known vulnerability
+B. Vulnerability unknown to vendor
+C. Fixed vulnerability
+D. Encrypted vulnerability
+
+Answer: B
+Why: Zero-day vulnerabilities are exploited before patches exist. They are highly dangerous.
+
+52. What is a zero-day exploit?
+
+A. Security patch
+B. Attack exploiting unknown vulnerability
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Attackers exploit zero-day flaws before fixes. It leaves systems exposed.
+
+53. What is a rootkit?
+
+A. Security tool
+B. Malware hiding its presence
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Rootkits conceal malicious activity. They provide persistent access.
+
+54. What is keylogging?
+
+A. Encrypting keys
+B. Recording keystrokes secretly
+C. Firewall rule
+D. Network protocol
+
+Answer: B
+Why: Keyloggers capture passwords and sensitive data. They compromise accounts.
+
+55. What is session hijacking?
+
+A. Encrypting session
+B. Taking over active session
+C. Ending session
+D. Creating session
+
+Answer: B
+Why: Attackers steal session tokens. They impersonate users.
+
+56. What is DNS spoofing?
+
+A. Encrypting DNS
+B. Redirecting users to fake sites
+C. Firewall rule
+D. Database attack
+
+Answer: B
+Why: DNS spoofing manipulates domain resolution. It leads to phishing.
+
+57. What is ARP spoofing?
+
+A. Encrypting ARP
+B. Associating attacker MAC with victim IP
+C. Firewall rule
+D. DNS attack
+
+Answer: B
+Why: ARP spoofing enables MITM attacks. It intercepts network traffic.
+
+58. What is a replay attack?
+
+A. Deleting data
+B. Reusing captured data packets
+C. Encrypting packets
+D. Blocking packets
+
+Answer: B
+Why: Replay attacks reuse valid transmissions. Nonces prevent them.
+
+59. What is salting in password security?
+
+A. Deleting passwords
+B. Adding random data before hashing
+C. Encrypting passwords
+D. Compressing passwords
+
+Answer: B
+Why: Salting prevents rainbow table attacks. It enhances password security.
+
+60. What is rainbow table attack?
+
+A. Encrypting data
+B. Using precomputed hashes to crack passwords
+C. Firewall attack
+D. Network scanning
+
+Answer: B
+Why: Rainbow tables reverse hashes. Salting mitigates this.
+
+61. What is port scanning?
+
+A. Closing ports
+B. Checking open ports on a system
+C. Encrypting ports
+D. Blocking ports
+
+Answer: B
+Why: Port scanning identifies services. Attackers use it for reconnaissance.
+
+62. What is vulnerability scanning?
+
+A. Deleting vulnerabilities
+B. Automated detection of security weaknesses
+C. Encrypting systems
+D. Firewall configuration
+
+Answer: B
+Why: Scanners identify known flaws. They support proactive defense.
+
+63. What is a honeypot?
+
+A. Real server
+B. Decoy system to attract attackers
+C. Firewall
+D. Encryption tool
+
+Answer: B
+Why: Honeypots detect attacker behavior. They improve threat intelligence.
+
+64. What is intrusion detection system (IDS)?
+
+A. Prevent attacks
+B. Detect suspicious activity
+C. Encrypt traffic
+D. Delete logs
+
+Answer: B
+Why: IDS monitors traffic for anomalies. It alerts administrators.
+
+65. What is intrusion prevention system (IPS)?
+
+A. Detect attacks only
+B. Detect and block attacks
+C. Encrypt data
+D. Backup system
+
+Answer: B
+Why: IPS actively blocks threats. It prevents exploitation.
+
+66. What is network segmentation?
+
+A. Combining networks
+B. Dividing network into smaller parts
+C. Deleting networks
+D. Encrypting networks
+
+Answer: B
+Why: Segmentation limits attack spread. It improves security.
+
+67. What is DMZ in networking?
+
+A. Secure internal network
+B. Isolated network for public services
+C. Database zone
+D. Firewall zone
+
+Answer: B
+Why: DMZ hosts public-facing services. It protects internal networks.
+
+68. What is secure boot?
+
+A. Fast boot
+B. Boot process verifying trusted software
+C. Network boot
+D. Database boot
+
+Answer: B
+Why: Secure boot prevents unauthorized OS loading. It ensures system integrity.
+
+69. What is hardware security module (HSM)?
+
+A. Database
+B. Device managing cryptographic keys
+C. Firewall
+D. Network switch
+
+Answer: B
+Why: HSM secures keys. It enhances encryption security.
+
+70. What is tokenization?
+
+A. Encrypting data
+B. Replacing sensitive data with tokens
+C. Deleting data
+D. Compressing data
+
+Answer: B
+Why: Tokenization protects sensitive information. Tokens have no exploitable value.
+
+71. What is data masking?
+
+A. Encrypting data
+B. Hiding sensitive data
+C. Deleting data
+D. Compressing data
+
+Answer: B
+Why: Masking protects privacy. It hides sensitive values.
+
+72. What is secure coding?
+
+A. Writing fast code
+B. Writing code free from vulnerabilities
+C. Encrypting code
+D. Deleting code
+
+Answer: B
+Why: Secure coding prevents exploits. It reduces vulnerabilities.
+
+73. What is OWASP?
+
+A. Open Web Application Security Project
+B. Online Web Access Security Protocol
+C. Open Wireless Access Security Program
+D. Operating Web Application Security Policy
+
+Answer: A
+Why: OWASP provides security guidelines. It identifies top vulnerabilities.
+
+74. What is OWASP Top 10?
+
+A. Top programming languages
+B. Top web security risks
+C. Top databases
+D. Top encryption methods
+
+Answer: B
+Why: OWASP Top 10 lists common vulnerabilities. It guides secure development.
+
+75. What is SQL injection prevention method?
+
+A. Hardcoding queries
+B. Using parameterized queries
+C. Disabling database
+D. Encrypting database
+
+Answer: B
+Why: Parameterized queries prevent injection. They separate data from code.
+
+76. What is cross-site scripting (XSS) prevention?
+
+A. Disabling JavaScript
+B. Input validation and output encoding
+C. Deleting forms
+D. Encrypting HTML
+
+Answer: B
+Why: Encoding prevents script execution. Validation ensures safe input.
+
+77. What is content security policy (CSP)?
+
+A. Database policy
+B. Security layer preventing XSS
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: CSP restricts script sources. It reduces XSS risks.
+
+78. What is same-origin policy?
+
+A. Allow all requests
+B. Restrict resources from different origins
+C. Delete cookies
+D. Encrypt data
+
+Answer: B
+Why: Same-origin policy prevents unauthorized access. It protects web apps.
+
+79. What is cookie hijacking?
+
+A. Deleting cookies
+B. Stealing session cookies
+C. Encrypting cookies
+D. Blocking cookies
+
+Answer: B
+Why: Attackers use stolen cookies. It allows session takeover.
+
+80. What is secure cookie flag?
+
+A. Allow HTTP
+B. Send cookie only over HTTPS
+C. Delete cookie
+D. Encrypt cookie
+
+Answer: B
+Why: Secure flag prevents interception. It ensures encrypted transmission.
+
+81. What is HttpOnly cookie?
+
+A. Accessible by JavaScript
+B. Prevents JavaScript access
+C. Deletes cookie
+D. Encrypts cookie
+
+Answer: B
+Why: HttpOnly prevents XSS cookie theft. It improves security.
+
+82. What is password policy?
+
+A. Ignore passwords
+B. Rules for strong passwords
+C. Encrypt passwords
+D. Delete passwords
+
+Answer: B
+Why: Policies enforce complexity. They improve security.
+
+83. What is account lockout?
+
+A. Deleting account
+B. Blocking account after failed attempts
+C. Encrypting account
+D. Scaling account
+
+Answer: B
+Why: Lockout prevents brute-force attacks. It protects accounts.
+
+84. What is biometric authentication?
+
+A. Password
+B. Using physical traits for verification
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Biometrics include fingerprints and face recognition. They improve authentication.
+
+85. What is smart card authentication?
+
+A. Password
+B. Using physical card for authentication
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Smart cards store credentials securely. They support MFA.
+
+86. What is time-based one-time password (TOTP)?
+
+A. Permanent password
+B. Temporary code for authentication
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: TOTP expires quickly. It enhances MFA security.
+
+87. What is security operations center (SOC)?
+
+A. Database center
+B. Team monitoring security events
+C. Storage center
+D. Network center
+
+Answer: B
+Why: SOC monitors threats. It responds to incidents.
+
+88. What is threat intelligence?
+
+A. Ignoring threats
+B. Information about threats and attackers
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Threat intelligence helps anticipate attacks. It improves defense.
+
+89. What is digital forensics?
+
+A. Deleting evidence
+B. Investigating cyber incidents
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Forensics analyzes breaches. It supports legal actions.
+
+90. What is cyber espionage?
+
+A. Friendly monitoring
+B. Stealing confidential information
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Espionage targets sensitive data. It affects governments and companies.
+
+91. What is hacktivism?
+
+A. Ethical hacking
+B. Hacking for political/social causes
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Hacktivists promote causes. They disrupt systems.
+
+92. What is insider threat?
+
+A. External attacker
+B. Threat from authorized user
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Insiders misuse access. It is hard to detect.
+
+93. What is data exfiltration?
+
+A. Encrypting data
+B. Unauthorized data transfer
+C. Data backup
+D. Data compression
+
+Answer: B
+Why: Exfiltration steals sensitive data. Monitoring prevents it.
+
+94. What is cyber warfare?
+
+A. Friendly monitoring
+B. Nation-state cyber attacks
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Cyber warfare targets infrastructure. It disrupts nations.
+
+95. What is bug bounty program?
+
+A. Paying attackers
+B. Rewarding security researchers
+C. Deleting bugs
+D. Encrypting software
+
+Answer: B
+Why: Bug bounties encourage responsible disclosure. They improve security.
+
+96. What is ethical hacking?
+
+A. Illegal hacking
+B. Authorized security testing
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Ethical hackers find vulnerabilities legally. They strengthen systems.
+
+97. What is red team?
+
+A. Security team defending
+B. Team simulating attacks
+C. Database team
+D. Network team
+
+Answer: B
+Why: Red teams test defenses. They simulate attackers.
+
+98. What is blue team?
+
+A. Attack team
+B. Defensive security team
+C. Database team
+D. Network team
+
+Answer: B
+Why: Blue teams defend systems. They monitor and respond.
+
+99. What is purple team?
+
+A. Database team
+B. Collaboration between red and blue teams
+C. Network team
+D. Encryption team
+
+Answer: B
+Why: Purple teams improve coordination. They enhance security strategies.
+
+100. What is security hardening?
+
+A. Weakening security
+B. Strengthening system configurations
+C. Deleting logs
+D. Encrypting hardware
+
+Answer: B
+Why: Hardening reduces attack surface. It improves system protection. 101. What is governance, risk, and compliance (GRC)?
+
+A. Network protocol
+B. Framework for managing security policies and risks
+C. Encryption method
+D. Firewall configuration
+
+Answer: B
+Why: GRC ensures organizations manage risks and meet regulatory requirements. It aligns security with business goals.
+
+102. What is ISO/IEC 27001?
+
+A. Programming language
+B. Information security management standard
+C. Encryption algorithm
+D. Firewall rule
+
+Answer: B
+Why: ISO 27001 provides guidelines for managing information security. It ensures systematic risk management.
+
+103. What is NIST Cybersecurity Framework?
+
+A. Encryption protocol
+B. Guidelines for improving cybersecurity practices
+C. Firewall rule
+D. Network protocol
+
+Answer: B
+Why: NIST framework helps organizations manage risks. It provides best practices for security.
+
+104. What is GDPR?
+
+A. General Data Protection Regulation
+B. Global Data Processing Rule
+C. General Database Protection Rule
+D. Global Digital Privacy Regulation
+
+Answer: A
+Why: GDPR protects personal data in the EU. It enforces strict privacy regulations.
+
+105. What is data classification?
+
+A. Deleting data
+B. Categorizing data based on sensitivity
+C. Encrypting data
+D. Compressing data
+
+Answer: B
+Why: Classification ensures proper protection levels. Sensitive data gets stronger controls.
+
+106. What is data retention policy?
+
+A. Deleting all data immediately
+B. Rules for how long data is stored
+C. Encrypting data
+D. Compressing data
+
+Answer: B
+Why: Retention policies ensure compliance. They manage storage and legal requirements.
+
+107. What is privacy by design?
+
+A. Ignoring privacy
+B. Integrating privacy into system design
+C. Encrypting hardware
+D. Deleting logs
+
+Answer: B
+Why: Privacy by design ensures data protection from the start. It reduces risks.
+
+108. What is anonymization?
+
+A. Encrypting data
+B. Removing personally identifiable information
+C. Deleting data
+D. Compressing data
+
+Answer: B
+Why: Anonymization protects privacy. It prevents identifying individuals.
+
+109. What is pseudonymization?
+
+A. Deleting data
+B. Replacing identifiers with pseudonyms
+C. Encrypting data
+D. Compressing data
+
+Answer: B
+Why: Pseudonymization reduces data exposure. It still allows analysis.
+
+110. What is a security baseline?
+
+A. Weak configuration
+B. Minimum security standard
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Baselines define secure configurations. They ensure consistent protection.
+
+111. What is risk assessment?
+
+A. Ignoring threats
+B. Identifying and evaluating risks
+C. Deleting risks
+D. Encrypting risks
+
+Answer: B
+Why: Risk assessment prioritizes security efforts. It helps allocate resources.
+
+112. What is risk mitigation?
+
+A. Ignoring risks
+B. Reducing risk impact
+C. Increasing risk
+D. Deleting data
+
+Answer: B
+Why: Mitigation reduces vulnerabilities. It lowers potential damage.
+
+113. What is business continuity planning (BCP)?
+
+A. Deleting systems
+B. Ensuring operations during disruptions
+C. Encrypting systems
+D. Scaling servers
+
+Answer: B
+Why: BCP ensures critical functions continue. It supports resilience.
+
+114. What is tabletop exercise?
+
+A. Physical security test
+B. Simulated incident response discussion
+C. Encryption method
+D. Firewall test
+
+Answer: B
+Why: Tabletop exercises test response plans. They improve preparedness.
+
+115. What is cyber resilience?
+
+A. Ignoring attacks
+B. Ability to recover from cyber incidents
+C. Deleting logs
+D. Encrypting data
+
+Answer: B
+Why: Resilience ensures quick recovery. It maintains operations.
+
+116. What is supply chain attack?
+
+A. Network attack
+B. Compromising third-party vendors
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Supply chain attacks exploit trusted partners. They bypass defenses.
+
+117. What is code signing?
+
+A. Writing code
+B. Verifying software authenticity
+C. Encrypting databases
+D. Deleting logs
+
+Answer: B
+Why: Code signing ensures software integrity. It prevents tampering.
+
+118. What is sandboxing in security?
+
+A. Deleting code
+B. Running code in isolated environment
+C. Encrypting data
+D. Scaling servers
+
+Answer: B
+Why: Sandboxing prevents malicious impact. It isolates risky code.
+
+119. What is memory protection?
+
+A. Deleting memory
+B. Preventing unauthorized memory access
+C. Encrypting CPU
+D. Compressing RAM
+
+Answer: B
+Why: Memory protection stops exploits. It protects system stability.
+
+120. What is buffer overflow?
+
+A. Secure memory usage
+B. Writing data beyond buffer limits
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Buffer overflows enable code execution. Secure coding prevents them.
+
+121. What is ASLR?
+
+A. Address Space Layout Randomization
+B. Advanced Security Log Reporting
+C. Automated Secure Login Rule
+D. Access Security Layer Routing
+
+Answer: A
+Why: ASLR randomizes memory addresses. It prevents exploitation.
+
+122. What is DEP (Data Execution Prevention)?
+
+A. Deleting data
+B. Preventing code execution in memory regions
+C. Encrypting data
+D. Scaling memory
+
+Answer: B
+Why: DEP blocks malicious execution. It improves system security.
+
+123. What is sandbox escape?
+
+A. Safe execution
+B. Bypassing sandbox restrictions
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Sandbox escape allows malware to access system resources. It bypasses isolation.
+
+124. What is firmware security?
+
+A. Software security only
+B. Protecting low-level device software
+C. Database security
+D. Network security
+
+Answer: B
+Why: Firmware security prevents hardware-level attacks. It ensures device integrity.
+
+125. What is hardware root of trust?
+
+A. Software trust
+B. Trusted hardware component for security
+C. Database trust
+D. Network trust
+
+Answer: B
+Why: Root of trust ensures secure boot and cryptography. It anchors security.
+
+126. What is mobile device management (MDM)?
+
+A. Database management
+B. Managing and securing mobile devices
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: MDM enforces security policies. It protects enterprise devices.
+
+127. What is BYOD risk?
+
+A. Company-owned devices
+B. Security risks from personal devices
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: BYOD increases attack surface. Policies mitigate risks.
+
+128. What is cloud security posture management (CSPM)?
+
+A. Database tool
+B. Monitoring cloud security configurations
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: CSPM detects misconfigurations. It improves cloud security.
+
+129. What is identity federation?
+
+A. Multiple passwords
+B. Sharing identity across systems
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Federation enables single identity across platforms. It simplifies access.
+
+130. What is single sign-on (SSO)?
+
+A. Multiple logins
+B. One login for multiple services
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: SSO improves user experience. It centralizes authentication.
+
+131. What is privileged access management (PAM)?
+
+A. Managing normal users
+B. Controlling privileged accounts
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: PAM protects admin accounts. It reduces insider threats.
+
+132. What is identity lifecycle management?
+
+A. Deleting users
+B. Managing user access from creation to removal
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Lifecycle management ensures proper access control. It prevents orphan accounts.
+
+133. What is shadow IT?
+
+A. Approved systems
+B. Unauthorized technology use
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Shadow IT bypasses security controls. It increases risk.
+
+134. What is data loss prevention (DLP)?
+
+A. Deleting data
+B. Preventing unauthorized data transfer
+C. Encrypting data
+D. Compressing data
+
+Answer: B
+Why: DLP monitors data movement. It prevents leaks.
+
+135. What is secure email gateway?
+
+A. Database
+B. Filters malicious emails
+C. Encryption tool
+D. Firewall rule
+
+Answer: B
+Why: Email gateways block phishing and malware. They improve security.
+
+136. What is spear phishing?
+
+A. Random phishing
+B. Targeted phishing attack
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Spear phishing targets individuals. It uses personalized messages.
+
+137. What is whaling attack?
+
+A. Network attack
+B. Phishing targeting executives
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Whaling targets high-level executives. It seeks sensitive data.
+
+138. What is security misconfiguration?
+
+A. Secure setup
+B. Improper system settings
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Misconfigurations create vulnerabilities. Regular audits prevent them.
+
+139. What is attack surface?
+
+A. Physical surface
+B. Total points of possible attack
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Reducing attack surface improves security. It limits exposure.
+
+140. What is defense in depth?
+
+A. Single security layer
+B. Multiple security layers
+C. No security
+D. Encryption only
+
+Answer: B
+Why: Defense in depth uses layered security. It improves protection.
+
+141. What is threat modeling benefit?
+
+A. Ignoring threats
+B. Identifying vulnerabilities early
+C. Deleting threats
+D. Encrypting threats
+
+Answer: B
+Why: Threat modeling improves design security. It reduces risks.
+
+142. What is cyber insurance?
+
+A. Network insurance
+B. Financial protection against cyber incidents
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Cyber insurance mitigates financial losses. It supports recovery.
+
+143. What is legal hold?
+
+A. Deleting data
+B. Preserving data for legal cases
+C. Encrypting data
+D. Compressing data
+
+Answer: B
+Why: Legal hold prevents data deletion. It supports investigations.
+
+144. What is eDiscovery?
+
+A. Data deletion
+B. Identifying electronic evidence
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: eDiscovery supports legal cases. It retrieves digital evidence.
+
+145. What is cyber hygiene?
+
+A. Cleaning hardware
+B. Regular security practices
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Cyber hygiene includes updates and backups. It reduces risks.
+
+146. What is security awareness phishing simulation?
+
+A. Real attack
+B. Training exercise for users
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Simulations improve awareness. Users learn to detect phishing.
+
+147. What is digital certificate?
+
+A. Password
+B. Electronic credential verifying identity
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: Certificates enable secure communication. They verify authenticity.
+
+148. What is public key infrastructure (PKI)?
+
+A. Database system
+B. Framework for managing digital certificates
+C. Firewall rule
+D. Encryption method
+
+Answer: B
+Why: PKI manages keys and certificates. It enables secure communication.
+
+149. What is trust model in PKI?
+
+A. No trust
+B. Framework for validating certificates
+C. Encryption method
+D. Firewall rule
+
+Answer: B
+Why: Trust models verify certificate authenticity. They ensure secure connections.
+
+150. What is the ultimate goal of cybersecurity governance?
+
+A. Increase risk
+B. Align security with business objectives
+C. Remove policies
+D. Reduce compliance
+
+Answer: B
+Why: Governance ensures security supports business goals. It balances risk and compliance.

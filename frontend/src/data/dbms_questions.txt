@@ -1,0 +1,1499 @@
+1. What does DBMS stand for?
+
+A. Data Backup Management System
+B. Database Management System
+C. Digital Base Management System
+D. Data Binary Management System
+
+Answer: B
+Why: DBMS is software that manages databases and provides tools for storing, retrieving, and managing data. It ensures data consistency, security, and efficient access.
+
+2. Which of the following is a type of database model?
+
+A. Relational
+B. Linear
+C. Circular
+D. Binary
+
+Answer: A
+Why: The relational model organizes data into tables with rows and columns. It uses keys to establish relationships between tables.
+
+3. What is a primary key?
+
+A. A duplicate field
+B. A unique identifier for a record
+C. A foreign reference
+D. A nullable column
+
+Answer: B
+Why: A primary key uniquely identifies each row in a table. It cannot contain NULL values or duplicates.
+
+4. Which SQL command is used to retrieve data?
+
+A. GET
+B. FETCH
+C. SELECT
+D. RETRIEVE
+
+Answer: C
+Why: SELECT is used to fetch data from one or more tables. It can filter, sort, and group results.
+
+5. What is normalization?
+
+A. Data duplication
+B. Organizing data to reduce redundancy
+C. Encrypting data
+D. Sorting data
+
+Answer: B
+Why: Normalization structures data into tables to eliminate redundancy. It improves consistency and reduces anomalies.
+
+6. Which normal form removes partial dependency?
+
+A. 1NF
+B. 2NF
+C. 3NF
+D. BCNF
+
+Answer: B
+Why: Second Normal Form removes partial dependencies on composite keys. All non-key attributes must depend on the entire key.
+
+7. What is a foreign key?
+
+A. Unique identifier
+B. Key linking two tables
+C. Duplicate column
+D. Primary key replacement
+
+Answer: B
+Why: A foreign key references a primary key in another table. It establishes relationships and enforces referential integrity.
+
+8. Which SQL clause filters rows?
+
+A. WHERE
+B. ORDER BY
+C. GROUP BY
+D. HAVING
+
+Answer: A
+Why: WHERE filters rows before grouping or aggregation. It specifies conditions that must be met.
+
+9. Which command removes a table?
+
+A. DELETE
+B. REMOVE
+C. DROP
+D. ERASE
+
+Answer: C
+Why: DROP permanently removes a table and its structure. Unlike DELETE, it removes the schema itself.
+
+10. What does ACID stand for?
+
+A. Atomicity, Consistency, Isolation, Durability
+B. Accuracy, Control, Integrity, Data
+C. Access, Control, Index, Data
+D. Atomicity, Control, Isolation, Data
+
+Answer: A
+Why: ACID properties ensure reliable database transactions. They guarantee data integrity even during failures.
+
+11. Which SQL command updates data?
+
+A. MODIFY
+B. CHANGE
+C. UPDATE
+D. ALTER
+
+Answer: C
+Why: UPDATE modifies existing records in a table. It can change one or multiple rows based on conditions.
+
+12. What is a composite key?
+
+A. Two primary keys
+B. Key made of multiple columns
+C. Duplicate key
+D. Secondary key
+
+Answer: B
+Why: A composite key uses more than one column to uniquely identify a record. It is used when a single column is insufficient.
+
+13. Which clause sorts query results?
+
+A. GROUP BY
+B. ORDER BY
+C. SORT BY
+D. ARRANGE BY
+
+Answer: B
+Why: ORDER BY sorts results in ascending or descending order. It improves readability and analysis.
+
+14. What is denormalization?
+
+A. Removing data
+B. Adding redundancy for performance
+C. Encrypting data
+D. Sorting data
+
+Answer: B
+Why: Denormalization introduces redundancy to improve read performance. It reduces joins but increases storage.
+
+15. Which SQL function counts rows?
+
+A. SUM()
+B. COUNT()
+C. TOTAL()
+D. NUMBER()
+
+Answer: B
+Why: COUNT() returns the number of rows matching a condition. It is commonly used in aggregation queries.
+
+16. What is an index?
+
+A. Duplicate table
+B. Data structure to speed up searches
+C. Backup file
+D. Log file
+
+Answer: B
+Why: Indexes improve query performance by enabling faster data retrieval. They work like book indexes for quick lookup.
+
+17. Which join returns matching rows only?
+
+A. LEFT JOIN
+B. RIGHT JOIN
+C. INNER JOIN
+D. FULL JOIN
+
+Answer: C
+Why: INNER JOIN returns rows with matching values in both tables. Non-matching rows are excluded.
+
+18. What is a view?
+
+A. Physical table
+B. Virtual table from query
+C. Backup copy
+D. Index file
+
+Answer: B
+Why: A view is a virtual table created from a SQL query. It does not store data but displays results dynamically.
+
+19. Which command deletes rows but keeps table structure?
+
+A. DROP
+B. REMOVE
+C. DELETE
+D. ERASE
+
+Answer: C
+Why: DELETE removes rows based on conditions. The table structure remains intact.
+
+20. Which normal form removes transitive dependency?
+
+A. 1NF
+B. 2NF
+C. 3NF
+D. BCNF
+
+Answer: C
+Why: Third Normal Form removes transitive dependencies. Non-key attributes must depend only on the primary key.
+
+21. What is a transaction?
+
+A. Single query
+B. Logical unit of work
+C. Backup process
+D. Data transfer
+
+Answer: B
+Why: A transaction groups multiple operations into one logical unit. It ensures data integrity through ACID properties.
+
+22. Which command creates a table?
+
+A. MAKE TABLE
+B. CREATE TABLE
+C. NEW TABLE
+D. ADD TABLE
+
+Answer: B
+Why: CREATE TABLE defines a new table structure. It specifies columns, data types, and constraints.
+
+23. What is a trigger?
+
+A. Manual query
+B. Automatic action on events
+C. Backup tool
+D. Index structure
+
+Answer: B
+Why: Triggers execute automatically in response to database events. They enforce rules and maintain integrity.
+
+24. Which join returns all rows from left table?
+
+A. INNER JOIN
+B. LEFT JOIN
+C. RIGHT JOIN
+D. FULL JOIN
+
+Answer: B
+Why: LEFT JOIN returns all rows from the left table. Matching rows from the right table are included when available.
+
+25. What is referential integrity?
+
+A. Data encryption
+B. Valid relationship between tables
+C. Data duplication
+D. Query optimization
+
+Answer: B
+Why: Referential integrity ensures foreign keys match primary keys. It prevents orphan records.
+
+26. Which SQL clause groups rows?
+
+A. WHERE
+B. GROUP BY
+C. ORDER BY
+D. HAVING
+
+Answer: B
+Why: GROUP BY groups rows with similar values. It is used with aggregate functions.
+
+27. What is a candidate key?
+
+A. Duplicate key
+B. Possible primary key
+C. Foreign key
+D. Secondary index
+
+Answer: B
+Why: A candidate key uniquely identifies records. One candidate key is chosen as the primary key.
+
+28. Which command modifies table structure?
+
+A. UPDATE
+B. ALTER
+C. MODIFY
+D. CHANGE
+
+Answer: B
+Why: ALTER changes table structure such as adding or dropping columns. It does not affect existing data.
+
+29. What is a tuple?
+
+A. Column
+B. Row
+C. Table
+D. Index
+
+Answer: B
+Why: A tuple represents a single row in a relational table. It contains values for each attribute.
+
+30. Which join returns all rows from both tables?
+
+A. INNER JOIN
+B. LEFT JOIN
+C. FULL OUTER JOIN
+D. RIGHT JOIN
+
+Answer: C
+Why: FULL OUTER JOIN returns all rows from both tables. Non-matching rows contain NULL values.
+
+31. What is a schema?
+
+A. Data file
+B. Database structure definition
+C. Backup
+D. Index
+
+Answer: B
+Why: A schema defines the structure of a database. It includes tables, relationships, and constraints.
+
+32. Which SQL command removes all rows quickly?
+
+A. DELETE
+B. TRUNCATE
+C. DROP
+D. REMOVE
+
+Answer: B
+Why: TRUNCATE removes all rows without logging individual deletions. It is faster than DELETE.
+
+33. What is data redundancy?
+
+A. Data encryption
+B. Duplicate data
+C. Data sorting
+D. Data indexing
+
+Answer: B
+Why: Redundancy occurs when the same data is stored multiple times. It wastes space and can cause inconsistencies.
+
+34. Which normal form ensures atomic values?
+
+A. 1NF
+B. 2NF
+C. 3NF
+D. BCNF
+
+Answer: A
+Why: First Normal Form requires each field to contain atomic values. It eliminates repeating groups.
+
+35. What is a stored procedure?
+
+A. Backup script
+B. Precompiled SQL code
+C. Index file
+D. Trigger event
+
+Answer: B
+Why: Stored procedures are reusable SQL programs stored in the database. They improve performance and maintainability.
+
+36. Which key uniquely identifies records?
+
+A. Foreign key
+B. Primary key
+C. Candidate key
+D. Composite key
+
+Answer: B
+Why: A primary key uniquely identifies each row. It ensures entity integrity.
+
+37. What is a deadlock?
+
+A. Data loss
+B. Two transactions waiting on each other
+C. Query failure
+D. Backup error
+
+Answer: B
+Why: Deadlock occurs when transactions block each other indefinitely. Proper locking strategies prevent this.
+
+38. Which isolation level prevents dirty reads?
+
+A. Read Uncommitted
+B. Read Committed
+C. Repeatable Read
+D. Serializable
+
+Answer: B
+Why: Read Committed ensures transactions only read committed data. This prevents dirty reads.
+
+39. What is a cursor?
+
+A. Index
+B. Pointer to query result
+C. Backup tool
+D. Trigger
+
+Answer: B
+Why: A cursor allows row-by-row processing of query results. It is used in procedural SQL.
+
+40. Which SQL operator checks for NULL values?
+
+A. = NULL
+B. IS NULL
+C. == NULL
+D. CHECK NULL
+
+Answer: B
+Why: IS NULL checks for missing values. Standard equality operators do not work with NULL.
+
+41. What is a subquery?
+
+A. Nested SQL query
+B. Backup query
+C. Index query
+D. Delete query
+
+Answer: A
+Why: A subquery is a query inside another query. It helps filter or compute results dynamically.
+
+42. Which command grants privileges?
+
+A. ALLOW
+B. PERMIT
+C. GRANT
+D. ACCESS
+
+Answer: C
+Why: GRANT provides user permissions on database objects. It supports access control.
+
+43. Which SQL clause filters groups?
+
+A. WHERE
+B. GROUP BY
+C. HAVING
+D. ORDER BY
+
+Answer: C
+Why: HAVING filters aggregated results after grouping. WHERE cannot be used with aggregates.
+
+44. What is a materialized view?
+
+A. Virtual view
+B. Stored result of a query
+C. Index file
+D. Backup table
+
+Answer: B
+Why: Materialized views store query results physically. This improves performance for complex queries.
+
+45. Which key allows NULL values?
+
+A. Primary key
+B. Foreign key
+C. Candidate key
+D. Composite key
+
+Answer: B
+Why: Foreign keys can contain NULL if the relationship is optional. Primary keys cannot be NULL.
+
+46. What is concurrency control?
+
+A. Backup management
+B. Managing simultaneous transactions
+C. Data encryption
+D. Query optimization
+
+Answer: B
+Why: Concurrency control ensures database consistency during simultaneous transactions. It prevents conflicts and anomalies.
+
+47. Which SQL function returns the maximum value?
+
+A. MAX()
+B. TOP()
+C. HIGH()
+D. UPPER()
+
+Answer: A
+Why: MAX() returns the highest value in a column. It is commonly used in aggregation.
+
+48. What is a data warehouse?
+
+A. Operational database
+B. System for analytical reporting
+C. Backup system
+D. Transaction log
+
+Answer: B
+Why: A data warehouse stores historical data for analysis. It supports decision-making and business intelligence.
+
+49. Which normal form removes multi-valued dependency?
+
+A. 2NF
+B. 3NF
+C. 4NF
+D. BCNF
+
+Answer: C
+Why: Fourth Normal Form removes multi-valued dependencies. It ensures independent relationships are separated.
+
+50. Which SQL clause limits output rows?
+
+A. LIMIT
+B. STOP
+C. TOP ONLY
+D. RANGE
+
+Answer: A
+Why: LIMIT restricts the number of rows returned. It is useful for pagination and performance.
+
+51. What is a super key?
+
+A. Key with duplicates
+B. Set of attributes that uniquely identifies a row
+C. Foreign key
+D. Secondary index
+
+Answer: B
+Why: A super key is any combination of attributes that uniquely identifies a record. It may contain extra attributes beyond what is necessary.
+
+52. What is a surrogate key?
+
+A. Natural key
+B. Artificial key generated by system
+C. Composite key
+D. Foreign key
+
+Answer: B
+Why: A surrogate key is a system-generated unique identifier, such as an auto-increment ID. It avoids dependence on real-world data.
+
+53. Which join returns non-matching rows from both tables?
+
+A. INNER JOIN
+B. LEFT JOIN
+C. RIGHT JOIN
+D. FULL OUTER JOIN
+
+Answer: D
+Why: FULL OUTER JOIN includes all rows from both tables. Non-matching rows are filled with NULL values.
+
+54. What is a database instance?
+
+A. Structure definition
+B. Data stored at a specific time
+C. Query result
+D. Backup file
+
+Answer: B
+Why: A database instance represents the data stored in the database at a particular moment. It changes as data is added or updated.
+
+55. Which constraint ensures unique values in a column?
+
+A. NOT NULL
+B. UNIQUE
+C. DEFAULT
+D. CHECK
+
+Answer: B
+Why: UNIQUE prevents duplicate values in a column. Unlike primary keys, it can allow one NULL value depending on DBMS.
+
+56. What is a check constraint?
+
+A. Ensures uniqueness
+B. Validates data based on condition
+C. Creates index
+D. Removes duplicates
+
+Answer: B
+Why: CHECK constraints enforce rules on column values. For example, ensuring age is greater than 18.
+
+57. Which SQL command removes duplicate rows?
+
+A. DISTINCT
+B. UNIQUE
+C. REMOVE DUPLICATE
+D. FILTER
+
+Answer: A
+Why: DISTINCT eliminates duplicate rows in query results. It ensures each returned row is unique.
+
+58. What is a clustered index?
+
+A. Index stored separately
+B. Index defining physical order of data
+C. Backup index
+D. Temporary index
+
+Answer: B
+Why: A clustered index determines the physical order of rows in a table. A table can have only one clustered index.
+
+59. Which key references another table?
+
+A. Primary key
+B. Candidate key
+C. Foreign key
+D. Composite key
+
+Answer: C
+Why: A foreign key links one table to another. It enforces referential integrity.
+
+60. Which SQL statement adds a new column?
+
+A. UPDATE
+B. ALTER TABLE ADD
+C. INSERT COLUMN
+D. MODIFY TABLE
+
+Answer: B
+Why: ALTER TABLE ADD adds new columns to an existing table. It does not affect existing data.
+
+61. What is data independence?
+
+A. Data encryption
+B. Ability to change schema without affecting applications
+C. Data duplication
+D. Data backup
+
+Answer: B
+Why: Data independence separates data structure from application logic. It allows schema changes without rewriting programs.
+
+62. Which type of data independence deals with physical storage?
+
+A. Logical
+B. Physical
+C. Structural
+D. Functional
+
+Answer: B
+Why: Physical data independence allows changes in storage without affecting logical schema. For example, changing indexing methods.
+
+63. Which SQL clause removes groups not meeting condition?
+
+A. WHERE
+B. HAVING
+C. GROUP BY
+D. ORDER BY
+
+Answer: B
+Why: HAVING filters grouped results after aggregation. WHERE filters rows before grouping.
+
+64. What is a phantom read?
+
+A. Reading uncommitted data
+B. New rows appearing during transaction
+C. Duplicate rows
+D. Data loss
+
+Answer: B
+Why: Phantom reads occur when new rows appear in repeated queries within a transaction. This happens due to concurrent inserts.
+
+65. Which isolation level prevents phantom reads?
+
+A. Read Committed
+B. Repeatable Read
+C. Serializable
+D. Read Uncommitted
+
+Answer: C
+Why: Serializable is the strictest isolation level. It ensures transactions execute as if sequential.
+
+66. What is an ER model?
+
+A. Data storage model
+B. Conceptual model of entities and relationships
+C. Query language
+D. Index structure
+
+Answer: B
+Why: ER models represent real-world entities and relationships. They are used in database design.
+
+67. Which attribute uniquely identifies entity instances?
+
+A. Composite attribute
+B. Key attribute
+C. Derived attribute
+D. Multivalued attribute
+
+Answer: B
+Why: Key attributes uniquely identify entity instances. They correspond to primary keys in relational tables.
+
+68. Which SQL function calculates average?
+
+A. SUM()
+B. AVG()
+C. COUNT()
+D. MEAN()
+
+Answer: B
+Why: AVG() calculates the average value of a column. It ignores NULL values.
+
+69. What is a weak entity?
+
+A. Entity with no attributes
+B. Entity without primary key
+C. Entity with multiple keys
+D. Entity with foreign key
+
+Answer: B
+Why: Weak entities cannot be uniquely identified by their own attributes. They depend on a strong entity.
+
+70. Which join returns all rows from right table?
+
+A. LEFT JOIN
+B. RIGHT JOIN
+C. INNER JOIN
+D. FULL JOIN
+
+Answer: B
+Why: RIGHT JOIN returns all rows from the right table. Matching rows from the left table are included when available.
+
+71. What is a derived attribute?
+
+A. Stored attribute
+B. Calculated from other attributes
+C. Primary key
+D. Foreign key
+
+Answer: B
+Why: Derived attributes are computed from existing data. For example, age derived from date of birth.
+
+72. Which SQL keyword renames a column?
+
+A. CHANGE
+B. RENAME COLUMN
+C. ALTER TABLE RENAME
+D. MODIFY NAME
+
+Answer: C
+Why: ALTER TABLE RENAME changes column names. Syntax varies slightly across DBMS.
+
+73. What is a multi-valued attribute?
+
+A. Attribute with single value
+B. Attribute with multiple values
+C. Derived attribute
+D. Key attribute
+
+Answer: B
+Why: Multi-valued attributes store multiple values for one entity. Example: phone numbers.
+
+74. Which SQL clause combines rows from multiple tables?
+
+A. MERGE
+B. JOIN
+C. UNION
+D. GROUP
+
+Answer: B
+Why: JOIN combines rows based on related columns. It enables relational data retrieval.
+
+75. What is UNION in SQL?
+
+A. Combines rows from queries
+B. Joins tables
+C. Groups rows
+D. Filters rows
+
+Answer: A
+Why: UNION merges results of multiple queries. It removes duplicates unless UNION ALL is used.
+
+76. Which command removes user privileges?
+
+A. DELETE
+B. REVOKE
+C. REMOVE
+D. DENY
+
+Answer: B
+Why: REVOKE removes granted permissions. It enforces security control.
+
+77. What is a bitmap index best for?
+
+A. High-cardinality columns
+B. Low-cardinality columns
+C. Text fields
+D. Large objects
+
+Answer: B
+Why: Bitmap indexes are efficient for columns with few distinct values. They improve query performance in data warehouses.
+
+78. Which DBMS language defines schema?
+
+A. DML
+B. DDL
+C. DCL
+D. TCL
+
+Answer: B
+Why: Data Definition Language defines database structures. Examples include CREATE and ALTER.
+
+79. Which DBMS language controls permissions?
+
+A. DDL
+B. DML
+C. DCL
+D. TCL
+
+Answer: C
+Why: Data Control Language manages access rights. GRANT and REVOKE are examples.
+
+80. Which DBMS language manages transactions?
+
+A. DDL
+B. DML
+C. TCL
+D. DCL
+
+Answer: C
+Why: Transaction Control Language handles COMMIT and ROLLBACK. It ensures transaction consistency.
+
+81. What is COMMIT?
+
+A. Undo changes
+B. Save changes permanently
+C. Delete records
+D. Create table
+
+Answer: B
+Why: COMMIT finalizes a transaction. Changes become permanent.
+
+82. What is ROLLBACK?
+
+A. Save changes
+B. Undo changes
+C. Delete table
+D. Add column
+
+Answer: B
+Why: ROLLBACK reverses uncommitted changes. It restores database to previous state.
+
+83. What is SAVEPOINT?
+
+A. Backup
+B. Partial rollback marker
+C. Index
+D. Trigger
+
+Answer: B
+Why: SAVEPOINT marks a point within a transaction. You can roll back to it without undoing the entire transaction.
+
+84. Which key enforces entity integrity?
+
+A. Foreign key
+B. Primary key
+C. Candidate key
+D. Composite key
+
+Answer: B
+Why: Primary keys ensure each entity is uniquely identifiable. This maintains entity integrity.
+
+85. What is cardinality in DBMS?
+
+A. Number of attributes
+B. Number of rows in a table
+C. Number of keys
+D. Number of indexes
+
+Answer: B
+Why: Cardinality refers to the number of tuples (rows) in a relation. It indicates table size.
+
+86. Which type of join returns matching and non-matching rows?
+
+A. INNER JOIN
+B. FULL OUTER JOIN
+C. CROSS JOIN
+D. SELF JOIN
+
+Answer: B
+Why: FULL OUTER JOIN includes all rows from both tables. Matching rows are combined; others contain NULL.
+
+87. What is a cross join?
+
+A. Join with condition
+B. Cartesian product
+C. Self join
+D. Natural join
+
+Answer: B
+Why: Cross join returns all possible combinations of rows. It produces a Cartesian product.
+
+88. Which key combination uniquely identifies records?
+
+A. Composite key
+B. Foreign key
+C. Secondary key
+D. Duplicate key
+
+Answer: A
+Why: A composite key uses multiple columns to uniquely identify a record. It is useful when one column is insufficient.
+
+89. What is indexing overhead?
+
+A. Storage used by indexes
+B. Data duplication
+C. Query delay
+D. Backup cost
+
+Answer: A
+Why: Indexes require additional storage space. They improve performance but increase storage overhead.
+
+90. Which command displays table structure?
+
+A. SHOW TABLE
+B. DESCRIBE
+C. STRUCTURE
+D. VIEW TABLE
+
+Answer: B
+Why: DESCRIBE shows column names, types, and constraints. It helps understand table schema.
+
+91. What is a natural key?
+
+A. System-generated key
+B. Real-world attribute used as key
+C. Composite key
+D. Foreign key
+
+Answer: B
+Why: Natural keys come from real-world data like SSN or email. They have business meaning.
+
+92. Which anomaly occurs due to redundancy?
+
+A. Update anomaly
+B. Syntax error
+C. Deadlock
+D. Backup failure
+
+Answer: A
+Why: Redundant data can cause inconsistent updates. Normalization reduces this problem.
+
+93. Which SQL operator checks for range?
+
+A. BETWEEN
+B. IN
+C. RANGE
+D. WITHIN
+
+Answer: A
+Why: BETWEEN filters values within a specified range. It is inclusive of boundaries.
+
+94. Which clause limits returned rows in SQL Server?
+
+A. LIMIT
+B. TOP
+C. RANGE
+D. FETCH
+
+Answer: B
+Why: SQL Server uses TOP to restrict result size. LIMIT is used in MySQL/PostgreSQL.
+
+95. What is a self join?
+
+A. Joining table with itself
+B. Joining two tables
+C. Cross join
+D. Outer join
+
+Answer: A
+Why: A self join treats a table as two separate instances. It is useful for hierarchical relationships.
+
+96. What is a log file in DBMS?
+
+A. Backup file
+B. Record of database changes
+C. Index file
+D. Data table
+
+Answer: B
+Why: Log files track transactions and changes. They support recovery after failures.
+
+97. Which recovery technique uses logs?
+
+A. Rollforward
+B. Log-based recovery
+C. Snapshot
+D. Replication
+
+Answer: B
+Why: Log-based recovery replays or undoes transactions using logs. It ensures data consistency.
+
+98. What is sharding?
+
+A. Backup technique
+B. Splitting database into smaller parts
+C. Indexing method
+D. Query optimization
+
+Answer: B
+Why: Sharding distributes data across multiple servers. It improves scalability and performance.
+
+99. Which SQL clause searches pattern?
+
+A. LIKE
+B. MATCH
+C. FIND
+D. SEARCH
+
+Answer: A
+Why: LIKE matches patterns using wildcards. It is used for text searches.
+
+100. What is replication?
+
+A. Data deletion
+B. Copying data across servers
+C. Index creation
+D. Query optimization
+
+Answer: B
+Why: Replication duplicates data across systems. It improves availability and fault tolerance.
+
+101. What is vertical partitioning?
+
+A. Splitting table by rows
+B. Splitting table by columns
+C. Deleting columns
+D. Copying tables
+
+Answer: B
+Why: Vertical partitioning divides a table into smaller tables containing subsets of columns. It improves performance by accessing only required attributes.
+
+102. What is horizontal partitioning?
+
+A. Splitting by columns
+B. Splitting by rows
+C. Deleting rows
+D. Copying indexes
+
+Answer: B
+Why: Horizontal partitioning divides a table into subsets of rows. It helps manage large datasets and improves query performance.
+
+103. Which SQL clause is used for pattern matching?
+
+A. MATCH
+B. LIKE
+C. SEARCH
+D. FIND
+
+Answer: B
+Why: LIKE is used with wildcards such as % and _ for pattern matching. It enables flexible text searches.
+
+104. What is a cascading delete?
+
+A. Deleting all tables
+B. Automatically deleting related records
+C. Removing indexes
+D. Dropping database
+
+Answer: B
+Why: Cascading delete removes related rows in child tables when a parent row is deleted. It maintains referential integrity.
+
+105. Which type of index uses a tree structure?
+
+A. Hash index
+B. B-tree index
+C. Bitmap index
+D. Cluster index
+
+Answer: B
+Why: B-tree indexes use a balanced tree structure for fast searching. They support range queries efficiently.
+
+106. What is a transaction log used for?
+
+A. Storing indexes
+B. Recording database changes
+C. Query optimization
+D. Storing backups
+
+Answer: B
+Why: Transaction logs record all changes made to the database. They support recovery and ensure durability.
+
+107. Which SQL clause removes duplicate results?
+
+A. UNIQUE
+B. DISTINCT
+C. FILTER
+D. REMOVE
+
+Answer: B
+Why: DISTINCT eliminates duplicate rows in query results. It ensures each result row is unique.
+
+108. What is normalization primarily used for?
+
+A. Increasing redundancy
+B. Reducing redundancy
+C. Encrypting data
+D. Sorting data
+
+Answer: B
+Why: Normalization organizes data to eliminate redundancy. It improves consistency and reduces anomalies.
+
+109. Which normal form eliminates transitive dependency?
+
+A. 2NF
+B. 3NF
+C. 4NF
+D. 1NF
+
+Answer: B
+Why: Third Normal Form ensures non-key attributes depend only on the primary key. This removes indirect dependencies.
+
+110. What is a star schema?
+
+A. Circular database
+B. Central fact table with dimension tables
+C. Single table schema
+D. Network model
+
+Answer: B
+Why: Star schema is used in data warehouses. A central fact table connects to dimension tables for analysis.
+
+111. Which SQL clause groups rows with similar values?
+
+A. ORDER BY
+B. GROUP BY
+C. SORT BY
+D. HAVING
+
+Answer: B
+Why: GROUP BY groups rows sharing common column values. It is used with aggregate functions.
+
+112. What is a snowflake schema?
+
+A. Flat schema
+B. Normalized star schema
+C. Single table schema
+D. Network schema
+
+Answer: B
+Why: Snowflake schema normalizes dimension tables in a star schema. This reduces redundancy but increases joins.
+
+113. Which operation combines rows from two queries?
+
+A. JOIN
+B. UNION
+C. MERGE
+D. CONNECT
+
+Answer: B
+Why: UNION combines results of multiple queries into one result set. It removes duplicates unless UNION ALL is used.
+
+114. What is a fact table?
+
+A. Table storing metadata
+B. Table storing measurements and metrics
+C. Table storing indexes
+D. Table storing keys
+
+Answer: B
+Why: Fact tables contain quantitative data such as sales or transactions. They link to dimension tables.
+
+115. Which SQL function returns the smallest value?
+
+A. MIN()
+B. LOW()
+C. SMALL()
+D. LEAST()
+
+Answer: A
+Why: MIN() returns the smallest value in a column. It is used in aggregate queries.
+
+116. What is a dimension table?
+
+A. Table storing metrics
+B. Table storing descriptive attributes
+C. Table storing logs
+D. Table storing indexes
+
+Answer: B
+Why: Dimension tables contain descriptive attributes like time, location, or product. They provide context to fact tables.
+
+117. Which key enforces referential integrity?
+
+A. Primary key
+B. Foreign key
+C. Candidate key
+D. Composite key
+
+Answer: B
+Why: Foreign keys ensure values match primary keys in related tables. This prevents invalid references.
+
+118. What is OLTP?
+
+A. Online Learning Transaction Processing
+B. Online Transaction Processing
+C. Offline Transaction Processing
+D. Object-Level Transaction Processing
+
+Answer: B
+Why: OLTP systems manage real-time transactions. They focus on fast insert, update, and delete operations.
+
+119. What is OLAP?
+
+A. Online Analytical Processing
+B. Online Access Processing
+C. Offline Analytical Processing
+D. Object-Level Analytical Processing
+
+Answer: A
+Why: OLAP systems analyze large datasets for decision-making. They support complex queries and reporting.
+
+120. Which operation rolls back to a savepoint?
+
+A. COMMIT
+B. ROLLBACK TO SAVEPOINT
+C. DELETE
+D. REVOKE
+
+Answer: B
+Why: ROLLBACK TO SAVEPOINT undoes changes up to a specific point. It allows partial transaction rollback.
+
+121. What is a data mart?
+
+A. Small data warehouse for specific department
+B. Backup system
+C. Index storage
+D. Query engine
+
+Answer: A
+Why: Data marts focus on specific business areas. They provide targeted analysis.
+
+122. Which SQL clause removes table?
+
+A. DELETE
+B. DROP TABLE
+C. REMOVE TABLE
+D. CLEAR TABLE
+
+Answer: B
+Why: DROP TABLE removes the table structure and data permanently. It cannot be rolled back in many systems.
+
+123. What is a correlated subquery?
+
+A. Independent query
+B. Query referencing outer query
+C. Nested join
+D. Aggregate query
+
+Answer: B
+Why: Correlated subqueries depend on values from the outer query. They execute once for each row.
+
+124. Which operator checks multiple values?
+
+A. BETWEEN
+B. IN
+C. LIKE
+D. EXISTS
+
+Answer: B
+Why: IN checks if a value matches any value in a list. It simplifies multiple OR conditions.
+
+125. What is a non-clustered index?
+
+A. Defines physical order
+B. Separate structure pointing to data
+C. Backup index
+D. Temporary index
+
+Answer: B
+Why: Non-clustered indexes store pointers to data rows. They improve search speed without altering physical order.
+
+126. What is a data anomaly?
+
+A. Query error
+B. Inconsistency due to redundancy
+C. Backup failure
+D. Index corruption
+
+Answer: B
+Why: Data anomalies occur when redundant data leads to inconsistencies. Normalization reduces anomalies.
+
+127. Which SQL clause checks existence of rows?
+
+A. EXISTS
+B. CHECK
+C. VERIFY
+D. PRESENT
+
+Answer: A
+Why: EXISTS returns true if a subquery returns rows. It is used for conditional checks.
+
+128. What is a distributed database?
+
+A. Single location database
+B. Database spread across multiple locations
+C. Backup system
+D. Cloud storage only
+
+Answer: B
+Why: Distributed databases store data across multiple sites. They improve availability and scalability.
+
+129. Which key can have duplicate values?
+
+A. Primary key
+B. Unique key
+C. Foreign key
+D. Candidate key
+
+Answer: C
+Why: Foreign keys may contain duplicates. They represent relationships rather than uniqueness.
+
+130. What is a domain in DBMS?
+
+A. Table
+B. Range of valid values for an attribute
+C. Index
+D. Query
+
+Answer: B
+Why: A domain defines permissible values for a column. It ensures data validity.
+
+131. Which SQL clause is used for renaming tables?
+
+A. CHANGE TABLE
+B. RENAME TABLE
+C. ALTER TABLE RENAME
+D. MODIFY TABLE
+
+Answer: C
+Why: ALTER TABLE RENAME changes table names. Syntax may vary slightly across DBMS.
+
+132. What is a temporal database?
+
+A. Stores time-based data
+B. Temporary database
+C. Backup database
+D. Distributed database
+
+Answer: A
+Why: Temporal databases track data over time. They store historical and current values.
+
+133. Which join combines rows with matching values in both tables?
+
+A. INNER JOIN
+B. LEFT JOIN
+C. RIGHT JOIN
+D. FULL JOIN
+
+Answer: A
+Why: INNER JOIN returns rows with matching values in both tables. Non-matching rows are excluded.
+
+134. What is data mining?
+
+A. Data deletion
+B. Extracting patterns from data
+C. Backup process
+D. Indexing method
+
+Answer: B
+Why: Data mining analyzes large datasets to discover patterns. It supports decision-making.
+
+135. Which SQL keyword prevents NULL values?
+
+A. UNIQUE
+B. NOT NULL
+C. CHECK
+D. DEFAULT
+
+Answer: B
+Why: NOT NULL ensures a column always contains a value. It enforces data completeness.
+
+136. What is a key constraint?
+
+A. Limits query results
+B. Enforces uniqueness
+C. Deletes duplicates
+D. Encrypts data
+
+Answer: B
+Why: Key constraints ensure uniqueness of records. They maintain entity integrity.
+
+137. Which DBMS component manages concurrency?
+
+A. Query processor
+B. Transaction manager
+C. Storage manager
+D. Index manager
+
+Answer: B
+Why: The transaction manager ensures safe concurrent execution. It maintains consistency and isolation.
+
+138. What is a heap file organization?
+
+A. Sorted file
+B. Unordered file
+C. Indexed file
+D. Temporary file
+
+Answer: B
+Why: Heap files store records in no particular order. They allow fast insertion.
+
+139. Which SQL clause sets default values?
+
+A. DEFAULT
+B. SET
+C. INIT
+D. VALUE
+
+Answer: A
+Why: DEFAULT assigns a value when no value is provided. It ensures consistent data entry.
+
+140. What is a recursive query?
+
+A. Query calling itself
+B. Nested query
+C. Join query
+D. Aggregate query
+
+Answer: A
+Why: Recursive queries reference their own results. They are used for hierarchical data.
+
+141. Which SQL feature supports hierarchical queries?
+
+A. GROUP BY
+B. WITH RECURSIVE
+C. ORDER BY
+D. HAVING
+
+Answer: B
+Why: WITH RECURSIVE enables recursive queries. It is used for tree-like structures.
+
+142. What is a pivot operation?
+
+A. Rotating rows into columns
+B. Deleting rows
+C. Joining tables
+D. Sorting data
+
+Answer: A
+Why: Pivot transforms rows into columns for analysis. It helps summarize data.
+
+143. Which index type is best for equality searches?
+
+A. B-tree
+B. Hash index
+C. Bitmap index
+D. Clustered index
+
+Answer: B
+Why: Hash indexes provide fast equality lookups. They are not suitable for range queries.
+
+144. What is a surrogate primary key?
+
+A. Natural key
+B. Artificial unique identifier
+C. Composite key
+D. Foreign key
+
+Answer: B
+Why: Surrogate keys are system-generated identifiers. They simplify relationships and indexing.
+
+145. Which SQL clause combines tables without condition?
+
+A. INNER JOIN
+B. CROSS JOIN
+C. LEFT JOIN
+D. RIGHT JOIN
+
+Answer: B
+Why: CROSS JOIN produces a Cartesian product. It combines every row from both tables.
+
+146. What is a checkpoint in DBMS?
+
+A. Backup
+B. Recovery marker
+C. Index
+D. Query
+
+Answer: B
+Why: Checkpoints mark consistent states in logs. They reduce recovery time after crashes.
+
+147. Which property ensures transactions are isolated?
+
+A. Atomicity
+B. Consistency
+C. Isolation
+D. Durability
+
+Answer: C
+Why: Isolation ensures transactions do not interfere with each other. It prevents concurrency anomalies.
+
+148. What is a view used for?
+
+A. Storing data
+B. Simplifying complex queries
+C. Creating indexes
+D. Backup
+
+Answer: B
+Why: Views present data from one or more tables. They simplify queries and enhance security.
+
+149. Which SQL clause filters rows before grouping?
+
+A. HAVING
+B. WHERE
+C. GROUP BY
+D. ORDER BY
+
+Answer: B
+Why: WHERE filters rows before aggregation. HAVING filters after grouping.
+
+150. What is database scalability?
+
+A. Ability to delete data
+B. Ability to handle growing data and users
+C. Ability to encrypt data
+D. Ability to create backups
+
+Answer: B
+Why: Scalability ensures the database can grow without performance loss. Techniques include sharding and replication.

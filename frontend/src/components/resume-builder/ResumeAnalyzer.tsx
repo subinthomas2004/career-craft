@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useResume } from '@/context/ResumeContext';
 import { parseResumeFile } from '@/lib/resume-parser';
+import { analyzeResume } from '@/lib/ats-analyzer';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -69,6 +70,29 @@ export function ResumeAnalyzer() {
             const resumeData = await parseResumeFile(file);
             setResumeData(resumeData);
             analyzeCurrentResume();
+
+            // Record Activity
+            try {
+                const score = analyzeResume(resumeData);
+                const userInfo = localStorage.getItem("userInfo");
+                if (userInfo) {
+                    const { token } = JSON.parse(userInfo);
+                    await fetch('http://localhost:5003/api/auth/activity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            title: `Resume Analysis`,
+                            activityType: 'resume',
+                            score: `${score.overall}%`
+                        })
+                    });
+                }
+            } catch (err) {
+                console.error("Failed to record activity", err);
+            }
 
             toast({
                 title: 'Analysis complete!',

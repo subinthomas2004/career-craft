@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { StatCard } from "@/components/ui/stat-card";
-import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,7 +18,9 @@ import {
   MessageSquare,
   Users,
   BarChart3,
-  Swords
+  Swords,
+  Mic,
+  User
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -34,6 +35,8 @@ const modules = [
   { icon: MessageSquare, label: "Soft Skills", path: "/dashboard/soft-skills", color: "from-rose-500 to-rose-600", description: "Communication skills" },
   { icon: Users, label: "Group Discussion", path: "/dashboard/group-discussion", color: "from-teal-500 to-teal-600", description: "Practice AI group discussions" },
   { icon: Swords, label: "Debate Simulator", path: "/dashboard/debate", color: "from-red-500 to-red-600", description: "Challenge AI in debates" },
+  { icon: Mic, label: "Comm. Coach", path: "/dashboard/communication-coach", color: "from-indigo-500 to-purple-500", description: "Improve fluency & grammar" },
+  { icon: User, label: "Intro Prep", path: "/dashboard/intro-prep", color: "from-pink-500 to-rose-500", description: "Perfect your self-intro" },
 ];
 
 const recentActivities = [
@@ -74,11 +77,12 @@ const Dashboard = () => {
 
           // You might need to import axios if not already imported
           // Assuming axios is available or using fetch
-          const { data } = await api.get('/auth/me', {
+          const response = await fetch('http://localhost:5003/api/auth/me', {
             headers: {
               Authorization: `Bearer ${parsedUser.token}`,
             }
           });
+          const data = await response.json();
 
           if (data.stats) {
             setStats(data.stats);
@@ -183,7 +187,7 @@ const Dashboard = () => {
 
           <TabsContent value="interview" className="mt-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-              {modules.filter(m => m.label.includes("Interview") || m.label.includes("Soft")).map((module, index) => (
+              {modules.filter(m => m.label.includes("Interview") || m.label.includes("Soft") || m.label.includes("Comm") || m.label.includes("Intro")).map((module, index) => (
                 <Link
                   key={index}
                   to={module.path}
@@ -291,21 +295,44 @@ const Dashboard = () => {
           <div className="bg-card/60 backdrop-blur-xl rounded-2xl border border-border/40 p-4 sm:p-6 shadow-lg">
             <h2 className="text-base sm:text-lg font-semibold text-foreground mb-4">Recent Activity</h2>
             <div className="space-y-3 sm:space-y-4">
-              {recentActivities.map((activity, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 sm:gap-4 p-2.5 sm:p-3 rounded-xl bg-background/60 backdrop-blur-md"
-                >
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <activity.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <div className="space-y-3 sm:space-y-4">
+                {user?.recentActivities && user.recentActivities.length > 0 ? (
+                  user.recentActivities.slice(0, 3).map((activity: any, index: number) => {
+                    let Icon = FileText;
+                    let color = "bg-blue-500/10 text-blue-500";
+
+                    if (activity.activityType === 'interview') { Icon = Video; color = "bg-blue-500/10 text-blue-500"; }
+                    else if (activity.activityType === 'quiz') { Icon = Brain; color = "bg-purple-500/10 text-purple-500"; }
+                    else if (activity.activityType === 'coding') { Icon = Code; color = "bg-orange-500/10 text-orange-500"; }
+                    else if (activity.activityType === 'resume') { Icon = FileText; color = "bg-green-500/10 text-green-500"; }
+                    else if (activity.activityType === 'typing') { Icon = Keyboard; color = "bg-pink-500/10 text-pink-500"; }
+
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center gap-3 sm:gap-4 p-2.5 sm:p-3 rounded-xl bg-background/60 backdrop-blur-md"
+                      >
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg ${color} flex items-center justify-center`}>
+                          <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-foreground truncate">{activity.title}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">
+                            {new Date(activity.timestamp).toLocaleDateString()}
+                          </p>
+                        </div>
+                        {activity.score && (
+                          <span className="text-xs sm:text-sm font-medium text-primary">{activity.score}</span>
+                        )}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="text-center py-6 text-muted-foreground text-sm">
+                    No recent activity. Start learning!
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground truncate">{activity.title}</p>
-                    <p className="text-xs sm:text-sm text-muted-foreground">{activity.time}</p>
-                  </div>
-                  <span className="text-xs sm:text-sm font-medium text-primary">{activity.score}</span>
-                </div>
-              ))}
+                )}
+              </div>
             </div>
           </div>
         </div>

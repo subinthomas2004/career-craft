@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Video, VideoOff, Phone, ArrowRight, Code } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,6 +23,7 @@ interface HrTechViewProps {
     onManualSubmit: () => void;
     onEndInterview: () => void;
     onCodeSubmit?: (code: string, language: string) => void;
+    isCodeQuestion?: boolean;
 }
 
 export default function HrTechView({
@@ -38,9 +39,17 @@ export default function HrTechView({
     currentTranscript,
     onManualSubmit,
     onEndInterview,
-    onCodeSubmit
+    onCodeSubmit,
+    isCodeQuestion
 }: HrTechViewProps) {
     const [showCodeEditor, setShowCodeEditor] = useState(false);
+
+    // Auto-open code editor when David asks a coding question
+    useEffect(() => {
+        if (isCodeQuestion) {
+            setShowCodeEditor(true);
+        }
+    }, [isCodeQuestion]);
 
     const isHrActive = sessionState.currentInterviewer === 'hr_manager';
     const currentQ = sessionState.currentQuestion;
@@ -113,6 +122,11 @@ export default function HrTechView({
                         <p className="text-white/90 text-sm font-medium leading-relaxed">
                             {currentQ?.text || "Waiting for question..."}
                         </p>
+                        {currentQ && (
+                            <p className="text-[10px] text-white/50 mt-2 uppercase tracking-wider">
+                                — {isHrActive ? 'Sarah (HR)' : 'David (Tech)'}
+                            </p>
+                        )}
                     </div>
 
                     {/* B. Transcript (Single line or two) */}
@@ -192,7 +206,7 @@ export default function HrTechView({
 
                     {/* Right Side: Code Editor (Full height) */}
                     <div className="h-full overflow-hidden bg-black/40 backdrop-blur-xl rounded-xl border border-white/10 shadow-2xl">
-                        <CodeEditorPanel onSubmit={onCodeSubmit} />
+                        <CodeEditorPanel onSubmit={onCodeSubmit} question={currentQ?.text} />
                     </div>
                 </div>
             ) : (

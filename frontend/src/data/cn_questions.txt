@@ -1,0 +1,1495 @@
+1. What is a computer network?
+
+A. Collection of hardware devices only
+B. Interconnected devices sharing resources
+C. Single computer system
+D. Database system
+
+Answer: B
+Why: A computer network connects multiple devices to share data and resources. It enables communication using protocols.
+
+2. Which device connects different networks?
+
+A. Switch
+B. Hub
+C. Router
+D. Repeater
+
+Answer: C
+Why: Routers forward packets between networks using IP addresses. They determine optimal paths.
+
+3. What does LAN stand for?
+
+A. Large Area Network
+B. Local Area Network
+C. Logical Area Network
+D. Linked Area Network
+
+Answer: B
+Why: LAN connects devices within a small geographic area like a building. It provides high-speed connectivity.
+
+4. Which topology uses a central hub?
+
+A. Bus
+B. Star
+C. Ring
+D. Mesh
+
+Answer: B
+Why: In star topology, all nodes connect to a central hub or switch. Failure of the hub affects the entire network.
+
+5. What is the primary function of a switch?
+
+A. Amplify signals
+B. Forward data using MAC addresses
+C. Assign IP addresses
+D. Convert analog to digital
+
+Answer: B
+Why: Switches operate at the data link layer. They forward frames based on MAC addresses.
+
+6. Which protocol is used to assign IP addresses automatically?
+
+A. DNS
+B. DHCP
+C. FTP
+D. HTTP
+
+Answer: B
+Why: DHCP dynamically assigns IP addresses to devices. It simplifies network configuration.
+
+7. What is an IP address?
+
+A. Hardware identifier
+B. Logical address for device identification
+C. File location
+D. Network cable type
+
+Answer: B
+Why: IP addresses uniquely identify devices on a network. They enable routing and communication.
+
+8. Which layer of OSI model handles routing?
+
+A. Data Link
+B. Network
+C. Transport
+D. Session
+
+Answer: B
+Why: The network layer determines packet paths. It uses logical addressing like IP.
+
+9. What is the OSI model?
+
+A. Hardware model
+B. Seven-layer networking framework
+C. File system
+D. Database protocol
+
+Answer: B
+Why: OSI model standardizes network communication. It divides functions into seven layers.
+
+10. Which protocol is used for web browsing?
+
+A. FTP
+B. HTTP
+C. SMTP
+D. SNMP
+
+Answer: B
+Why: HTTP transfers web pages between client and server. HTTPS adds encryption for security.
+
+11. Which layer ensures reliable data transfer?
+
+A. Network
+B. Transport
+C. Physical
+D. Data Link
+
+Answer: B
+Why: The transport layer provides reliability using protocols like TCP. It ensures error-free delivery.
+
+12. What is TCP?
+
+A. Connectionless protocol
+B. Reliable connection-oriented protocol
+C. Routing protocol
+D. Encryption protocol
+
+Answer: B
+Why: TCP establishes connections and ensures reliable delivery. It uses acknowledgments and retransmissions.
+
+13. What is UDP?
+
+A. Reliable protocol
+B. Connectionless protocol
+C. Routing protocol
+D. Encryption protocol
+
+Answer: B
+Why: UDP sends data without establishing a connection. It is faster but does not guarantee delivery.
+
+14. Which protocol resolves domain names to IP addresses?
+
+A. DHCP
+B. DNS
+C. FTP
+D. ARP
+
+Answer: B
+Why: DNS translates human-readable domain names into IP addresses. This enables easier web navigation.
+
+15. What is ARP used for?
+
+A. Finding MAC address from IP
+B. Finding IP from MAC
+C. Assigning IP
+D. Encrypting data
+
+Answer: A
+Why: ARP maps IP addresses to MAC addresses. It helps deliver data within a local network.
+
+16. Which device operates at the physical layer?
+
+A. Router
+B. Switch
+C. Hub
+D. Firewall
+
+Answer: C
+Why: Hubs transmit data to all connected devices. They operate at the physical layer without filtering.
+
+17. What is bandwidth?
+
+A. Data storage
+B. Maximum data transfer rate
+C. Network cable length
+D. IP range
+
+Answer: B
+Why: Bandwidth measures the capacity of a network. Higher bandwidth allows more data per second.
+
+18. What is latency?
+
+A. Data speed
+B. Delay in data transmission
+C. Packet size
+D. Signal strength
+
+Answer: B
+Why: Latency is the time taken for data to travel from source to destination. Lower latency improves performance.
+
+19. Which topology provides redundancy?
+
+A. Bus
+B. Star
+C. Mesh
+D. Ring
+
+Answer: C
+Why: Mesh topology connects nodes with multiple paths. This ensures reliability and fault tolerance.
+
+20. What is a MAC address?
+
+A. Logical address
+B. Physical hardware address
+C. IP address
+D. Port number
+
+Answer: B
+Why: MAC addresses uniquely identify network interfaces. They are assigned by manufacturers.
+
+21. Which protocol is used for email sending?
+
+A. SMTP
+B. POP3
+C. IMAP
+D. FTP
+
+Answer: A
+Why: SMTP transfers outgoing email from clients to servers. POP3 and IMAP retrieve emails.
+
+22. What is FTP used for?
+
+A. Web browsing
+B. File transfer
+C. Email sending
+D. DNS resolution
+
+Answer: B
+Why: FTP transfers files between client and server. It supports upload and download operations.
+
+23. Which layer handles encryption?
+
+A. Application
+B. Presentation
+C. Network
+D. Physical
+
+Answer: B
+Why: The presentation layer handles encryption and data formatting. It ensures secure and compatible data exchange.
+
+24. What is a firewall?
+
+A. Network cable
+B. Security system controlling traffic
+C. Router
+D. Switch
+
+Answer: B
+Why: Firewalls monitor and filter incoming and outgoing traffic. They protect networks from unauthorized access.
+
+25. What is packet switching?
+
+A. Sending data in fixed circuit
+B. Dividing data into packets
+C. Broadcasting data
+D. Encrypting data
+
+Answer: B
+Why: Packet switching divides data into smaller packets. These travel independently and reassemble at the destination.
+
+26. Which protocol secures web communication?
+
+A. HTTP
+B. HTTPS
+C. FTP
+D. SMTP
+
+Answer: B
+Why: HTTPS uses SSL/TLS encryption. It protects data from interception.
+
+27. What is a subnet?
+
+A. Small network within a larger network
+B. Network cable
+C. Routing protocol
+D. Firewall rule
+
+Answer: A
+Why: Subnets divide networks into smaller segments. They improve management and security.
+
+28. What is NAT?
+
+A. Network Access Tool
+B. Network Address Translation
+C. Network Allocation Table
+D. Network Application Transfer
+
+Answer: B
+Why: NAT translates private IP addresses to public IPs. It conserves address space.
+
+29. Which device filters traffic based on IP?
+
+A. Hub
+B. Switch
+C. Router
+D. Repeater
+
+Answer: C
+Why: Routers use IP addresses to forward packets. They connect different networks.
+
+30. What is a port number?
+
+A. IP address
+B. Logical endpoint for communication
+C. Hardware slot
+D. Network cable
+
+Answer: B
+Why: Port numbers identify specific services. They allow multiple applications to use network simultaneously.
+
+31. Which protocol is used for remote login?
+
+A. HTTP
+B. Telnet
+C. FTP
+D. DNS
+
+Answer: B
+Why: Telnet allows remote command-line access. It is insecure compared to SSH.
+
+32. Which protocol replaces Telnet securely?
+
+A. FTP
+B. SSH
+C. HTTP
+D. SMTP
+
+Answer: B
+Why: SSH encrypts remote connections. It provides secure authentication.
+
+33. What is a gateway?
+
+A. Network cable
+B. Device connecting different networks/protocols
+C. Switch
+D. Firewall
+
+Answer: B
+Why: Gateways translate between different network protocols. They enable communication between dissimilar systems.
+
+34. Which topology connects all nodes to a single cable?
+
+A. Star
+B. Bus
+C. Ring
+D. Mesh
+
+Answer: B
+Why: Bus topology uses a single backbone cable. Failure of the cable disrupts the network.
+
+35. What is a ring topology?
+
+A. Nodes connected in circle
+B. Nodes connected to hub
+C. Nodes connected randomly
+D. Nodes in mesh
+
+Answer: A
+Why: Ring topology connects each node to two others. Data travels in one direction.
+
+36. What is a repeater?
+
+A. Security device
+B. Signal amplifier
+C. Routing device
+D. File server
+
+Answer: B
+Why: Repeaters regenerate signals to extend network distance. They operate at physical layer.
+
+37. What is jitter?
+
+A. Data speed
+B. Variation in packet delay
+C. Packet size
+D. Signal strength
+
+Answer: B
+Why: Jitter measures inconsistency in packet arrival times. It affects voice and video quality.
+
+38. What is QoS?
+
+A. Quality of Service
+B. Quantity of Signal
+C. Quick Online Service
+D. Query of System
+
+Answer: A
+Why: QoS prioritizes network traffic. It ensures performance for critical applications.
+
+39. Which protocol is used for network management?
+
+A. SNMP
+B. SMTP
+C. FTP
+D. DNS
+
+Answer: A
+Why: SNMP monitors and manages network devices. It collects performance data.
+
+40. What is a VPN?
+
+A. Virtual Private Network
+B. Virtual Public Network
+C. Variable Protocol Network
+D. Verified Private Network
+
+Answer: A
+Why: VPN creates secure encrypted connections over public networks. It protects data privacy.
+
+41. What is packet loss?
+
+A. Data encryption
+B. Packets failing to reach destination
+C. Packet duplication
+D. Signal amplification
+
+Answer: B
+Why: Packet loss occurs due to congestion or errors. It reduces network performance.
+
+42. What is throughput?
+
+A. Delay
+B. Actual data transfer rate
+C. Packet size
+D. Bandwidth
+
+Answer: B
+Why: Throughput measures real data transfer. It may be lower than bandwidth.
+
+43. Which protocol is used for time synchronization?
+
+A. FTP
+B. NTP
+C. SMTP
+D. SNMP
+
+Answer: B
+Why: NTP synchronizes clocks across network devices. Accurate time is essential for logs and security.
+
+44. What is collision in networking?
+
+A. Packet encryption
+B. Two devices sending data simultaneously
+C. Router failure
+D. IP conflict
+
+Answer: B
+Why: Collisions occur in shared media networks. They cause data corruption and retransmissions.
+
+45. Which device prevents collisions?
+
+A. Hub
+B. Switch
+C. Repeater
+D. Modem
+
+Answer: B
+Why: Switches create separate collision domains. This reduces network congestion.
+
+46. What is a broadcast address?
+
+A. Address for single device
+B. Address for all devices in network
+C. Router address
+D. Firewall address
+
+Answer: B
+Why: Broadcast addresses send data to all devices in a subnet. They are used for announcements.
+
+47. What is IPv4 address size?
+
+A. 16-bit
+B. 32-bit
+C. 64-bit
+D. 128-bit
+
+Answer: B
+Why: IPv4 uses 32-bit addresses. This allows about 4.3 billion addresses.
+
+48. What is IPv6 address size?
+
+A. 32-bit
+B. 64-bit
+C. 128-bit
+D. 256-bit
+
+Answer: C
+Why: IPv6 uses 128-bit addresses. It provides a vast address space.
+
+49. What is a unicast transmission?
+
+A. One-to-one communication
+B. One-to-many communication
+C. Many-to-many communication
+D. Broadcast communication
+
+Answer: A
+Why: Unicast sends data from one sender to one receiver. It is the most common communication method.
+
+50. What is multicast transmission?
+
+A. One-to-one
+B. One-to-all
+C. One-to-many group
+D. Many-to-many
+
+Answer: C
+Why: Multicast sends data to a group of devices. It conserves bandwidth.   51. Which layer of the OSI model is responsible for error detection?
+
+A. Physical
+B. Data Link
+C. Network
+D. Application
+
+Answer: B
+Why: The Data Link layer detects and sometimes corrects errors using checksums and CRC. It ensures reliable communication over a single link.
+
+52. What is the main function of the Transport layer?
+
+A. Routing
+B. Reliable end-to-end communication
+C. Signal transmission
+D. Encryption
+
+Answer: B
+Why: The Transport layer ensures data is delivered reliably between hosts. Protocols like TCP manage sequencing and acknowledgments.
+
+53. Which protocol is connectionless at the Transport layer?
+
+A. TCP
+B. UDP
+C. HTTP
+D. FTP
+
+Answer: B
+Why: UDP sends packets without establishing a connection. It is faster but does not guarantee delivery.
+
+54. What is a socket?
+
+A. Network cable
+B. Endpoint for communication
+C. Routing table
+D. IP address
+
+Answer: B
+Why: A socket combines an IP address and port number. It uniquely identifies a communication endpoint.
+
+55. What is a three-way handshake?
+
+A. TCP connection establishment process
+B. DNS lookup
+C. File transfer method
+D. Encryption method
+
+Answer: A
+Why: TCP uses SYN, SYN-ACK, and ACK to establish a connection. This ensures both sides are ready to communicate.
+
+56. What is flow control?
+
+A. Controlling packet speed
+B. Managing data transmission rate between sender and receiver
+C. Encryption method
+D. Routing algorithm
+
+Answer: B
+Why: Flow control prevents the sender from overwhelming the receiver. It ensures efficient data transfer.
+
+57. Which protocol uses port 80 by default?
+
+A. FTP
+B. HTTP
+C. SMTP
+D. DNS
+
+Answer: B
+Why: HTTP uses port 80 for web traffic. HTTPS uses port 443.
+
+58. Which protocol uses port 443?
+
+A. HTTP
+B. HTTPS
+C. FTP
+D. Telnet
+
+Answer: B
+Why: HTTPS secures web communication using SSL/TLS. It operates on port 443.
+
+59. What is congestion control?
+
+A. Increasing bandwidth
+B. Managing network traffic to avoid overload
+C. Encrypting packets
+D. Assigning IP addresses
+
+Answer: B
+Why: Congestion control prevents network overload. TCP adjusts transmission rates to reduce packet loss.
+
+60. Which TCP feature ensures ordered delivery?
+
+A. Checksums
+B. Sequence numbers
+C. Ports
+D. ARP
+
+Answer: B
+Why: TCP uses sequence numbers to reorder packets. This ensures correct data sequence.
+
+61. What is a DNS server?
+
+A. Stores web pages
+B. Resolves domain names to IP addresses
+C. Assigns IP addresses
+D. Filters traffic
+
+Answer: B
+Why: DNS servers translate domain names into IP addresses. This enables user-friendly browsing.
+
+62. What is a proxy server?
+
+A. Network cable
+B. Intermediary between client and server
+C. Firewall device
+D. Router
+
+Answer: B
+Why: Proxy servers forward client requests. They enhance security and caching.
+
+63. What is a CDN?
+
+A. Content Delivery Network
+B. Central Data Node
+C. Computer Data Network
+D. Core Distribution Node
+
+Answer: A
+Why: CDNs distribute content across servers globally. This reduces latency and improves performance.
+
+64. What is an intranet?
+
+A. Public network
+B. Private internal network
+C. Global network
+D. Wireless network
+
+Answer: B
+Why: Intranets are private networks used within organizations. They enhance internal communication.
+
+65. What is an extranet?
+
+A. Internal network
+B. Network accessible to partners
+C. Public internet
+D. Wireless LAN
+
+Answer: B
+Why: Extranets allow controlled external access. They support collaboration with partners.
+
+66. What is a MAN?
+
+A. Metropolitan Area Network
+B. Massive Area Network
+C. Main Access Network
+D. Multiple Area Network
+
+Answer: A
+Why: MAN covers a city-sized area. It connects multiple LANs.
+
+67. What is WAN?
+
+A. Wireless Area Network
+B. Wide Area Network
+C. Web Area Network
+D. World Access Network
+
+Answer: B
+Why: WAN spans large geographic areas. The internet is the largest WAN.
+
+68. What is a backbone network?
+
+A. Small network
+B. High-capacity central network
+C. Wireless network
+D. Personal network
+
+Answer: B
+Why: Backbone networks carry large volumes of traffic. They connect smaller networks.
+
+69. What is MPLS?
+
+A. Routing protocol
+B. Multi-Protocol Label Switching
+C. Encryption method
+D. File transfer protocol
+
+Answer: B
+Why: MPLS speeds packet forwarding using labels. It improves performance and traffic engineering.
+
+70. What is a VLAN?
+
+A. Virtual LAN
+B. Variable LAN
+C. Verified LAN
+D. Visual LAN
+
+Answer: A
+Why: VLANs logically separate networks within a switch. They improve security and management.
+
+71. What is a trunk port?
+
+A. Port for single VLAN
+B. Port carrying multiple VLAN traffic
+C. Router port
+D. Firewall port
+
+Answer: B
+Why: Trunk ports carry traffic from multiple VLANs. They use tagging to identify VLANs.
+
+72. What is STP?
+
+A. Secure Transfer Protocol
+B. Spanning Tree Protocol
+C. System Transport Protocol
+D. Standard Transfer Process
+
+Answer: B
+Why: STP prevents loops in network topologies. It creates a loop-free logical structure.
+
+73. What is a collision domain?
+
+A. Area where packets collide
+B. Network area sharing bandwidth
+C. IP address range
+D. VLAN
+
+Answer: A
+Why: A collision domain is where packet collisions can occur. Switches reduce collision domains.
+
+74. What is a broadcast domain?
+
+A. Area receiving broadcasts
+B. Single device
+C. IP address
+D. Router port
+
+Answer: A
+Why: Broadcast domains include all devices receiving broadcast messages. Routers separate broadcast domains.
+
+75. Which protocol is used for secure file transfer?
+
+A. FTP
+B. SFTP
+C. HTTP
+D. SMTP
+
+Answer: B
+Why: SFTP uses SSH for secure file transfer. It encrypts data and authentication.
+
+76. What is a checksum?
+
+A. Encryption key
+B. Error detection method
+C. IP address
+D. Port number
+
+Answer: B
+Why: Checksums verify data integrity. They detect errors during transmission.
+
+77. What is MTU?
+
+A. Maximum Transfer Unit
+B. Minimum Transmission Unit
+C. Memory Transfer Unit
+D. Media Transfer Utility
+
+Answer: A
+Why: MTU defines the largest packet size that can be transmitted. Larger packets may be fragmented.
+
+78. What is packet fragmentation?
+
+A. Combining packets
+B. Breaking packets into smaller pieces
+C. Encrypting packets
+D. Dropping packets
+
+Answer: B
+Why: Fragmentation occurs when packets exceed MTU. They are reassembled at the destination.
+
+79. What is ICMP used for?
+
+A. File transfer
+B. Error reporting and diagnostics
+C. Email transfer
+D. DNS resolution
+
+Answer: B
+Why: ICMP reports errors and network conditions. Tools like ping use ICMP.
+
+80. What does ping use?
+
+A. TCP
+B. ICMP
+C. UDP
+D. HTTP
+
+Answer: B
+Why: Ping uses ICMP echo requests. It checks connectivity.
+
+81. What is traceroute used for?
+
+A. File transfer
+B. Tracking packet path
+C. DNS lookup
+D. IP assignment
+
+Answer: B
+Why: Traceroute shows the path packets take. It helps diagnose network issues.
+
+82. What is a network interface card (NIC)?
+
+A. Router
+B. Hardware for network connectivity
+C. Software driver
+D. Protocol
+
+Answer: B
+Why: NIC enables devices to connect to networks. It provides MAC addresses.
+
+83. What is duplex communication?
+
+A. One-way communication
+B. Two-way communication
+C. Broadcast communication
+D. Multicast communication
+
+Answer: B
+Why: Duplex allows simultaneous sending and receiving. Full duplex improves efficiency.
+
+84. What is half-duplex?
+
+A. Simultaneous communication
+B. One direction at a time
+C. Broadcast only
+D. Multicast only
+
+Answer: B
+Why: Half-duplex allows communication in both directions but not simultaneously. Walkie-talkies use this mode.
+
+85. What is full duplex?
+
+A. One-way communication
+B. Two-way simultaneous communication
+C. Broadcast communication
+D. Multicast communication
+
+Answer: B
+Why: Full duplex allows simultaneous transmission and reception. It improves performance.
+
+86. What is a hotspot?
+
+A. Network error
+B. Wireless internet access point
+C. Router failure
+D. Security breach
+
+Answer: B
+Why: Hotspots provide wireless connectivity. They allow devices to connect to the internet.
+
+87. What is WPA3?
+
+A. Wireless protocol
+B. Wi-Fi security standard
+C. Routing protocol
+D. File transfer method
+
+Answer: B
+Why: WPA3 provides improved wireless security. It protects against brute-force attacks.
+
+88. What is SSID?
+
+A. Network password
+B. Network name
+C. IP address
+D. MAC address
+
+Answer: B
+Why: SSID identifies a wireless network. Users select it to connect.
+
+89. What is MAC filtering?
+
+A. Blocking IP addresses
+B. Allowing devices based on MAC address
+C. Encrypting packets
+D. DNS filtering
+
+Answer: B
+Why: MAC filtering controls device access. It enhances network security.
+
+90. What is a wireless access point?
+
+A. Router
+B. Device providing Wi-Fi connectivity
+C. Firewall
+D. Modem
+
+Answer: B
+Why: Access points enable wireless devices to connect to networks. They extend Wi-Fi coverage.
+
+91. What is a modem?
+
+A. Switch
+B. Modulator-demodulator
+C. Router
+D. Firewall
+
+Answer: B
+Why: Modems convert digital data to analog signals and vice versa. They enable internet over phone lines.
+
+92. What is broadband?
+
+A. Narrow bandwidth
+B. High-speed internet connection
+C. Wireless protocol
+D. Encryption method
+
+Answer: B
+Why: Broadband provides high-speed internet. It supports multiple services simultaneously.
+
+93. What is packet sniffing?
+
+A. Packet encryption
+B. Monitoring network traffic
+C. Packet loss
+D. Packet routing
+
+Answer: B
+Why: Packet sniffing analyzes network packets. It is used for troubleshooting and security monitoring.
+
+94. What is spoofing?
+
+A. Data encryption
+B. Impersonating another device
+C. Packet routing
+D. Network optimization
+
+Answer: B
+Why: Spoofing involves falsifying identity. It is used in cyberattacks.
+
+95. What is phishing?
+
+A. Network error
+B. Fraudulent attempt to obtain sensitive data
+C. Packet loss
+D. Routing error
+
+Answer: B
+Why: Phishing tricks users into revealing credentials. It is a common cyber threat.
+
+96. What is DDoS attack?
+
+A. Data encryption
+B. Overloading server with traffic
+C. Packet routing
+D. File transfer
+
+Answer: B
+Why: Distributed Denial of Service floods servers. It disrupts services.
+
+97. What is a honeypot?
+
+A. Network cable
+B. Security system to trap attackers
+C. Router
+D. Firewall rule
+
+Answer: B
+Why: Honeypots lure attackers to detect threats. They help improve security.
+
+98. What is SSL/TLS?
+
+A. Routing protocol
+B. Encryption protocol
+C. File transfer protocol
+D. Network topology
+
+Answer: B
+Why: SSL/TLS encrypts data in transit. It ensures secure communication.
+
+99. What is digital signature used for?
+
+A. Data compression
+B. Authentication and integrity
+C. Routing
+D. IP assignment
+
+Answer: B
+Why: Digital signatures verify sender identity. They ensure data integrity.
+
+100. What is network scalability?
+
+A. Reducing network size
+B. Ability to expand network efficiently
+C. Encrypting data
+D. Limiting users
+
+Answer: B
+Why: Scalability allows networks to grow without performance loss. It supports increasing users and devices.    101. What is a routing table?
+
+A. Table of MAC addresses
+B. Table storing paths to network destinations
+C. Table of port numbers
+D. Table of DNS entries
+
+Answer: B
+Why: Routing tables store routes to various networks. Routers use them to forward packets efficiently.
+
+102. What is static routing?
+
+A. Routing that changes automatically
+B. Manually configured routing
+C. Routing using AI
+D. Dynamic routing
+
+Answer: B
+Why: Static routing requires manual configuration. It is simple but not adaptable to network changes.
+
+103. What is dynamic routing?
+
+A. Manual routing
+B. Routing that updates automatically
+C. Routing without protocols
+D. Static routing
+
+Answer: B
+Why: Dynamic routing uses protocols to update routes automatically. It adapts to network changes.
+
+104. Which protocol is used for dynamic routing?
+
+A. HTTP
+B. RIP
+C. FTP
+D. SMTP
+
+Answer: B
+Why: RIP (Routing Information Protocol) exchanges routing information. It uses hop count to determine best paths.
+
+105. What is OSPF?
+
+A. File transfer protocol
+B. Open Shortest Path First routing protocol
+C. Security protocol
+D. Email protocol
+
+Answer: B
+Why: OSPF is a link-state routing protocol. It calculates shortest paths using Dijkstra’s algorithm.
+
+106. What is BGP used for?
+
+A. Internal routing
+B. Internet routing between autonomous systems
+C. File transfer
+D. DNS resolution
+
+Answer: B
+Why: BGP manages routing between large networks. It is essential for internet backbone routing.
+
+107. What is hop count?
+
+A. Packet size
+B. Number of routers a packet passes
+C. Network speed
+D. IP address
+
+Answer: B
+Why: Hop count measures the number of intermediate devices. It helps determine routing paths.
+
+108. What is a loopback address?
+
+A. External IP
+B. Address used to test local network stack
+C. Broadcast address
+D. Multicast address
+
+Answer: B
+Why: Loopback addresses like 127.0.0.1 test local networking. They do not leave the device.
+
+109. What is CIDR?
+
+A. Classless Inter-Domain Routing
+B. Central Internet Data Routing
+C. Controlled IP Data Routing
+D. Classful Internet Domain Routing
+
+Answer: A
+Why: CIDR replaces class-based addressing. It improves IP address allocation.
+
+110. What is subnet mask used for?
+
+A. Encrypting data
+B. Identifying network and host portions of IP
+C. Assigning IP addresses
+D. Filtering traffic
+
+Answer: B
+Why: Subnet masks divide IP addresses into network and host parts. They enable subnetting.
+
+111. What is private IP address?
+
+A. Public internet address
+B. Address used within local networks
+C. Router address
+D. Broadcast address
+
+Answer: B
+Why: Private IPs are used within local networks. They are not routable on the internet.
+
+112. Which range is private IP (Class C)?
+
+A. 10.0.0.0–10.255.255.255
+B. 172.16.0.0–172.31.255.255
+C. 192.168.0.0–192.168.255.255
+D. 8.8.8.8–8.8.8.8
+
+Answer: C
+Why: 192.168.x.x is reserved for private networks. It is commonly used in home routers.
+
+113. What is a public IP address?
+
+A. Used inside LAN
+B. Globally unique address
+C. Router port
+D. MAC address
+
+Answer: B
+Why: Public IP addresses are globally unique. They enable internet communication.
+
+114. What is IPv6 abbreviation?
+
+A. Internet Protocol version 6
+B. Internal Protocol version 6
+C. Internet Port version 6
+D. Integrated Protocol version 6
+
+Answer: A
+Why: IPv6 is the latest IP version. It solves IPv4 address exhaustion.
+
+115. What is tunneling?
+
+A. Encrypting packets
+B. Encapsulating packets within another protocol
+C. Dropping packets
+D. Packet duplication
+
+Answer: B
+Why: Tunneling wraps packets inside other packets. It enables VPNs and secure communication.
+
+116. What is QoS used for?
+
+A. Encryption
+B. Prioritizing network traffic
+C. IP assignment
+D. File transfer
+
+Answer: B
+Why: QoS prioritizes critical traffic like voice. It improves performance.
+
+117. What is VoIP?
+
+A. Video over Internet Protocol
+B. Voice over Internet Protocol
+C. Virtual Office IP
+D. Variable Online IP
+
+Answer: B
+Why: VoIP transmits voice over IP networks. It enables internet-based calls.
+
+118. What is a gateway protocol?
+
+A. Protocol for file transfer
+B. Protocol for routing between networks
+C. Encryption protocol
+D. DNS protocol
+
+Answer: B
+Why: Gateway protocols like BGP route between networks. They enable large-scale connectivity.
+
+119. What is an autonomous system (AS)?
+
+A. Single computer
+B. Network under one administrative control
+C. Router
+D. Switch
+
+Answer: B
+Why: AS is a collection of networks managed by one organization. BGP routes between ASes.
+
+120. What is load balancing in networks?
+
+A. Increasing bandwidth
+B. Distributing traffic across servers
+C. Encrypting packets
+D. Assigning IP addresses
+
+Answer: B
+Why: Load balancing improves performance and availability. It prevents server overload.
+
+121. What is a reverse proxy?
+
+A. Proxy for clients
+B. Proxy for servers
+C. Firewall
+D. Router
+
+Answer: B
+Why: Reverse proxies handle client requests on behalf of servers. They improve security and load distribution.
+
+122. What is caching in networking?
+
+A. Data deletion
+B. Storing frequently accessed data
+C. Packet loss
+D. Encryption
+
+Answer: B
+Why: Caching reduces latency by storing data locally. It improves performance.
+
+123. What is a content filter?
+
+A. Router
+B. Blocking unwanted content
+C. DNS server
+D. Switch
+
+Answer: B
+Why: Content filters restrict access to harmful sites. They enhance security.
+
+124. What is DPI (Deep Packet Inspection)?
+
+A. Packet routing
+B. Analyzing packet content
+C. Packet encryption
+D. Packet duplication
+
+Answer: B
+Why: DPI examines packet data beyond headers. It is used for security and traffic management.
+
+125. What is a zero-day attack?
+
+A. Attack on first day
+B. Exploit of unknown vulnerability
+C. Network outage
+D. DDoS attack
+
+Answer: B
+Why: Zero-day attacks exploit unknown vulnerabilities. They are difficult to defend against.
+
+126. What is network segmentation?
+
+A. Combining networks
+B. Dividing network into smaller parts
+C. Increasing bandwidth
+D. Encrypting data
+
+Answer: B
+Why: Segmentation improves security and performance. It limits broadcast traffic.
+
+127. What is a DMZ in networking?
+
+A. Secure internal network
+B. Isolated network for public services
+C. Wireless network
+D. Backup network
+
+Answer: B
+Why: DMZ hosts public-facing services. It protects internal networks.
+
+128. What is port forwarding?
+
+A. Blocking ports
+B. Redirecting traffic to internal device
+C. Encrypting ports
+D. Assigning IP
+
+Answer: B
+Why: Port forwarding maps external requests to internal devices. It enables remote access.
+
+129. What is NAT overload?
+
+A. Multiple public IPs
+B. Multiple private IPs sharing one public IP
+C. IP conflict
+D. Routing loop
+
+Answer: B
+Why: NAT overload allows many devices to share one public IP. It uses port numbers to distinguish sessions.
+
+130. What is a wireless channel?
+
+A. IP address
+B. Frequency band for communication
+C. MAC address
+D. Port number
+
+Answer: B
+Why: Wireless channels divide frequency bands. They reduce interference.
+
+131. What is signal attenuation?
+
+A. Signal amplification
+B. Signal weakening over distance
+C. Packet duplication
+D. Data encryption
+
+Answer: B
+Why: Attenuation reduces signal strength. Repeaters can restore signals.
+
+132. What is crosstalk?
+
+A. Data encryption
+B. Signal interference between cables
+C. Packet routing
+D. IP conflict
+
+Answer: B
+Why: Crosstalk occurs when signals interfere. Proper shielding reduces it.
+
+133. What is fiber optic cable advantage?
+
+A. Cheap cost
+B. High speed and low interference
+C. Short distance
+D. Easy installation
+
+Answer: B
+Why: Fiber optics transmit data using light. They offer high bandwidth and immunity to interference.
+
+134. What is UTP cable?
+
+A. Unshielded Twisted Pair
+B. Universal Transmission Protocol
+C. Unified Twisted Pair
+D. Ultra Transfer Port
+
+Answer: A
+Why: UTP cables are common in LANs. Twisting reduces interference.
+
+135. What is STP cable?
+
+A. Secure Twisted Pair
+B. Shielded Twisted Pair
+C. Standard Twisted Pair
+D. Serial Transfer Pair
+
+Answer: B
+Why: STP cables include shielding to reduce interference. They are used in noisy environments.
+
+136. What is a patch panel?
+
+A. Router
+B. Network cable organizer
+C. Firewall
+D. Switch
+
+Answer: B
+Why: Patch panels organize network cables. They simplify maintenance.
+
+137. What is a network bridge?
+
+A. Connects two LAN segments
+B. Router
+C. Firewall
+D. Modem
+
+Answer: A
+Why: Bridges connect LAN segments at data link layer. They filter traffic using MAC addresses.
+
+138. What is a wireless repeater?
+
+A. Router
+B. Extends Wi-Fi coverage
+C. Firewall
+D. Modem
+
+Answer: B
+Why: Wireless repeaters amplify Wi-Fi signals. They extend coverage areas.
+
+139. What is a captive portal?
+
+A. Firewall
+B. Web page for network authentication
+C. Router
+D. DNS server
+
+Answer: B
+Why: Captive portals require users to log in before accessing internet. Common in public Wi-Fi.
+
+140. What is WPA2?
+
+A. Wi-Fi standard
+B. Wireless security protocol
+C. Routing protocol
+D. File transfer protocol
+
+Answer: B
+Why: WPA2 secures wireless networks using encryption. WPA3 is the newer version.
+
+141. What is SSID broadcasting?
+
+A. Hiding network name
+B. Displaying network name
+C. Encrypting Wi-Fi
+D. Assigning IP
+
+Answer: B
+Why: SSID broadcasting makes networks visible. Disabling hides the network.
+
+142. What is MAC spoofing?
+
+A. Encrypting MAC address
+B. Changing MAC address to impersonate device
+C. Blocking MAC
+D. Filtering MAC
+
+Answer: B
+Why: MAC spoofing disguises device identity. It can bypass MAC filtering.
+
+143. What is network sniffing tool example?
+
+A. Wireshark
+B. Chrome
+C. Excel
+D. Notepad
+
+Answer: A
+Why: Wireshark captures and analyzes packets. It is used for troubleshooting.
+
+144. What is a botnet?
+
+A. Network cable
+B. Group of compromised devices
+C. Router
+D. Firewall
+
+Answer: B
+Why: Botnets are controlled by attackers. They perform DDoS attacks.
+
+145. What is HTTPS encryption based on?
+
+A. SSL/TLS
+B. FTP
+C. SNMP
+D. ARP
+
+Answer: A
+Why: HTTPS uses SSL/TLS protocols. They secure web communication.
+
+146. What is end-to-end encryption?
+
+A. Encryption only at sender
+B. Encryption between sender and receiver
+C. Encryption at router
+D. No encryption
+
+Answer: B
+Why: End-to-end encryption ensures only sender and receiver can read data. Intermediaries cannot decrypt it.
+
+147. What is a network protocol?
+
+A. Hardware device
+B. Rules for communication
+C. Cable type
+D. IP address
+
+Answer: B
+Why: Protocols define how data is transmitted. Examples include TCP/IP.
+
+148. What is packet header?
+
+A. Data payload
+B. Control information in packet
+C. Encryption key
+D. File format
+
+Answer: B
+Why: Packet headers contain addressing and routing info. They guide data delivery.
+
+149. What is payload?
+
+A. Packet header
+B. Actual data carried by packet
+C. Encryption key
+D. Routing table
+
+Answer: B
+Why: Payload is the actual content of a packet. It is delivered to the application.
+
+150. What is network reliability?
+
+A. Speed only
+B. Ability to maintain service without failure
+C. Encryption method
+D. Cable length
+
+Answer: B
+Why: Reliability ensures continuous network operation. Redundancy and failover improve it.

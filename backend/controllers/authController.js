@@ -325,6 +325,7 @@ export const getMe = async (req, res) => {
                     averageScore: 0,
                     resumeScore: 0
                 },
+                recentActivities: user.recentActivities || [],
                 role: user.role
             });
         } else {
@@ -370,6 +371,39 @@ export const updateProfile = async (req, res) => {
         }
     } catch (error) {
         console.error('Error in updateProfile:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Add a recent activity
+// @route   POST /api/auth/activity
+// @access  Private
+export const addRecentActivity = async (req, res) => {
+    try {
+        const { title, activityType, score } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (user) {
+            // Add new activity to the beginning of the array
+            user.recentActivities.unshift({
+                title,
+                activityType,
+                score,
+                timestamp: Date.now()
+            });
+
+            // Keep only the last 20 activities
+            if (user.recentActivities.length > 20) {
+                user.recentActivities = user.recentActivities.slice(0, 20);
+            }
+
+            await user.save();
+            res.status(201).json(user.recentActivities);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error in addRecentActivity:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };

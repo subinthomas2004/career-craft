@@ -1,7 +1,7 @@
 [
     {
         "id": "hr_greeting",
-        "text": "Hello! It's great to meet you. I'm Sarah, an HR Manager here, and joining me is David, who is also an HR Manager. We'd like to get to know you better today. We'll start with a few basic questions and then move on to your experiences. Shall we begin?",
+        "text": "Hello! It's great to meet you. I'm Sarah, the HR Manager here. I'd like to get to know you better today. We'll start with a few basic questions and then move on to your experiences. Shall we begin?",
         "type": "hr",
         "difficulty": "beginner",
         "topic": "greeting",

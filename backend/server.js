@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -38,6 +39,7 @@ mongoose.connect(mongoURI)
 // Routes
 import resumeRoutes from './routes/resumeRoutes.js';
 import codeRoutes from './routes/codeRoutes.js';
+import scoreRoutes from './routes/scoreRoutes.js';
 import ollamaRoutes from './routes/ollamaRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
@@ -50,6 +52,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/resume', resumeRoutes);
 app.use('/api/code', codeRoutes);
+app.use('/api/scores', scoreRoutes);
 app.use('/api/ollama', ollamaRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);

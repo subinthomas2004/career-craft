@@ -48,6 +48,35 @@ export const TypingTestContainer = () => {
         return () => window.removeEventListener('keydown', handleWindowKeyDown);
     }, [handleKeyPress, state.status, isFocused]);
 
+    // Record Activity on Finish
+    useEffect(() => {
+        if (state.status === 'finished') {
+            const recordTypingActivity = async () => {
+                try {
+                    const userInfo = localStorage.getItem("userInfo");
+                    if (userInfo) {
+                        const { token } = JSON.parse(userInfo);
+                        await fetch('http://localhost:5003/api/auth/activity', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                                title: `Typing Test: ${config.mode.charAt(0).toUpperCase() + config.mode.slice(1)}`,
+                                activityType: 'typing',
+                                score: `${state.wpm} WPM`
+                            })
+                        });
+                    }
+                } catch (err) {
+                    console.error("Failed to record activity", err);
+                }
+            };
+            recordTypingActivity();
+        }
+    }, [state.status, config.mode, state.wpm]);
+
 
     return (
         <div className="max-w-4xl mx-auto space-y-8 p-4 md:p-0">

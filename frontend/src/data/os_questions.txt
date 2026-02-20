@@ -1,0 +1,1495 @@
+1. What is an operating system?
+
+A. Hardware component
+B. Software that manages hardware and software resources
+C. Programming language
+D. Database system
+
+Answer: B
+Why: An operating system acts as an interface between users and hardware. It manages processes, memory, files, and devices.
+
+2. Which of the following is not a function of an OS?
+
+A. Process management
+B. Memory management
+C. Compilation
+D. File management
+
+Answer: C
+Why: Compilation is performed by compilers, not the OS. The OS focuses on resource management and system coordination.
+
+3. What is a process?
+
+A. Program in execution
+B. Program file
+C. Hardware unit
+D. Memory block
+
+Answer: A
+Why: A process is an active instance of a program. It includes code, data, stack, and execution state.
+
+4. What is a thread?
+
+A. Independent program
+B. Lightweight process
+C. Memory unit
+D. Scheduling algorithm
+
+Answer: B
+Why: Threads are smaller units of a process that share resources. They enable parallel execution within the same process.
+
+5. Which scheduling algorithm uses time slices?
+
+A. FCFS
+B. Round Robin
+C. Priority Scheduling
+D. SJF
+
+Answer: B
+Why: Round Robin assigns a fixed time quantum to each process. This ensures fair CPU allocation.
+
+6. What is context switching?
+
+A. Switching users
+B. Saving and loading process state
+C. Changing OS
+D. Restarting process
+
+Answer: B
+Why: Context switching saves the state of a running process and loads another. It enables multitasking.
+
+7. Which scheduling algorithm may cause starvation?
+
+A. Round Robin
+B. Priority Scheduling
+C. FCFS
+D. FIFO
+
+Answer: B
+Why: Low-priority processes may never execute if higher-priority tasks keep arriving. This leads to starvation.
+
+8. What is deadlock?
+
+A. CPU failure
+B. Processes waiting indefinitely for resources
+C. Memory overflow
+D. Program crash
+
+Answer: B
+Why: Deadlock occurs when processes hold resources and wait for each other. None can proceed.
+
+9. Which condition is necessary for deadlock?
+
+A. Mutual exclusion
+B. Preemption
+C. Multiprocessing
+D. Virtual memory
+
+Answer: A
+Why: Mutual exclusion means only one process can use a resource at a time. It is one of the four necessary deadlock conditions.
+
+10. What is paging?
+
+A. Memory fragmentation
+B. Memory management technique using fixed-size blocks
+C. Disk scheduling
+D. File allocation
+
+Answer: B
+Why: Paging divides memory into fixed-size pages and frames. It reduces external fragmentation.
+
+11. What is virtual memory?
+
+A. Physical RAM
+B. Memory on disk used as extension of RAM
+C. Cache memory
+D. ROM
+
+Answer: B
+Why: Virtual memory allows programs to use more memory than physically available. It uses disk space to simulate RAM.
+
+12. Which memory is fastest?
+
+A. Hard disk
+B. Cache
+C. RAM
+D. Virtual memory
+
+Answer: B
+Why: Cache memory is closest to CPU and has the fastest access time. It stores frequently used data.
+
+13. What is thrashing?
+
+A. CPU overheating
+B. Excessive paging activity
+C. Disk failure
+D. Process termination
+
+Answer: B
+Why: Thrashing occurs when the system spends more time swapping pages than executing processes. It degrades performance.
+
+14. Which OS is single-user?
+
+A. Windows Server
+B. Linux
+C. MS-DOS
+D. UNIX
+
+Answer: C
+Why: MS-DOS supports one user at a time. Modern OSs support multiple users.
+
+15. What is a system call?
+
+A. Hardware interrupt
+B. Interface between user program and OS
+C. Scheduling method
+D. File system
+
+Answer: B
+Why: System calls allow programs to request OS services. Examples include file operations and process control.
+
+16. What is a semaphore?
+
+A. Scheduling algorithm
+B. Synchronization tool
+C. Memory unit
+D. File system
+
+Answer: B
+Why: Semaphores control access to shared resources. They prevent race conditions in concurrent processes.
+
+17. Which scheduling algorithm is non-preemptive?
+
+A. Round Robin
+B. FCFS
+C. Priority (preemptive)
+D. Multilevel queue
+
+Answer: B
+Why: FCFS executes processes in arrival order without interruption. Once started, a process runs to completion.
+
+18. What is a critical section?
+
+A. OS kernel
+B. Code accessing shared resource
+C. Memory block
+D. Disk partition
+
+Answer: B
+Why: Critical sections access shared data. They must be protected to avoid race conditions.
+
+19. Which file allocation method uses linked blocks?
+
+A. Contiguous
+B. Linked allocation
+C. Indexed allocation
+D. Sequential
+
+Answer: B
+Why: Linked allocation stores file blocks as a linked list. It avoids external fragmentation.
+
+20. What is fragmentation?
+
+A. Data encryption
+B. Wasted memory space
+C. File compression
+D. Disk scheduling
+
+Answer: B
+Why: Fragmentation occurs when memory is inefficiently used. It can be internal or external.
+
+21. What is internal fragmentation?
+
+A. Unused space inside allocated block
+B. Unused memory outside blocks
+C. Disk error
+D. CPU idle time
+
+Answer: A
+Why: Internal fragmentation happens when allocated memory is larger than needed. The extra space is wasted.
+
+22. What is external fragmentation?
+
+A. Unused memory inside block
+B. Scattered free memory blocks
+C. Disk crash
+D. CPU overload
+
+Answer: B
+Why: External fragmentation occurs when free memory is divided into small blocks. This prevents allocation of large blocks.
+
+23. Which disk scheduling algorithm moves in one direction?
+
+A. FCFS
+B. SCAN
+C. SSTF
+D. FIFO
+
+Answer: B
+Why: SCAN (elevator algorithm) moves the disk arm in one direction servicing requests. It reduces seek time.
+
+24. What is a file system?
+
+A. Hardware device
+B. Method to organize and store files
+C. Programming language
+D. CPU component
+
+Answer: B
+Why: A file system manages how data is stored and retrieved. It organizes files on storage devices.
+
+25. Which OS component manages memory?
+
+A. Scheduler
+B. Memory manager
+C. File system
+D. Device driver
+
+Answer: B
+Why: Memory manager handles allocation and deallocation. It ensures efficient use of RAM.
+
+26. What is a zombie process?
+
+A. Running process
+B. Terminated process with entry in process table
+C. Suspended process
+D. Deadlock state
+
+Answer: B
+Why: Zombie processes have finished execution but still exist in the process table. They await parent process acknowledgment.
+
+27. What is a device driver?
+
+A. Hardware device
+B. Software controlling hardware
+C. File system
+D. Memory unit
+
+Answer: B
+Why: Device drivers allow OS to communicate with hardware. They provide control and functionality.
+
+28. Which scheduling algorithm minimizes average waiting time?
+
+A. FCFS
+B. SJF
+C. Round Robin
+D. FIFO
+
+Answer: B
+Why: Shortest Job First executes shortest tasks first. This reduces average waiting time.
+
+29. What is multitasking?
+
+A. Multiple CPUs
+B. Running multiple processes simultaneously
+C. Multiple users
+D. Multiple disks
+
+Answer: B
+Why: Multitasking allows several processes to share CPU time. It improves system utilization.
+
+30. What is multiprogramming?
+
+A. Running one program
+B. Multiple programs in memory at once
+C. Multiple CPUs
+D. Disk scheduling
+
+Answer: B
+Why: Multiprogramming keeps multiple programs in memory. CPU switches among them to improve efficiency.
+
+31. Which memory is volatile?
+
+A. ROM
+B. Hard disk
+C. RAM
+D. SSD
+
+Answer: C
+Why: RAM loses data when power is off. It is used for temporary storage.
+
+32. What is swapping?
+
+A. Disk scheduling
+B. Moving processes between RAM and disk
+C. File compression
+D. Memory allocation
+
+Answer: B
+Why: Swapping temporarily moves processes to disk to free RAM. It supports multiprogramming.
+
+33. What is a kernel?
+
+A. Hardware component
+B. Core of operating system
+C. Application program
+D. File system
+
+Answer: B
+Why: The kernel manages hardware and system resources. It provides essential OS services.
+
+34. Which OS type supports multiple users?
+
+A. Single-user OS
+B. Multi-user OS
+C. Embedded OS
+D. Batch OS
+
+Answer: B
+Why: Multi-user OS allows multiple users to access the system simultaneously. Examples include UNIX and Linux.
+
+35. What is batch processing?
+
+A. Interactive processing
+B. Processing jobs in groups
+C. Real-time processing
+D. Multitasking
+
+Answer: B
+Why: Batch processing executes jobs in batches without user interaction. It improves efficiency for repetitive tasks.
+
+36. What is real-time OS?
+
+A. Slow OS
+B. OS with guaranteed response time
+C. Single-user OS
+D. Batch OS
+
+Answer: B
+Why: Real-time OS ensures responses within strict time limits. It is used in embedded systems and robotics.
+
+37. Which OS is open source?
+
+A. Windows
+B. Linux
+C. macOS
+D. iOS
+
+Answer: B
+Why: Linux is open source and freely modifiable. It is widely used in servers and embedded systems.
+
+38. What is spooling?
+
+A. Disk scheduling
+B. Buffering data for devices
+C. Memory allocation
+D. CPU scheduling
+
+Answer: B
+Why: Spooling stores data temporarily before sending it to devices like printers. It allows asynchronous processing.
+
+39. Which scheduling algorithm selects nearest track?
+
+A. FCFS
+B. SSTF
+C. SCAN
+D. LOOK
+
+Answer: B
+Why: SSTF selects the request closest to current head position. It reduces seek time.
+
+40. What is a pipe in OS?
+
+A. Hardware connection
+B. Communication channel between processes
+C. Memory unit
+D. File type
+
+Answer: B
+Why: Pipes allow inter-process communication. They transfer data between processes.
+
+41. What is a shell?
+
+A. Hardware device
+B. User interface for OS
+C. Memory manager
+D. File system
+
+Answer: B
+Why: The shell interprets user commands. It provides interaction with the OS.
+
+42. Which memory allocation avoids fragmentation?
+
+A. Paging
+B. Contiguous allocation
+C. Segmentation
+D. Swapping
+
+Answer: A
+Why: Paging uses fixed-size blocks. This eliminates external fragmentation.
+
+43. What is segmentation?
+
+A. Fixed memory blocks
+B. Variable memory blocks based on logical divisions
+C. Disk scheduling
+D. File allocation
+
+Answer: B
+Why: Segmentation divides memory into logical segments like code and data. It supports logical organization.
+
+44. What is a race condition?
+
+A. CPU failure
+B. Multiple processes accessing shared data simultaneously
+C. Memory leak
+D. Disk error
+
+Answer: B
+Why: Race conditions occur when process timing affects results. Synchronization prevents inconsistencies.
+
+45. Which OS handles hardware interrupts?
+
+A. Compiler
+B. Kernel
+C. Application
+D. File system
+
+Answer: B
+Why: The kernel handles interrupts and coordinates hardware responses. It ensures proper execution flow.
+
+46. What is a daemon?
+
+A. Hardware device
+B. Background process
+C. Scheduling algorithm
+D. Memory unit
+
+Answer: B
+Why: Daemons run in the background performing system tasks. Examples include print and network services.
+
+47. Which scheduling algorithm is preemptive?
+
+A. FCFS
+B. Round Robin
+C. SJF (non-preemptive)
+D. FIFO
+
+Answer: B
+Why: Round Robin allows preemption after time quantum. This ensures fairness.
+
+48. What is a page fault?
+
+A. Disk error
+B. Accessing page not in memory
+C. CPU failure
+D. Memory leak
+
+Answer: B
+Why: A page fault occurs when a required page is not in RAM. The OS loads it from disk.
+
+49. Which OS component manages files?
+
+A. Scheduler
+B. File system
+C. Kernel
+D. Memory manager
+
+Answer: B
+Why: The file system organizes and manages files on storage devices. It controls access and storage.
+
+50. What is throughput?
+
+A. CPU speed
+B. Number of processes completed per unit time
+C. Memory size
+D. Disk capacity
+
+Answer: B
+Why: Throughput measures system productivity. Higher throughput indicates efficient processing.     51. What is CPU scheduling?
+
+A. Assigning memory
+B. Selecting which process runs next
+C. Managing files
+D. Controlling devices
+
+Answer: B
+Why: CPU scheduling determines which ready process gets CPU time. It ensures efficient and fair use of the processor.
+
+52. Which scheduling algorithm is best for time-sharing systems?
+
+A. FCFS
+B. Round Robin
+C. SJF
+D. Priority
+
+Answer: B
+Why: Round Robin allocates time slices to each process. This provides responsiveness and fairness in time-sharing environments.
+
+53. What is aging in OS scheduling?
+
+A. Increasing process priority over time
+B. Decreasing memory usage
+C. Killing old processes
+D. Increasing CPU speed
+
+Answer: A
+Why: Aging gradually increases the priority of waiting processes. This prevents starvation in priority scheduling.
+
+54. What is the main goal of multiprogramming?
+
+A. Reduce CPU speed
+B. Maximize CPU utilization
+C. Increase disk usage
+D. Reduce memory size
+
+Answer: B
+Why: Multiprogramming keeps multiple jobs ready in memory. This ensures the CPU always has work to do.
+
+55. Which state comes after "Ready" in process lifecycle?
+
+A. Terminated
+B. Running
+C. Waiting
+D. Suspended
+
+Answer: B
+Why: A ready process moves to running when scheduled. It begins execution on the CPU.
+
+56. What is a waiting state?
+
+A. Process finished
+B. Process waiting for I/O or resource
+C. Process ready for execution
+D. Process terminated
+
+Answer: B
+Why: Processes enter waiting state when they need I/O or resources. They resume when the event completes.
+
+57. What is a PCB (Process Control Block)?
+
+A. Memory block
+B. Data structure storing process information
+C. Scheduling algorithm
+D. File descriptor
+
+Answer: B
+Why: PCB contains process state, registers, and scheduling info. It allows the OS to manage processes.
+
+58. Which OS supports multitasking?
+
+A. MS-DOS
+B. Windows
+C. Early batch systems
+D. Single-user OS
+
+Answer: B
+Why: Windows supports multiple processes simultaneously. It uses time-sharing and multitasking techniques.
+
+59. What is a system interrupt?
+
+A. File error
+B. Signal to CPU for attention
+C. Memory leak
+D. Disk failure
+
+Answer: B
+Why: Interrupts notify the CPU about events requiring attention. They enable efficient device communication.
+
+60. What is DMA (Direct Memory Access)?
+
+A. CPU scheduling
+B. Device accessing memory without CPU
+C. Memory allocation
+D. Disk formatting
+
+Answer: B
+Why: DMA allows devices to transfer data directly to memory. This reduces CPU overhead.
+
+61. Which memory management technique uses logical segments?
+
+A. Paging
+B. Segmentation
+C. Swapping
+D. Contiguous allocation
+
+Answer: B
+Why: Segmentation divides memory based on logical units like code and data. It supports modular programming.
+
+62. What is a page table?
+
+A. Disk map
+B. Maps virtual pages to physical frames
+C. File index
+D. Process list
+
+Answer: B
+Why: Page tables translate virtual addresses to physical addresses. They enable virtual memory.
+
+63. What is TLB (Translation Lookaside Buffer)?
+
+A. Cache for page table entries
+B. Disk buffer
+C. File system cache
+D. CPU register
+
+Answer: A
+Why: TLB stores recent page table entries. It speeds up address translation.
+
+64. What is demand paging?
+
+A. Loading all pages at once
+B. Loading pages only when needed
+C. Swapping processes
+D. Disk scheduling
+
+Answer: B
+Why: Demand paging loads pages into memory only when accessed. This saves memory and improves efficiency.
+
+65. What is page replacement?
+
+A. Removing unused files
+B. Replacing pages in memory when full
+C. Changing disk sectors
+D. Allocating CPU time
+
+Answer: B
+Why: Page replacement selects which page to remove when memory is full. Algorithms like FIFO and LRU are used.
+
+66. Which page replacement algorithm removes oldest page?
+
+A. LRU
+B. FIFO
+C. Optimal
+D. LFU
+
+Answer: B
+Why: FIFO replaces the page that entered memory first. It is simple but may not be efficient.
+
+67. Which algorithm gives best page replacement theoretically?
+
+A. FIFO
+B. LRU
+C. Optimal
+D. Random
+
+Answer: C
+Why: Optimal replaces the page not used for the longest future time. It minimizes page faults but is impractical.
+
+68. What is LRU algorithm?
+
+A. Removes least recently used page
+B. Removes oldest page
+C. Removes random page
+D. Removes largest page
+
+Answer: A
+Why: LRU replaces the page that hasn’t been used recently. It approximates optimal performance.
+
+69. What is Belady’s anomaly?
+
+A. More memory causing more page faults
+B. Disk failure
+C. CPU crash
+D. File corruption
+
+Answer: A
+Why: In FIFO, increasing memory frames can increase page faults. This counterintuitive behavior is Belady’s anomaly.
+
+70. Which file allocation method avoids fragmentation?
+
+A. Contiguous
+B. Linked
+C. Indexed
+D. Sequential
+
+Answer: C
+Why: Indexed allocation uses an index block for pointers. It avoids external fragmentation.
+
+71. What is disk seek time?
+
+A. Time to read data
+B. Time to move head to track
+C. Time to transfer data
+D. Time to rotate disk
+
+Answer: B
+Why: Seek time is the time required to position the disk head. It affects disk performance.
+
+72. What is rotational latency?
+
+A. Disk speed
+B. Time waiting for sector to rotate under head
+C. File transfer time
+D. Memory delay
+
+Answer: B
+Why: Rotational latency is the delay waiting for the desired sector. It depends on disk rotation speed.
+
+73. Which disk scheduling minimizes head movement?
+
+A. FCFS
+B. SSTF
+C. SCAN
+D. C-SCAN
+
+Answer: B
+Why: SSTF selects the closest request. This reduces total head movement.
+
+74. What is C-SCAN algorithm?
+
+A. Moves in one direction only
+B. Circular SCAN disk scheduling
+C. Random scheduling
+D. Priority scheduling
+
+Answer: B
+Why: C-SCAN services requests in one direction and jumps back. It provides uniform wait time.
+
+75. What is a mount point?
+
+A. Disk partition
+B. Directory where file system is attached
+C. Memory block
+D. CPU register
+
+Answer: B
+Why: Mount points connect storage devices to directory structure. They allow access to files.
+
+76. What is inode in UNIX?
+
+A. File name
+B. Data structure storing file metadata
+C. Disk block
+D. Process ID
+
+Answer: B
+Why: Inodes store file permissions, size, and pointers. They do not store file names.
+
+77. What is a hard link?
+
+A. Shortcut file
+B. Multiple names for same file
+C. Backup copy
+D. Symbolic reference
+
+Answer: B
+Why: Hard links point to the same inode. Deleting one link does not remove the file.
+
+78. What is a soft link?
+
+A. Duplicate file
+B. Symbolic link to another file
+C. Hard disk
+D. Backup link
+
+Answer: B
+Why: Soft links store path references. They break if the original file is deleted.
+
+79. What is user mode?
+
+A. Full hardware access
+B. Restricted execution mode
+C. Kernel execution
+D. Memory mode
+
+Answer: B
+Why: User mode limits access to hardware. It protects system integrity.
+
+80. What is kernel mode?
+
+A. Restricted mode
+B. Full access to hardware
+C. File mode
+D. User interface mode
+
+Answer: B
+Why: Kernel mode allows direct hardware access. It executes critical OS operations.
+
+81. What is a system boot?
+
+A. Shutting down
+B. Starting computer and loading OS
+C. Formatting disk
+D. Installing software
+
+Answer: B
+Why: Booting loads the OS into memory. It prepares the system for use.
+
+82. What is BIOS?
+
+A. Operating system
+B. Firmware initializing hardware
+C. Memory manager
+D. File system
+
+Answer: B
+Why: BIOS initializes hardware during startup. It loads the bootloader.
+
+83. What is a bootloader?
+
+A. OS kernel
+B. Program loading OS into memory
+C. Device driver
+D. File system
+
+Answer: B
+Why: Bootloader loads the OS kernel. It starts system initialization.
+
+84. What is process synchronization?
+
+A. Running processes simultaneously
+B. Coordinating processes accessing shared data
+C. CPU scheduling
+D. File management
+
+Answer: B
+Why: Synchronization ensures safe access to shared resources. It prevents race conditions.
+
+85. What is mutual exclusion?
+
+A. Multiple processes accessing resource simultaneously
+B. Only one process accessing resource at a time
+C. Deadlock prevention
+D. Memory allocation
+
+Answer: B
+Why: Mutual exclusion ensures exclusive access. It prevents data inconsistency.
+
+86. What is a monitor in OS?
+
+A. Display device
+B. Synchronization construct
+C. Memory manager
+D. File system
+
+Answer: B
+Why: Monitors provide high-level synchronization. They manage shared resources safely.
+
+87. What is inter-process communication (IPC)?
+
+A. CPU scheduling
+B. Data exchange between processes
+C. Memory allocation
+D. Disk scheduling
+
+Answer: B
+Why: IPC allows processes to share data. Methods include pipes, message queues, and shared memory.
+
+88. What is shared memory?
+
+A. Private memory
+B. Memory accessible by multiple processes
+C. Cache memory
+D. Disk memory
+
+Answer: B
+Why: Shared memory allows processes to communicate efficiently. It reduces overhead compared to message passing.
+
+89. What is message passing?
+
+A. File transfer
+B. IPC method sending messages between processes
+C. Disk scheduling
+D. Memory allocation
+
+Answer: B
+Why: Message passing allows processes to exchange data without shared memory. It ensures isolation.
+
+90. What is starvation?
+
+A. Process termination
+B. Process waiting indefinitely
+C. Memory overflow
+D. CPU crash
+
+Answer: B
+Why: Starvation occurs when a process never gets CPU time. Aging can prevent this.
+
+91. What is throughput in scheduling?
+
+A. CPU speed
+B. Number of completed processes per time
+C. Memory size
+D. Disk space
+
+Answer: B
+Why: Throughput measures system productivity. Higher throughput indicates better performance.
+
+92. What is turnaround time?
+
+A. Execution time only
+B. Time from submission to completion
+C. Waiting time only
+D. CPU idle time
+
+Answer: B
+Why: Turnaround time includes waiting and execution. It measures overall job completion time.
+
+93. What is waiting time?
+
+A. CPU execution time
+B. Time spent in ready queue
+C. Disk access time
+D. I/O time
+
+Answer: B
+Why: Waiting time measures time in the ready queue. It affects responsiveness.
+
+94. What is response time?
+
+A. Time to finish execution
+B. Time to first response
+C. Waiting time
+D. CPU time
+
+Answer: B
+Why: Response time measures how quickly the system reacts. It is critical in interactive systems.
+
+95. What is load balancing?
+
+A. Memory allocation
+B. Distributing workload evenly
+C. Disk scheduling
+D. CPU overheating
+
+Answer: B
+Why: Load balancing spreads tasks across resources. It improves performance and reliability.
+
+96. What is a distributed OS?
+
+A. Single computer OS
+B. OS managing multiple computers as one system
+C. Embedded OS
+D. Real-time OS
+
+Answer: B
+Why: Distributed OS coordinates multiple systems. It provides transparency and resource sharing.
+
+97. What is an embedded OS?
+
+A. Desktop OS
+B. OS for dedicated devices
+C. Server OS
+D. Distributed OS
+
+Answer: B
+Why: Embedded OS runs on devices like routers and appliances. It is optimized for specific tasks.
+
+98. What is virtualization?
+
+A. Hardware failure
+B. Creating virtual machines
+C. Disk formatting
+D. Memory leak
+
+Answer: B
+Why: Virtualization allows multiple OS instances on one machine. It improves resource utilization.
+
+99. What is a hypervisor?
+
+A. Operating system
+B. Software managing virtual machines
+C. Device driver
+D. File system
+
+Answer: B
+Why: Hypervisors create and manage virtual machines. Examples include VMware and Hyper-V.
+
+100. What is cloud computing related to OS?
+
+A. Local storage
+B. Delivering computing resources over internet
+C. Disk scheduling
+D. File management
+
+Answer: B
+Why: Cloud computing provides OS-level resources remotely. It enables scalable and on-demand computing.  101. What is a real-time scheduling algorithm designed to ensure?
+
+A. Maximum CPU usage
+B. Guaranteed task deadlines
+C. Minimum memory usage
+D. Fast disk access
+
+Answer: B
+Why: Real-time scheduling ensures tasks complete within strict deadlines. This is critical for systems like medical devices and robotics.
+
+102. What is priority inversion?
+
+A. High-priority process waiting for low-priority process
+B. Low-priority process waiting for high-priority process
+C. CPU switching priorities
+D. Deadlock condition
+
+Answer: A
+Why: Priority inversion occurs when a high-priority process is blocked by a lower-priority one holding a resource. Priority inheritance helps mitigate this issue.
+
+103. Which scheduling algorithm uses multiple queues?
+
+A. FCFS
+B. Multilevel Queue Scheduling
+C. Round Robin
+D. SJF
+
+Answer: B
+Why: Multilevel queue scheduling separates processes into categories with different priorities. Each queue can have its own scheduling policy.
+
+104. What is multilevel feedback queue scheduling?
+
+A. Fixed queue scheduling
+B. Dynamic queue with process movement
+C. Single queue scheduling
+D. Disk scheduling
+
+Answer: B
+Why: Multilevel feedback queues allow processes to move between queues based on behavior. This balances responsiveness and fairness.
+
+105. What is CPU affinity?
+
+A. CPU overheating
+B. Binding process to specific CPU core
+C. CPU scheduling algorithm
+D. Memory allocation
+
+Answer: B
+Why: CPU affinity keeps a process on a specific core. This improves cache performance and reduces context switching.
+
+106. What is symmetric multiprocessing (SMP)?
+
+A. Single CPU system
+B. Multiple CPUs sharing memory and OS
+C. Multiple OS instances
+D. Distributed system
+
+Answer: B
+Why: SMP systems use multiple processors that share memory. The OS treats them equally for scheduling tasks.
+
+107. What is asymmetric multiprocessing?
+
+A. All CPUs equal
+B. One master CPU controls others
+C. No CPU control
+D. Single-core processing
+
+Answer: B
+Why: In asymmetric multiprocessing, one processor manages tasks. Other processors execute assigned work.
+
+108. What is a spinlock?
+
+A. Lock that puts thread to sleep
+B. Lock where thread repeatedly checks until free
+C. Disk lock
+D. File lock
+
+Answer: B
+Why: Spinlocks cause threads to loop while waiting for a lock. They are efficient for short wait times.
+
+109. What is busy waiting?
+
+A. CPU idle state
+B. Loop checking condition repeatedly
+C. Disk waiting
+D. Process termination
+
+Answer: B
+Why: Busy waiting wastes CPU cycles by repeatedly checking a condition. It is inefficient for long waits.
+
+110. What is a race condition solution?
+
+A. Remove processes
+B. Use synchronization mechanisms
+C. Increase CPU speed
+D. Disable interrupts
+
+Answer: B
+Why: Synchronization tools like mutexes and semaphores prevent race conditions. They ensure orderly access to shared resources.
+
+111. What is a mutex?
+
+A. Scheduling algorithm
+B. Mutual exclusion lock
+C. Memory unit
+D. File system
+
+Answer: B
+Why: Mutex ensures only one thread accesses a resource at a time. It prevents concurrent conflicts.
+
+112. What is a condition variable?
+
+A. Memory variable
+B. Synchronization primitive for waiting threads
+C. Disk variable
+D. CPU register
+
+Answer: B
+Why: Condition variables allow threads to wait until a condition is true. They work with mutexes for synchronization.
+
+113. What is a kernel thread?
+
+A. Thread managed by OS kernel
+B. User-level thread
+C. Background process
+D. File system thread
+
+Answer: A
+Why: Kernel threads are managed directly by the OS. They allow true parallel execution on multi-core systems.
+
+114. What is a user-level thread?
+
+A. Managed by OS kernel
+B. Managed by user library
+C. Hardware thread
+D. Device thread
+
+Answer: B
+Why: User-level threads are managed in user space. They are faster but lack true parallelism without kernel support.
+
+115. What is thread starvation?
+
+A. Thread termination
+B. Thread waiting indefinitely for CPU
+C. Memory leak
+D. Disk failure
+
+Answer: B
+Why: Starvation occurs when threads never receive CPU time. Priority adjustments can prevent this.
+
+116. What is copy-on-write?
+
+A. Copying files
+B. Copy memory only when modified
+C. Disk copying
+D. Process duplication
+
+Answer: B
+Why: Copy-on-write delays copying memory until changes occur. It saves memory during process creation.
+
+117. What is fork() in UNIX?
+
+A. Delete process
+B. Create child process
+C. Schedule process
+D. Kill process
+
+Answer: B
+Why: fork() creates a new child process. The child is a duplicate of the parent.
+
+118. What is exec() in UNIX?
+
+A. Create process
+B. Replace process memory with new program
+C. Delete process
+D. Pause process
+
+Answer: B
+Why: exec() loads a new program into the current process. It replaces the existing code.
+
+119. What is a zombie process caused by?
+
+A. OS crash
+B. Parent not reading child exit status
+C. Memory leak
+D. Deadlock
+
+Answer: B
+Why: Zombies occur when a child terminates but the parent hasn’t acknowledged it. The process remains in the table.
+
+120. What is an orphan process?
+
+A. Process without parent
+B. Process without child
+C. Suspended process
+D. Zombie process
+
+Answer: A
+Why: Orphan processes occur when the parent terminates. They are adopted by the init process.
+
+121. What is loadable kernel module?
+
+A. Hardware driver
+B. Dynamically loaded kernel code
+C. User application
+D. File system
+
+Answer: B
+Why: Kernel modules allow adding functionality without rebooting. Examples include device drivers.
+
+122. What is a device queue?
+
+A. CPU queue
+B. Queue of processes waiting for device
+C. Disk partition
+D. Memory block
+
+Answer: B
+Why: Device queues hold processes waiting for I/O. They help manage device access.
+
+123. What is interrupt latency?
+
+A. Disk delay
+B. Time to respond to interrupt
+C. Memory delay
+D. CPU speed
+
+Answer: B
+Why: Interrupt latency measures time between interrupt and response. Low latency is critical for real-time systems.
+
+124. What is journaling in file systems?
+
+A. File compression
+B. Logging changes for recovery
+C. Disk defragmentation
+D. File indexing
+
+Answer: B
+Why: Journaling records changes before applying them. It ensures recovery after crashes.
+
+125. What is RAID used for?
+
+A. Memory management
+B. Disk redundancy and performance
+C. CPU scheduling
+D. Process management
+
+Answer: B
+Why: RAID combines multiple disks for reliability and speed. It prevents data loss.
+
+126. Which RAID level provides mirroring?
+
+A. RAID 0
+B. RAID 1
+C. RAID 5
+D. RAID 6
+
+Answer: B
+Why: RAID 1 duplicates data across disks. It provides fault tolerance.
+
+127. What is RAID 0?
+
+A. Mirroring
+B. Striping without redundancy
+C. Parity-based storage
+D. Backup storage
+
+Answer: B
+Why: RAID 0 improves performance by striping data. It provides no fault tolerance.
+
+128. What is swap space?
+
+A. CPU memory
+B. Disk space used as virtual memory
+C. Cache memory
+D. File storage
+
+Answer: B
+Why: Swap space extends RAM using disk. It allows more processes to run.
+
+129. What is memory leak?
+
+A. Extra memory usage not released
+B. Disk failure
+C. CPU crash
+D. File corruption
+
+Answer: A
+Why: Memory leaks occur when programs fail to free memory. This reduces available RAM.
+
+130. What is kernel panic?
+
+A. OS shutdown command
+B. Critical OS error causing system halt
+C. User error
+D. File system error
+
+Answer: B
+Why: Kernel panic occurs when the OS encounters a fatal error. The system stops to prevent damage.
+
+131. What is sandboxing?
+
+A. Disk partitioning
+B. Running programs in isolated environment
+C. Memory allocation
+D. CPU scheduling
+
+Answer: B
+Why: Sandboxing restricts program access to system resources. It improves security.
+
+132. What is process migration?
+
+A. Deleting process
+B. Moving process to another CPU or machine
+C. Suspending process
+D. Copying process
+
+Answer: B
+Why: Process migration balances load across systems. It improves performance in distributed systems.
+
+133. What is time-sharing?
+
+A. One user at a time
+B. Multiple users sharing CPU time
+C. Disk sharing
+D. Memory sharing
+
+Answer: B
+Why: Time-sharing allows multiple users to interact with the system. CPU time is divided into small slices.
+
+134. What is a tick in OS?
+
+A. CPU instruction
+B. Timer interrupt interval
+C. Disk operation
+D. Memory block
+
+Answer: B
+Why: A tick is a periodic timer interrupt. It helps in scheduling and timekeeping.
+
+135. What is a soft interrupt?
+
+A. Hardware interrupt
+B. Software-triggered interrupt
+C. Disk interrupt
+D. Memory interrupt
+
+Answer: B
+Why: Soft interrupts are generated by software. They handle deferred tasks.
+
+136. What is a hard interrupt?
+
+A. Software signal
+B. Hardware-generated interrupt
+C. Disk scheduling
+D. Memory error
+
+Answer: B
+Why: Hard interrupts come from hardware devices. They notify the CPU of events.
+
+137. What is NUMA architecture?
+
+A. Uniform memory access
+B. Non-uniform memory access
+C. Single memory access
+D. Virtual memory access
+
+Answer: B
+Why: NUMA systems have different memory access times. CPUs access local memory faster.
+
+138. What is a system daemon example?
+
+A. Text editor
+B. Print spooler
+C. Web browser
+D. Calculator
+
+Answer: B
+Why: Print spooler runs in the background managing print jobs. It is a daemon service.
+
+139. What is OS portability?
+
+A. Running OS on multiple hardware platforms
+B. Disk compatibility
+C. File transfer
+D. Memory sharing
+
+Answer: A
+Why: Portability allows OS to run on different hardware. It increases flexibility.
+
+140. What is POSIX?
+
+A. Programming language
+B. OS standard interface
+C. File system
+D. CPU architecture
+
+Answer: B
+Why: POSIX defines standards for OS compatibility. It ensures software portability.
+
+141. What is system throughput affected by?
+
+A. CPU speed only
+B. Scheduling and resource management
+C. Disk color
+D. File names
+
+Answer: B
+Why: Throughput depends on scheduling efficiency and resource allocation. Good management improves performance.
+
+142. What is a process group?
+
+A. Collection of CPUs
+B. Collection of related processes
+C. Disk partitions
+D. Memory segments
+
+Answer: B
+Why: Process groups manage related processes together. They simplify signal handling.
+
+143. What is a signal in OS?
+
+A. Hardware device
+B. Notification to process
+C. Disk request
+D. Memory block
+
+Answer: B
+Why: Signals notify processes about events. Examples include termination or interrupts.
+
+144. What is a foreground process?
+
+A. Background task
+B. Process interacting with user
+C. Suspended process
+D. Kernel thread
+
+Answer: B
+Why: Foreground processes interact directly with users. They receive input and display output.
+
+145. What is a background process?
+
+A. User-interactive process
+B. Process running without user interaction
+C. Kernel thread
+D. Suspended process
+
+Answer: B
+Why: Background processes run without direct user input. They handle system tasks.
+
+146. What is a run queue?
+
+A. Disk queue
+B. List of ready processes
+C. Memory block
+D. File list
+
+Answer: B
+Why: Run queue stores processes ready to execute. The scheduler selects from this queue.
+
+147. What is kernel preemption?
+
+A. Kernel cannot be interrupted
+B. Kernel tasks can be interrupted
+C. CPU shutdown
+D. Memory allocation
+
+Answer: B
+Why: Kernel preemption allows higher-priority tasks to interrupt kernel tasks. It improves responsiveness.
+
+148. What is a microkernel?
+
+A. Large kernel
+B. Minimal kernel with core functions
+C. File system kernel
+D. Hardware kernel
+
+Answer: B
+Why: Microkernels include only essential services. Other services run in user space.
+
+149. What is a monolithic kernel?
+
+A. Minimal kernel
+B. Kernel with all services included
+C. Distributed kernel
+D. Virtual kernel
+
+Answer: B
+Why: Monolithic kernels include many services in kernel space. This improves performance but reduces modularity.
+
+150. What is system reliability?
+
+A. CPU speed
+B. Ability to operate without failure
+C. Memory size
+D. Disk capacity
+
+Answer: B
+Why: Reliability ensures consistent system operation. Fault tolerance and recovery mechanisms improve it.

@@ -1,0 +1,1402 @@
+[
+  {
+    "id": 51,
+    "question": "What is the time complexity of inserting an element into a hash table (average case)?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(1)",
+      "O(n log n)"
+    ],
+    "correct": 2,
+    "explanation": "In a well-designed hash table, the hash function distributes keys uniformly. This allows constant-time insertion on average, assuming minimal collisions.",
+    "difficulty": "Hard",
+    "topic": "Hashing"
+  },
+  {
+    "id": 52,
+    "question": "Which data structure is used for level-order traversal of a tree?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Array",
+      "Heap"
+    ],
+    "correct": 1,
+    "explanation": "Level-order traversal processes nodes one level at a time. A queue ensures nodes are visited in the order they are discovered.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 53,
+    "question": "What is the worst-case time complexity of searching in a hash table?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correct": 2,
+    "explanation": "In the worst case, all keys collide into the same bucket. This reduces the hash table to a linked list, resulting in linear search time.",
+    "difficulty": "Hard",
+    "topic": "Searching"
+  },
+  {
+    "id": 54,
+    "question": "Which sorting algorithm repeatedly swaps adjacent elements?",
+    "options": [
+      "Selection sort",
+      "Bubble sort",
+      "Merge sort",
+      "Quick sort"
+    ],
+    "correct": 1,
+    "explanation": "Bubble sort compares adjacent elements and swaps them if they are in the wrong order. This process repeats until the array is sorted.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 55,
+    "question": "Which data structure is best for checking balanced parentheses?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Heap"
+    ],
+    "correct": 1,
+    "explanation": "A stack tracks opening brackets and ensures each closing bracket matches the most recent opening bracket. This LIFO behavior makes validation efficient.",
+    "difficulty": "Hard",
+    "topic": "Trees"
+  },
+  {
+    "id": 56,
+    "question": "What is the space complexity of merge sort?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n²)"
+    ],
+    "correct": 2,
+    "explanation": "Merge sort requires additional memory to store temporary arrays during merging. This extra space grows linearly with input size.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 57,
+    "question": "Which tree property ensures efficient search operations?",
+    "options": [
+      "Completeness",
+      "Balance",
+      "Depth",
+      "Degree"
+    ],
+    "correct": 1,
+    "explanation": "Balanced trees maintain minimal height relative to nodes. This ensures operations like search, insert, and delete remain logarithmic.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 58,
+    "question": "Which algorithm is used to detect cycles in an undirected graph?",
+    "options": [
+      "BFS with parent tracking",
+      "Dijkstra",
+      "Prim",
+      "Floyd-Warshall"
+    ],
+    "correct": 0,
+    "explanation": "BFS can detect cycles by checking visited nodes that are not the parent. This indicates a back connection forming a cycle.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 59,
+    "question": "Which data structure allows fast minimum element retrieval?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Min-Heap",
+      "Linked List"
+    ],
+    "correct": 2,
+    "explanation": "A min-heap maintains the smallest element at the root. This allows constant-time retrieval of the minimum value.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 60,
+    "question": "What is the time complexity of deleting the root from a heap?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correct": 1,
+    "explanation": "After removing the root, the last element moves to the root and percolates down. This process takes logarithmic time.",
+    "difficulty": "Medium",
+    "topic": "Heaps"
+  },
+  {
+    "id": 61,
+    "question": "Which traversal method is used to copy a tree?",
+    "options": [
+      "Inorder",
+      "Preorder",
+      "Postorder",
+      "Level order"
+    ],
+    "correct": 1,
+    "explanation": "Preorder processes the root before its children. This ensures the structure is recreated correctly during copying.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 62,
+    "question": "Which data structure is used in depth-first search?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Array"
+    ],
+    "correct": 1,
+    "explanation": "DFS uses a stack (explicit or recursion) to explore as far as possible along each branch. This ensures depth-wise traversal.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 63,
+    "question": "What is the time complexity of selection sort?",
+    "options": [
+      "O(n log n)",
+      "O(n²)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "correct": 1,
+    "explanation": "Selection sort compares each element with the remaining unsorted portion. This results in quadratic comparisons.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 64,
+    "question": "Which structure is used for implementing recursion?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Graph",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "Recursion relies on the call stack to store intermediate states. Each function call pushes a new frame onto the stack.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 65,
+    "question": "Which algorithm finds shortest path in graphs with negative weights?",
+    "options": [
+      "Dijkstra",
+      "Prim",
+      "Bellman-Ford",
+      "Kruskal"
+    ],
+    "correct": 2,
+    "explanation": "Bellman-Ford handles negative edge weights by relaxing edges repeatedly. It can also detect negative weight cycles.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 66,
+    "question": "Which operation in a binary heap takes constant time?",
+    "options": [
+      "Insert",
+      "Delete",
+      "Find min/max",
+      "Heapify"
+    ],
+    "correct": 2,
+    "explanation": "The root of the heap contains the minimum or maximum element. Accessing it does not require traversal.",
+    "difficulty": "Medium",
+    "topic": "Heaps"
+  },
+  {
+    "id": 67,
+    "question": "Which data structure is best for implementing a queue?",
+    "options": [
+      "Array",
+      "Linked List",
+      "Stack",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "Linked lists allow efficient insertion at rear and deletion at front. This ensures O(1) enqueue and dequeue operations.",
+    "difficulty": "Medium",
+    "topic": "Queues"
+  },
+  {
+    "id": 68,
+    "question": "What is the height of a complete binary tree with n nodes?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n log n)",
+      "O(1)"
+    ],
+    "correct": 1,
+    "explanation": "Complete binary trees are filled level by level. Their height grows logarithmically with the number of nodes.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 69,
+    "question": "Which sorting algorithm is best for nearly sorted data?",
+    "options": [
+      "Bubble sort",
+      "Insertion sort",
+      "Selection sort",
+      "Heap sort"
+    ],
+    "correct": 1,
+    "explanation": "Insertion sort performs minimal shifts when elements are nearly in order. This makes it efficient for nearly sorted arrays.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 70,
+    "question": "Which algorithm uses relaxation technique?",
+    "options": [
+      "Dijkstra",
+      "BFS",
+      "DFS",
+      "Selection sort"
+    ],
+    "correct": 0,
+    "explanation": "Dijkstra updates shortest path estimates using relaxation. It improves distance values when a shorter path is found.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 71,
+    "question": "Which data structure supports fast union and find operations?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Disjoint Set (Union-Find)",
+      "Tree"
+    ],
+    "correct": 2,
+    "explanation": "Union-Find supports efficient merging of sets and finding representatives. Path compression and union by rank optimize operations.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 72,
+    "question": "Which tree is used in database indexing?",
+    "options": [
+      "AVL Tree",
+      "B-Tree",
+      "Heap",
+      "BST"
+    ],
+    "correct": 1,
+    "explanation": "B-Trees maintain balanced multi-level indexing. They minimize disk reads, making them ideal for databases.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 73,
+    "question": "What is the time complexity of heap sort?",
+    "options": [
+      "O(n²)",
+      "O(n log n)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "correct": 1,
+    "explanation": "Heap sort builds a heap in linear time and performs n deletions. Each deletion takes log n time.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 74,
+    "question": "Which graph traversal uses recursion naturally?",
+    "options": [
+      "BFS",
+      "DFS",
+      "Dijkstra",
+      "Prim"
+    ],
+    "correct": 1,
+    "explanation": "DFS explores depth-wise and can be implemented recursively. The recursion stack mirrors the traversal path.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 75,
+    "question": "Which data structure is used for scheduling tasks?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Graph"
+    ],
+    "correct": 1,
+    "explanation": "Queues process tasks in arrival order. This is useful in CPU scheduling and task management.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 76,
+    "question": "Which property is required for binary search?",
+    "options": [
+      "Random access",
+      "Sorted data",
+      "Balanced tree",
+      "Linked structure"
+    ],
+    "correct": 1,
+    "explanation": "Binary search relies on sorted data to eliminate half the search space. Without sorting, comparisons are meaningless.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 77,
+    "question": "Which algorithm finds strongly connected components?",
+    "options": [
+      "Dijkstra",
+      "Kosaraju’s",
+      "Prim",
+      "Kruskal"
+    ],
+    "correct": 1,
+    "explanation": "Kosaraju’s algorithm uses two DFS passes. It identifies strongly connected components in directed graphs.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 78,
+    "question": "Which structure is best for representing hierarchical data?",
+    "options": [
+      "Array",
+      "Tree",
+      "Queue",
+      "Stack"
+    ],
+    "correct": 1,
+    "explanation": "Trees naturally represent parent-child relationships. They are used in file systems and organizational charts.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 79,
+    "question": "Which sorting algorithm is based on heap data structure?",
+    "options": [
+      "Merge sort",
+      "Heap sort",
+      "Quick sort",
+      "Insertion sort"
+    ],
+    "correct": 1,
+    "explanation": "Heap sort builds a heap to repeatedly extract the largest or smallest element. This ensures efficient sorting.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 80,
+    "question": "Which data structure provides O(1) average search?",
+    "options": [
+      "Linked list",
+      "Hash table",
+      "Binary tree",
+      "Stack"
+    ],
+    "correct": 1,
+    "explanation": "Hash tables use hash functions to compute direct indices. This enables constant-time average search performance.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 81,
+    "question": "Which tree traversal is used in expression trees to produce postfix?",
+    "options": [
+      "Inorder",
+      "Preorder",
+      "Postorder",
+      "Level order"
+    ],
+    "correct": 2,
+    "explanation": "Postorder traversal evaluates children before the root. This produces postfix expressions used in evaluation.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 82,
+    "question": "Which algorithm is used for network routing?",
+    "options": [
+      "Dijkstra",
+      "Merge sort",
+      "DFS",
+      "Selection sort"
+    ],
+    "correct": 0,
+    "explanation": "Dijkstra computes shortest paths between nodes. It is widely used in routing protocols.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 83,
+    "question": "Which data structure is used for undo-redo operations?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Graph"
+    ],
+    "correct": 1,
+    "explanation": "Undo operations use one stack and redo uses another. This allows reversing and reapplying actions efficiently.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 84,
+    "question": "Which algorithm is stable?",
+    "options": [
+      "Heap sort",
+      "Quick sort",
+      "Merge sort",
+      "Selection sort"
+    ],
+    "correct": 2,
+    "explanation": "Merge sort preserves the order of equal elements. Stability is important in multi-key sorting.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 85,
+    "question": "Which graph representation uses more space?",
+    "options": [
+      "Adjacency list",
+      "Adjacency matrix",
+      "Edge list",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "Adjacency matrices store all possible edges. This results in O(V²) space usage.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 86,
+    "question": "Which data structure is used in BFS for shortest path in unweighted graph?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "BFS uses a queue to explore nodes by distance. This ensures the shortest path in unweighted graphs.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 87,
+    "question": "Which sorting algorithm has worst-case O(n log n)?",
+    "options": [
+      "Quick sort",
+      "Merge sort",
+      "Bubble sort",
+      "Insertion sort"
+    ],
+    "correct": 1,
+    "explanation": "Merge sort guarantees O(n log n) performance regardless of input. Quick sort can degrade to O(n²).",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 88,
+    "question": "Which data structure is used in compiler parsing?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Graph"
+    ],
+    "correct": 1,
+    "explanation": "Parsing uses stacks to manage grammar symbols. This supports syntax analysis and expression evaluation.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 89,
+    "question": "Which algorithm is used to find bridges in a graph?",
+    "options": [
+      "DFS",
+      "BFS",
+      "Dijkstra",
+      "Prim"
+    ],
+    "correct": 0,
+    "explanation": "DFS with discovery and low times identifies bridges. A bridge is an edge whose removal increases components.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 90,
+    "question": "Which data structure is best for fast insertion and deletion?",
+    "options": [
+      "Array",
+      "Linked list",
+      "Stack",
+      "Heap"
+    ],
+    "correct": 1,
+    "explanation": "Linked lists allow insertion and deletion without shifting elements. Only pointer updates are required.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 91,
+    "question": "Which tree structure keeps keys sorted and balanced?",
+    "options": [
+      "Heap",
+      "AVL Tree",
+      "Stack",
+      "Queue"
+    ],
+    "correct": 1,
+    "explanation": "AVL trees maintain height balance through rotations. This ensures sorted order and efficient operations.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 92,
+    "question": "Which algorithm is used for topological sorting in DAG?",
+    "options": [
+      "BFS (Kahn’s Algorithm)",
+      "Dijkstra",
+      "Prim",
+      "Bellman-Ford"
+    ],
+    "correct": 0,
+    "explanation": "Kahn’s algorithm uses BFS and in-degree tracking. It produces a valid topological ordering.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 93,
+    "question": "Which data structure is used for memory management in OS?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Linked list",
+      "Heap"
+    ],
+    "correct": 3,
+    "explanation": "The heap manages dynamic memory allocation. Operating systems use it to allocate runtime memory.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 94,
+    "question": "Which sorting algorithm is adaptive?",
+    "options": [
+      "Insertion sort",
+      "Selection sort",
+      "Heap sort",
+      "Merge sort"
+    ],
+    "correct": 0,
+    "explanation": "Insertion sort adapts to existing order in data. It performs fewer operations when the array is nearly sorted.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 95,
+    "question": "Which graph algorithm detects negative cycles?",
+    "options": [
+      "Dijkstra",
+      "Bellman-Ford",
+      "Prim",
+      "BFS"
+    ],
+    "correct": 1,
+    "explanation": "Bellman-Ford detects negative cycles by checking further relaxation. If distances keep decreasing, a negative cycle exists.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 96,
+    "question": "Which data structure is used in expression parsing?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Tree",
+      "Graph"
+    ],
+    "correct": 1,
+    "explanation": "Stacks help manage operators and operands. They enforce precedence and associativity rules.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 97,
+    "question": "Which traversal method is best for deleting a tree?",
+    "options": [
+      "Preorder",
+      "Inorder",
+      "Postorder",
+      "Level order"
+    ],
+    "correct": 2,
+    "explanation": "Postorder deletes children before the parent. This prevents dangling references.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 98,
+    "question": "Which data structure supports bidirectional traversal?",
+    "options": [
+      "Singly linked list",
+      "Doubly linked list",
+      "Stack",
+      "Queue"
+    ],
+    "correct": 1,
+    "explanation": "Doubly linked lists store pointers to both next and previous nodes. This enables forward and backward traversal.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 99,
+    "question": "Which algorithm is used in AI pathfinding (e.g., games)?",
+    "options": [
+      "A* Search",
+      "Merge sort",
+      "DFS",
+      "Selection sort"
+    ],
+    "correct": 0,
+    "explanation": "A* uses heuristics to find optimal paths efficiently. It is widely used in game AI and robotics.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 100,
+    "question": "Which data structure is best for implementing a deque?",
+    "options": [
+      "Array",
+      "Doubly linked list",
+      "Stack",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "A doubly linked list allows insertion and deletion from both ends. This matches the requirements of a deque.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 101,
+    "question": "Which data structure is best for implementing a stack?",
+    "options": [
+      "Array",
+      "Linked List",
+      "Both A and B",
+      "Heap"
+    ],
+    "correct": 2,
+    "explanation": "Stacks can be implemented using arrays or linked lists. Arrays provide fast indexing, while linked lists allow dynamic size.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 102,
+    "question": "What is the time complexity of pushing an element onto a stack?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(1)",
+      "O(n log n)"
+    ],
+    "correct": 2,
+    "explanation": "Push operation adds an element at the top of the stack. This requires only pointer or index update, making it constant time.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 103,
+    "question": "Which data structure is ideal for breadth-first search?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Heap"
+    ],
+    "correct": 1,
+    "explanation": "BFS processes nodes level by level. A queue ensures nodes are explored in the order they are discovered.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 104,
+    "question": "Which sorting algorithm divides the array around a pivot?",
+    "options": [
+      "Merge sort",
+      "Quick sort",
+      "Bubble sort",
+      "Selection sort"
+    ],
+    "correct": 1,
+    "explanation": "Quick sort partitions the array into elements less than and greater than the pivot. This divide-and-conquer approach improves efficiency.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 105,
+    "question": "What is the time complexity of accessing an element in a linked list?",
+    "options": [
+      "O(1)",
+      "O(log n)",
+      "O(n)",
+      "O(n log n)"
+    ],
+    "correct": 2,
+    "explanation": "Linked lists require traversal from the head to reach a specific index. This results in linear time access.",
+    "difficulty": "Medium",
+    "topic": "Linked Lists"
+  },
+  {
+    "id": 106,
+    "question": "Which algorithm is used to reverse a linked list?",
+    "options": [
+      "DFS",
+      "Iterative pointer reversal",
+      "Binary search",
+      "Heapify"
+    ],
+    "correct": 1,
+    "explanation": "Reversing a linked list involves changing next pointers of each node. This can be done iteratively in linear time.",
+    "difficulty": "Medium",
+    "topic": "Linked Lists"
+  },
+  {
+    "id": 107,
+    "question": "Which data structure is used to implement recursion internally?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "Recursion uses the call stack to store function states. Each recursive call pushes a new frame onto the stack.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 108,
+    "question": "Which tree traversal visits nodes level by level?",
+    "options": [
+      "Preorder",
+      "Inorder",
+      "Postorder",
+      "Level order"
+    ],
+    "correct": 3,
+    "explanation": "Level order traversal processes nodes by depth. It uses a queue to visit nodes layer by layer.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 109,
+    "question": "Which data structure allows duplicate elements?",
+    "options": [
+      "Set",
+      "HashSet",
+      "Array",
+      "Map"
+    ],
+    "correct": 2,
+    "explanation": "Arrays can store duplicate values without restriction. Sets typically enforce uniqueness.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 110,
+    "question": "Which algorithm is used to detect a cycle in a directed graph?",
+    "options": [
+      "DFS with recursion stack",
+      "BFS",
+      "Dijkstra",
+      "Prim"
+    ],
+    "correct": 0,
+    "explanation": "A recursion stack helps detect back edges in directed graphs. This indicates a cycle.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 111,
+    "question": "Which data structure stores key-value pairs?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Hash Map",
+      "Tree"
+    ],
+    "correct": 2,
+    "explanation": "Hash maps associate keys with values using hashing. This allows fast retrieval based on keys.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 112,
+    "question": "What is the average time complexity of quicksort?",
+    "options": [
+      "O(n²)",
+      "O(n log n)",
+      "O(n)",
+      "O(log n)"
+    ],
+    "correct": 1,
+    "explanation": "Balanced partitioning divides the array efficiently. This results in logarithmic recursion depth and linear work per level.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 113,
+    "question": "Which structure is used for implementing graphs?",
+    "options": [
+      "Adjacency list",
+      "Stack",
+      "Queue",
+      "Heap"
+    ],
+    "correct": 0,
+    "explanation": "Adjacency lists store neighbors for each vertex. This is memory-efficient for sparse graphs.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 114,
+    "question": "Which operation removes the top element of a stack?",
+    "options": [
+      "Push",
+      "Pop",
+      "Peek",
+      "Insert"
+    ],
+    "correct": 1,
+    "explanation": "Pop removes and returns the top element. This follows the LIFO principle of stacks.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 115,
+    "question": "Which algorithm is used for sorting integers in linear time under constraints?",
+    "options": [
+      "Merge sort",
+      "Counting sort",
+      "Quick sort",
+      "Heap sort"
+    ],
+    "correct": 1,
+    "explanation": "Counting sort uses frequency counts rather than comparisons. It achieves linear time when the range of values is limited.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 116,
+    "question": "Which data structure is used for priority queues?",
+    "options": [
+      "Array",
+      "Linked list",
+      "Heap",
+      "Stack"
+    ],
+    "correct": 2,
+    "explanation": "Heaps maintain priority ordering efficiently. Insertions and deletions occur in logarithmic time.",
+    "difficulty": "Medium",
+    "topic": "Queues"
+  },
+  {
+    "id": 117,
+    "question": "Which tree has at most two children per node?",
+    "options": [
+      "Binary tree",
+      "B-tree",
+      "Heap",
+      "Trie"
+    ],
+    "correct": 0,
+    "explanation": "Binary trees restrict nodes to two children. This structure is used in BSTs and heaps.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 118,
+    "question": "Which traversal prints root first?",
+    "options": [
+      "Inorder",
+      "Preorder",
+      "Postorder",
+      "Level order"
+    ],
+    "correct": 1,
+    "explanation": "Preorder traversal visits the root before its subtrees. This is useful for copying trees.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 119,
+    "question": "Which algorithm is used in minimum spanning tree construction?",
+    "options": [
+      "Kruskal",
+      "Binary search",
+      "DFS",
+      "Counting sort"
+    ],
+    "correct": 0,
+    "explanation": "Kruskal’s algorithm builds MST by selecting smallest edges without forming cycles. It uses Union-Find for efficiency.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 120,
+    "question": "Which data structure is best for implementing undo functionality?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Graph"
+    ],
+    "correct": 1,
+    "explanation": "Undo operations reverse the most recent action first. Stacks naturally support this LIFO behavior.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 121,
+    "question": "Which algorithm finds shortest path in unweighted graphs?",
+    "options": [
+      "DFS",
+      "BFS",
+      "Dijkstra",
+      "Prim"
+    ],
+    "correct": 1,
+    "explanation": "BFS explores nodes by distance from the source. This guarantees shortest path when all edges have equal weight.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 122,
+    "question": "Which structure allows insertion at both ends?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Deque",
+      "Heap"
+    ],
+    "correct": 2,
+    "explanation": "A deque supports insertion and deletion from both front and rear. This provides flexibility for double-ended operations.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 123,
+    "question": "Which sorting algorithm is unstable?",
+    "options": [
+      "Merge sort",
+      "Insertion sort",
+      "Quick sort",
+      "Bubble sort"
+    ],
+    "correct": 2,
+    "explanation": "Quick sort may reorder equal elements during partitioning. This makes it unstable.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 124,
+    "question": "Which data structure is used in autocomplete systems?",
+    "options": [
+      "Heap",
+      "Trie",
+      "Stack",
+      "Queue"
+    ],
+    "correct": 1,
+    "explanation": "Tries store strings character by character. This allows efficient prefix-based searches.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 125,
+    "question": "Which graph representation is best for dense graphs?",
+    "options": [
+      "Adjacency list",
+      "Adjacency matrix",
+      "Edge list",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "Dense graphs have many edges. Adjacency matrices allow constant-time edge lookup.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 126,
+    "question": "Which algorithm sorts by comparing adjacent elements repeatedly?",
+    "options": [
+      "Bubble sort",
+      "Merge sort",
+      "Quick sort",
+      "Heap sort"
+    ],
+    "correct": 0,
+    "explanation": "Bubble sort repeatedly swaps adjacent elements. Larger elements “bubble” to the end.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 127,
+    "question": "Which data structure is used for implementing DFS iteratively?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Array"
+    ],
+    "correct": 1,
+    "explanation": "DFS uses a stack to explore deeper nodes first. This mimics recursive behavior.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 128,
+    "question": "Which operation is performed by enqueue?",
+    "options": [
+      "Remove element",
+      "Add element to rear",
+      "View front element",
+      "Sort queue"
+    ],
+    "correct": 1,
+    "explanation": "Enqueue inserts an element at the rear of the queue. This maintains FIFO order.",
+    "difficulty": "Medium",
+    "topic": "Queues"
+  },
+  {
+    "id": 129,
+    "question": "Which algorithm is used for finding articulation points?",
+    "options": [
+      "DFS",
+      "BFS",
+      "Dijkstra",
+      "Kruskal"
+    ],
+    "correct": 0,
+    "explanation": "DFS tracks discovery times and low values. These help identify articulation points in graphs.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 130,
+    "question": "Which data structure is used in LIFO scheduling?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "LIFO scheduling processes the most recent task first. This behavior matches stack operations.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 131,
+    "question": "Which tree structure is used in prefix matching?",
+    "options": [
+      "AVL Tree",
+      "Trie",
+      "Heap",
+      "BST"
+    ],
+    "correct": 1,
+    "explanation": "Tries store characters in a tree structure. This allows efficient prefix matching.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 132,
+    "question": "Which sorting algorithm is fastest on average?",
+    "options": [
+      "Bubble sort",
+      "Quick sort",
+      "Selection sort",
+      "Insertion sort"
+    ],
+    "correct": 1,
+    "explanation": "Quick sort has average O(n log n) complexity with good cache performance. It is widely used in practice.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 133,
+    "question": "Which data structure is used to detect palindrome using stack?",
+    "options": [
+      "Queue",
+      "Stack",
+      "Heap",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "A stack reverses order of elements. Comparing with original sequence helps detect palindromes.",
+    "difficulty": "Medium",
+    "topic": "Stacks"
+  },
+  {
+    "id": 134,
+    "question": "Which algorithm is used in GPS navigation systems?",
+    "options": [
+      "BFS",
+      "Dijkstra",
+      "Selection sort",
+      "DFS"
+    ],
+    "correct": 1,
+    "explanation": "Dijkstra computes shortest paths in weighted graphs. GPS systems use it to find optimal routes.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 135,
+    "question": "Which data structure is used in expression trees?",
+    "options": [
+      "Graph",
+      "Tree",
+      "Stack",
+      "Queue"
+    ],
+    "correct": 1,
+    "explanation": "Expression trees represent operators as internal nodes. Operands appear as leaf nodes.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 136,
+    "question": "Which algorithm uses a heuristic to improve search?",
+    "options": [
+      "BFS",
+      "A* Search",
+      "DFS",
+      "Prim"
+    ],
+    "correct": 1,
+    "explanation": "A* uses heuristics to estimate distance to goal. This speeds up pathfinding.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 137,
+    "question": "Which data structure supports fast lookup and insertion?",
+    "options": [
+      "Linked list",
+      "Hash table",
+      "Stack",
+      "Queue"
+    ],
+    "correct": 1,
+    "explanation": "Hash tables use hashing for direct access. This provides average O(1) lookup and insertion.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 138,
+    "question": "Which traversal is used to evaluate expression trees?",
+    "options": [
+      "Inorder",
+      "Preorder",
+      "Postorder",
+      "Level order"
+    ],
+    "correct": 2,
+    "explanation": "Postorder evaluates children before the operator. This matches postfix evaluation.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 139,
+    "question": "Which data structure is used in compiler syntax checking?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Graph"
+    ],
+    "correct": 0,
+    "explanation": "Stacks help manage grammar symbols. They ensure syntactic correctness.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 140,
+    "question": "Which sorting algorithm is best for small datasets?",
+    "options": [
+      "Merge sort",
+      "Insertion sort",
+      "Heap sort",
+      "Quick sort"
+    ],
+    "correct": 1,
+    "explanation": "Insertion sort has low overhead. It performs well for small or nearly sorted datasets.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 141,
+    "question": "Which data structure is used for breadth-first search in graphs?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Heap",
+      "Tree"
+    ],
+    "correct": 1,
+    "explanation": "BFS uses a queue to explore nodes by layers. This ensures shortest path discovery in unweighted graphs.",
+    "difficulty": "Medium",
+    "topic": "Searching"
+  },
+  {
+    "id": 142,
+    "question": "Which algorithm detects strongly connected components?",
+    "options": [
+      "Kosaraju",
+      "Dijkstra",
+      "Prim",
+      "Binary search"
+    ],
+    "correct": 0,
+    "explanation": "Kosaraju’s algorithm performs two DFS passes. It identifies strongly connected components efficiently.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 143,
+    "question": "Which data structure stores elements in sorted order automatically?",
+    "options": [
+      "Stack",
+      "Heap",
+      "Queue",
+      "Array"
+    ],
+    "correct": 1,
+    "explanation": "Heaps maintain partial ordering with the smallest or largest element at the root. This ensures priority-based access.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 144,
+    "question": "Which algorithm is used for merging two sorted arrays?",
+    "options": [
+      "Bubble sort",
+      "Merge procedure",
+      "DFS",
+      "Selection sort"
+    ],
+    "correct": 1,
+    "explanation": "The merge procedure combines two sorted arrays into one. It compares elements sequentially to maintain order.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 145,
+    "question": "Which data structure is used for implementing graphs in memory-efficient way?",
+    "options": [
+      "Adjacency matrix",
+      "Adjacency list",
+      "Heap",
+      "Stack"
+    ],
+    "correct": 1,
+    "explanation": "Adjacency lists store only existing edges. This is memory-efficient for sparse graphs.",
+    "difficulty": "Medium",
+    "topic": "Graphs"
+  },
+  {
+    "id": 146,
+    "question": "Which algorithm is used for finding Eulerian paths?",
+    "options": [
+      "Fleury’s Algorithm",
+      "Dijkstra",
+      "BFS",
+      "Prim"
+    ],
+    "correct": 0,
+    "explanation": "Fleury’s algorithm traverses edges without repetition. It constructs Eulerian paths in graphs.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 147,
+    "question": "Which data structure is used in operating systems for process scheduling?",
+    "options": [
+      "Stack",
+      "Queue",
+      "Tree",
+      "Graph"
+    ],
+    "correct": 1,
+    "explanation": "Queues manage processes in scheduling policies like FIFO. They ensure fair CPU allocation.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  },
+  {
+    "id": 148,
+    "question": "Which tree is used for dictionary word storage?",
+    "options": [
+      "Heap",
+      "Trie",
+      "AVL",
+      "BST"
+    ],
+    "correct": 1,
+    "explanation": "Tries store words character by character. This enables efficient prefix searches.",
+    "difficulty": "Medium",
+    "topic": "Trees"
+  },
+  {
+    "id": 149,
+    "question": "Which sorting algorithm repeatedly inserts elements into sorted portion?",
+    "options": [
+      "Insertion sort",
+      "Selection sort",
+      "Heap sort",
+      "Merge sort"
+    ],
+    "correct": 0,
+    "explanation": "Insertion sort builds a sorted section one element at a time. Each new element is placed in its correct position.",
+    "difficulty": "Medium",
+    "topic": "Sorting"
+  },
+  {
+    "id": 150,
+    "question": "Which data structure is best for implementing circular buffers?",
+    "options": [
+      "Array",
+      "Linked list",
+      "Stack",
+      "Heap"
+    ],
+    "correct": 0,
+    "explanation": "Arrays allow fixed-size cyclic indexing. Circular buffers use modulo arithmetic for efficient wrapping.",
+    "difficulty": "Medium",
+    "topic": "Data Structures"
+  }
+]

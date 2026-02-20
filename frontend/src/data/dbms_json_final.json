@@ -1,0 +1,2102 @@
+[
+  {
+    "id": 1,
+    "question": "What does DBMS stand for?",
+    "options": [
+      "Data Backup Management System",
+      "Database Management System",
+      "Digital Base Management System",
+      "Data Binary Management System"
+    ],
+    "correct": 1,
+    "explanation": "DBMS is software that manages databases and provides tools for storing, retrieving, and managing data. It ensures data consistency, security, and efficient access.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 2,
+    "question": "Which of the following is a type of database model?",
+    "options": [
+      "Relational",
+      "Linear",
+      "Circular",
+      "Binary"
+    ],
+    "correct": 0,
+    "explanation": "The relational model organizes data into tables with rows and columns. It uses keys to establish relationships between tables.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 3,
+    "question": "What is a primary key?",
+    "options": [
+      "A duplicate field",
+      "A unique identifier for a record",
+      "A foreign reference",
+      "A nullable column"
+    ],
+    "correct": 1,
+    "explanation": "A primary key uniquely identifies each row in a table. It cannot contain NULL values or duplicates.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 4,
+    "question": "Which SQL command is used to retrieve data?",
+    "options": [
+      "GET",
+      "FETCH",
+      "SELECT",
+      "RETRIEVE"
+    ],
+    "correct": 2,
+    "explanation": "SELECT is used to fetch data from one or more tables. It can filter, sort, and group results.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 5,
+    "question": "What is normalization?",
+    "options": [
+      "Data duplication",
+      "Organizing data to reduce redundancy",
+      "Encrypting data",
+      "Sorting data"
+    ],
+    "correct": 1,
+    "explanation": "Normalization structures data into tables to eliminate redundancy. It improves consistency and reduces anomalies.",
+    "difficulty": "Hard",
+    "topic": "Normalization"
+  },
+  {
+    "id": 6,
+    "question": "Which normal form removes partial dependency?",
+    "options": [
+      "1NF",
+      "2NF",
+      "3NF",
+      "BCNF"
+    ],
+    "correct": 1,
+    "explanation": "Second Normal Form removes partial dependencies on composite keys. All non-key attributes must depend on the entire key.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 7,
+    "question": "What is a foreign key?",
+    "options": [
+      "Unique identifier",
+      "Key linking two tables",
+      "Duplicate column",
+      "Primary key replacement"
+    ],
+    "correct": 1,
+    "explanation": "A foreign key references a primary key in another table. It establishes relationships and enforces referential integrity.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 8,
+    "question": "Which SQL clause filters rows?",
+    "options": [
+      "WHERE",
+      "ORDER BY",
+      "GROUP BY",
+      "HAVING"
+    ],
+    "correct": 0,
+    "explanation": "WHERE filters rows before grouping or aggregation. It specifies conditions that must be met.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 9,
+    "question": "Which command removes a table?",
+    "options": [
+      "DELETE",
+      "REMOVE",
+      "DROP",
+      "ERASE"
+    ],
+    "correct": 2,
+    "explanation": "DROP permanently removes a table and its structure. Unlike DELETE, it removes the schema itself.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 10,
+    "question": "What does ACID stand for?",
+    "options": [
+      "Atomicity, Consistency, Isolation, Durability",
+      "Accuracy, Control, Integrity, Data",
+      "Access, Control, Index, Data",
+      "Atomicity, Control, Isolation, Data"
+    ],
+    "correct": 0,
+    "explanation": "ACID properties ensure reliable database transactions. They guarantee data integrity even during failures.",
+    "difficulty": "Medium",
+    "topic": "Transactions"
+  },
+  {
+    "id": 11,
+    "question": "Which SQL command updates data?",
+    "options": [
+      "MODIFY",
+      "CHANGE",
+      "UPDATE",
+      "ALTER"
+    ],
+    "correct": 2,
+    "explanation": "UPDATE modifies existing records in a table. It can change one or multiple rows based on conditions.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 12,
+    "question": "What is a composite key?",
+    "options": [
+      "Two primary keys",
+      "Key made of multiple columns",
+      "Duplicate key",
+      "Secondary key"
+    ],
+    "correct": 1,
+    "explanation": "A composite key uses more than one column to uniquely identify a record. It is used when a single column is insufficient.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 13,
+    "question": "Which clause sorts query results?",
+    "options": [
+      "GROUP BY",
+      "ORDER BY",
+      "SORT BY",
+      "ARRANGE BY"
+    ],
+    "correct": 1,
+    "explanation": "ORDER BY sorts results in ascending or descending order. It improves readability and analysis.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 14,
+    "question": "What is denormalization?",
+    "options": [
+      "Removing data",
+      "Adding redundancy for performance",
+      "Encrypting data",
+      "Sorting data"
+    ],
+    "correct": 1,
+    "explanation": "Denormalization introduces redundancy to improve read performance. It reduces joins but increases storage.",
+    "difficulty": "Hard",
+    "topic": "Normalization"
+  },
+  {
+    "id": 15,
+    "question": "Which SQL function counts rows?",
+    "options": [
+      "SUM()",
+      "COUNT()",
+      "TOTAL()",
+      "NUMBER()"
+    ],
+    "correct": 1,
+    "explanation": "COUNT() returns the number of rows matching a condition. It is commonly used in aggregation queries.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 16,
+    "question": "What is an index?",
+    "options": [
+      "Duplicate table",
+      "Data structure to speed up searches",
+      "Backup file",
+      "Log file"
+    ],
+    "correct": 1,
+    "explanation": "Indexes improve query performance by enabling faster data retrieval. They work like book indexes for quick lookup.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 17,
+    "question": "Which join returns matching rows only?",
+    "options": [
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "INNER JOIN",
+      "FULL JOIN"
+    ],
+    "correct": 2,
+    "explanation": "INNER JOIN returns rows with matching values in both tables. Non-matching rows are excluded.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 18,
+    "question": "What is a view?",
+    "options": [
+      "Physical table",
+      "Virtual table from query",
+      "Backup copy",
+      "Index file"
+    ],
+    "correct": 1,
+    "explanation": "A view is a virtual table created from a SQL query. It does not store data but displays results dynamically.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 19,
+    "question": "Which command deletes rows but keeps table structure?",
+    "options": [
+      "DROP",
+      "REMOVE",
+      "DELETE",
+      "ERASE"
+    ],
+    "correct": 2,
+    "explanation": "DELETE removes rows based on conditions. The table structure remains intact.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 20,
+    "question": "Which normal form removes transitive dependency?",
+    "options": [
+      "1NF",
+      "2NF",
+      "3NF",
+      "BCNF"
+    ],
+    "correct": 2,
+    "explanation": "Third Normal Form removes transitive dependencies. Non-key attributes must depend only on the primary key.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 21,
+    "question": "What is a transaction?",
+    "options": [
+      "Single query",
+      "Logical unit of work",
+      "Backup process",
+      "Data transfer"
+    ],
+    "correct": 1,
+    "explanation": "A transaction groups multiple operations into one logical unit. It ensures data integrity through ACID properties.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 22,
+    "question": "Which command creates a table?",
+    "options": [
+      "MAKE TABLE",
+      "CREATE TABLE",
+      "NEW TABLE",
+      "ADD TABLE"
+    ],
+    "correct": 1,
+    "explanation": "CREATE TABLE defines a new table structure. It specifies columns, data types, and constraints.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 23,
+    "question": "What is a trigger?",
+    "options": [
+      "Manual query",
+      "Automatic action on events",
+      "Backup tool",
+      "Index structure"
+    ],
+    "correct": 1,
+    "explanation": "Triggers execute automatically in response to database events. They enforce rules and maintain integrity.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 24,
+    "question": "Which join returns all rows from left table?",
+    "options": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "FULL JOIN"
+    ],
+    "correct": 1,
+    "explanation": "LEFT JOIN returns all rows from the left table. Matching rows from the right table are included when available.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 25,
+    "question": "What is referential integrity?",
+    "options": [
+      "Data encryption",
+      "Valid relationship between tables",
+      "Data duplication",
+      "Query optimization"
+    ],
+    "correct": 1,
+    "explanation": "Referential integrity ensures foreign keys match primary keys. It prevents orphan records.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 26,
+    "question": "Which SQL clause groups rows?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "correct": 1,
+    "explanation": "GROUP BY groups rows with similar values. It is used with aggregate functions.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 27,
+    "question": "What is a candidate key?",
+    "options": [
+      "Duplicate key",
+      "Possible primary key",
+      "Foreign key",
+      "Secondary index"
+    ],
+    "correct": 1,
+    "explanation": "A candidate key uniquely identifies records. One candidate key is chosen as the primary key.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 28,
+    "question": "Which command modifies table structure?",
+    "options": [
+      "UPDATE",
+      "ALTER",
+      "MODIFY",
+      "CHANGE"
+    ],
+    "correct": 1,
+    "explanation": "ALTER changes table structure such as adding or dropping columns. It does not affect existing data.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 29,
+    "question": "What is a tuple?",
+    "options": [
+      "Column",
+      "Row",
+      "Table",
+      "Index"
+    ],
+    "correct": 1,
+    "explanation": "A tuple represents a single row in a relational table. It contains values for each attribute.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 30,
+    "question": "Which join returns all rows from both tables?",
+    "options": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "FULL OUTER JOIN",
+      "RIGHT JOIN"
+    ],
+    "correct": 2,
+    "explanation": "FULL OUTER JOIN returns all rows from both tables. Non-matching rows contain NULL values.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 31,
+    "question": "What is a schema?",
+    "options": [
+      "Data file",
+      "Database structure definition",
+      "Backup",
+      "Index"
+    ],
+    "correct": 1,
+    "explanation": "A schema defines the structure of a database. It includes tables, relationships, and constraints.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 32,
+    "question": "Which SQL command removes all rows quickly?",
+    "options": [
+      "DELETE",
+      "TRUNCATE",
+      "DROP",
+      "REMOVE"
+    ],
+    "correct": 1,
+    "explanation": "TRUNCATE removes all rows without logging individual deletions. It is faster than DELETE.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 33,
+    "question": "What is data redundancy?",
+    "options": [
+      "Data encryption",
+      "Duplicate data",
+      "Data sorting",
+      "Data indexing"
+    ],
+    "correct": 1,
+    "explanation": "Redundancy occurs when the same data is stored multiple times. It wastes space and can cause inconsistencies.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 34,
+    "question": "Which normal form ensures atomic values?",
+    "options": [
+      "1NF",
+      "2NF",
+      "3NF",
+      "BCNF"
+    ],
+    "correct": 0,
+    "explanation": "First Normal Form requires each field to contain atomic values. It eliminates repeating groups.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 35,
+    "question": "What is a stored procedure?",
+    "options": [
+      "Backup script",
+      "Precompiled SQL code",
+      "Index file",
+      "Trigger event"
+    ],
+    "correct": 1,
+    "explanation": "Stored procedures are reusable SQL programs stored in the database. They improve performance and maintainability.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 36,
+    "question": "Which key uniquely identifies records?",
+    "options": [
+      "Foreign key",
+      "Primary key",
+      "Candidate key",
+      "Composite key"
+    ],
+    "correct": 1,
+    "explanation": "A primary key uniquely identifies each row. It ensures entity integrity.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 37,
+    "question": "What is a deadlock?",
+    "options": [
+      "Data loss",
+      "Two transactions waiting on each other",
+      "Query failure",
+      "Backup error"
+    ],
+    "correct": 1,
+    "explanation": "Deadlock occurs when transactions block each other indefinitely. Proper locking strategies prevent this.",
+    "difficulty": "Medium",
+    "topic": "Transactions"
+  },
+  {
+    "id": 38,
+    "question": "Which isolation level prevents dirty reads?",
+    "options": [
+      "Read Uncommitted",
+      "Read Committed",
+      "Repeatable Read",
+      "Serializable"
+    ],
+    "correct": 1,
+    "explanation": "Read Committed ensures transactions only read committed data. This prevents dirty reads.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 39,
+    "question": "What is a cursor?",
+    "options": [
+      "Index",
+      "Pointer to query result",
+      "Backup tool",
+      "Trigger"
+    ],
+    "correct": 1,
+    "explanation": "A cursor allows row-by-row processing of query results. It is used in procedural SQL.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 40,
+    "question": "Which SQL operator checks for NULL values?",
+    "options": [
+      "= NULL",
+      "IS NULL",
+      "== NULL",
+      "CHECK NULL"
+    ],
+    "correct": 1,
+    "explanation": "IS NULL checks for missing values. Standard equality operators do not work with NULL.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 41,
+    "question": "What is a subquery?",
+    "options": [
+      "Nested SQL query",
+      "Backup query",
+      "Index query",
+      "Delete query"
+    ],
+    "correct": 0,
+    "explanation": "A subquery is a query inside another query. It helps filter or compute results dynamically.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 42,
+    "question": "Which command grants privileges?",
+    "options": [
+      "ALLOW",
+      "PERMIT",
+      "GRANT",
+      "ACCESS"
+    ],
+    "correct": 2,
+    "explanation": "GRANT provides user permissions on database objects. It supports access control.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 43,
+    "question": "Which SQL clause filters groups?",
+    "options": [
+      "WHERE",
+      "GROUP BY",
+      "HAVING",
+      "ORDER BY"
+    ],
+    "correct": 2,
+    "explanation": "HAVING filters aggregated results after grouping. WHERE cannot be used with aggregates.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 44,
+    "question": "What is a materialized view?",
+    "options": [
+      "Virtual view",
+      "Stored result of a query",
+      "Index file",
+      "Backup table"
+    ],
+    "correct": 1,
+    "explanation": "Materialized views store query results physically. This improves performance for complex queries.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 45,
+    "question": "Which key allows NULL values?",
+    "options": [
+      "Primary key",
+      "Foreign key",
+      "Candidate key",
+      "Composite key"
+    ],
+    "correct": 1,
+    "explanation": "Foreign keys can contain NULL if the relationship is optional. Primary keys cannot be NULL.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 46,
+    "question": "What is concurrency control?",
+    "options": [
+      "Backup management",
+      "Managing simultaneous transactions",
+      "Data encryption",
+      "Query optimization"
+    ],
+    "correct": 1,
+    "explanation": "Concurrency control ensures database consistency during simultaneous transactions. It prevents conflicts and anomalies.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 47,
+    "question": "Which SQL function returns the maximum value?",
+    "options": [
+      "MAX()",
+      "TOP()",
+      "HIGH()",
+      "UPPER()"
+    ],
+    "correct": 0,
+    "explanation": "MAX() returns the highest value in a column. It is commonly used in aggregation.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 48,
+    "question": "What is a data warehouse?",
+    "options": [
+      "Operational database",
+      "System for analytical reporting",
+      "Backup system",
+      "Transaction log"
+    ],
+    "correct": 1,
+    "explanation": "A data warehouse stores historical data for analysis. It supports decision-making and business intelligence.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 49,
+    "question": "Which normal form removes multi-valued dependency?",
+    "options": [
+      "2NF",
+      "3NF",
+      "4NF",
+      "BCNF"
+    ],
+    "correct": 2,
+    "explanation": "Fourth Normal Form removes multi-valued dependencies. It ensures independent relationships are separated.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 50,
+    "question": "Which SQL clause limits output rows?",
+    "options": [
+      "LIMIT",
+      "STOP",
+      "TOP ONLY",
+      "RANGE"
+    ],
+    "correct": 0,
+    "explanation": "LIMIT restricts the number of rows returned. It is useful for pagination and performance.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 51,
+    "question": "What is a super key?",
+    "options": [
+      "Key with duplicates",
+      "Set of attributes that uniquely identifies a row",
+      "Foreign key",
+      "Secondary index"
+    ],
+    "correct": 1,
+    "explanation": "A super key is any combination of attributes that uniquely identifies a record. It may contain extra attributes beyond what is necessary.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 52,
+    "question": "What is a surrogate key?",
+    "options": [
+      "Natural key",
+      "Artificial key generated by system",
+      "Composite key",
+      "Foreign key"
+    ],
+    "correct": 1,
+    "explanation": "A surrogate key is a system-generated unique identifier, such as an auto-increment ID. It avoids dependence on real-world data.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 53,
+    "question": "Which join returns non-matching rows from both tables?",
+    "options": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "FULL OUTER JOIN"
+    ],
+    "correct": 3,
+    "explanation": "FULL OUTER JOIN includes all rows from both tables. Non-matching rows are filled with NULL values.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 54,
+    "question": "What is a database instance?",
+    "options": [
+      "Structure definition",
+      "Data stored at a specific time",
+      "Query result",
+      "Backup file"
+    ],
+    "correct": 1,
+    "explanation": "A database instance represents the data stored in the database at a particular moment. It changes as data is added or updated.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 55,
+    "question": "Which constraint ensures unique values in a column?",
+    "options": [
+      "NOT NULL",
+      "UNIQUE",
+      "DEFAULT",
+      "CHECK"
+    ],
+    "correct": 1,
+    "explanation": "UNIQUE prevents duplicate values in a column. Unlike primary keys, it can allow one NULL value depending on DBMS.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 56,
+    "question": "What is a check constraint?",
+    "options": [
+      "Ensures uniqueness",
+      "Validates data based on condition",
+      "Creates index",
+      "Removes duplicates"
+    ],
+    "correct": 1,
+    "explanation": "CHECK constraints enforce rules on column values. For example, ensuring age is greater than 18.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 57,
+    "question": "Which SQL command removes duplicate rows?",
+    "options": [
+      "DISTINCT",
+      "UNIQUE",
+      "REMOVE DUPLICATE",
+      "FILTER"
+    ],
+    "correct": 0,
+    "explanation": "DISTINCT eliminates duplicate rows in query results. It ensures each returned row is unique.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 58,
+    "question": "What is a clustered index?",
+    "options": [
+      "Index stored separately",
+      "Index defining physical order of data",
+      "Backup index",
+      "Temporary index"
+    ],
+    "correct": 1,
+    "explanation": "A clustered index determines the physical order of rows in a table. A table can have only one clustered index.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 59,
+    "question": "Which key references another table?",
+    "options": [
+      "Primary key",
+      "Candidate key",
+      "Foreign key",
+      "Composite key"
+    ],
+    "correct": 2,
+    "explanation": "A foreign key links one table to another. It enforces referential integrity.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 60,
+    "question": "Which SQL statement adds a new column?",
+    "options": [
+      "UPDATE",
+      "ALTER TABLE ADD",
+      "INSERT COLUMN",
+      "MODIFY TABLE"
+    ],
+    "correct": 1,
+    "explanation": "ALTER TABLE ADD adds new columns to an existing table. It does not affect existing data.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 61,
+    "question": "What is data independence?",
+    "options": [
+      "Data encryption",
+      "Ability to change schema without affecting applications",
+      "Data duplication",
+      "Data backup"
+    ],
+    "correct": 1,
+    "explanation": "Data independence separates data structure from application logic. It allows schema changes without rewriting programs.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 62,
+    "question": "Which type of data independence deals with physical storage?",
+    "options": [
+      "Logical",
+      "Physical",
+      "Structural",
+      "Functional"
+    ],
+    "correct": 1,
+    "explanation": "Physical data independence allows changes in storage without affecting logical schema. For example, changing indexing methods.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 63,
+    "question": "Which SQL clause removes groups not meeting condition?",
+    "options": [
+      "WHERE",
+      "HAVING",
+      "GROUP BY",
+      "ORDER BY"
+    ],
+    "correct": 1,
+    "explanation": "HAVING filters grouped results after aggregation. WHERE filters rows before grouping.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 64,
+    "question": "What is a phantom read?",
+    "options": [
+      "Reading uncommitted data",
+      "New rows appearing during transaction",
+      "Duplicate rows",
+      "Data loss"
+    ],
+    "correct": 1,
+    "explanation": "Phantom reads occur when new rows appear in repeated queries within a transaction. This happens due to concurrent inserts.",
+    "difficulty": "Medium",
+    "topic": "Transactions"
+  },
+  {
+    "id": 65,
+    "question": "Which isolation level prevents phantom reads?",
+    "options": [
+      "Read Committed",
+      "Repeatable Read",
+      "Serializable",
+      "Read Uncommitted"
+    ],
+    "correct": 2,
+    "explanation": "Serializable is the strictest isolation level. It ensures transactions execute as if sequential.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 66,
+    "question": "What is an ER model?",
+    "options": [
+      "Data storage model",
+      "Conceptual model of entities and relationships",
+      "Query language",
+      "Index structure"
+    ],
+    "correct": 1,
+    "explanation": "ER models represent real-world entities and relationships. They are used in database design.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 67,
+    "question": "Which attribute uniquely identifies entity instances?",
+    "options": [
+      "Composite attribute",
+      "Key attribute",
+      "Derived attribute",
+      "Multivalued attribute"
+    ],
+    "correct": 1,
+    "explanation": "Key attributes uniquely identify entity instances. They correspond to primary keys in relational tables.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 68,
+    "question": "Which SQL function calculates average?",
+    "options": [
+      "SUM()",
+      "AVG()",
+      "COUNT()",
+      "MEAN()"
+    ],
+    "correct": 1,
+    "explanation": "AVG() calculates the average value of a column. It ignores NULL values.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 69,
+    "question": "What is a weak entity?",
+    "options": [
+      "Entity with no attributes",
+      "Entity without primary key",
+      "Entity with multiple keys",
+      "Entity with foreign key"
+    ],
+    "correct": 1,
+    "explanation": "Weak entities cannot be uniquely identified by their own attributes. They depend on a strong entity.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 70,
+    "question": "Which join returns all rows from right table?",
+    "options": [
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "INNER JOIN",
+      "FULL JOIN"
+    ],
+    "correct": 1,
+    "explanation": "RIGHT JOIN returns all rows from the right table. Matching rows from the left table are included when available.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 71,
+    "question": "What is a derived attribute?",
+    "options": [
+      "Stored attribute",
+      "Calculated from other attributes",
+      "Primary key",
+      "Foreign key"
+    ],
+    "correct": 1,
+    "explanation": "Derived attributes are computed from existing data. For example, age derived from date of birth.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 72,
+    "question": "Which SQL keyword renames a column?",
+    "options": [
+      "CHANGE",
+      "RENAME COLUMN",
+      "ALTER TABLE RENAME",
+      "MODIFY NAME"
+    ],
+    "correct": 2,
+    "explanation": "ALTER TABLE RENAME changes column names. Syntax varies slightly across DBMS.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 73,
+    "question": "What is a multi-valued attribute?",
+    "options": [
+      "Attribute with single value",
+      "Attribute with multiple values",
+      "Derived attribute",
+      "Key attribute"
+    ],
+    "correct": 1,
+    "explanation": "Multi-valued attributes store multiple values for one entity. Example: phone numbers.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 74,
+    "question": "Which SQL clause combines rows from multiple tables?",
+    "options": [
+      "MERGE",
+      "JOIN",
+      "UNION",
+      "GROUP"
+    ],
+    "correct": 1,
+    "explanation": "JOIN combines rows based on related columns. It enables relational data retrieval.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 75,
+    "question": "What is UNION in SQL?",
+    "options": [
+      "Combines rows from queries",
+      "Joins tables",
+      "Groups rows",
+      "Filters rows"
+    ],
+    "correct": 0,
+    "explanation": "UNION merges results of multiple queries. It removes duplicates unless UNION ALL is used.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 76,
+    "question": "Which command removes user privileges?",
+    "options": [
+      "DELETE",
+      "REVOKE",
+      "REMOVE",
+      "DENY"
+    ],
+    "correct": 1,
+    "explanation": "REVOKE removes granted permissions. It enforces security control.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 77,
+    "question": "What is a bitmap index best for?",
+    "options": [
+      "High-cardinality columns",
+      "Low-cardinality columns",
+      "Text fields",
+      "Large objects"
+    ],
+    "correct": 1,
+    "explanation": "Bitmap indexes are efficient for columns with few distinct values. They improve query performance in data warehouses.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 78,
+    "question": "Which DBMS language defines schema?",
+    "options": [
+      "DML",
+      "DDL",
+      "DCL",
+      "TCL"
+    ],
+    "correct": 1,
+    "explanation": "Data Definition Language defines database structures. Examples include CREATE and ALTER.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 79,
+    "question": "Which DBMS language controls permissions?",
+    "options": [
+      "DDL",
+      "DML",
+      "DCL",
+      "TCL"
+    ],
+    "correct": 2,
+    "explanation": "Data Control Language manages access rights. GRANT and REVOKE are examples.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 80,
+    "question": "Which DBMS language manages transactions?",
+    "options": [
+      "DDL",
+      "DML",
+      "TCL",
+      "DCL"
+    ],
+    "correct": 2,
+    "explanation": "Transaction Control Language handles COMMIT and ROLLBACK. It ensures transaction consistency.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 81,
+    "question": "What is COMMIT?",
+    "options": [
+      "Undo changes",
+      "Save changes permanently",
+      "Delete records",
+      "Create table"
+    ],
+    "correct": 1,
+    "explanation": "COMMIT finalizes a transaction. Changes become permanent.",
+    "difficulty": "Easy",
+    "topic": "Transactions"
+  },
+  {
+    "id": 82,
+    "question": "What is ROLLBACK?",
+    "options": [
+      "Save changes",
+      "Undo changes",
+      "Delete table",
+      "Add column"
+    ],
+    "correct": 1,
+    "explanation": "ROLLBACK reverses uncommitted changes. It restores database to previous state.",
+    "difficulty": "Easy",
+    "topic": "Transactions"
+  },
+  {
+    "id": 83,
+    "question": "What is SAVEPOINT?",
+    "options": [
+      "Backup",
+      "Partial rollback marker",
+      "Index",
+      "Trigger"
+    ],
+    "correct": 1,
+    "explanation": "SAVEPOINT marks a point within a transaction. You can roll back to it without undoing the entire transaction.",
+    "difficulty": "Medium",
+    "topic": "Transactions"
+  },
+  {
+    "id": 84,
+    "question": "Which key enforces entity integrity?",
+    "options": [
+      "Foreign key",
+      "Primary key",
+      "Candidate key",
+      "Composite key"
+    ],
+    "correct": 1,
+    "explanation": "Primary keys ensure each entity is uniquely identifiable. This maintains entity integrity.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 85,
+    "question": "What is cardinality in DBMS?",
+    "options": [
+      "Number of attributes",
+      "Number of rows in a table",
+      "Number of keys",
+      "Number of indexes"
+    ],
+    "correct": 1,
+    "explanation": "Cardinality refers to the number of tuples (rows) in a relation. It indicates table size.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 86,
+    "question": "Which type of join returns matching and non-matching rows?",
+    "options": [
+      "INNER JOIN",
+      "FULL OUTER JOIN",
+      "CROSS JOIN",
+      "SELF JOIN"
+    ],
+    "correct": 1,
+    "explanation": "FULL OUTER JOIN includes all rows from both tables. Matching rows are combined; others contain NULL.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 87,
+    "question": "What is a cross join?",
+    "options": [
+      "Join with condition",
+      "Cartesian product",
+      "Self join",
+      "Natural join"
+    ],
+    "correct": 1,
+    "explanation": "Cross join returns all possible combinations of rows. It produces a Cartesian product.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 88,
+    "question": "Which key combination uniquely identifies records?",
+    "options": [
+      "Composite key",
+      "Foreign key",
+      "Secondary key",
+      "Duplicate key"
+    ],
+    "correct": 0,
+    "explanation": "A composite key uses multiple columns to uniquely identify a record. It is useful when one column is insufficient.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 89,
+    "question": "What is indexing overhead?",
+    "options": [
+      "Storage used by indexes",
+      "Data duplication",
+      "Query delay",
+      "Backup cost"
+    ],
+    "correct": 0,
+    "explanation": "Indexes require additional storage space. They improve performance but increase storage overhead.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 90,
+    "question": "Which command displays table structure?",
+    "options": [
+      "SHOW TABLE",
+      "DESCRIBE",
+      "STRUCTURE",
+      "VIEW TABLE"
+    ],
+    "correct": 1,
+    "explanation": "DESCRIBE shows column names, types, and constraints. It helps understand table schema.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 91,
+    "question": "What is a natural key?",
+    "options": [
+      "System-generated key",
+      "Real-world attribute used as key",
+      "Composite key",
+      "Foreign key"
+    ],
+    "correct": 1,
+    "explanation": "Natural keys come from real-world data like SSN or email. They have business meaning.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 92,
+    "question": "Which anomaly occurs due to redundancy?",
+    "options": [
+      "Update anomaly",
+      "Syntax error",
+      "Deadlock",
+      "Backup failure"
+    ],
+    "correct": 0,
+    "explanation": "Redundant data can cause inconsistent updates. Normalization reduces this problem.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 93,
+    "question": "Which SQL operator checks for range?",
+    "options": [
+      "BETWEEN",
+      "IN",
+      "RANGE",
+      "WITHIN"
+    ],
+    "correct": 0,
+    "explanation": "BETWEEN filters values within a specified range. It is inclusive of boundaries.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 94,
+    "question": "Which clause limits returned rows in SQL Server?",
+    "options": [
+      "LIMIT",
+      "TOP",
+      "RANGE",
+      "FETCH"
+    ],
+    "correct": 1,
+    "explanation": "SQL Server uses TOP to restrict result size. LIMIT is used in MySQL/PostgreSQL.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 95,
+    "question": "What is a self join?",
+    "options": [
+      "Joining table with itself",
+      "Joining two tables",
+      "Cross join",
+      "Outer join"
+    ],
+    "correct": 0,
+    "explanation": "A self join treats a table as two separate instances. It is useful for hierarchical relationships.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 96,
+    "question": "What is a log file in DBMS?",
+    "options": [
+      "Backup file",
+      "Record of database changes",
+      "Index file",
+      "Data table"
+    ],
+    "correct": 1,
+    "explanation": "Log files track transactions and changes. They support recovery after failures.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 97,
+    "question": "Which recovery technique uses logs?",
+    "options": [
+      "Rollforward",
+      "Log-based recovery",
+      "Snapshot",
+      "Replication"
+    ],
+    "correct": 1,
+    "explanation": "Log-based recovery replays or undoes transactions using logs. It ensures data consistency.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 98,
+    "question": "What is sharding?",
+    "options": [
+      "Backup technique",
+      "Splitting database into smaller parts",
+      "Indexing method",
+      "Query optimization"
+    ],
+    "correct": 1,
+    "explanation": "Sharding distributes data across multiple servers. It improves scalability and performance.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 99,
+    "question": "Which SQL clause searches pattern?",
+    "options": [
+      "LIKE",
+      "MATCH",
+      "FIND",
+      "SEARCH"
+    ],
+    "correct": 0,
+    "explanation": "LIKE matches patterns using wildcards. It is used for text searches.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 100,
+    "question": "What is replication?",
+    "options": [
+      "Data deletion",
+      "Copying data across servers",
+      "Index creation",
+      "Query optimization"
+    ],
+    "correct": 1,
+    "explanation": "Replication duplicates data across systems. It improves availability and fault tolerance.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 101,
+    "question": "What is vertical partitioning?",
+    "options": [
+      "Splitting table by rows",
+      "Splitting table by columns",
+      "Deleting columns",
+      "Copying tables"
+    ],
+    "correct": 1,
+    "explanation": "Vertical partitioning divides a table into smaller tables containing subsets of columns. It improves performance by accessing only required attributes.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 102,
+    "question": "What is horizontal partitioning?",
+    "options": [
+      "Splitting by columns",
+      "Splitting by rows",
+      "Deleting rows",
+      "Copying indexes"
+    ],
+    "correct": 1,
+    "explanation": "Horizontal partitioning divides a table into subsets of rows. It helps manage large datasets and improves query performance.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 103,
+    "question": "Which SQL clause is used for pattern matching?",
+    "options": [
+      "MATCH",
+      "LIKE",
+      "SEARCH",
+      "FIND"
+    ],
+    "correct": 1,
+    "explanation": "LIKE is used with wildcards such as % and _ for pattern matching. It enables flexible text searches.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 104,
+    "question": "What is a cascading delete?",
+    "options": [
+      "Deleting all tables",
+      "Automatically deleting related records",
+      "Removing indexes",
+      "Dropping database"
+    ],
+    "correct": 1,
+    "explanation": "Cascading delete removes related rows in child tables when a parent row is deleted. It maintains referential integrity.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 105,
+    "question": "Which type of index uses a tree structure?",
+    "options": [
+      "Hash index",
+      "B-tree index",
+      "Bitmap index",
+      "Cluster index"
+    ],
+    "correct": 1,
+    "explanation": "B-tree indexes use a balanced tree structure for fast searching. They support range queries efficiently.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 106,
+    "question": "What is a transaction log used for?",
+    "options": [
+      "Storing indexes",
+      "Recording database changes",
+      "Query optimization",
+      "Storing backups"
+    ],
+    "correct": 1,
+    "explanation": "Transaction logs record all changes made to the database. They support recovery and ensure durability.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 107,
+    "question": "Which SQL clause removes duplicate results?",
+    "options": [
+      "UNIQUE",
+      "DISTINCT",
+      "FILTER",
+      "REMOVE"
+    ],
+    "correct": 1,
+    "explanation": "DISTINCT eliminates duplicate rows in query results. It ensures each result row is unique.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 108,
+    "question": "What is normalization primarily used for?",
+    "options": [
+      "Increasing redundancy",
+      "Reducing redundancy",
+      "Encrypting data",
+      "Sorting data"
+    ],
+    "correct": 1,
+    "explanation": "Normalization organizes data to eliminate redundancy. It improves consistency and reduces anomalies.",
+    "difficulty": "Hard",
+    "topic": "Normalization"
+  },
+  {
+    "id": 109,
+    "question": "Which normal form eliminates transitive dependency?",
+    "options": [
+      "2NF",
+      "3NF",
+      "4NF",
+      "1NF"
+    ],
+    "correct": 1,
+    "explanation": "Third Normal Form ensures non-key attributes depend only on the primary key. This removes indirect dependencies.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 110,
+    "question": "What is a star schema?",
+    "options": [
+      "Circular database",
+      "Central fact table with dimension tables",
+      "Single table schema",
+      "Network model"
+    ],
+    "correct": 1,
+    "explanation": "Star schema is used in data warehouses. A central fact table connects to dimension tables for analysis.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 111,
+    "question": "Which SQL clause groups rows with similar values?",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "SORT BY",
+      "HAVING"
+    ],
+    "correct": 1,
+    "explanation": "GROUP BY groups rows sharing common column values. It is used with aggregate functions.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 112,
+    "question": "What is a snowflake schema?",
+    "options": [
+      "Flat schema",
+      "Normalized star schema",
+      "Single table schema",
+      "Network schema"
+    ],
+    "correct": 1,
+    "explanation": "Snowflake schema normalizes dimension tables in a star schema. This reduces redundancy but increases joins.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 113,
+    "question": "Which operation combines rows from two queries?",
+    "options": [
+      "JOIN",
+      "UNION",
+      "MERGE",
+      "CONNECT"
+    ],
+    "correct": 1,
+    "explanation": "UNION combines results of multiple queries into one result set. It removes duplicates unless UNION ALL is used.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 114,
+    "question": "What is a fact table?",
+    "options": [
+      "Table storing metadata",
+      "Table storing measurements and metrics",
+      "Table storing indexes",
+      "Table storing keys"
+    ],
+    "correct": 1,
+    "explanation": "Fact tables contain quantitative data such as sales or transactions. They link to dimension tables.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 115,
+    "question": "Which SQL function returns the smallest value?",
+    "options": [
+      "MIN()",
+      "LOW()",
+      "SMALL()",
+      "LEAST()"
+    ],
+    "correct": 0,
+    "explanation": "MIN() returns the smallest value in a column. It is used in aggregate queries.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 116,
+    "question": "What is a dimension table?",
+    "options": [
+      "Table storing metrics",
+      "Table storing descriptive attributes",
+      "Table storing logs",
+      "Table storing indexes"
+    ],
+    "correct": 1,
+    "explanation": "Dimension tables contain descriptive attributes like time, location, or product. They provide context to fact tables.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 117,
+    "question": "Which key enforces referential integrity?",
+    "options": [
+      "Primary key",
+      "Foreign key",
+      "Candidate key",
+      "Composite key"
+    ],
+    "correct": 1,
+    "explanation": "Foreign keys ensure values match primary keys in related tables. This prevents invalid references.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 118,
+    "question": "What is OLTP?",
+    "options": [
+      "Online Learning Transaction Processing",
+      "Online Transaction Processing",
+      "Offline Transaction Processing",
+      "Object-Level Transaction Processing"
+    ],
+    "correct": 1,
+    "explanation": "OLTP systems manage real-time transactions. They focus on fast insert, update, and delete operations.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 119,
+    "question": "What is OLAP?",
+    "options": [
+      "Online Analytical Processing",
+      "Online Access Processing",
+      "Offline Analytical Processing",
+      "Object-Level Analytical Processing"
+    ],
+    "correct": 0,
+    "explanation": "OLAP systems analyze large datasets for decision-making. They support complex queries and reporting.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 120,
+    "question": "Which operation rolls back to a savepoint?",
+    "options": [
+      "COMMIT",
+      "ROLLBACK TO SAVEPOINT",
+      "DELETE",
+      "REVOKE"
+    ],
+    "correct": 1,
+    "explanation": "ROLLBACK TO SAVEPOINT undoes changes up to a specific point. It allows partial transaction rollback.",
+    "difficulty": "Medium",
+    "topic": "Transactions"
+  },
+  {
+    "id": 121,
+    "question": "What is a data mart?",
+    "options": [
+      "Small data warehouse for specific department",
+      "Backup system",
+      "Index storage",
+      "Query engine"
+    ],
+    "correct": 0,
+    "explanation": "Data marts focus on specific business areas. They provide targeted analysis.",
+    "difficulty": "Easy",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 122,
+    "question": "Which SQL clause removes table?",
+    "options": [
+      "DELETE",
+      "DROP TABLE",
+      "REMOVE TABLE",
+      "CLEAR TABLE"
+    ],
+    "correct": 1,
+    "explanation": "DROP TABLE removes the table structure and data permanently. It cannot be rolled back in many systems.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 123,
+    "question": "What is a correlated subquery?",
+    "options": [
+      "Independent query",
+      "Query referencing outer query",
+      "Nested join",
+      "Aggregate query"
+    ],
+    "correct": 1,
+    "explanation": "Correlated subqueries depend on values from the outer query. They execute once for each row.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 124,
+    "question": "Which operator checks multiple values?",
+    "options": [
+      "BETWEEN",
+      "IN",
+      "LIKE",
+      "EXISTS"
+    ],
+    "correct": 1,
+    "explanation": "IN checks if a value matches any value in a list. It simplifies multiple OR conditions.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 125,
+    "question": "What is a non-clustered index?",
+    "options": [
+      "Defines physical order",
+      "Separate structure pointing to data",
+      "Backup index",
+      "Temporary index"
+    ],
+    "correct": 1,
+    "explanation": "Non-clustered indexes store pointers to data rows. They improve search speed without altering physical order.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 126,
+    "question": "What is a data anomaly?",
+    "options": [
+      "Query error",
+      "Inconsistency due to redundancy",
+      "Backup failure",
+      "Index corruption"
+    ],
+    "correct": 1,
+    "explanation": "Data anomalies occur when redundant data leads to inconsistencies. Normalization reduces anomalies.",
+    "difficulty": "Medium",
+    "topic": "Normalization"
+  },
+  {
+    "id": 127,
+    "question": "Which SQL clause checks existence of rows?",
+    "options": [
+      "EXISTS",
+      "CHECK",
+      "VERIFY",
+      "PRESENT"
+    ],
+    "correct": 0,
+    "explanation": "EXISTS returns true if a subquery returns rows. It is used for conditional checks.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 128,
+    "question": "What is a distributed database?",
+    "options": [
+      "Single location database",
+      "Database spread across multiple locations",
+      "Backup system",
+      "Cloud storage only"
+    ],
+    "correct": 1,
+    "explanation": "Distributed databases store data across multiple sites. They improve availability and scalability.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 129,
+    "question": "Which key can have duplicate values?",
+    "options": [
+      "Primary key",
+      "Unique key",
+      "Foreign key",
+      "Candidate key"
+    ],
+    "correct": 2,
+    "explanation": "Foreign keys may contain duplicates. They represent relationships rather than uniqueness.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 130,
+    "question": "What is a domain in DBMS?",
+    "options": [
+      "Table",
+      "Range of valid values for an attribute",
+      "Index",
+      "Query"
+    ],
+    "correct": 1,
+    "explanation": "A domain defines permissible values for a column. It ensures data validity.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 131,
+    "question": "Which SQL clause is used for renaming tables?",
+    "options": [
+      "CHANGE TABLE",
+      "RENAME TABLE",
+      "ALTER TABLE RENAME",
+      "MODIFY TABLE"
+    ],
+    "correct": 2,
+    "explanation": "ALTER TABLE RENAME changes table names. Syntax may vary slightly across DBMS.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 132,
+    "question": "What is a temporal database?",
+    "options": [
+      "Stores time-based data",
+      "Temporary database",
+      "Backup database",
+      "Distributed database"
+    ],
+    "correct": 0,
+    "explanation": "Temporal databases track data over time. They store historical and current values.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 133,
+    "question": "Which join combines rows with matching values in both tables?",
+    "options": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "FULL JOIN"
+    ],
+    "correct": 0,
+    "explanation": "INNER JOIN returns rows with matching values in both tables. Non-matching rows are excluded.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 134,
+    "question": "What is data mining?",
+    "options": [
+      "Data deletion",
+      "Extracting patterns from data",
+      "Backup process",
+      "Indexing method"
+    ],
+    "correct": 1,
+    "explanation": "Data mining analyzes large datasets to discover patterns. It supports decision-making.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 135,
+    "question": "Which SQL keyword prevents NULL values?",
+    "options": [
+      "UNIQUE",
+      "NOT NULL",
+      "CHECK",
+      "DEFAULT"
+    ],
+    "correct": 1,
+    "explanation": "NOT NULL ensures a column always contains a value. It enforces data completeness.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 136,
+    "question": "What is a key constraint?",
+    "options": [
+      "Limits query results",
+      "Enforces uniqueness",
+      "Deletes duplicates",
+      "Encrypts data"
+    ],
+    "correct": 1,
+    "explanation": "Key constraints ensure uniqueness of records. They maintain entity integrity.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 137,
+    "question": "Which DBMS component manages concurrency?",
+    "options": [
+      "Query processor",
+      "Transaction manager",
+      "Storage manager",
+      "Index manager"
+    ],
+    "correct": 1,
+    "explanation": "The transaction manager ensures safe concurrent execution. It maintains consistency and isolation.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 138,
+    "question": "What is a heap file organization?",
+    "options": [
+      "Sorted file",
+      "Unordered file",
+      "Indexed file",
+      "Temporary file"
+    ],
+    "correct": 1,
+    "explanation": "Heap files store records in no particular order. They allow fast insertion.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 139,
+    "question": "Which SQL clause sets default values?",
+    "options": [
+      "DEFAULT",
+      "SET",
+      "INIT",
+      "VALUE"
+    ],
+    "correct": 0,
+    "explanation": "DEFAULT assigns a value when no value is provided. It ensures consistent data entry.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 140,
+    "question": "What is a recursive query?",
+    "options": [
+      "Query calling itself",
+      "Nested query",
+      "Join query",
+      "Aggregate query"
+    ],
+    "correct": 0,
+    "explanation": "Recursive queries reference their own results. They are used for hierarchical data.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 141,
+    "question": "Which SQL feature supports hierarchical queries?",
+    "options": [
+      "GROUP BY",
+      "WITH RECURSIVE",
+      "ORDER BY",
+      "HAVING"
+    ],
+    "correct": 1,
+    "explanation": "WITH RECURSIVE enables recursive queries. It is used for tree-like structures.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 142,
+    "question": "What is a pivot operation?",
+    "options": [
+      "Rotating rows into columns",
+      "Deleting rows",
+      "Joining tables",
+      "Sorting data"
+    ],
+    "correct": 0,
+    "explanation": "Pivot transforms rows into columns for analysis. It helps summarize data.",
+    "difficulty": "Easy",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 143,
+    "question": "Which index type is best for equality searches?",
+    "options": [
+      "B-tree",
+      "Hash index",
+      "Bitmap index",
+      "Clustered index"
+    ],
+    "correct": 1,
+    "explanation": "Hash indexes provide fast equality lookups. They are not suitable for range queries.",
+    "difficulty": "Medium",
+    "topic": "Indexing"
+  },
+  {
+    "id": 144,
+    "question": "What is a surrogate primary key?",
+    "options": [
+      "Natural key",
+      "Artificial unique identifier",
+      "Composite key",
+      "Foreign key"
+    ],
+    "correct": 1,
+    "explanation": "Surrogate keys are system-generated identifiers. They simplify relationships and indexing.",
+    "difficulty": "Medium",
+    "topic": "Keys"
+  },
+  {
+    "id": 145,
+    "question": "Which SQL clause combines tables without condition?",
+    "options": [
+      "INNER JOIN",
+      "CROSS JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN"
+    ],
+    "correct": 1,
+    "explanation": "CROSS JOIN produces a Cartesian product. It combines every row from both tables.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 146,
+    "question": "What is a checkpoint in DBMS?",
+    "options": [
+      "Backup",
+      "Recovery marker",
+      "Index",
+      "Query"
+    ],
+    "correct": 1,
+    "explanation": "Checkpoints mark consistent states in logs. They reduce recovery time after crashes.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  },
+  {
+    "id": 147,
+    "question": "Which property ensures transactions are isolated?",
+    "options": [
+      "Atomicity",
+      "Consistency",
+      "Isolation",
+      "Durability"
+    ],
+    "correct": 2,
+    "explanation": "Isolation ensures transactions do not interfere with each other. It prevents concurrency anomalies.",
+    "difficulty": "Hard",
+    "topic": "Transactions"
+  },
+  {
+    "id": 148,
+    "question": "What is a view used for?",
+    "options": [
+      "Storing data",
+      "Simplifying complex queries",
+      "Creating indexes",
+      "Backup"
+    ],
+    "correct": 1,
+    "explanation": "Views present data from one or more tables. They simplify queries and enhance security.",
+    "difficulty": "Medium",
+    "topic": "Architecture"
+  },
+  {
+    "id": 149,
+    "question": "Which SQL clause filters rows before grouping?",
+    "options": [
+      "HAVING",
+      "WHERE",
+      "GROUP BY",
+      "ORDER BY"
+    ],
+    "correct": 1,
+    "explanation": "WHERE filters rows before aggregation. HAVING filters after grouping.",
+    "difficulty": "Medium",
+    "topic": "SQL"
+  },
+  {
+    "id": 150,
+    "question": "What is database scalability?",
+    "options": [
+      "Ability to delete data",
+      "Ability to handle growing data and users",
+      "Ability to encrypt data",
+      "Ability to create backups"
+    ],
+    "correct": 1,
+    "explanation": "Scalability ensures the database can grow without performance loss. Techniques include sharding and replication.",
+    "difficulty": "Medium",
+    "topic": "Database Concepts"
+  }
+]

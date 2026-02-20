@@ -8,6 +8,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
     const [engine, setEngine] = useState<InterviewEngine | null>(null);
     const [sessionState, setSessionState] = useState<InterviewState | null>(null);
     const [avatarState, setAvatarState] = useState<'idle' | 'talking' | 'listening'>('idle');
+    const [isCodeQuestion, setIsCodeQuestion] = useState(false);
 
     const {
         transcript,
@@ -21,6 +22,8 @@ export const useInterviewSession = (config: InterviewConfig) => {
     // Refs for cleanup
     const safetyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const isSessionActiveRef = useRef(false);
+    // Track question counts per interviewer for dynamic length
+    const questionCountRef = useRef({ hr: 0, tech: 0 });
 
     // Voice Loading
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -46,7 +49,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
         const newEngine = new InterviewEngine(config);
         setEngine(newEngine);
         setSessionState(newEngine.getState());
-    }, [config.domain, config.difficulty]);
+    }, [config.domain, config.difficulty, config.interviewType]);
 
     const speakQuestion = useCallback((text: string) => {
         if (!('speechSynthesis' in window) || !isSessionActiveRef.current) return;
@@ -168,14 +171,15 @@ export const useInterviewSession = (config: InterviewConfig) => {
             return;
         }
         isSessionActiveRef.current = true; // Mark session as active
+        questionCountRef.current = { hr: 0, tech: 0 }; // Reset counts
 
         const q = engine.startSession();
         console.log("Initial Question:", q);
         setSessionState({ ...engine.getState() });
 
         if (q) {
-            console.log("Speaking question in 1s:", q.text);
-            setTimeout(() => speakQuestion(q.text), 1000);
+            console.log("Speaking question in 5s (giving user time to settle):", q.text);
+            setTimeout(() => speakQuestion(q.text), 5000);
         }
     }, [engine, speakQuestion]);
 
@@ -196,6 +200,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
         // Stop Listening
         stopListening();
         setAvatarState('idle');
+        setIsCodeQuestion(false);
     }, [stopListening]);
 
     const submitResponse = useCallback((overrideAnswer?: string) => {
@@ -204,6 +209,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
         // Stop listening immediately to prevent transcript pollution
         stopListening();
         setAvatarState('idle');
+        setIsCodeQuestion(false); // Reset code question flag
 
         // Use override if provided, else use transcript
         const answer = overrideAnswer || transcript;
@@ -217,15 +223,14 @@ export const useInterviewSession = (config: InterviewConfig) => {
         // 2. Count Fillers (Regex for common fillers)
         const fillers = (answer.match(/\b(um|uh|like|you know|sort of)\b/gi) || []).length;
 
-        // 3. Pause Duration (Time since question ended until speaking started)
-        // We need to track this better, but for now defaulting to estimated reaction time
+        // 3. Pause Duration
         const pauseDuration = 2;
 
         engine.submitAnswer(answer, 10, { wpm, fillerCount: fillers, pauseDuration });
         resetTranscript();
 
         const fetchNextQuestion = async () => {
-            // DYNAMIC FLOW: Use Groq API if resume is provided
+            // DYNAMIC FLOW: Use Groq API when resume is provided (both modes)
             if (config.resumeText && config.resumeText.length > 10) {
                 try {
                     const history = engine.getState().history.flatMap(h => [
@@ -233,24 +238,47 @@ export const useInterviewSession = (config: InterviewConfig) => {
                         { role: 'user', content: h.answer }
                     ]);
 
+                    // For HR Only and Intro Prep: always 'hr'. For HR+Tech: alternate based on interviewer
+                    const currentInterviewer = engine.getState().currentInterviewer;
+                    const nextType = (config.interviewType === 'hr' || config.interviewType === 'intro-prep')
+                        ? 'hr'
+                        : (currentInterviewer === 'hr_manager' ? 'hr' : 'technical');
+
+                    // Track question counts
+                    if (nextType === 'hr') {
+                        questionCountRef.current.hr++;
+                    } else {
+                        questionCountRef.current.tech++;
+                    }
+
                     const { data } = await api.post('/groq/interview/question', {
                         resumeText: config.resumeText,
                         history: history,
-                        type: (engine.getState().currentInterviewer === 'hr_manager' || !config.domain) ? 'hr' : 'technical',
-                        domain: config.domain
+                        type: nextType,
+                        domain: config.domain,
+                        interviewType: config.interviewType,
+                        questionCount: nextType === 'hr'
+                            ? questionCountRef.current.hr
+                            : questionCountRef.current.tech
                     });
 
                     if (data.success && data.question) {
                         // Check for Termination Signal
                         if (data.question.includes("[END_INTERVIEW]")) {
                             const closingMessage = data.question.replace("[END_INTERVIEW]", "").trim();
+                            const nextQ = engine.setNextQuestionFromExternal(closingMessage);
+                            setSessionState({ ...engine.getState() });
                             setTimeout(() => speakQuestion(closingMessage), 500);
                             // Schedule disconnect after speech (approx)
                             setTimeout(() => {
                                 endSession();
-                                // Optional: Show toast or completion modal context
                             }, 5000 + (closingMessage.length * 50));
                             return;
+                        }
+
+                        // Check for coding question
+                        if (data.isCodeQuestion) {
+                            setIsCodeQuestion(true);
                         }
 
                         const nextQ = engine.setNextQuestionFromExternal(data.question);
@@ -276,16 +304,85 @@ export const useInterviewSession = (config: InterviewConfig) => {
 
         fetchNextQuestion();
 
-    }, [engine, transcript, stopListening, resetTranscript, speakQuestion, config]);
+    }, [engine, transcript, stopListening, resetTranscript, speakQuestion, config, endSession]);
+
+    // Submit code and get AI analysis, then proceed to next question
+    const submitCode = useCallback(async (code: string, language: string) => {
+        if (!engine) return;
+
+        stopListening();
+        setAvatarState('idle');
+        setIsCodeQuestion(false);
+
+        const currentQuestion = engine.getState().currentQuestion?.text || '';
+
+        // Submit the code as the answer to the engine
+        const formattedAnswer = `[Submitted Code - ${language}]\n${code}`;
+
+        // Save to engine history
+        engine.submitAnswer(formattedAnswer, 15, { wpm: 0, fillerCount: 0, pauseDuration: 0 });
+        resetTranscript();
+
+        try {
+            // Analyze the code via Groq
+            const { data: analysisData } = await api.post('/groq/interview/analyze-code', {
+                code,
+                language,
+                question: currentQuestion,
+                resumeText: config.resumeText,
+                domain: config.domain
+            });
+
+            if (analysisData.success && analysisData.feedback) {
+                // Speak the code feedback
+                const feedbackQ = engine.setNextQuestionFromExternal(analysisData.feedback);
+                setSessionState({ ...engine.getState() });
+                setTimeout(() => speakQuestion(feedbackQ.text), 500);
+            } else {
+                // Fallback: just move to next question
+                submitResponse(formattedAnswer);
+            }
+        } catch (error) {
+            console.error("Code analysis failed, using as regular answer", error);
+            // Fallback: Pass code as a regular text answer for the next question flow
+            const history = engine.getState().history.flatMap(h => [
+                { role: 'assistant', content: h.question.text },
+                { role: 'user', content: h.answer }
+            ]);
+
+            try {
+                const { data } = await api.post('/groq/interview/question', {
+                    resumeText: config.resumeText,
+                    history,
+                    type: 'technical',
+                    domain: config.domain,
+                    questionCount: questionCountRef.current.tech
+                });
+
+                if (data.success && data.question) {
+                    const nextQ = engine.setNextQuestionFromExternal(data.question);
+                    setSessionState({ ...engine.getState() });
+                    setTimeout(() => speakQuestion(nextQ.text), 1500);
+                }
+            } catch (fallbackError) {
+                console.error("Fallback question fetch also failed", fallbackError);
+                const nextQ = engine.getNextQuestion();
+                setSessionState({ ...engine.getState() });
+                if (nextQ) setTimeout(() => speakQuestion(nextQ.text), 1500);
+            }
+        }
+    }, [engine, stopListening, resetTranscript, speakQuestion, config, submitResponse]);
 
     return {
         ready: !!engine && voices.length > 0, // Wait for voices? optional.
         sessionState,
         avatarState,
         currentTranscript: interimTranscript || transcript,
+        isCodeQuestion,
         startSession,
         endSession, // Exported
         submitResponse,
+        submitCode,
         isListening,
         startListening,
         stopListening

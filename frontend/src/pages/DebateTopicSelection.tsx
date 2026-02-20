@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Play, Edit3, Grid, ArrowLeft, Dices, MessageSquare, Swords } from 'lucide-react';
+import { Play, Edit3, Grid, ArrowLeft, Dices, MessageSquare, Swords, Globe, Scale, Timer } from 'lucide-react';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import axios from 'axios';
@@ -137,23 +137,28 @@ const DebateTopicSelection = () => {
     const navigate = useNavigate();
     const [selectedTopic, setSelectedTopic] = useState('');
     const [manualTopic, setManualTopic] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState<string>('Policy & Society');
+    const [selectedCategory, setSelectedCategory] = useState<string>('Technology & AI');
     const [activeTab, setActiveTab] = useState('manual');
     const [userStance, setUserStance] = useState<'Pro' | 'Con'>('Pro');
+    const [timeLimit, setTimeLimit] = useState<number>(5); // Time limit in minutes (5-10)
     const [loadingRandom, setLoadingRandom] = useState(false);
 
     const handleRandomTopic = async () => {
         setLoadingRandom(true);
         try {
-            const response = await axios.post('http://localhost:5003/api/groq/debate/topic');
+            const response = await axios.post('http://localhost:5003/api/groq/debate/topic', {
+                type: 'debate',
+                category: 'General'
+            });
             if (response.data.success) {
                 setSelectedTopic(response.data.topic);
-                toast.success("Random topic generated!");
+                toast.success("Random topic generated!", {
+                    className: "bg-blue-500 text-white border-blue-600"
+                });
             }
         } catch (error) {
             console.error(error);
             toast.error("Failed to generate topic. Using fallback.");
-            // Fallback (just in case API fails)
             const all = Object.values(DEBATE_CATEGORIES).flat();
             setSelectedTopic(all[Math.floor(Math.random() * all.length)]);
         } finally {
@@ -167,65 +172,56 @@ const DebateTopicSelection = () => {
             toast.error("Please select or enter a topic to proceed.");
             return;
         }
-        navigate('/dashboard/debate/room', { state: { topic: topicToUse, stance: userStance } });
+        navigate('/dashboard/debate/room', { state: { topic: topicToUse, stance: userStance, timeLimit } });
     };
 
     return (
-        <div className="w-full h-full min-h-[calc(100vh-4rem)] bg-background text-foreground p-4 md:p-8 flex flex-col items-center justify-center font-sans relative overflow-hidden">
+        <div className="w-full h-full min-h-[calc(100vh-4rem)] bg-background text-foreground flex flex-col items-center justify-center font-sans relative overflow-hidden py-4 px-6 md:px-12">
 
-            {/* Background Decorations */}
+            {/* Background Decorations - Blue Theme */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-red-500/10 rounded-full blur-[100px] animate-pulse" />
-                <div className="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-orange-500/10 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse" />
+                <div className="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/grid.svg')] opacity-[0.03] bg-repeat" />
             </div>
 
-            <div className="w-full max-w-5xl space-y-8 relative z-10">
+            {/* Main Content Container - Secured & Squared - INCREASED WIDTH NO SCROLL */}
+            <div className="w-full max-w-6xl relative z-10 flex flex-col h-full justify-center">
+
                 {/* Header */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4 animate-fade-in-down">
-                    <Button
-                        variant="ghost"
-                        onClick={() => navigate('/dashboard/debate')}
-                        className="text-muted-foreground hover:text-foreground group"
-                    >
-                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
-                    </Button>
-                    <div className="text-center md:text-left">
-                        <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
-                            <Badge variant="outline" className="border-red-500/50 text-red-500 bg-red-500/5">
-                                <Swords className="w-3 h-3 mr-1" /> Phase 1
-                            </Badge>
-                        </div>
-                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight font-display">
-                            Topic & <span className="text-red-500">Stance</span>
-                        </h1>
-                        <p className="text-muted-foreground mt-1 max-w-lg">
-                            Choose what to debate and which side you want to take.
-                        </p>
-                    </div>
-                    <div className="hidden md:block w-[100px]" />
+                <div className="flex flex-col items-center text-center space-y-3 mb-6 animate-fade-in-down shrink-0">
+                    <Badge variant="outline" className="border-blue-500/50 text-blue-600 bg-blue-500/5 px-4 py-1.5 text-sm uppercase tracking-wider backdrop-blur-sm">
+                        <Swords className="w-3.5 h-3.5 mr-2" /> Phase 1: Setup
+                    </Badge>
+                    <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
+                        Topic & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Stance</span>
+                    </h1>
+                    <p className="text-lg text-muted-foreground max-w-lg">
+                        Define the battlefield. Choose your debate motion and pick your side.
+                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-12 gap-8 items-start">
+                <div className="bg-card/60 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl overflow-hidden grid md:grid-cols-12 min-h-[450px] animate-fade-in-up flex-grow max-h-[600px]">
 
-                    {/* Left Panel: Selection Method */}
-                    <div className="md:col-span-7 glass-card p-6 md:p-8 space-y-6 animate-fade-in-up shadow-xl duration-500">
+                    {/* Left Panel: Inputs (7 Columns) */}
+                    <div className="md:col-span-7 p-6 space-y-4 border-b md:border-b-0 md:border-r border-border/50 flex flex-col h-full max-h-[600px] overflow-y-auto custom-scrollbar">
 
-                        <Tabs defaultValue="manual" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                            <TabsList className="grid w-full grid-cols-3 mb-6 p-1 bg-muted/50 rounded-xl">
-                                <TabsTrigger value="manual" onClick={() => setSelectedTopic('')}>Manual</TabsTrigger>
-                                <TabsTrigger value="random" onClick={() => setSelectedTopic('')}>Random</TabsTrigger>
-                                <TabsTrigger value="categories" onClick={() => setSelectedTopic('')}>Category</TabsTrigger>
+                        <Tabs defaultValue="manual" value={activeTab} onValueChange={setActiveTab} className="w-full flex-shrink-0">
+                            <TabsList className="grid w-full grid-cols-3 mb-4 p-1.5 bg-muted/50 rounded-xl h-auto shrink-0">
+                                <TabsTrigger value="manual" onClick={() => setSelectedTopic('')} className="py-2.5 data-[state=active]:bg-background data-[state=active]:text-blue-600 data-[state=active]:shadow-sm transition-all text-muted-foreground font-medium">Manual</TabsTrigger>
+                                <TabsTrigger value="random" onClick={() => setSelectedTopic('')} className="py-2.5 data-[state=active]:bg-background data-[state=active]:text-blue-600 data-[state=active]:shadow-sm transition-all text-muted-foreground font-medium">Random</TabsTrigger>
+                                <TabsTrigger value="categories" onClick={() => setSelectedTopic('')} className="py-2.5 data-[state=active]:bg-background data-[state=active]:text-blue-600 data-[state=active]:shadow-sm transition-all text-muted-foreground font-medium">Category</TabsTrigger>
                             </TabsList>
 
                             {/* Manual Entry */}
-                            <TabsContent value="manual" className="space-y-4 pt-2 animate-slide-up">
+                            <TabsContent value="manual" className="space-y-3 pt-2 animate-in fade-in slide-in-from-left-4 duration-300 mt-0">
                                 <div className="space-y-3">
-                                    <label className="text-sm font-medium flex items-center gap-2">
-                                        <Edit3 className="w-4 h-4 text-primary" /> Enter your topic
+                                    <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
+                                        <Edit3 className="w-4 h-4 text-blue-500" /> Enter specific motion
                                     </label>
                                     <Input
                                         placeholder="e.g. AI is dangerous for humanity"
-                                        className="bg-background/50 border-input h-12 text-lg focus-visible:ring-red-500"
+                                        className="bg-background/50 border-input h-12 text-base focus-visible:ring-blue-500 focus-visible:ring-offset-0 px-4 rounded-xl shadow-sm transition-all hover:bg-background/80"
                                         value={manualTopic}
                                         onChange={(e) => {
                                             setManualTopic(e.target.value);
@@ -236,16 +232,18 @@ const DebateTopicSelection = () => {
                             </TabsContent>
 
                             {/* Random Selection */}
-                            <TabsContent value="random" className="space-y-6 pt-2 text-center animate-slide-up">
-                                <div className="bg-gradient-to-br from-background/80 to-muted/50 p-8 rounded-2xl border border-dashed border-border flex flex-col items-center justify-center min-h-[140px]">
+                            <TabsContent value="random" className="space-y-4 pt-2 text-center animate-in fade-in slide-in-from-left-4 duration-300 mt-0">
+                                <div className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-blue-900/10 dark:to-indigo-900/10 p-4 rounded-2xl border border-dashed border-blue-200 dark:border-blue-800 flex flex-col items-center justify-center min-h-[100px] relative group transition-colors hover:bg-blue-100/30">
                                     {selectedTopic ? (
-                                        <p className="text-xl font-semibold text-primary animate-in fade-in zoom-in duration-300 leading-tight">
+                                        <p className="text-lg font-semibold text-blue-700 dark:text-blue-300 animate-in fade-in zoom-in duration-300 leading-snug px-4">
                                             "{selectedTopic}"
                                         </p>
                                     ) : (
-                                        <div className="flex flex-col items-center gap-2 text-muted-foreground/70">
-                                            <MessageSquare className="w-8 h-8 opacity-50" />
-                                            <p className="italic">Roll to get a debate motion</p>
+                                        <div className="flex flex-col items-center gap-3 text-muted-foreground/60">
+                                            <div className="w-12 h-12 rounded-full bg-background flex items-center justify-center shadow-sm">
+                                                <Dices className="w-6 h-6 text-blue-400" />
+                                            </div>
+                                            <p className="text-sm font-medium">Click to generate a motion</p>
                                         </div>
                                     )}
                                 </div>
@@ -254,22 +252,24 @@ const DebateTopicSelection = () => {
                                     size="lg"
                                     onClick={handleRandomTopic}
                                     disabled={loadingRandom}
-                                    className="w-full gap-2 border-primary/20 hover:bg-primary/5 hover:text-primary transition-all duration-300 h-12"
+                                    className="w-full gap-2 border-blue-200 hover:border-blue-300 hover:bg-blue-50 text-blue-700 h-12 rounded-xl"
                                 >
-                                    <Dices className={cn("w-5 h-5", loadingRandom && "animate-spin")} />
-                                    {loadingRandom ? "Generating..." : "Generate Topic"}
+                                    <Globe className={cn("w-5 h-5", loadingRandom && "animate-spin")} />
+                                    {loadingRandom ? "Consulting AI..." : "Generate AI Motion"}
                                 </Button>
                             </TabsContent>
 
                             {/* Category Selection */}
-                            <TabsContent value="categories" className="space-y-4 pt-2 animate-slide-up">
-                                <div className="space-y-4">
+                            <TabsContent value="categories" className="space-y-3 pt-2 animate-in fade-in slide-in-from-left-4 duration-300 mt-0">
+                                <div className="space-y-5">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium flex items-center gap-2">
-                                            <Grid className="w-4 h-4 text-primary" /> Select Category
+                                        <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
+                                            <Grid className="w-4 h-4 text-blue-500" /> Topic Domain
                                         </label>
                                         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                                            <SelectTrigger className="bg-background/50 h-11"><SelectValue /></SelectTrigger>
+                                            <SelectTrigger className="bg-background/50 h-12 rounded-xl border-input focus:ring-blue-500">
+                                                <SelectValue />
+                                            </SelectTrigger>
                                             <SelectContent>
                                                 {Object.keys(DEBATE_CATEGORIES).map(cat => (
                                                     <SelectItem key={cat} value={cat}>{cat}</SelectItem>
@@ -278,7 +278,9 @@ const DebateTopicSelection = () => {
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium">Choose Topic</label>
+                                        <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
+                                            <MessageSquare className="w-4 h-4 text-blue-500" /> Specific Motion
+                                        </label>
                                         <Select
                                             value={selectedTopic}
                                             onValueChange={(val) => {
@@ -286,10 +288,10 @@ const DebateTopicSelection = () => {
                                                 setManualTopic('');
                                             }}
                                         >
-                                            <SelectTrigger className="bg-background/50 h-11">
-                                                <SelectValue placeholder="Select a specific topic..." />
+                                            <SelectTrigger className="bg-background/50 h-12 rounded-xl border-input focus:ring-blue-500">
+                                                <SelectValue placeholder="Choose a motion..." />
                                             </SelectTrigger>
-                                            <SelectContent>
+                                            <SelectContent className="max-h-[300px]">
                                                 {DEBATE_CATEGORIES[selectedCategory as keyof typeof DEBATE_CATEGORIES].map(topic => (
                                                     <SelectItem key={topic} value={topic}>{topic}</SelectItem>
                                                 ))}
@@ -300,84 +302,144 @@ const DebateTopicSelection = () => {
                             </TabsContent>
                         </Tabs>
 
-                        {/* Stance Selection */}
-                        <div className="space-y-3 pt-4 border-t">
-                            <label className="text-sm font-medium flex items-center gap-2">
-                                <Swords className="w-4 h-4 text-primary" /> Your Stance (Side)
+                        {/* Stance Selection - Semantic Colors Retained */}
+                        <div className="pt-3 flex-shrink-0">
+                            <label className="text-sm font-medium flex items-center gap-2 mb-3 text-foreground/80">
+                                <Scale className="w-4 h-4 text-blue-500" /> Choose Your Side
                             </label>
                             <div className="grid grid-cols-2 gap-4">
                                 <div
                                     className={cn(
-                                        "cursor-pointer border rounded-xl p-4 text-center transition-all duration-200 hover:scale-[1.02]",
-                                        userStance === 'Pro' ? "bg-green-500/10 border-green-500 shadow-md ring-1 ring-green-500/50" : "bg-card hover:bg-accent/50 border-transparent hover:border-border"
+                                        "cursor-pointer border rounded-2xl p-3 text-center transition-all duration-300 hover:scale-[1.02] flex flex-col items-center justify-center gap-1.5 h-18",
+                                        userStance === 'Pro'
+                                            ? "bg-emerald-500/10 border-emerald-500 dark:border-emerald-400 shadow-md shadow-emerald-500/10 ring-1 ring-emerald-500/50"
+                                            : "bg-background/50 border-border hover:border-emerald-200 hover:bg-emerald-50/30"
                                     )}
                                     onClick={() => setUserStance('Pro')}
                                 >
-                                    <h3 className={cn("font-bold text-lg", userStance === 'Pro' ? "text-green-600" : "text-muted-foreground")}>For (Pro)</h3>
-                                    <p className="text-xs text-muted-foreground">You support the motion</p>
+                                    <div className={cn("w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold", userStance === 'Pro' ? "bg-emerald-100 text-emerald-600" : "bg-muted text-muted-foreground")}>P</div>
+                                    <div>
+                                        <h3 className={cn("font-semibold text-xs", userStance === 'Pro' ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground")}>Proponent</h3>
+                                        <p className="text-[9px] text-muted-foreground">Agree</p>
+                                    </div>
                                 </div>
                                 <div
                                     className={cn(
-                                        "cursor-pointer border rounded-xl p-4 text-center transition-all duration-200 hover:scale-[1.02]",
-                                        userStance === 'Con' ? "bg-red-500/10 border-red-500 shadow-md ring-1 ring-red-500/50" : "bg-card hover:bg-accent/50 border-transparent hover:border-border"
+                                        "cursor-pointer border rounded-2xl p-3 text-center transition-all duration-300 hover:scale-[1.02] flex flex-col items-center justify-center gap-1.5 h-18",
+                                        userStance === 'Con'
+                                            ? "bg-rose-500/10 border-rose-500 dark:border-rose-400 shadow-md shadow-rose-500/10 ring-1 ring-rose-500/50"
+                                            : "bg-background/50 border-border hover:border-rose-200 hover:bg-rose-50/30"
                                     )}
                                     onClick={() => setUserStance('Con')}
                                 >
-                                    <h3 className={cn("font-bold text-lg", userStance === 'Con' ? "text-red-600" : "text-muted-foreground")}>Against (Con)</h3>
-                                    <p className="text-xs text-muted-foreground">You oppose the motion</p>
+                                    <div className={cn("w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold", userStance === 'Con' ? "bg-rose-100 text-rose-600" : "bg-muted text-muted-foreground")}>O</div>
+                                    <div>
+                                        <h3 className={cn("font-semibold text-xs", userStance === 'Con' ? "text-rose-700 dark:text-rose-400" : "text-muted-foreground")}>Opponent</h3>
+                                        <p className="text-[9px] text-muted-foreground">Disagree</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        {/* Time Limit Selection */}
+                        <div className="pt-3 flex-shrink-0">
+                            <label className="text-sm font-medium flex items-center gap-2 mb-3 text-foreground/80">
+                                <Timer className="w-4 h-4 text-blue-500" /> Debate Duration
+                            </label>
+                            <div className="grid grid-cols-6 gap-2">
+                                {[5, 6, 7, 8, 9, 10].map((minutes) => (
+                                    <div
+                                        key={minutes}
+                                        className={cn(
+                                            "cursor-pointer border rounded-xl p-2 text-center transition-all duration-300 hover:scale-[1.05] flex flex-col items-center justify-center gap-0.5",
+                                            timeLimit === minutes
+                                                ? "bg-blue-500/10 border-blue-500 dark:border-blue-400 shadow-md shadow-blue-500/10 ring-1 ring-blue-500/50"
+                                                : "bg-background/50 border-border hover:border-blue-200 hover:bg-blue-50/30"
+                                        )}
+                                        onClick={() => setTimeLimit(minutes)}
+                                    >
+                                        <div className={cn("text-base font-bold", timeLimit === minutes ? "text-blue-700 dark:text-blue-400" : "text-muted-foreground")}>{minutes}</div>
+                                        <div className="text-[9px] text-muted-foreground uppercase">min</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Right Panel: Preview */}
-                    <div className="md:col-span-5 space-y-6">
-                        <div className="group relative">
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-orange-500 opacity-30 blur rounded-2xl group-hover:opacity-50 transition duration-500" />
-                            <div className="relative glass-card p-6 md:p-8 flex flex-col items-center text-center space-y-6 h-full justify-between bg-card">
-                                <div className="space-y-2">
-                                    <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Debate Summary</h3>
-                                    <div className="min-h-[3rem] flex items-center justify-center flex-col gap-2">
-                                        {manualTopic || selectedTopic ? (
-                                            <>
-                                                <p className="text-xl font-bold leading-tight text-foreground">
-                                                    "{manualTopic || selectedTopic}"
-                                                </p>
-                                                <Badge variant={userStance === 'Pro' ? 'default' : 'destructive'} className="mt-2 text-md px-3 py-1">
-                                                    You are: {userStance}
-                                                </Badge>
-                                            </>
-                                        ) : (
-                                            <p className="text-lg text-muted-foreground/50 italic">
-                                                (Waiting for setup...)
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
+                    {/* Right Panel: Preview & Start (5 Columns) */}
+                    <div className="md:col-span-5 bg-muted/30 p-8 flex flex-col justify-center items-center text-center space-y-8 relative h-full">
+                        {/* Decorative Blur */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
-                                <div className="w-full pt-4">
-                                    <Button
-                                        size="lg"
-                                        className={cn(
-                                            "w-full h-14 text-lg shadow-lg transition-all duration-300 rounded-xl",
-                                            !manualTopic && !selectedTopic ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] hover:-translate-y-1 bg-gradient-to-r from-red-600 to-orange-600 text-white"
-                                        )}
-                                        onClick={handleStart}
-                                        disabled={!manualTopic && !selectedTopic}
-                                    >
-                                        <Play className="w-5 h-5 mr-3 fill-white" />
-                                        Enter Debate Room
-                                    </Button>
-                                    <p className="text-[10px] text-muted-foreground/60 mt-3">
-                                        You will face an intelligent AI opponent.
-                                    </p>
-                                </div>
+                        <div className="relative z-10 w-full max-w-sm space-y-8 flex flex-col h-full justify-center">
+
+                            {/* Matchup Preview */}
+                            <div className="space-y-6 flex-grow flex flex-col justify-center">
+                                <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70">Session Preview</h3>
+
+                                {manualTopic || selectedTopic ? (
+                                    <div className="animate-in fade-in zoom-in duration-300 space-y-6">
+                                        <h4 className="text-2xl font-bold leading-tight text-foreground line-clamp-4 px-2">
+                                            "{manualTopic || selectedTopic}"
+                                        </h4>
+
+                                        {/* Dynamic Matchup Display */}
+                                        <div className="flex items-center justify-center gap-4 pt-2">
+                                            {/* User Box */}
+                                            <div className="flex flex-col items-center gap-2">
+                                                <Badge variant="secondary" className={cn("px-3 py-1 text-xs border font-bold h-8", userStance === 'Pro' ? "bg-emerald-100/50 text-emerald-700 border-emerald-200" : "bg-rose-100/50 text-rose-700 border-rose-200")}>
+                                                    YOU: {userStance === 'Pro' ? 'Proponent' : 'Opponent'}
+                                                </Badge>
+                                            </div>
+
+                                            <span className="text-muted-foreground text-xs font-bold">VS</span>
+
+                                            {/* AI Box (Opposite Logic) */}
+                                            <div className="flex flex-col items-center gap-2">
+                                                <Badge variant="outline" className={cn("px-3 py-1 text-xs border border-dashed font-bold h-8 opacity-70", userStance === 'Pro' ? "border-rose-400 text-rose-600 bg-rose-50" : "border-emerald-400 text-emerald-600 bg-emerald-50")}>
+                                                    AI: {userStance === 'Pro' ? 'Opponent' : 'Proponent'}
+                                                </Badge>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="text-muted-foreground/40 py-12 border-2 border-dashed border-border/50 rounded-2xl bg-background/50 flex flex-col items-center justify-center h-48">
+                                        <MessageSquare className="w-10 h-10 mx-auto mb-3 opacity-50" />
+                                        <p className="text-sm font-medium">Select a topic to preview matchup</p>
+                                    </div>
+                                )}
                             </div>
+
+                            <Button
+                                size="lg"
+                                className={cn(
+                                    "w-full h-14 text-lg font-semibold rounded-xl shadow-xl shadow-blue-500/10 transition-all duration-300 mt-auto",
+                                    !manualTopic && !selectedTopic
+                                        ? "opacity-50 cursor-not-allowed bg-muted text-muted-foreground"
+                                        : "hover:scale-[1.02] hover:-translate-y-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                                )}
+                                onClick={handleStart}
+                                disabled={!manualTopic && !selectedTopic}
+                            >
+                                <Play className="w-5 h-5 mr-2 fill-white" />
+                                Enter Debate Room
+                            </Button>
                         </div>
                     </div>
 
                 </div>
+            </div>
+
+            {/* Back Button (Absolute) */}
+            <div className="absolute top-6 left-6 z-20">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate('/dashboard/debate')}
+                    className="text-muted-foreground hover:text-foreground hover:bg-background/80"
+                >
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                </Button>
             </div>
         </div>
     );

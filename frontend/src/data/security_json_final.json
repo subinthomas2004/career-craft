@@ -1,0 +1,2046 @@
+[
+  {
+    "id": 1,
+    "question": "What is cybersecurity?",
+    "options": [
+      "Protecting hardware only",
+      "Protecting systems, networks, and data from attacks",
+      "Designing websites",
+      "Managing databases"
+    ],
+    "correct": 1,
+    "explanation": "Cybersecurity safeguards digital assets from unauthorized access and attacks. It ensures confidentiality, integrity, and availability.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 2,
+    "question": "What does CIA triad stand for?",
+    "options": [
+      "Control, Integrity, Access",
+      "Confidentiality, Integrity, Availability",
+      "Cyber, Internet, Access",
+      "Control, Internet, Authorization"
+    ],
+    "correct": 1,
+    "explanation": "CIA triad defines core security principles. It ensures data protection and system reliability.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 3,
+    "question": "What is confidentiality?",
+    "options": [
+      "Data accuracy",
+      "Protecting data from unauthorized access",
+      "Data availability",
+      "Data duplication"
+    ],
+    "correct": 1,
+    "explanation": "Confidentiality ensures only authorized users access data. Encryption supports this principle.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 4,
+    "question": "What is integrity in cybersecurity?",
+    "options": [
+      "Data encryption",
+      "Ensuring data accuracy and consistency",
+      "Data deletion",
+      "Data storage"
+    ],
+    "correct": 1,
+    "explanation": "Integrity ensures data remains unchanged and trustworthy. Hashing helps verify integrity.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 5,
+    "question": "What is availability?",
+    "options": [
+      "Data deletion",
+      "Ensuring systems are accessible when needed",
+      "Encrypting data",
+      "Blocking users"
+    ],
+    "correct": 1,
+    "explanation": "Availability ensures users can access systems. Redundancy improves availability.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 6,
+    "question": "What is a firewall?",
+    "options": [
+      "Database",
+      "Network security device filtering traffic",
+      "Web server",
+      "Programming language"
+    ],
+    "correct": 1,
+    "explanation": "Firewalls control incoming and outgoing traffic. They enforce security rules.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 7,
+    "question": "What is malware?",
+    "options": [
+      "Security tool",
+      "Malicious software",
+      "Database",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Malware includes viruses, worms, and ransomware. It harms systems and data.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 8,
+    "question": "What is a virus?",
+    "options": [
+      "Self-replicating malware attached to files",
+      "Network device",
+      "Encryption method",
+      "Firewall"
+    ],
+    "correct": 0,
+    "explanation": "Viruses spread by attaching to files. They execute when the file runs.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 9,
+    "question": "What is a worm?",
+    "options": [
+      "Requires host file",
+      "Self-spreading malware",
+      "Encryption tool",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Worms spread across networks without user action. They exploit vulnerabilities.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 10,
+    "question": "What is ransomware?",
+    "options": [
+      "Software update",
+      "Malware that encrypts data for payment",
+      "Firewall rule",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Ransomware locks files until payment is made. Backups help recovery.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 11,
+    "question": "What is phishing?",
+    "options": [
+      "Network attack",
+      "Fraudulent attempt to obtain sensitive data",
+      "Encryption method",
+      "Firewall configuration"
+    ],
+    "correct": 1,
+    "explanation": "Phishing uses fake messages to steal credentials. User awareness prevents attacks.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 12,
+    "question": "What is social engineering?",
+    "options": [
+      "Programming technique",
+      "Manipulating people to reveal information",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Social engineering exploits human behavior. Training helps prevent it.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 13,
+    "question": "What is a strong password?",
+    "options": [
+      "Short and simple",
+      "Long and complex",
+      "Same as username",
+      "Only numbers"
+    ],
+    "correct": 1,
+    "explanation": "Strong passwords include letters, numbers, and symbols. They resist brute-force attacks.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 14,
+    "question": "What is multi-factor authentication (MFA)?",
+    "options": [
+      "Single password login",
+      "Multiple verification methods",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "MFA adds extra security layers. It combines passwords with OTP or biometrics.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 15,
+    "question": "What is encryption?",
+    "options": [
+      "Data deletion",
+      "Converting data into secure format",
+      "Copying data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Encryption protects data confidentiality. Only authorized parties can decrypt.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 16,
+    "question": "What is decryption?",
+    "options": [
+      "Encrypting data",
+      "Converting encrypted data back to original",
+      "Deleting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Decryption restores readable data. It requires the correct key.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 17,
+    "question": "What is symmetric encryption?",
+    "options": [
+      "Different keys for encryption/decryption",
+      "Same key for encryption and decryption",
+      "No keys used",
+      "Public key only"
+    ],
+    "correct": 1,
+    "explanation": "Symmetric encryption uses one shared key. It is fast but requires secure key sharing.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 18,
+    "question": "What is asymmetric encryption?",
+    "options": [
+      "Same key for encryption",
+      "Public and private key pair",
+      "No encryption",
+      "Single password"
+    ],
+    "correct": 1,
+    "explanation": "Asymmetric encryption uses two keys. It improves secure communication.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 19,
+    "question": "What is a digital signature?",
+    "options": [
+      "Handwritten signature",
+      "Electronic method to verify authenticity",
+      "Password",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Digital signatures ensure integrity and authenticity. They use cryptography.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 20,
+    "question": "What is hashing?",
+    "options": [
+      "Encryption method",
+      "Converting data into fixed-length value",
+      "Data deletion",
+      "Data copying"
+    ],
+    "correct": 1,
+    "explanation": "Hashing verifies data integrity. Hash values change if data is altered.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 21,
+    "question": "What is brute-force attack?",
+    "options": [
+      "Guessing passwords using trial and error",
+      "Encrypting data",
+      "Firewall configuration",
+      "Network monitoring"
+    ],
+    "correct": 0,
+    "explanation": "Brute-force tries many combinations. Strong passwords prevent it.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 22,
+    "question": "What is a DDoS attack?",
+    "options": [
+      "Data encryption",
+      "Overloading system with traffic",
+      "Password cracking",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "DDoS floods servers. It disrupts services.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 23,
+    "question": "What is a botnet?",
+    "options": [
+      "Security tool",
+      "Network of infected devices",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Botnets perform coordinated attacks. They are controlled remotely.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 24,
+    "question": "What is spyware?",
+    "options": [
+      "Security software",
+      "Malware that collects user information",
+      "Encryption tool",
+      "Firewall"
+    ],
+    "correct": 1,
+    "explanation": "Spyware monitors user activity. It steals sensitive data.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 25,
+    "question": "What is adware?",
+    "options": [
+      "Displays unwanted advertisements",
+      "Firewall rule",
+      "Encryption tool",
+      "Network protocol"
+    ],
+    "correct": 0,
+    "explanation": "Adware shows intrusive ads. It may track user behavior.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 26,
+    "question": "What is a Trojan horse?",
+    "options": [
+      "Self-replicating malware",
+      "Malware disguised as legitimate software",
+      "Encryption tool",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Trojans trick users into installing them. They create backdoors.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 27,
+    "question": "What is a backdoor?",
+    "options": [
+      "Secure login",
+      "Hidden access to system",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Backdoors bypass authentication. Attackers use them for access.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 28,
+    "question": "What is patch management?",
+    "options": [
+      "Deleting software",
+      "Updating software to fix vulnerabilities",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Patches fix security flaws. Regular updates improve protection.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 29,
+    "question": "What is vulnerability?",
+    "options": [
+      "Security strength",
+      "Weakness exploitable by attackers",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Vulnerabilities expose systems to threats. Regular scanning identifies them.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 30,
+    "question": "What is penetration testing?",
+    "options": [
+      "Encrypting data",
+      "Simulating attacks to find weaknesses",
+      "Deleting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Pen testing identifies vulnerabilities. It improves defenses.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 31,
+    "question": "What is network sniffing?",
+    "options": [
+      "Encrypting traffic",
+      "Monitoring network packets",
+      "Deleting packets",
+      "Blocking traffic"
+    ],
+    "correct": 1,
+    "explanation": "Sniffing analyzes traffic. It helps detect threats.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 32,
+    "question": "What is spoofing?",
+    "options": [
+      "Data encryption",
+      "Impersonating another device/user",
+      "Firewall rule",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Spoofing falsifies identity. It enables attacks.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 33,
+    "question": "What is man-in-the-middle attack?",
+    "options": [
+      "Direct attack",
+      "Intercepting communication between parties",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "MITM attackers intercept data. Encryption prevents this.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 34,
+    "question": "What is secure protocol for web browsing?",
+    "options": [
+      "HTTP",
+      "HTTPS",
+      "FTP",
+      "SMTP"
+    ],
+    "correct": 1,
+    "explanation": "HTTPS uses encryption. It protects data in transit.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 35,
+    "question": "What is SSL/TLS?",
+    "options": [
+      "Encryption protocols",
+      "Firewall rule",
+      "Database",
+      "Network cable"
+    ],
+    "correct": 0,
+    "explanation": "SSL/TLS secure communication. They encrypt data.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 36,
+    "question": "What is VPN?",
+    "options": [
+      "Virtual Private Network",
+      "Variable Public Network",
+      "Verified Private Node",
+      "Virtual Processing Network"
+    ],
+    "correct": 0,
+    "explanation": "VPN encrypts internet traffic. It protects privacy.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 37,
+    "question": "What is endpoint security?",
+    "options": [
+      "Network firewall",
+      "Protecting devices like laptops and phones",
+      "Database security",
+      "Cloud storage"
+    ],
+    "correct": 1,
+    "explanation": "Endpoint security protects user devices. It prevents malware.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 38,
+    "question": "What is antivirus software?",
+    "options": [
+      "Database tool",
+      "Software to detect and remove malware",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Antivirus scans for threats. It protects systems.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 39,
+    "question": "What is spam?",
+    "options": [
+      "Legitimate email",
+      "Unwanted messages",
+      "Encryption tool",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Spam clutters inboxes. It may contain phishing attempts.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 40,
+    "question": "What is data breach?",
+    "options": [
+      "Secure data transfer",
+      "Unauthorized access to data",
+      "Encryption method",
+      "Database backup"
+    ],
+    "correct": 1,
+    "explanation": "Data breaches expose sensitive information. Security controls prevent them.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 41,
+    "question": "What is least privilege principle?",
+    "options": [
+      "Maximum access",
+      "Minimum necessary access",
+      "Full admin rights",
+      "No access"
+    ],
+    "correct": 1,
+    "explanation": "Least privilege reduces risk. Users get only needed permissions.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 42,
+    "question": "What is access control?",
+    "options": [
+      "Data deletion",
+      "Restricting system access",
+      "Encryption",
+      "Backup"
+    ],
+    "correct": 1,
+    "explanation": "Access control ensures authorized usage. It uses authentication and authorization.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 43,
+    "question": "What is role-based access control (RBAC)?",
+    "options": [
+      "Access based on user roles",
+      "Access based on passwords",
+      "Open access",
+      "No access"
+    ],
+    "correct": 0,
+    "explanation": "RBAC assigns permissions by role. It simplifies management.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 44,
+    "question": "What is audit log?",
+    "options": [
+      "Database",
+      "Record of system activities",
+      "Encryption tool",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Audit logs track actions. They support compliance.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 45,
+    "question": "What is security policy?",
+    "options": [
+      "Database rule",
+      "Guidelines for protecting systems",
+      "Encryption method",
+      "Firewall device"
+    ],
+    "correct": 1,
+    "explanation": "Security policies define rules. They ensure consistent protection.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 46,
+    "question": "What is incident response?",
+    "options": [
+      "Ignoring attacks",
+      "Handling security breaches",
+      "Deleting data",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Incident response manages security events. It minimizes damage.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 47,
+    "question": "What is backup in cybersecurity?",
+    "options": [
+      "Deleting data",
+      "Copying data for recovery",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Backups protect against data loss. They enable recovery.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 48,
+    "question": "What is disaster recovery?",
+    "options": [
+      "Ignoring failures",
+      "Restoring systems after incidents",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Disaster recovery ensures continuity. It restores operations.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 49,
+    "question": "What is security awareness training?",
+    "options": [
+      "Technical training only",
+      "Educating users about security threats",
+      "Encrypting data",
+      "Deleting logs"
+    ],
+    "correct": 1,
+    "explanation": "Training reduces human errors. Users learn to avoid threats.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 52,
+    "question": "What is a zero-day exploit?",
+    "options": [
+      "Security patch",
+      "Attack exploiting unknown vulnerability",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Attackers exploit zero-day flaws before fixes. It leaves systems exposed.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 53,
+    "question": "What is a rootkit?",
+    "options": [
+      "Security tool",
+      "Malware hiding its presence",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Rootkits conceal malicious activity. They provide persistent access.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 54,
+    "question": "What is keylogging?",
+    "options": [
+      "Encrypting keys",
+      "Recording keystrokes secretly",
+      "Firewall rule",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "Keyloggers capture passwords and sensitive data. They compromise accounts.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 55,
+    "question": "What is session hijacking?",
+    "options": [
+      "Encrypting session",
+      "Taking over active session",
+      "Ending session",
+      "Creating session"
+    ],
+    "correct": 1,
+    "explanation": "Attackers steal session tokens. They impersonate users.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 56,
+    "question": "What is DNS spoofing?",
+    "options": [
+      "Encrypting DNS",
+      "Redirecting users to fake sites",
+      "Firewall rule",
+      "Database attack"
+    ],
+    "correct": 1,
+    "explanation": "DNS spoofing manipulates domain resolution. It leads to phishing.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 57,
+    "question": "What is ARP spoofing?",
+    "options": [
+      "Encrypting ARP",
+      "Associating attacker MAC with victim IP",
+      "Firewall rule",
+      "DNS attack"
+    ],
+    "correct": 1,
+    "explanation": "ARP spoofing enables MITM attacks. It intercepts network traffic.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 58,
+    "question": "What is a replay attack?",
+    "options": [
+      "Deleting data",
+      "Reusing captured data packets",
+      "Encrypting packets",
+      "Blocking packets"
+    ],
+    "correct": 1,
+    "explanation": "Replay attacks reuse valid transmissions. Nonces prevent them.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 59,
+    "question": "What is salting in password security?",
+    "options": [
+      "Deleting passwords",
+      "Adding random data before hashing",
+      "Encrypting passwords",
+      "Compressing passwords"
+    ],
+    "correct": 1,
+    "explanation": "Salting prevents rainbow table attacks. It enhances password security.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 60,
+    "question": "What is rainbow table attack?",
+    "options": [
+      "Encrypting data",
+      "Using precomputed hashes to crack passwords",
+      "Firewall attack",
+      "Network scanning"
+    ],
+    "correct": 1,
+    "explanation": "Rainbow tables reverse hashes. Salting mitigates this.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 61,
+    "question": "What is port scanning?",
+    "options": [
+      "Closing ports",
+      "Checking open ports on a system",
+      "Encrypting ports",
+      "Blocking ports"
+    ],
+    "correct": 1,
+    "explanation": "Port scanning identifies services. Attackers use it for reconnaissance.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 62,
+    "question": "What is vulnerability scanning?",
+    "options": [
+      "Deleting vulnerabilities",
+      "Automated detection of security weaknesses",
+      "Encrypting systems",
+      "Firewall configuration"
+    ],
+    "correct": 1,
+    "explanation": "Scanners identify known flaws. They support proactive defense.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 63,
+    "question": "What is a honeypot?",
+    "options": [
+      "Real server",
+      "Decoy system to attract attackers",
+      "Firewall",
+      "Encryption tool"
+    ],
+    "correct": 1,
+    "explanation": "Honeypots detect attacker behavior. They improve threat intelligence.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 64,
+    "question": "What is intrusion detection system (IDS)?",
+    "options": [
+      "Prevent attacks",
+      "Detect suspicious activity",
+      "Encrypt traffic",
+      "Delete logs"
+    ],
+    "correct": 1,
+    "explanation": "IDS monitors traffic for anomalies. It alerts administrators.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 65,
+    "question": "What is intrusion prevention system (IPS)?",
+    "options": [
+      "Detect attacks only",
+      "Detect and block attacks",
+      "Encrypt data",
+      "Backup system"
+    ],
+    "correct": 1,
+    "explanation": "IPS actively blocks threats. It prevents exploitation.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 66,
+    "question": "What is network segmentation?",
+    "options": [
+      "Combining networks",
+      "Dividing network into smaller parts",
+      "Deleting networks",
+      "Encrypting networks"
+    ],
+    "correct": 1,
+    "explanation": "Segmentation limits attack spread. It improves security.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 67,
+    "question": "What is DMZ in networking?",
+    "options": [
+      "Secure internal network",
+      "Isolated network for public services",
+      "Database zone",
+      "Firewall zone"
+    ],
+    "correct": 1,
+    "explanation": "DMZ hosts public-facing services. It protects internal networks.",
+    "difficulty": "Easy",
+    "topic": "Network Security"
+  },
+  {
+    "id": 68,
+    "question": "What is secure boot?",
+    "options": [
+      "Fast boot",
+      "Boot process verifying trusted software",
+      "Network boot",
+      "Database boot"
+    ],
+    "correct": 1,
+    "explanation": "Secure boot prevents unauthorized OS loading. It ensures system integrity.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 69,
+    "question": "What is hardware security module (HSM)?",
+    "options": [
+      "Database",
+      "Device managing cryptographic keys",
+      "Firewall",
+      "Network switch"
+    ],
+    "correct": 1,
+    "explanation": "HSM secures keys. It enhances encryption security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 70,
+    "question": "What is tokenization?",
+    "options": [
+      "Encrypting data",
+      "Replacing sensitive data with tokens",
+      "Deleting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Tokenization protects sensitive information. Tokens have no exploitable value.",
+    "difficulty": "Easy",
+    "topic": "App & Data Security"
+  },
+  {
+    "id": 71,
+    "question": "What is data masking?",
+    "options": [
+      "Encrypting data",
+      "Hiding sensitive data",
+      "Deleting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Masking protects privacy. It hides sensitive values.",
+    "difficulty": "Easy",
+    "topic": "App & Data Security"
+  },
+  {
+    "id": 72,
+    "question": "What is secure coding?",
+    "options": [
+      "Writing fast code",
+      "Writing code free from vulnerabilities",
+      "Encrypting code",
+      "Deleting code"
+    ],
+    "correct": 1,
+    "explanation": "Secure coding prevents exploits. It reduces vulnerabilities.",
+    "difficulty": "Easy",
+    "topic": "App & Data Security"
+  },
+  {
+    "id": 73,
+    "question": "What is OWASP?",
+    "options": [
+      "Open Web Application Security Project",
+      "Online Web Access Security Protocol",
+      "Open Wireless Access Security Program",
+      "Operating Web Application Security Policy"
+    ],
+    "correct": 0,
+    "explanation": "OWASP provides security guidelines. It identifies top vulnerabilities.",
+    "difficulty": "Easy",
+    "topic": "App & Data Security"
+  },
+  {
+    "id": 74,
+    "question": "What is OWASP Top 10?",
+    "options": [
+      "Top programming languages",
+      "Top web security risks",
+      "Top databases",
+      "Top encryption methods"
+    ],
+    "correct": 1,
+    "explanation": "OWASP Top 10 lists common vulnerabilities. It guides secure development.",
+    "difficulty": "Easy",
+    "topic": "App & Data Security"
+  },
+  {
+    "id": 75,
+    "question": "What is SQL injection prevention method?",
+    "options": [
+      "Hardcoding queries",
+      "Using parameterized queries",
+      "Disabling database",
+      "Encrypting database"
+    ],
+    "correct": 1,
+    "explanation": "Parameterized queries prevent injection. They separate data from code.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 76,
+    "question": "What is cross-site scripting (XSS) prevention?",
+    "options": [
+      "Disabling JavaScript",
+      "Input validation and output encoding",
+      "Deleting forms",
+      "Encrypting HTML"
+    ],
+    "correct": 1,
+    "explanation": "Encoding prevents script execution. Validation ensures safe input.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 77,
+    "question": "What is content security policy (CSP)?",
+    "options": [
+      "Database policy",
+      "Security layer preventing XSS",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "CSP restricts script sources. It reduces XSS risks.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 78,
+    "question": "What is same-origin policy?",
+    "options": [
+      "Allow all requests",
+      "Restrict resources from different origins",
+      "Delete cookies",
+      "Encrypt data"
+    ],
+    "correct": 1,
+    "explanation": "Same-origin policy prevents unauthorized access. It protects web apps.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 79,
+    "question": "What is cookie hijacking?",
+    "options": [
+      "Deleting cookies",
+      "Stealing session cookies",
+      "Encrypting cookies",
+      "Blocking cookies"
+    ],
+    "correct": 1,
+    "explanation": "Attackers use stolen cookies. It allows session takeover.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 80,
+    "question": "What is secure cookie flag?",
+    "options": [
+      "Allow HTTP",
+      "Send cookie only over HTTPS",
+      "Delete cookie",
+      "Encrypt cookie"
+    ],
+    "correct": 1,
+    "explanation": "Secure flag prevents interception. It ensures encrypted transmission.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 81,
+    "question": "What is HttpOnly cookie?",
+    "options": [
+      "Accessible by JavaScript",
+      "Prevents JavaScript access",
+      "Deletes cookie",
+      "Encrypts cookie"
+    ],
+    "correct": 1,
+    "explanation": "HttpOnly prevents XSS cookie theft. It improves security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 82,
+    "question": "What is password policy?",
+    "options": [
+      "Ignore passwords",
+      "Rules for strong passwords",
+      "Encrypt passwords",
+      "Delete passwords"
+    ],
+    "correct": 1,
+    "explanation": "Policies enforce complexity. They improve security.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 83,
+    "question": "What is account lockout?",
+    "options": [
+      "Deleting account",
+      "Blocking account after failed attempts",
+      "Encrypting account",
+      "Scaling account"
+    ],
+    "correct": 1,
+    "explanation": "Lockout prevents brute-force attacks. It protects accounts.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 84,
+    "question": "What is biometric authentication?",
+    "options": [
+      "Password",
+      "Using physical traits for verification",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Biometrics include fingerprints and face recognition. They improve authentication.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 85,
+    "question": "What is smart card authentication?",
+    "options": [
+      "Password",
+      "Using physical card for authentication",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Smart cards store credentials securely. They support MFA.",
+    "difficulty": "Easy",
+    "topic": "Core Concepts"
+  },
+  {
+    "id": 86,
+    "question": "What is time-based one-time password (TOTP)?",
+    "options": [
+      "Permanent password",
+      "Temporary code for authentication",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "TOTP expires quickly. It enhances MFA security.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 87,
+    "question": "What is security operations center (SOC)?",
+    "options": [
+      "Database center",
+      "Team monitoring security events",
+      "Storage center",
+      "Network center"
+    ],
+    "correct": 1,
+    "explanation": "SOC monitors threats. It responds to incidents.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 88,
+    "question": "What is threat intelligence?",
+    "options": [
+      "Ignoring threats",
+      "Information about threats and attackers",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Threat intelligence helps anticipate attacks. It improves defense.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 89,
+    "question": "What is digital forensics?",
+    "options": [
+      "Deleting evidence",
+      "Investigating cyber incidents",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Forensics analyzes breaches. It supports legal actions.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 90,
+    "question": "What is cyber espionage?",
+    "options": [
+      "Friendly monitoring",
+      "Stealing confidential information",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Espionage targets sensitive data. It affects governments and companies.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 91,
+    "question": "What is hacktivism?",
+    "options": [
+      "Ethical hacking",
+      "Hacking for political/social causes",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Hacktivists promote causes. They disrupt systems.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 92,
+    "question": "What is insider threat?",
+    "options": [
+      "External attacker",
+      "Threat from authorized user",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Insiders misuse access. It is hard to detect.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 93,
+    "question": "What is data exfiltration?",
+    "options": [
+      "Encrypting data",
+      "Unauthorized data transfer",
+      "Data backup",
+      "Data compression"
+    ],
+    "correct": 1,
+    "explanation": "Exfiltration steals sensitive data. Monitoring prevents it.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 94,
+    "question": "What is cyber warfare?",
+    "options": [
+      "Friendly monitoring",
+      "Nation-state cyber attacks",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Cyber warfare targets infrastructure. It disrupts nations.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 95,
+    "question": "What is bug bounty program?",
+    "options": [
+      "Paying attackers",
+      "Rewarding security researchers",
+      "Deleting bugs",
+      "Encrypting software"
+    ],
+    "correct": 1,
+    "explanation": "Bug bounties encourage responsible disclosure. They improve security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 96,
+    "question": "What is ethical hacking?",
+    "options": [
+      "Illegal hacking",
+      "Authorized security testing",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Ethical hackers find vulnerabilities legally. They strengthen systems.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 97,
+    "question": "What is red team?",
+    "options": [
+      "Security team defending",
+      "Team simulating attacks",
+      "Database team",
+      "Network team"
+    ],
+    "correct": 1,
+    "explanation": "Red teams test defenses. They simulate attackers.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 98,
+    "question": "What is blue team?",
+    "options": [
+      "Attack team",
+      "Defensive security team",
+      "Database team",
+      "Network team"
+    ],
+    "correct": 1,
+    "explanation": "Blue teams defend systems. They monitor and respond.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 99,
+    "question": "What is purple team?",
+    "options": [
+      "Database team",
+      "Collaboration between red and blue teams",
+      "Network team",
+      "Encryption team"
+    ],
+    "correct": 1,
+    "explanation": "Purple teams improve coordination. They enhance security strategies.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 102,
+    "question": "What is ISO/IEC 27001?",
+    "options": [
+      "Programming language",
+      "Information security management standard",
+      "Encryption algorithm",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "ISO 27001 provides guidelines for managing information security. It ensures systematic risk management.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 103,
+    "question": "What is NIST Cybersecurity Framework?",
+    "options": [
+      "Encryption protocol",
+      "Guidelines for improving cybersecurity practices",
+      "Firewall rule",
+      "Network protocol"
+    ],
+    "correct": 1,
+    "explanation": "NIST framework helps organizations manage risks. It provides best practices for security.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 104,
+    "question": "What is GDPR?",
+    "options": [
+      "General Data Protection Regulation",
+      "Global Data Processing Rule",
+      "General Database Protection Rule",
+      "Global Digital Privacy Regulation"
+    ],
+    "correct": 0,
+    "explanation": "GDPR protects personal data in the EU. It enforces strict privacy regulations.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 105,
+    "question": "What is data classification?",
+    "options": [
+      "Deleting data",
+      "Categorizing data based on sensitivity",
+      "Encrypting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Classification ensures proper protection levels. Sensitive data gets stronger controls.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 106,
+    "question": "What is data retention policy?",
+    "options": [
+      "Deleting all data immediately",
+      "Rules for how long data is stored",
+      "Encrypting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Retention policies ensure compliance. They manage storage and legal requirements.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 107,
+    "question": "What is privacy by design?",
+    "options": [
+      "Ignoring privacy",
+      "Integrating privacy into system design",
+      "Encrypting hardware",
+      "Deleting logs"
+    ],
+    "correct": 1,
+    "explanation": "Privacy by design ensures data protection from the start. It reduces risks.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 108,
+    "question": "What is anonymization?",
+    "options": [
+      "Encrypting data",
+      "Removing personally identifiable information",
+      "Deleting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Anonymization protects privacy. It prevents identifying individuals.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 109,
+    "question": "What is pseudonymization?",
+    "options": [
+      "Deleting data",
+      "Replacing identifiers with pseudonyms",
+      "Encrypting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Pseudonymization reduces data exposure. It still allows analysis.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 110,
+    "question": "What is a security baseline?",
+    "options": [
+      "Weak configuration",
+      "Minimum security standard",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Baselines define secure configurations. They ensure consistent protection.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 111,
+    "question": "What is risk assessment?",
+    "options": [
+      "Ignoring threats",
+      "Identifying and evaluating risks",
+      "Deleting risks",
+      "Encrypting risks"
+    ],
+    "correct": 1,
+    "explanation": "Risk assessment prioritizes security efforts. It helps allocate resources.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 112,
+    "question": "What is risk mitigation?",
+    "options": [
+      "Ignoring risks",
+      "Reducing risk impact",
+      "Increasing risk",
+      "Deleting data"
+    ],
+    "correct": 1,
+    "explanation": "Mitigation reduces vulnerabilities. It lowers potential damage.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 113,
+    "question": "What is business continuity planning (BCP)?",
+    "options": [
+      "Deleting systems",
+      "Ensuring operations during disruptions",
+      "Encrypting systems",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "BCP ensures critical functions continue. It supports resilience.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 114,
+    "question": "What is tabletop exercise?",
+    "options": [
+      "Physical security test",
+      "Simulated incident response discussion",
+      "Encryption method",
+      "Firewall test"
+    ],
+    "correct": 1,
+    "explanation": "Tabletop exercises test response plans. They improve preparedness.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 115,
+    "question": "What is cyber resilience?",
+    "options": [
+      "Ignoring attacks",
+      "Ability to recover from cyber incidents",
+      "Deleting logs",
+      "Encrypting data"
+    ],
+    "correct": 1,
+    "explanation": "Resilience ensures quick recovery. It maintains operations.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 116,
+    "question": "What is supply chain attack?",
+    "options": [
+      "Network attack",
+      "Compromising third-party vendors",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Supply chain attacks exploit trusted partners. They bypass defenses.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 117,
+    "question": "What is code signing?",
+    "options": [
+      "Writing code",
+      "Verifying software authenticity",
+      "Encrypting databases",
+      "Deleting logs"
+    ],
+    "correct": 1,
+    "explanation": "Code signing ensures software integrity. It prevents tampering.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 118,
+    "question": "What is sandboxing in security?",
+    "options": [
+      "Deleting code",
+      "Running code in isolated environment",
+      "Encrypting data",
+      "Scaling servers"
+    ],
+    "correct": 1,
+    "explanation": "Sandboxing prevents malicious impact. It isolates risky code.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 119,
+    "question": "What is memory protection?",
+    "options": [
+      "Deleting memory",
+      "Preventing unauthorized memory access",
+      "Encrypting CPU",
+      "Compressing RAM"
+    ],
+    "correct": 1,
+    "explanation": "Memory protection stops exploits. It protects system stability.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 120,
+    "question": "What is buffer overflow?",
+    "options": [
+      "Secure memory usage",
+      "Writing data beyond buffer limits",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Buffer overflows enable code execution. Secure coding prevents them.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 121,
+    "question": "What is ASLR?",
+    "options": [
+      "Address Space Layout Randomization",
+      "Advanced Security Log Reporting",
+      "Automated Secure Login Rule",
+      "Access Security Layer Routing"
+    ],
+    "correct": 0,
+    "explanation": "ASLR randomizes memory addresses. It prevents exploitation.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 122,
+    "question": "What is DEP (Data Execution Prevention)?",
+    "options": [
+      "Deleting data",
+      "Preventing code execution in memory regions",
+      "Encrypting data",
+      "Scaling memory"
+    ],
+    "correct": 1,
+    "explanation": "DEP blocks malicious execution. It improves system security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 123,
+    "question": "What is sandbox escape?",
+    "options": [
+      "Safe execution",
+      "Bypassing sandbox restrictions",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Sandbox escape allows malware to access system resources. It bypasses isolation.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 124,
+    "question": "What is firmware security?",
+    "options": [
+      "Software security only",
+      "Protecting low-level device software",
+      "Database security",
+      "Network security"
+    ],
+    "correct": 1,
+    "explanation": "Firmware security prevents hardware-level attacks. It ensures device integrity.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 125,
+    "question": "What is hardware root of trust?",
+    "options": [
+      "Software trust",
+      "Trusted hardware component for security",
+      "Database trust",
+      "Network trust"
+    ],
+    "correct": 1,
+    "explanation": "Root of trust ensures secure boot and cryptography. It anchors security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 126,
+    "question": "What is mobile device management (MDM)?",
+    "options": [
+      "Database management",
+      "Managing and securing mobile devices",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "MDM enforces security policies. It protects enterprise devices.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 127,
+    "question": "What is BYOD risk?",
+    "options": [
+      "Company-owned devices",
+      "Security risks from personal devices",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "BYOD increases attack surface. Policies mitigate risks.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  },
+  {
+    "id": 128,
+    "question": "What is cloud security posture management (CSPM)?",
+    "options": [
+      "Database tool",
+      "Monitoring cloud security configurations",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "CSPM detects misconfigurations. It improves cloud security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 129,
+    "question": "What is identity federation?",
+    "options": [
+      "Multiple passwords",
+      "Sharing identity across systems",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Federation enables single identity across platforms. It simplifies access.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 130,
+    "question": "What is single sign-on (SSO)?",
+    "options": [
+      "Multiple logins",
+      "One login for multiple services",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "SSO improves user experience. It centralizes authentication.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 131,
+    "question": "What is privileged access management (PAM)?",
+    "options": [
+      "Managing normal users",
+      "Controlling privileged accounts",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "PAM protects admin accounts. It reduces insider threats.",
+    "difficulty": "Easy",
+    "topic": "Identity & Access"
+  },
+  {
+    "id": 132,
+    "question": "What is identity lifecycle management?",
+    "options": [
+      "Deleting users",
+      "Managing user access from creation to removal",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Lifecycle management ensures proper access control. It prevents orphan accounts.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 133,
+    "question": "What is shadow IT?",
+    "options": [
+      "Approved systems",
+      "Unauthorized technology use",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Shadow IT bypasses security controls. It increases risk.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 134,
+    "question": "What is data loss prevention (DLP)?",
+    "options": [
+      "Deleting data",
+      "Preventing unauthorized data transfer",
+      "Encrypting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "DLP monitors data movement. It prevents leaks.",
+    "difficulty": "Easy",
+    "topic": "App & Data Security"
+  },
+  {
+    "id": 135,
+    "question": "What is secure email gateway?",
+    "options": [
+      "Database",
+      "Filters malicious emails",
+      "Encryption tool",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Email gateways block phishing and malware. They improve security.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 136,
+    "question": "What is spear phishing?",
+    "options": [
+      "Random phishing",
+      "Targeted phishing attack",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Spear phishing targets individuals. It uses personalized messages.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 137,
+    "question": "What is whaling attack?",
+    "options": [
+      "Network attack",
+      "Phishing targeting executives",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Whaling targets high-level executives. It seeks sensitive data.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 138,
+    "question": "What is security misconfiguration?",
+    "options": [
+      "Secure setup",
+      "Improper system settings",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Misconfigurations create vulnerabilities. Regular audits prevent them.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 139,
+    "question": "What is attack surface?",
+    "options": [
+      "Physical surface",
+      "Total points of possible attack",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Reducing attack surface improves security. It limits exposure.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 140,
+    "question": "What is defense in depth?",
+    "options": [
+      "Single security layer",
+      "Multiple security layers",
+      "No security",
+      "Encryption only"
+    ],
+    "correct": 1,
+    "explanation": "Defense in depth uses layered security. It improves protection.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 141,
+    "question": "What is threat modeling benefit?",
+    "options": [
+      "Ignoring threats",
+      "Identifying vulnerabilities early",
+      "Deleting threats",
+      "Encrypting threats"
+    ],
+    "correct": 1,
+    "explanation": "Threat modeling improves design security. It reduces risks.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 142,
+    "question": "What is cyber insurance?",
+    "options": [
+      "Network insurance",
+      "Financial protection against cyber incidents",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Cyber insurance mitigates financial losses. It supports recovery.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 143,
+    "question": "What is legal hold?",
+    "options": [
+      "Deleting data",
+      "Preserving data for legal cases",
+      "Encrypting data",
+      "Compressing data"
+    ],
+    "correct": 1,
+    "explanation": "Legal hold prevents data deletion. It supports investigations.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 144,
+    "question": "What is eDiscovery?",
+    "options": [
+      "Data deletion",
+      "Identifying electronic evidence",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "eDiscovery supports legal cases. It retrieves digital evidence.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 145,
+    "question": "What is cyber hygiene?",
+    "options": [
+      "Cleaning hardware",
+      "Regular security practices",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Cyber hygiene includes updates and backups. It reduces risks.",
+    "difficulty": "Easy",
+    "topic": "General Security"
+  },
+  {
+    "id": 146,
+    "question": "What is security awareness phishing simulation?",
+    "options": [
+      "Real attack",
+      "Training exercise for users",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Simulations improve awareness. Users learn to detect phishing.",
+    "difficulty": "Easy",
+    "topic": "Threats & Attacks"
+  },
+  {
+    "id": 147,
+    "question": "What is digital certificate?",
+    "options": [
+      "Password",
+      "Electronic credential verifying identity",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "Certificates enable secure communication. They verify authenticity.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 148,
+    "question": "What is public key infrastructure (PKI)?",
+    "options": [
+      "Database system",
+      "Framework for managing digital certificates",
+      "Firewall rule",
+      "Encryption method"
+    ],
+    "correct": 1,
+    "explanation": "PKI manages keys and certificates. It enables secure communication.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 149,
+    "question": "What is trust model in PKI?",
+    "options": [
+      "No trust",
+      "Framework for validating certificates",
+      "Encryption method",
+      "Firewall rule"
+    ],
+    "correct": 1,
+    "explanation": "Trust models verify certificate authenticity. They ensure secure connections.",
+    "difficulty": "Easy",
+    "topic": "Cryptography"
+  },
+  {
+    "id": 150,
+    "question": "What is the ultimate goal of cybersecurity governance?",
+    "options": [
+      "Increase risk",
+      "Align security with business objectives",
+      "Remove policies",
+      "Reduce compliance"
+    ],
+    "correct": 1,
+    "explanation": "Governance ensures security supports business goals. It balances risk and compliance.",
+    "difficulty": "Easy",
+    "topic": "Governance & Compliance"
+  }
+]

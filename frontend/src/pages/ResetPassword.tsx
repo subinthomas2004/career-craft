@@ -51,7 +51,7 @@ const ResetPassword = () => {
             };
 
             await axios.post(
-                'http://localhost:5000/api/auth/reset-password',
+                'http://localhost:5003/api/auth/reset-password',
                 { email, otp, password },
                 config
             );

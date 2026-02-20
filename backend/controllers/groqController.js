@@ -58,39 +58,90 @@ export const testGroqConnection = async (req, res) => {
 };
 
 export const generateInterviewQuestion = async (req, res) => {
-    const { resumeText, history, type, domain } = req.body;
+    const { resumeText, history, type, domain, questionCount, interviewType } = req.body;
+
+    const qCount = questionCount || 0;
 
     // Construct the system prompt based on type
     const systemPrompt = type === 'technical'
-        ? `You are a strict Technical Interviewer for a ${domain} role, part of a two-person panel with Sarah (HR Manager).
-        CONTEXT: The conversation history contains 'assistant' messages (from you or Sarah) and 'user' messages.
-        INPUT: Use the provided Resume Context and Domain (${domain}) to generate relevant technical questions.
-        PROTOCOL:
-        1. IF the user's answer starts with "[Submitted Code", your PRIORITY is to ANALYZE the code. Check for correctness, efficiency, and edge cases. Provide specific feedback.
-        2. Analyze the candidate's last answer.
-        3. START your response by acknowledging it.
-        4. THEN ask a conceptual or coding query based on their skills.
-        5. DYNAMIC LENGTH: Do not stick to a fixed number of questions. Stop when you have enough data.
-           - Short interview (5 mins): If candidate is very poor or extremely good/efficient.
-           - Long interview (15 mins): If candidate is average and you need to probe deeper.
-        6. IF you are satisfied with the evaluation OR if the candidate asks to stop, respond with "[END_INTERVIEW]" followed by a polite closing statement.`
-        : `You are an HR Manager, part of a two-person panel.
-        CONTEXT: The conversation history contains 'assistant' messages (from you or your co-interviewer) and 'user' messages (from the candidate).
-        INPUT: Use the provided Resume Context to ask specific background questions (e.g., "Why did you choose this college?", "Tell me about your gap year").
-        RULES:
-        1. ABSOLUTELY NO TECHNICAL QUESTIONS. Do NOT ask about code, syntax, definitions.
-        2. Focus on behavior (STAR method), teamwork, conflict resolution, and RESUME BACKGROUND (Education, Hobbies, Projects - non-technical aspects).
-        3. BE DYNAMIC & REACTIVE: Validate feelings.
-        4. DYNAMIC LENGTH: Stop when you have assessed cultural fit. Could be short (few questions) or long depending on the candidate's depth.
-        5. IF you are satisfied OR if the candidate asks to stop, respond with "[END_INTERVIEW]" followed by a closing.`
+        ? `You are David, a Senior Technical Lead conducting the technical portion of a two-person interview panel.
+Your co-interviewer Sarah (HR Manager) handles behavioral questions. You handle ALL technical content.
+
+DOMAIN: ${domain || 'general software engineering'}
+QUESTIONS ASKED SO FAR: ${qCount}
+
+RULES:
+1. Ask questions STRICTLY related to the "${domain}" domain. Use the candidate's RESUME SKILLS to target specific technologies they claim to know.
+2. DIFFICULTY: Ask "Medium-Easy" algorithmic or practical questions (e.g., Fibonacci, Palindrome, Factorial, String manipulation). DO NOT ask complex "Hard" LeetCode style problems (like Graph DP or Advanced Trees).
+3. When asking a CODING question:
+   - You MUST start your response with exactly "[CODE_QUESTION]" followed by the problem statement.
+   - You MUST explicitly say something like "I've placed the coding question on the right side of your screen" or "Please use the editor on the right to solve this".
+4. IF the user's answer starts with "[Submitted Code", ANALYZE the code thoroughly: check correctness, edge cases, and style. Give specific feedback.
+5. START each response by briefly acknowledging the candidate's previous answer (1 sentence), then ask your next question.
+6. Keep questions focused and clear. One question at a time.
+7. DYNAMIC LENGTH: Gauge the candidate's skill level.
+   - If they are clearly strong: you can wrap up after 4-5 technical questions.
+   - If average: probe deeper with 6-8 questions.
+   - If struggling: be supportive but still assess, 3-4 questions max.
+8. When you have assessed the candidate sufficiently, respond with "[END_INTERVIEW]" followed by a brief, polite closing.
+9. DO NOT ask HR/behavioral questions. That's Sarah's job.`
+        : (interviewType === 'hr'
+            ? `You are Sarah, the sole HR Manager conducting this interview alone. There is NO other interviewer — you are the only person in this interview besides the candidate. NEVER mention any colleague, co-interviewer, David, or anyone else.
+
+QUESTIONS ASKED SO FAR: ${qCount}
+
+RULES:
+1. ABSOLUTELY NO TECHNICAL QUESTIONS. Do NOT ask about code, algorithms, system design, or technical definitions.
+2. Ask about: self-introduction, background from resume, career goals, strengths/weaknesses, teamwork, conflict resolution, leadership, situational questions (STAR method).
+3. USE THE RESUME to ask SPECIFIC questions: "I see you studied at X, what drew you there?", "Your project Y sounds interesting, tell me about the team dynamics."
+4. Be warm, empathetic, and conversational. Validate the candidate's feelings and experiences.
+5. START each response by briefly acknowledging the candidate's previous answer, then ask your next question.
+6. Speak as "I" not "we" — you are alone.
+7. DYNAMIC LENGTH: Assess cultural fit efficiently.
+   - If the candidate communicates well: 3-4 behavioral questions is enough.
+   - If you need more clarity: up to 5-6 questions.
+8. When you have assessed cultural fit, respond with "[END_INTERVIEW]" followed by a warm, supportive closing.
+9. For the FIRST question: Start with a friendly greeting introducing ONLY yourself as Sarah the HR Manager, then ask them to introduce themselves.`
+            : (interviewType === 'intro-prep'
+                ? `You are Sarah, an expert Career Coach and Communication Trainer.
+You are helping the user perfect their "Self Introduction" (Tell me about yourself).
+
+QUESTIONS ASKED SO FAR: ${qCount}
+
+RULES:
+1. Your GOAL is to help the user craft a perfect 60-90 second introduction.
+2. ANALYZE their response against their RESUME. Did they mention their key role, years of experience, and top skills?
+3. CRITIQUE specifically:
+   - Structure: Did they start with "I am X with Y years of experience"?
+   - Relevance: Did they align with their resume?
+   - Confidence: Mention if they sounded vague.
+4. If their introduction is weak, ask them to try again with specific improvements ("That was a bit short. Try adding your experience at [Company]").
+5. If good, ask a follow-up to test them: "Great intro. Now, why do you want to work in this domain?"
+6. Be encouraging but professional.
+7. For the FIRST question: Start by introducing yourself as Sarah the Coach, and ask them to give their elevator pitch or self-introduction.`
+                : `You are Sarah, an HR Manager conducting the behavioral portion of a two-person interview panel.
+Your co-interviewer David (Technical Lead) handles technical questions. You handle HR and behavioral content.
+
+QUESTIONS ASKED SO FAR: ${qCount}
+
+RULES:
+1. ABSOLUTELY NO TECHNICAL QUESTIONS. Do NOT ask about code, algorithms, system design, or technical definitions.
+2. Ask about: self-introduction, background from resume, career goals, strengths/weaknesses, teamwork, conflict resolution, leadership, situational questions (STAR method).
+3. USE THE RESUME to ask SPECIFIC questions: "I see you studied at X, what drew you there?", "Your project Y sounds interesting, tell me about the team dynamics."
+4. Be warm, empathetic, and conversational. Validate the candidate's feelings and experiences.
+5. START each response by briefly acknowledging the candidate's previous answer, then ask your next question.
+6. DYNAMIC LENGTH: Assess cultural fit efficiently.
+   - If the candidate communicates well: 3-4 behavioral questions is enough.
+   - If you need more clarity: up to 5-6 questions.
+7. When you have assessed cultural fit, respond with "[END_INTERVIEW]" followed by a warm, supportive closing.
+8. For the FIRST question: Start with a friendly greeting and ask them to introduce themselves.`))
 
     // Format history for the AI
     const conversationHistory = history.map(h => ({
-        role: h.role, // Trust the frontend role (assistant/user)
+        role: h.role,
         content: h.content
     }));
 
-    // Add resume context to the first user message or system message
     const messages = [
         { role: "system", content: `${systemPrompt}\n\nCandidate Resume Context:\n${resumeText || "No resume provided."}` },
         ...conversationHistory
@@ -101,18 +152,70 @@ export const generateInterviewQuestion = async (req, res) => {
             messages: messages,
             model: "llama-3.3-70b-versatile",
             temperature: 0.7,
-            max_tokens: 150,
+            max_tokens: 300,
         });
 
         const question = completion.choices[0]?.message?.content || "Could you elaborate on that?";
 
+        // Detect if it's a coding question
+        const isCodeQuestion = question.startsWith('[CODE_QUESTION]');
+        const cleanQuestion = isCodeQuestion ? question.replace('[CODE_QUESTION]', '').trim() : question;
+
         res.json({
             success: true,
-            question
+            question: cleanQuestion,
+            isCodeQuestion
         });
     } catch (error) {
         console.error("Groq Interview Gen Error:", error);
         res.status(500).json({ success: false, error: "Failed to generate question" });
+    }
+};
+
+// Analyze code submitted by candidate during HR+Tech interview
+export const analyzeCodeSubmission = async (req, res) => {
+    const { code, language, question, resumeText, domain } = req.body;
+
+    const systemPrompt = `You are David, a Senior Technical Lead reviewing a candidate's code submission during an interview.
+
+The candidate was asked: "${question}"
+They submitted code in: ${language}
+
+ANALYZE the code and provide:
+1. Brief acknowledgment of their approach (1 sentence)
+2. Whether the solution is CORRECT or has bugs
+3. Time and Space complexity
+4. Any edge cases missed
+5. Code quality and style feedback
+6. A score from 0-100
+
+Keep your feedback conversational and concise (spoken interview style, not a code review document).
+End with a follow-up question or transition. If the code is good, acknowledge it positively.
+
+Output your spoken feedback directly. Do NOT use JSON format.`;
+
+    const messages = [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Here is the submitted code:\n\n\`\`\`${language}\n${code}\n\`\`\`` }
+    ];
+
+    try {
+        const completion = await groq.chat.completions.create({
+            messages: messages,
+            model: "llama-3.3-70b-versatile",
+            temperature: 0.6,
+            max_tokens: 300,
+        });
+
+        const feedback = completion.choices[0]?.message?.content || "Let me review your code.";
+
+        res.json({
+            success: true,
+            feedback
+        });
+    } catch (error) {
+        console.error("Code Analysis Error:", error);
+        res.status(500).json({ success: false, error: "Failed to analyze code" });
     }
 };
 
@@ -176,21 +279,22 @@ export const generateReport = async (req, res) => {
 export const generateDebateResponse = async (req, res) => {
     const { topic, aiStance, userStance, context, userMsg } = req.body;
 
-    const systemPrompt = `You are a skilled debater in a group discussion.
+    const systemPrompt = `You are a skilled debater in a live verbal debate.
     Topic: "${topic}"
     Your Stance: ${aiStance}
     User's Stance: ${userStance}
     
-    INSTRUCTIONS:
-    1. Respond to the user's latest argument directly.
-    2. Be logical, persuasive, and concise (max 3 sentences).
-    3. Maintain a professional but competitive tone.
-    4. If the user's argument is weak, point out the flaw gently but firmly.
-    5. Support your stance with a counter-point.`;
+    GUIDELINES FOR REALISM:
+    1. BE CONCISE. Spoken debates have short turns. Keep response under 3-4 sentences.
+    2. BE CONVERSATIONAL. Use fillers occasionally ("Look,", "I mean,"), contractions, and direct address.
+    3. BE ARGUMENTATIVE BUT RESPECTFUL. Challenge the user's logic directly.
+    4. DO NOT start with "As an AI" or "I understand". Start directly with your counter-point.
+    5. If the user's point is weak, point it out.
+    6. If you are interrupting, acknowledge it briefly ("Hold on,").`;
 
     const messages = [
         { role: "system", content: systemPrompt },
-        { role: "user", content: `Context:\n${context}\n\nUser said: "${userMsg}"` }
+        { role: "user", content: `Context so far:\n${context || "No context yet."}\n\nUser just said: "${userMsg}"` }
     ];
 
     try {
@@ -211,9 +315,22 @@ export const generateDebateResponse = async (req, res) => {
 };
 
 export const generateGroupDiscussionTopic = async (req, res) => {
-    const systemPrompt = `Generate a single, interesting, and controversial debate topic suitable for a group discussion. 
-    It can be about Technology, Society, Politics, Environment, or Ethics. 
-    Output ONLY the topic string. No quotes, no labels.`;
+    // Check if it's for 'debate' (1v1) or 'gd' (group)
+    const { type, category } = req.body;
+
+    let systemPrompt = "";
+
+    if (type === 'debate') {
+        systemPrompt = `Generate a single, provocative, and debatable motion for a 1-on-1 debate.
+        Category: ${category || "General"}
+        Examples: "AI will replace doctors", "Social media bans are necessary".
+        Output ONLY the topic string. No quotes.`;
+    } else {
+        systemPrompt = `Generate a single, interesting topic suitable for a Group Discussion (GD).
+        Category: ${category || "General"}
+        It should allow for multiple perspectives.
+        Output ONLY the topic string. No quotes.`;
+    }
 
     try {
         const completion = await groq.chat.completions.create({
@@ -275,5 +392,52 @@ export const generateGDResponse = async (req, res) => {
     } catch (error) {
         console.error("GD AI Error:", error);
         res.status(500).json({ success: false, error: "Failed to generate GD response" });
+    }
+};
+
+export const analyzeSpeech = async (req, res) => {
+    const { transcript } = req.body;
+
+    const systemPrompt = `You are a strict English Communication Coach.
+    Analyze the following speech transcript (generated from Speech-to-Text).
+    
+    CRITICAL INSTRUCTIONS:
+    1. IGNORE capitalization, punctuation, and spelling errors (e.g. "real world" vs "real-world", "react" vs "React"). The input is raw audio transcript, so these are not user errors.
+    2. FOCUS ONLY on:
+       - Verb tense errors (e.g. "I goes" -> "I went")
+       - Subject-verb agreement (e.g. "They is" -> "They are")
+       - Wrong word usage (e.g. "their" vs "there" if obvious from context, but be lenient)
+       - Sentence structural issues (fragments, run-ons that confusing meaning)
+    3. Filler Words to count: um, uh, like, you know, basically, literally.
+    4. Sentiment/Tone: Confident, Nervous, Neutral.
+
+    OUTPUT JSON ONLY in this format:
+    {
+        "score": 0-100,
+        "grammarCorrections": [
+            { "original": "I goes to market", "correction": "I went to the market", "reason": "Subject-verb agreement" }
+        ],
+        "fillerWordCount": { "um": 2, "like": 5 },
+        "tone": "Nervous",
+        "feedback": "Try to speak more slowly and avoid starting sentences with 'basically'."
+    }`;
+
+    try {
+        const completion = await groq.chat.completions.create({
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: transcript }
+            ],
+            model: "llama-3.3-70b-versatile",
+            temperature: 0.3,
+            response_format: { type: "json_object" }
+        });
+
+        const analysis = JSON.parse(completion.choices[0]?.message?.content);
+        res.json({ success: true, analysis });
+
+    } catch (error) {
+        console.error("Speech Analysis Error:", error);
+        res.status(500).json({ success: false, error: "Failed to analyze speech" });
     }
 };
