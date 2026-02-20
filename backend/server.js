@@ -15,7 +15,7 @@ const server = http.createServer(app);
 // Socket.io setup with permissive CORS
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: true, // Reflect request origin
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -24,9 +24,9 @@ const io = new Server(server, {
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-// Allow all origins to fix the "No Access-Control-Allow-Origin" error definitively
+// Fix: Use origin: true to reflect the request origin, which allows credentials
 app.use(cors({
-    origin: "*",
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"]
