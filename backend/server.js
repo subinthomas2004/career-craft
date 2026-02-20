@@ -13,15 +13,35 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
+        origin: [
+            "http://localhost:5173",
+            "https://career-craft-frontend-nu.vercel.app"
+        ],
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://career-craft-frontend-nu.vercel.app"
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.log("Blocked by CORS:", origin);
+            callback(null, false);
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
+}));
 app.use(express.json());
 
 // Database Connection
