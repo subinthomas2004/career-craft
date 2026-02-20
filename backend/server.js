@@ -11,12 +11,11 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+// Socket.io setup with permissive CORS
 const io = new Server(server, {
     cors: {
-        origin: [
-            "http://localhost:5173",
-            "https://career-craft-frontend-nu.vercel.app"
-        ],
+        origin: "*",
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -25,23 +24,17 @@ const io = new Server(server, {
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-const allowedOrigins = [
-    "http://localhost:5173",
-    "https://career-craft-frontend-nu.vercel.app"
-];
-
+// Allow all origins to fix the "No Access-Control-Allow-Origin" error definitively
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.log("Blocked by CORS:", origin);
-            callback(null, false);
-        }
-    },
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// Handle preflight requests for all routes
+app.options('*', cors());
+
 app.use(express.json());
 
 // Database Connection
