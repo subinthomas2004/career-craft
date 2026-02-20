@@ -7,6 +7,7 @@ import AudioRecorder from "@/components/communication/AudioRecorder";
 import AnalysisResult from "@/components/communication/AnalysisResult";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
+import { api } from '@/lib/api';
 
 const CommunicationCoach = () => {
     const navigate = useNavigate();
@@ -40,13 +41,9 @@ const CommunicationCoach = () => {
 
         setIsAnalyzing(true);
         try {
-            const response = await fetch('http://localhost:5003/api/groq/speech-analysis', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ transcript }),
-            });
+            const response = await api.post('/groq/speech-analysis', { transcript });
 
-            const data = await response.json();
+            const data = response.data;
             if (data.success) {
                 setAnalysis(data.analysis);
                 toast.success("Analysis complete!");

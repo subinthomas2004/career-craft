@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { ArrowLeft, Mail, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
+import { api } from "@/lib/api";
 import Spline from '@splinetool/react-spline';
 import {
     Dialog,
@@ -36,16 +36,9 @@ const ForgotPassword = () => {
         setIsLoading(true);
 
         try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
-
-            await axios.post(
-                'http://localhost:5003/api/auth/forgot-password',
-                { email },
-                config
+            await api.post(
+                '/auth/forgot-password',
+                { email }
             );
 
             // Open dialog instead of just showing success message

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Mic, Send, MicOff, ArrowLeft, StopCircle, Trophy, History, PanelRightClose, PanelRightOpen, ChevronRight, User, Bot, Video, VideoOff } from 'lucide-react';
-import axios from 'axios';
+import { api } from '@/lib/api';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -68,7 +68,7 @@ const DebateRoom = () => {
             // Artificial delay for realism
             await new Promise(r => setTimeout(r, 1500));
 
-            const res = await axios.post('http://localhost:5003/api/groq/debate/response', {
+            const res = await api.post('/groq/debate/response', {
                 topic,
                 aiStance,
                 userStance: stance,
@@ -269,7 +269,7 @@ const DebateRoom = () => {
             const context = transcript.map(t => `${t.speaker}: ${t.text}`).join('\n');
             const interruptionContext = isInterruption ? " [SYSTEM: AI INTERRUPTED USER DUE TO TIME LIMIT. BE ASSERTIVE.]" : "";
 
-            const res = await axios.post('http://localhost:5003/api/groq/debate/response', {
+            const res = await api.post('/groq/debate/response', {
                 topic,
                 aiStance,
                 userStance: stance,

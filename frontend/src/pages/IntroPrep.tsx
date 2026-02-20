@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import InterviewTimer from "@/components/interview/InterviewTimer";
 import HrOnlyView from "@/components/interview/HrOnlyView";
@@ -84,17 +84,10 @@ const IntroPrep = () => {
                 const userInfo = localStorage.getItem("userInfo");
                 if (userInfo) {
                     const { token } = JSON.parse(userInfo);
-                    await fetch('http://localhost:5003/api/auth/activity', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            title: `Intro Prep Session`,
-                            activityType: 'interview', // Reusing interview type for now
-                            score: `${avgScore}%`
-                        })
+                    await api.post('/auth/activity', {
+                        title: `Intro Prep Session`,
+                        activityType: 'interview', // Reusing interview type for now
+                        score: `${avgScore}%`
                     });
                 }
             }
@@ -218,7 +211,7 @@ const IntroPrep = () => {
                                                         formData.append("resume", file);
 
                                                         try {
-                                                            const { data } = await axios.post("http://localhost:5003/api/upload/resume", formData);
+                                                            const { data } = await api.post("/upload/resume", formData);
                                                             if (data.success) {
                                                                 setResumeText(data.text);
                                                                 setParsedResumeData(data.data);

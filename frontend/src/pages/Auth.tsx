@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -47,22 +47,15 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      const endpoint = isRegister ? '/auth/register' : '/auth/login';
 
-      const endpoint = isRegister ? 'http://localhost:5003/api/auth/register' : 'http://localhost:5003/api/auth/login';
-
-      const { data } = await axios.post(
+      const { data } = await api.post(
         endpoint,
         {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-        },
-        config
+        }
       );
 
       if (isRegister) {
@@ -110,19 +103,12 @@ const Auth = () => {
   const handleOTPVerify = async (otp: string) => {
     setIsLoading(true);
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { data } = await axios.post(
-        'http://localhost:5003/api/auth/verify-otp',
+      const { data } = await api.post(
+        '/auth/verify-otp',
         {
           email: formData.email,
           otp
-        },
-        config
+        }
       );
 
       // Verification successful, log user in
@@ -151,21 +137,14 @@ const Auth = () => {
       const user = result.user;
 
       // Authenticate with backend to store user in MongoDB
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const { data } = await axios.post(
-        'http://localhost:5003/api/auth/google',
+      const { data } = await api.post(
+        '/auth/google',
         {
           name: user.displayName,
           email: user.email,
           googleId: user.uid,
           picture: user.photoURL
-        },
-        config
+        }
       );
 
       // Save backend user info (includes MongoDB _id and JWT)

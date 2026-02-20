@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -120,8 +121,7 @@ const Quiz = () => {
 
   const fetchLeaderboard = async () => {
     try {
-      const res = await fetch("http://localhost:5003/api/scores/top");
-      const data = await res.json();
+      const { data } = await api.get("/scores/top");
       setLeaderboard(data);
     } catch (err) {
       console.error("Failed to fetch leaderboard", err);
@@ -133,14 +133,7 @@ const Quiz = () => {
       const token = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")!).token : null;
       if (!token) return;
 
-      await fetch("http://localhost:5003/api/scores", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ score, totalQuestions, timeTaken })
-      });
+      await api.post("/scores", { score, totalQuestions, timeTaken });
       fetchLeaderboard(); // Refresh after submission
     } catch (err) {
       console.error("Failed to submit score", err);

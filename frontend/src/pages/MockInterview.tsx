@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import InterviewTimer from "@/components/interview/InterviewTimer";
 import HrTechView from "@/components/interview/HrTechView";
@@ -112,17 +112,10 @@ const MockInterview = () => {
         const userInfo = localStorage.getItem("userInfo");
         if (userInfo) {
           const { token } = JSON.parse(userInfo);
-          await fetch('http://localhost:5003/api/auth/activity', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              title: `Mock Interview: ${selectedDomain.toUpperCase()}`,
-              activityType: 'interview',
-              score: `${avgScore}%`
-            })
+          await api.post('/auth/activity', {
+            title: `Mock Interview: ${selectedDomain.toUpperCase()}`,
+            activityType: 'interview',
+            score: `${avgScore}%`
           });
         }
       }
@@ -254,7 +247,7 @@ const MockInterview = () => {
 
                       try {
                         // Removed manual Content-Type header to let axios set it with boundary
-                        const { data } = await axios.post("http://localhost:5003/api/upload/resume", formData);
+                        const { data } = await api.post("/upload/resume", formData);
 
                         if (data.success) {
                           setResumeText(data.text);

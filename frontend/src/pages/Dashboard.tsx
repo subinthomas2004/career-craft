@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { api } from "@/lib/api";
 import { StatCard } from "@/components/ui/stat-card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -77,12 +78,11 @@ const Dashboard = () => {
 
           // You might need to import axios if not already imported
           // Assuming axios is available or using fetch
-          const response = await fetch('http://localhost:5003/api/auth/me', {
+          const { data } = await api.get('/auth/me', {
             headers: {
               Authorization: `Bearer ${parsedUser.token}`,
             }
           });
-          const data = await response.json();
 
           if (data.stats) {
             setStats(data.stats);

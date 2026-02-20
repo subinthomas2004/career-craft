@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -68,17 +69,10 @@ const GDReport = () => {
                     const userInfo = localStorage.getItem("userInfo");
                     if (userInfo) {
                         const { token } = JSON.parse(userInfo);
-                        await fetch('http://localhost:5003/api/auth/activity', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({
-                                title: `Group Discussion: ${topic}`,
-                                activityType: 'interview', // Reusing interview icon/type or maybe 'learning'
-                                score: `Rank #${userStats.rank}`
-                            })
+                        await api.post('/auth/activity', {
+                            title: `Group Discussion: ${topic}`,
+                            activityType: 'interview', // Reusing interview icon/type or maybe 'learning'
+                            score: `Rank #${userStats.rank}`
                         });
                     }
                 }

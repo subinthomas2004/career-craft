@@ -6,6 +6,7 @@ import { ConfigPanel } from './ConfigPanel';
 import { LiveStats } from './LiveStats';
 import { ResultsDashboard } from './ResultsDashboard';
 import { Keyboard } from 'lucide-react';
+import { api } from '@/lib/api';
 
 export const TypingTestContainer = () => {
     const [config, setConfig] = useState<TypingConfig>({
@@ -56,17 +57,10 @@ export const TypingTestContainer = () => {
                     const userInfo = localStorage.getItem("userInfo");
                     if (userInfo) {
                         const { token } = JSON.parse(userInfo);
-                        await fetch('http://localhost:5003/api/auth/activity', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
-                            body: JSON.stringify({
-                                title: `Typing Test: ${config.mode.charAt(0).toUpperCase() + config.mode.slice(1)}`,
-                                activityType: 'typing',
-                                score: `${state.wpm} WPM`
-                            })
+                        await api.post('/auth/activity', {
+                            title: `Typing Test: ${config.mode.charAt(0).toUpperCase() + config.mode.slice(1)}`,
+                            activityType: 'typing',
+                            score: `${state.wpm} WPM`
                         });
                     }
                 } catch (err) {

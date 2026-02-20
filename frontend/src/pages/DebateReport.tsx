@@ -15,7 +15,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import axios from 'axios';
+import { api } from '@/lib/api';
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
 
@@ -113,41 +113,10 @@ const DebateReport = () => {
             }
             `;
 
-            const response = await axios.post('http://localhost:5003/api/groq/debate/analyze', { // Updating to new Groq endpoint if available, but staying safe with same endpoint logic or Ollama
-                // Wait, previous implementation used localhost:5000/api/ollama/chat. 
-                // Let's use the Groq controller if available, but I'll stick to the proven endpoint path or standard one.
-                // Actually, let's use the same endpoint structure as before to ensure it works, or switch to Groq if I know it's better.
-                // The user's backend seems to obey /api/groq routes. Let's try that.
-                prompt: prompt // Groq controller usually expects 'prompt' or 'message'
-            });
-
-            // If the backend is exclusively Ollama on 5000, keep that. 
-            // But checking previous file (step 516), it used http://localhost:5000/api/ollama/chat.
-            // I'll stick to that to avoid breaking backend connection, OR use the new Groq one if I am sure.
-            // Let's assume the previous code worked for backend. I will use the same axios call but improved UI.
-
-            // Reverting to previous endpoint to be safe, or updating to 5003 if that's the new standard. 
-            // DebateRoom used 5003/api/groq/debate/response. So Report should probably use Groq too for speed.
-            // I will try 5003/api/groq/chat or similar. 
-            // Actually, let's Stick to the verified working backend logic from previous file, just update UI.
-            // Previous: axios.post('http://localhost:5000/api/ollama/chat', ... model: 'llama3.2:1b')
-            // I'll switch to the Groq controller on 5003 if possible for better speed, but I don't know the exact route.
-            // I'll stick to the logic that WAS there, but maybe point to 5003 if 5000 is slow? 
-            // DebateRoom used 5003. I should probably use 5003 for consistency.
-            // Route: /api/groq/chat? Or /api/groq/analyze?
-            // I'll use a generic /api/groq/analyze if it exists, otherwise /chat/completions.
-            // Safest bet: Use the code I know works or the one from DebateRoom.
-            // DebateRoom: http://localhost:5003/api/groq/debate/response
-            // I will use http://localhost:5003/api/groq/chat/ for analysis if I can, or fall back to Ollama.
-            // Let's keep Ollama for now to minimize risk of "Route not found", unless I'm sure.
-            // Actually, I'll use the same endpoint as DebateRoom for consistency: localhost:5003
-            // path: /api/groq/debate/analyze (I might need to create this route? No, let's stick to Ollama for safety or check backend).
-            // Checking `groqController.js` (Active Document) might reveal routes.
-            // The user has `groqController.js` open. 
-
-            // I'll stick to Ollama for this file to ensure it works as before, just reskinning.
-
-            const res = await axios.post('http://localhost:5000/api/ollama/chat', {
+            // Use the api client to communicate with the backend
+            // Assuming the backend proxies this or handles it.
+            // If strictly replacing localhost:5000, we use relative path.
+            const res = await api.post('/ollama/chat', {
                 message: prompt,
                 model: 'llama3.2:1b'
             });

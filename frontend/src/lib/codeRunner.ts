@@ -3,6 +3,8 @@
 // Python: Pyodide (WebAssembly) in-browser
 // Java, C, C++, C#, TypeScript, SQL: Backend API at /api/code/execute
 
+import { api } from "@/lib/api";
+
 export interface TestResult {
     passed: boolean;
     input: string;
@@ -225,7 +227,7 @@ function normalizePythonOutput(output: string): string {
 
 // ==================== BACKEND API EXECUTION (C, C++, Java, C#, TS, SQL) ====================
 
-const BACKEND_URL = "http://localhost:5003/api/code";
+// const BACKEND_URL = "http://localhost:5003/api/code";
 
 async function runBackendTests(
     code: string,
@@ -241,13 +243,14 @@ async function runBackendTests(
         try {
             const wrappedCode = wrapCodeForBackend(code, language, tc.input);
 
-            const response = await fetch(`${BACKEND_URL}/execute`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ language, code: wrappedCode }),
-            });
+            // const response = await fetch(`${BACKEND_URL}/execute`, {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({ language, code: wrappedCode }),
+            // });
+            const response = await api.post('/code/execute', { language, code: wrappedCode });
 
-            const data = await response.json();
+            const data = response.data;
             const elapsed = performance.now() - startTime;
 
             if (data.error) {

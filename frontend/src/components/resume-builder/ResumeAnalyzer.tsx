@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { api } from '@/lib/api';
 import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Info, Sparkles, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -77,17 +78,10 @@ export function ResumeAnalyzer() {
                 const userInfo = localStorage.getItem("userInfo");
                 if (userInfo) {
                     const { token } = JSON.parse(userInfo);
-                    await fetch('http://localhost:5003/api/auth/activity', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            title: `Resume Analysis`,
-                            activityType: 'resume',
-                            score: `${score.overall}%`
-                        })
+                    await api.post('/auth/activity', {
+                        title: `Resume Analysis`,
+                        activityType: 'resume',
+                        score: `${score.overall}%`
                     });
                 }
             } catch (err) {

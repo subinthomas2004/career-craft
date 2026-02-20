@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import {
     Select,
@@ -104,13 +105,9 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
         setOutput("Running code...\n");
 
         try {
-            const response = await fetch("http://localhost:5003/api/code/execute", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ language, code })
-            });
+            const response = await api.post("/code/execute", { language, code });
 
-            const data = await response.json();
+            const data = response.data;
 
             if (data.output) {
                 setOutput(data.output);

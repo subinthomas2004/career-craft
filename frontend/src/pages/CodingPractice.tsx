@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { api } from "@/lib/api";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { getProblemById, codingProblems, ALL_LANGUAGES, getStarterCode, type CodingProblem, type LanguageId } from "@/data/codingProblems";
 import { executeCode, preloadPyodide, isPyodideLoaded, getExecutionMode, type TestResult } from "@/lib/codeRunner";
@@ -189,17 +190,10 @@ const CodingPractice = () => {
         const userInfo = localStorage.getItem("userInfo");
         if (userInfo) {
           const { token } = JSON.parse(userInfo);
-          await fetch('http://localhost:5003/api/auth/activity', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              title: `Solved: ${problem.title}`,
-              activityType: 'coding',
-              score: 'Solved'
-            })
+          await api.post('/auth/activity', {
+            title: `Solved: ${problem.title}`,
+            activityType: 'coding',
+            score: 'Solved'
           });
         }
       } catch (err) {

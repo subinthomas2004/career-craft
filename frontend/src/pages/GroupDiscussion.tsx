@@ -11,7 +11,7 @@ import AvatarPlayer from "@/components/interview/AvatarPlayer";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import { api } from "@/lib/api";
 import io from "socket.io-client";
 import SimplePeer from "simple-peer";
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
@@ -77,7 +77,9 @@ const DAVID_VIDEOS = {
     nodding: "/avatars/tech/tech_nodding.mp4"
 };
 
-const BACKEND_URL = 'http://localhost:5003';
+const BACKEND_URL = import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL.replace('/api', '')
+    : window.location.origin;
 
 // --- Video Component for Peers ---
 const PeerVideo = ({ stream, isSpeaking }: { stream: MediaStream, isSpeaking: boolean }) => {
@@ -357,7 +359,7 @@ const GroupDiscussion = () => {
         // await new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 1000)); // Remove extra artificial delay, we handled it in transition
         try {
             const context = transcriptRef.current.map(t => `${t.speakerName}: ${t.text}`).join('\n');
-            const res = await axios.post('http://localhost:5003/api/groq/gd/response', {
+            const res = await api.post('/groq/gd/response', {
                 topic, agentName: agent.name, role: agent.role, style: agent.systemPrompt, context
             });
             const text = res.data.response;

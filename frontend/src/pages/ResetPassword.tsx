@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { ArrowLeft, Lock, Rocket, KeyRound, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
+import { api } from "@/lib/api";
 import Spline from '@splinetool/react-spline';
 
 const ResetPassword = () => {
@@ -44,16 +44,9 @@ const ResetPassword = () => {
         setIsLoading(true);
 
         try {
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
-
-            await axios.post(
-                'http://localhost:5003/api/auth/reset-password',
-                { email, otp, password },
-                config
+            await api.post(
+                '/auth/reset-password',
+                { email, otp, password }
             );
 
             toast({

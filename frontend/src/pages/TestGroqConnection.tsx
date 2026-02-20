@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -26,7 +26,7 @@ const TestGroqConnection = () => {
         setIsLoading(true);
 
         try {
-            const { data } = await axios.post('http://localhost:5000/api/groq/test', {
+            const { data } = await api.post('/groq/test', {
                 message: userMessage.content
             });
 

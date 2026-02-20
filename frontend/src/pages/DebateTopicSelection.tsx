@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Play, Edit3, Grid, ArrowLeft, Dices, MessageSquare, Swords, Globe, Scale, Timer } from 'lucide-react';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import axios from 'axios';
+import { api } from '@/lib/api';
 
 const DEBATE_CATEGORIES = {
     "Technology & AI": [
@@ -146,7 +146,7 @@ const DebateTopicSelection = () => {
     const handleRandomTopic = async () => {
         setLoadingRandom(true);
         try {
-            const response = await axios.post('http://localhost:5003/api/groq/debate/topic', {
+            const response = await api.post('/groq/debate/topic', {
                 type: 'debate',
                 category: 'General'
             });
