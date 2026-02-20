@@ -167,7 +167,7 @@ const GDTopicSelection = () => {
             toast.error("Please select or enter a topic to proceed.");
             return;
         }
-        navigate('/group-discussion/room', { state: { topic: topicToUse, timeLimit } });
+        navigate('/group-discussion/lobby', { state: { topic: topicToUse, timeLimit, isHost: true } });
     };
 
     return (

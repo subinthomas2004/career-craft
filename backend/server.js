@@ -103,9 +103,71 @@ app.use((err, req, res, next) => {
 });
 
 // Socket.io Logic
+const lobbies = {}; // Track lobby participants: { roomCode: [{ socketId, userId, name, ... }] }
+
 io.on('connection', (socket) => {
     console.log(`User Connected: ${socket.id}`);
 
+    // --- Lobby Events ---
+    socket.on('join-lobby', (roomCode, userInfo) => {
+        // Check if room is full (max 2)
+        if (lobbies[roomCode] && lobbies[roomCode].length >= 2) {
+            socket.emit('lobby-full');
+            return;
+        }
+
+        socket.join(roomCode);
+
+        if (!lobbies[roomCode]) lobbies[roomCode] = [];
+
+        // Don't add duplicate
+        const exists = lobbies[roomCode].find(p => p.userId === userInfo.userId);
+        if (!exists) {
+            lobbies[roomCode].push({ socketId: socket.id, ...userInfo });
+        }
+
+        io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
+        console.log(`[Lobby] ${userInfo.name} joined room ${roomCode} (${lobbies[roomCode].length}/2)`);
+    });
+
+    socket.on('leave-lobby', (roomCode) => {
+        if (lobbies[roomCode]) {
+            const user = lobbies[roomCode].find(p => p.socketId === socket.id);
+            lobbies[roomCode] = lobbies[roomCode].filter(p => p.socketId !== socket.id);
+            if (user) {
+                io.to(roomCode).emit('lobby-user-left', { name: user.name });
+                io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
+            }
+            if (lobbies[roomCode].length === 0) delete lobbies[roomCode];
+        }
+    });
+
+    socket.on('lobby-chat-message', (roomCode, message) => {
+        io.to(roomCode).emit('lobby-chat', message);
+    });
+
+    socket.on('start-discussion', (roomCode, data) => {
+        io.to(roomCode).emit('discussion-started', data);
+        delete lobbies[roomCode]; // Cleanup
+        console.log(`[Lobby] Discussion started in room ${roomCode}`);
+    });
+
+    // Cleanup on disconnect
+    socket.on('disconnect', () => {
+        console.log(`User Disconnected: ${socket.id}`);
+        // Clean up from any lobby
+        for (const [roomCode, participants] of Object.entries(lobbies)) {
+            const user = participants.find(p => p.socketId === socket.id);
+            if (user) {
+                lobbies[roomCode] = participants.filter(p => p.socketId !== socket.id);
+                io.to(roomCode).emit('lobby-user-left', { name: user.name });
+                io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
+                if (lobbies[roomCode].length === 0) delete lobbies[roomCode];
+            }
+        }
+    });
+
+    // --- GD Room Events ---
     socket.on('join-room', (roomId, userId) => {
         socket.join(roomId);
         console.log(`User ${userId} joined room ${roomId}`);

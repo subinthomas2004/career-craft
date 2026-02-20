@@ -101,7 +101,7 @@ const GroupDiscussion = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const { topic: initialTopic, timeLimit = 10 } = location.state || {}; // Default 10 mins
+    const { topic: initialTopic, timeLimit = 10, isMultiplayer = false, peerUser = null, roomCode: lobbyRoomCode = '' } = location.state || {}; // Default 10 mins
 
     // User Info
     const [userInfo, setUserInfo] = useState<any>(null);
@@ -109,6 +109,8 @@ const GroupDiscussion = () => {
         const stored = localStorage.getItem("userInfo");
         if (stored) setUserInfo(JSON.parse(stored));
     }, []);
+    // In multiplayer mode, use only 3 AI agents (remove last one to make room for peer)
+    const activeAIAgents = isMultiplayer ? AI_AGENTS.slice(0, 3) : AI_AGENTS;
 
     // State
     const [topic, setTopic] = useState(initialTopic || 'Universal Basic Income');
@@ -315,8 +317,8 @@ const GroupDiscussion = () => {
                 const lastSpeakerId = currentTranscript[currentTranscript.length - 1]?.speakerId;
 
                 // Pick next agent (ensure it's not the same as last speaker if possible)
-                const availableAgents = AI_AGENTS.filter(a => a.id !== lastSpeakerId);
-                const nextAgent = availableAgents[Math.floor(Math.random() * availableAgents.length)] || AI_AGENTS[0];
+                const availableAgents = activeAIAgents.filter(a => a.id !== lastSpeakerId);
+                const nextAgent = availableAgents[Math.floor(Math.random() * availableAgents.length)] || activeAIAgents[0];
 
                 triggerAgentTurn(nextAgent);
             }
@@ -441,12 +443,16 @@ const GroupDiscussion = () => {
     const handleStop = () => navigate('/dashboard/group-discussion');
     const handleSkipPreparation = () => { setIsPreparing(false); setIsActive(true); setTimeLeft(0); };
 
+
     // Participants list including Moderator
     const allParticipants = [
         { ...MODERATOR, isUser: false },
         { id: 'user', name: userInfo?.name?.split(' ')[0] || 'You', role: 'Candidate', isUser: true, color: 'bg-indigo-100 text-indigo-700', systemPrompt: '', avatar: '' },
-        ...peers.map((p, i) => ({ ...AI_AGENTS[i], ...p, isUser: false, isPeer: true })),
-        ...AI_AGENTS.slice(peers.length)
+        ...(isMultiplayer && peerUser ? [{
+            id: 'peer', name: peerUser.name?.split(' ')[0] || 'Friend', role: 'Candidate', isUser: false, isPeer: true, color: 'bg-teal-100 text-teal-700', systemPrompt: '', avatar: peerUser.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${peerUser.name}`
+        }] : []),
+        ...peers.map((p, i) => ({ ...activeAIAgents[i], ...p, isUser: false, isPeer: true })),
+        ...activeAIAgents.slice(peers.length)
     ];
 
     return (

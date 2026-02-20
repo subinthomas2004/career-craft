@@ -31,6 +31,7 @@ import GroupDiscussion from "./pages/GroupDiscussion";
 import GDLanding from "./pages/GDLanding";
 import GDTopicSelection from "./pages/GDTopicSelection";
 import GDReport from './pages/GDReport';
+import GDLobby from './pages/GDLobby';
 import GD3DRoom from "./pages/experimental/GD3DRoom";
 import DebateLanding from "./pages/DebateLanding";
 import DebateTopicSelection from "./pages/DebateTopicSelection";
@@ -57,6 +58,8 @@ const App = () => <QueryClientProvider client={queryClient}>
         <Route path="/admin" element={<Admin />} />
         <Route path="/test-groq" element={<TestGroqConnection />} />
         <Route path="/group-discussion/room" element={<GroupDiscussion />} />
+        <Route path="/group-discussion/lobby" element={<GDLobby />} />
+        <Route path="/group-discussion/join/:code" element={<GDLobby />} />
 
         {/* Dashboard Routes */}
         <Route path="/dashboard" element={<DashboardLayout />}>
@@ -80,8 +83,6 @@ const App = () => <QueryClientProvider client={queryClient}>
           <Route path="settings" element={<Settings />} />
 
 
-          <Route path="group-discussion" element={<GDLanding />} />
-          <Route path="group-discussion/topic" element={<GDTopicSelection />} />
           <Route path="group-discussion" element={<GDLanding />} />
           <Route path="group-discussion/topic" element={<GDTopicSelection />} />
           <Route path="group-discussion/report" element={<GDReport />} />
