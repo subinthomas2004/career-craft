@@ -164,22 +164,16 @@ const GDLobby = () => {
         setChatInput('');
     };
 
-    // Copy room code
+    // Copy room code (6-digit code only)
     const copyCode = () => {
-        const url = `${window.location.origin}/group-discussion/join/${roomCode}?topic=${encodeURIComponent(topic)}`;
-        navigator.clipboard.writeText(url);
+        navigator.clipboard.writeText(roomCode);
         setCopied(true);
-        toast.success("Invite link copied!");
+        toast.success(`Room code "${roomCode}" copied!`);
         setTimeout(() => setCopied(false), 2000);
     };
 
-    // Copy just the code
-    const copyCodeOnly = () => {
-        navigator.clipboard.writeText(roomCode);
-        setCopied(true);
-        toast.success(`Code "${roomCode}" copied!`);
-        setTimeout(() => setCopied(false), 2000);
-    };
+    // Alias for clicking the large code display
+    const copyCodeOnly = copyCode;
 
     // Start discussion (host only)
     const startDiscussion = () => {
@@ -267,7 +261,7 @@ const GDLobby = () => {
                                     className="rounded-full border-indigo-200 text-indigo-600 hover:bg-indigo-50"
                                 >
                                     {copied ? <CheckCircle2 className="w-4 h-4 mr-2 text-emerald-500" /> : <Copy className="w-4 h-4 mr-2" />}
-                                    {copied ? 'Copied!' : 'Copy Invite Link'}
+                                    {copied ? 'Copied!' : 'Copy Room Code'}
                                 </Button>
                             </div>
                         </div>
