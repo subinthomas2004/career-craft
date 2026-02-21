@@ -11,28 +11,44 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
+// CORS configuration - allow all origins for API and Socket.IO
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow all origins (including no-origin for same-origin requests)
+        callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+};
+
 // Socket.io setup with permissive CORS
 const io = new Server(server, {
-    cors: {
-        origin: true, // Reflect request origin
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+    cors: corsOptions
 });
 
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-// Fix: Use origin: true to reflect the request origin, which allows credentials
-app.use(cors({
-    origin: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors(corsOptions));
 
 // Handle preflight requests for all routes
-app.options('*', cors());
+app.options('*', cors(corsOptions));
+
+// Explicit CORS headers as fallback (for Render deployment)
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (origin) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 app.use(express.json());
 
