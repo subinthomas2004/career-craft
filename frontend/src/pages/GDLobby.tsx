@@ -134,6 +134,12 @@ const GDLobby = () => {
             navigate('/dashboard/group-discussion');
         });
 
+        // Room doesn't exist (invalid/random code)
+        socketRef.current.on('room-not-found', () => {
+            toast.error("Room not found! Please check the code and try again.");
+            navigate('/dashboard/group-discussion');
+        });
+
         // User left
         socketRef.current.on('lobby-user-left', (leftUser: { name: string }) => {
             toast.info(`${leftUser.name} left the lobby.`);

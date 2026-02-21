@@ -109,7 +109,22 @@ io.on('connection', (socket) => {
     console.log(`User Connected: ${socket.id}`);
 
     // --- Lobby Events ---
+
+    // Check if a room exists (for joiners before joining)
+    socket.on('check-room', (roomCode, callback) => {
+        const exists = !!lobbies[roomCode];
+        if (typeof callback === 'function') {
+            callback({ exists, participants: exists ? lobbies[roomCode].length : 0 });
+        }
+    });
+
     socket.on('join-lobby', (roomCode, userInfo) => {
+        // If NOT host, the room must already exist (created by a host)
+        if (!userInfo.isHost && !lobbies[roomCode]) {
+            socket.emit('room-not-found');
+            return;
+        }
+
         // Check if room is full (max 2)
         if (lobbies[roomCode] && lobbies[roomCode].length >= 2) {
             socket.emit('lobby-full');
