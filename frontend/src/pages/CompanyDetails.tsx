@@ -315,7 +315,7 @@ const CompanyDetails = () => {
                     <div className="flex-1 w-full bg-muted/30 relative py-2 px-2 md:px-6">
                         {selectedPdf && (
                             <iframe
-                                src={`${selectedPdf.cloudUrl}#view=FitH`}
+                                src={`https://docs.google.com/gview?url=${encodeURIComponent(selectedPdf.cloudUrl)}&embedded=true`}
                                 title={selectedPdf.title}
                                 className="w-full h-full rounded-xl shadow-lg border border-border/50 bg-white"
                             />
