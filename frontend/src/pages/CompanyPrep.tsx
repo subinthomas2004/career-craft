@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import axios from "axios";
+import { api } from "@/lib/api";
 
 // Define the interface based on our mongoose model
 export interface Company {
@@ -25,7 +25,7 @@ const CompanyPrep = () => {
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                const response = await axios.get('/api/companies'); // Adjust if base URL needed
+                const response = await api.get('/companies'); // Hits the configured API_URL
                 setCompanies(response.data);
             } catch (error) {
                 console.error("Failed to fetch companies", error);

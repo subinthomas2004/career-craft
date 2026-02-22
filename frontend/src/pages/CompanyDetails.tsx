@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { Company } from "./CompanyPrep";
 import { cn } from "@/lib/utils";
 
@@ -46,8 +46,8 @@ const CompanyDetails = () => {
         const fetchCompanyData = async () => {
             try {
                 const [companyRes, materialsRes] = await Promise.all([
-                    axios.get(`/api/companies/${id}`),
-                    axios.get(`/api/companies/${id}/materials`)
+                    api.get(`/companies/${id}`),
+                    api.get(`/companies/${id}/materials`)
                 ]);
                 setCompany(companyRes.data);
                 setMaterials(materialsRes.data);
