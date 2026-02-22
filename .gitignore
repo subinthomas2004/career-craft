@@ -5,3 +5,7 @@ dist
 coverage
 .vscode
 .idea
+
+# Placement Materials
+Placement material/
+backend/serviceAccountKey.json

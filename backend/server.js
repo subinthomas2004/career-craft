@@ -11,44 +11,28 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-// CORS configuration - allow all origins for API and Socket.IO
-const corsOptions = {
-    origin: function (origin, callback) {
-        // Allow all origins (including no-origin for same-origin requests)
-        callback(null, true);
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
-};
-
 // Socket.io setup with permissive CORS
 const io = new Server(server, {
-    cors: corsOptions
+    cors: {
+        origin: true, // Reflect request origin
+        methods: ["GET", "POST"],
+        credentials: true
+    }
 });
 
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-app.use(cors(corsOptions));
+// Fix: Use origin: true to reflect the request origin, which allows credentials
+app.use(cors({
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Handle preflight requests for all routes
-app.options('*', cors(corsOptions));
-
-// Explicit CORS headers as fallback (for Render deployment)
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    if (origin) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200);
-    }
-    next();
-});
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -98,6 +82,7 @@ import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import groqRoutes from './routes/groqRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import companyRoutes from './routes/companyRoutes.js';
 
 app.get('/', (req, res) => {
     res.send('Career Craft API is running');
@@ -111,6 +96,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/groq', groqRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/companies', companyRoutes);
 
 // Global error handler (must be after routes)
 app.use((err, req, res, next) => {

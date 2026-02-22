@@ -42,6 +42,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import TestGroqConnection from "./pages/TestGroqConnection";
 import CommunicationCoach from "./pages/CommunicationCoach";
+import CompanyPrep from "./pages/CompanyPrep";
+import CompanyDetails from "./pages/CompanyDetails";
 
 const queryClient = new QueryClient();
 const App = () => <QueryClientProvider client={queryClient}>
@@ -93,6 +95,8 @@ const App = () => <QueryClientProvider client={queryClient}>
           <Route path="experimental/gd-3d" element={<GD3DRoom />} />
           <Route path="aptitude-quiz" element={<AptitudeQuiz />} />
           <Route path="communication-coach" element={<CommunicationCoach />} />
+          <Route path="company-prep" element={<CompanyPrep />} />
+          <Route path="company-prep/:id" element={<CompanyDetails />} />
         </Route>
 
         {/* Catch-all */}
