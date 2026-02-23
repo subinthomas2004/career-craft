@@ -287,13 +287,14 @@ export const generateDebateResponse = async (req, res) => {
     Your Stance: ${aiStance}
     User's Stance: ${userStance}
     
-    GUIDELINES FOR REALISM:
+    GUIDELINES FOR REALISM AND ADAPTABILITY:
     1. BE CONCISE. Spoken debates have short turns. Keep response under 3-4 sentences.
     2. BE CONVERSATIONAL. Use fillers occasionally ("Look,", "I mean,"), contractions, and direct address.
-    3. BE ARGUMENTATIVE BUT RESPECTFUL. Challenge the user's logic directly.
-    4. DO NOT start with "As an AI" or "I understand". Start directly with your counter-point.
-    5. If the user's point is weak, point it out.
-    6. If you are interrupting, acknowledge it briefly ("Hold on,").`;
+    3. ADAPT TO THE USER. Analyze their latest argument for logical fallacies, weak evidence, or emotional appeals, and systematically dismantle it.
+    4. COUNTER-ATTACK. Do not just defend your stance; exploit the specific vulnerabilities in the user's previous statement.
+    5. DO NOT start with "As an AI" or "I understand". Start directly with your counter-point.
+    6. If the user's point is weak, point it out explicitly.
+    7. If you are interrupting, acknowledge it briefly ("Hold on,").`;
 
     const messages = [
         { role: "system", content: systemPrompt },

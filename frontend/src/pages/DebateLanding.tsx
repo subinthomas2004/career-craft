@@ -2,9 +2,68 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Play, Zap, Bot, BarChart3, Trophy, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { db, auth } from '@/firebase';
+import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip as ChartTooltip, Legend
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale, LinearScale, PointElement, LineElement, Title, ChartTooltip, Legend
+);
 
 const DebateLanding = () => {
     const navigate = useNavigate();
+
+    const [debates, setDebates] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchDebates = async () => {
+            if (!auth.currentUser) {
+                setLoading(false);
+                return;
+            }
+            try {
+                const q = query(
+                    collection(db, "debates"),
+                    where("userId", "==", auth.currentUser.uid),
+                    orderBy("createdAt", "asc")
+                );
+                const querySnapshot = await getDocs(q);
+                const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setDebates(data);
+            } catch (error) {
+                console.error("Error fetching past debates:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                fetchDebates();
+            } else {
+                setLoading(false);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const chartData = {
+        labels: debates.map((_, i) => `Debate ${i + 1}`),
+        datasets: [
+            {
+                label: 'Overall Score',
+                data: debates.map(d => d.overallScore),
+                borderColor: '#6366f1',
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                tension: 0.4,
+            }
+        ]
+    };
 
     const features = [
         {
@@ -25,9 +84,9 @@ const DebateLanding = () => {
     ];
 
     return (
-        <div className="flex flex-col h-[calc(100vh-4rem)] font-sans relative overflow-hidden bg-background">
+        <div className="flex flex-col min-h-[calc(100vh-4rem)] font-sans relative bg-background">
             {/* Background Elements */}
-            <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+            <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden h-full fixed">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/40 via-background to-background" />
                 <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-indigo-100/30 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
                 <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-blue-100/30 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
@@ -99,6 +158,19 @@ const DebateLanding = () => {
                         </div>
                     ))}
                 </div>
+
+                {/* --- Analytics Section --- */}
+                {!loading && debates.length > 0 && (
+                    <div className="w-full max-w-5xl mx-auto mb-16 p-6 rounded-2xl bg-white/40 border border-border/40 backdrop-blur-sm shadow-sm animate-in fade-in duration-1000">
+                        <div className="flex items-center gap-2 mb-6">
+                            <BarChart3 className="w-6 h-6 text-indigo-500" />
+                            <h2 className="text-xl font-bold">Your Performance Over Time</h2>
+                        </div>
+                        <div className="h-64 w-full">
+                            <Line data={chartData} options={{ maintainAspectRatio: false, scales: { y: { suggestedMin: 0, suggestedMax: 100 } } }} />
+                        </div>
+                    </div>
+                )}
 
             </main>
         </div>

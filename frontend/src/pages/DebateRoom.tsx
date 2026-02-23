@@ -269,6 +269,21 @@ const DebateRoom = () => {
             const context = transcript.map(t => `${t.speaker}: ${t.text}`).join('\n');
             const interruptionContext = isInterruption ? " [SYSTEM: AI INTERRUPTED USER DUE TO TIME LIMIT. BE ASSERTIVE.]" : "";
 
+            // --- INSTANT VERIFICATION ---
+            // Kick off style/speech analysis in parallel for instant feedback
+            api.post('/groq/speech-analysis', { transcript: userMsg })
+                .then(analysisRes => {
+                    const analysis = analysisRes.data.analysis;
+                    if (analysis && analysis.feedback) {
+                        toast.info(`Style Feedback: ${analysis.feedback}`, {
+                            duration: 6000,
+                            icon: '💡',
+                        });
+                    }
+                })
+                .catch(err => console.error("Speech Analysis Error:", err));
+            // ----------------------------
+
             const res = await api.post('/groq/debate/response', {
                 topic,
                 aiStance,

@@ -18,6 +18,8 @@ import {
 import { api } from '@/lib/api';
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
+import { db, auth } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 ChartJS.register(
     RadialLinearScale,
@@ -126,6 +128,20 @@ const DebateReport = () => {
             const data = JSON.parse(cleanJson);
 
             setReport(data);
+
+            // Save to Firebase for Performance Analytics
+            if (auth.currentUser) {
+                try {
+                    await addDoc(collection(db, "debates"), {
+                        userId: auth.currentUser.uid,
+                        topic: topic,
+                        overallScore: data.overallScore,
+                        createdAt: serverTimestamp(),
+                    });
+                } catch (saveErr) {
+                    console.error("Failed to save report to Firebase:", saveErr);
+                }
+            }
         } catch (err) {
             console.error("Report generation failed:", err);
             setError("Failed to generate report. Please try again.");
