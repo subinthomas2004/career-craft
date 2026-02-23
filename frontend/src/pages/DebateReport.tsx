@@ -116,11 +116,8 @@ const DebateReport = () => {
             `;
 
             // Use the api client to communicate with the backend
-            // Assuming the backend proxies this or handles it.
-            // If strictly replacing localhost:5000, we use relative path.
-            const res = await api.post('/ollama/chat', {
-                message: prompt,
-                model: 'llama3.2:1b'
+            const res = await api.post('/groq/debate/evaluate', {
+                message: prompt
             });
 
             const jsonStr = res.data.response;

@@ -445,3 +445,30 @@ export const analyzeSpeech = async (req, res) => {
         res.status(500).json({ success: false, error: "Failed to analyze speech" });
     }
 };
+
+export const evaluateDebate = async (req, res) => {
+    const { message } = req.body;
+
+    const systemPrompt = `You are an Expert Debate Evaluator.
+    You will receive a prompt containing a debate transcript and instructions on how to evaluate the User.
+    You MUST output ONLY a valid JSON object matching the requested schema. Do not output markdown code blocks.`;
+
+    try {
+        const completion = await groq.chat.completions.create({
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: message }
+            ],
+            model: "llama-3.3-70b-versatile",
+            temperature: 0.3,
+            response_format: { type: "json_object" }
+        });
+
+        const report = completion.choices[0]?.message?.content;
+        res.json({ success: true, response: report });
+
+    } catch (error) {
+        console.error("Debate Evaluation Error:", error);
+        res.status(500).json({ success: false, error: "Failed to evaluate debate" });
+    }
+};
