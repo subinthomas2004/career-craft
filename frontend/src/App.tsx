@@ -44,6 +44,7 @@ import TestGroqConnection from "./pages/TestGroqConnection";
 import CommunicationCoach from "./pages/CommunicationCoach";
 import CompanyPrep from "./pages/CompanyPrep";
 import CompanyDetails from "./pages/CompanyDetails";
+import JobPortal from "./pages/JobPortal";
 
 const queryClient = new QueryClient();
 const App = () => <QueryClientProvider client={queryClient}>
@@ -97,6 +98,7 @@ const App = () => <QueryClientProvider client={queryClient}>
           <Route path="communication-coach" element={<CommunicationCoach />} />
           <Route path="company-prep" element={<CompanyPrep />} />
           <Route path="company-prep/:id" element={<CompanyDetails />} />
+          <Route path="jobs" element={<JobPortal />} />
         </Route>
 
         {/* Catch-all */}

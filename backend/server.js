@@ -83,6 +83,7 @@ import adminRoutes from './routes/adminRoutes.js';
 import groqRoutes from './routes/groqRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import companyRoutes from './routes/companyRoutes.js';
+import jobRoutes from './routes/jobRoutes.js';
 
 app.get('/', (req, res) => {
     res.send('Career Craft API is running');
@@ -97,6 +98,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/groq', groqRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/companies', companyRoutes);
+app.use('/api/jobs', jobRoutes);
 
 // Global error handler (must be after routes)
 app.use((err, req, res, next) => {

@@ -21,7 +21,8 @@ import {
   Menu,
   X,
   Shield,
-  Users
+  Users,
+  Briefcase
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -54,6 +55,7 @@ const menuItems = [
   { icon: Target, label: "Skill Gap", path: "/dashboard/skill-gap" },
   { icon: BookOpen, label: "Domain Prep", path: "/dashboard/domain" },
   { icon: Building2, label: "Company Prep", path: "/dashboard/company-prep" },
+  { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs" },
   { icon: MessageSquare, label: "Forum", path: "/dashboard/forum" },
   { icon: Bell, label: "Notifications", path: "/dashboard/notifications" },
   { icon: Shield, label: "Admin", path: "/dashboard/admin" },
