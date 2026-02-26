@@ -187,9 +187,11 @@ const GDLobby = () => {
     // Start discussion (host only)
     const startDiscussion = () => {
         const peerUsers = participants.filter(p => !p.isHost);
+
+        // Emit the start event to notify all joiners
         socketRef.current?.emit('start-discussion', roomCode, { topic, timeLimit, participants });
-        // Host also navigates
-        socketRef.current?.disconnect();
+
+        // Navigate the host to the discussion room immediately
         navigate('/group-discussion/room', {
             state: {
                 topic,
@@ -199,6 +201,9 @@ const GDLobby = () => {
                 peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar }))
             }
         });
+
+        // Delay disconnect to ensure the emit reaches the server first
+        setTimeout(() => socketRef.current?.disconnect(), 500);
     };
 
     const friendCount = participants.filter(p => !p.isHost).length;
