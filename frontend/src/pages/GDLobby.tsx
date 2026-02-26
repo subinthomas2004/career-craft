@@ -115,22 +115,23 @@ const GDLobby = () => {
         });
 
         // Discussion started by host
-        socketRef.current.on('discussion-started', (data: { topic: string; timeLimit: number }) => {
+        socketRef.current.on('discussion-started', (data: { topic: string; timeLimit: number; participants: LobbyParticipant[] }) => {
             socketRef.current.disconnect();
+            const peerUsers = (data.participants || participants).filter(p => p.socketId !== socketRef.current?.id && !p.isHost);
             navigate('/group-discussion/room', {
                 state: {
                     topic: data.topic,
                     timeLimit: data.timeLimit,
                     roomCode,
-                    isMultiplayer: true,
-                    peerUser: participants.find(p => !p.isHost)
+                    isMultiplayer: peerUsers.length > 0,
+                    peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar }))
                 }
             });
         });
 
         // Room full
         socketRef.current.on('lobby-full', () => {
-            toast.error("This room is already full (max 2 participants).");
+            toast.error("This room is already full (max 5 participants).");
             navigate('/dashboard/group-discussion');
         });
 
@@ -177,28 +178,25 @@ const GDLobby = () => {
 
     // Start discussion (host only)
     const startDiscussion = () => {
-        if (participants.length < 2) {
-            toast.error("Wait for your friend to join before starting.");
-            return;
-        }
-        socketRef.current?.emit('start-discussion', roomCode, { topic, timeLimit });
+        const peerUsers = participants.filter(p => !p.isHost);
+        socketRef.current?.emit('start-discussion', roomCode, { topic, timeLimit, participants });
         // Host also navigates
         socketRef.current?.disconnect();
-        const peerUser = participants.find(p => !p.isHost);
         navigate('/group-discussion/room', {
             state: {
                 topic,
                 timeLimit,
                 roomCode,
-                isMultiplayer: true,
-                peerUser: peerUser ? { name: peerUser.name, email: peerUser.email, avatar: peerUser.avatar } : null
+                isMultiplayer: peerUsers.length > 0,
+                peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar }))
             }
         });
     };
 
-    const friendJoined = participants.length >= 2;
+    const friendCount = participants.filter(p => !p.isHost).length;
+    const aiCount = 4 - friendCount;
     const hostParticipant = participants.find(p => p.isHost);
-    const friendParticipant = participants.find(p => !p.isHost);
+    const friendParticipants = participants.filter(p => !p.isHost);
 
     // Format room code for display: ABC-DEF
     const formattedCode = roomCode.slice(0, 3) + '-' + roomCode.slice(3);
@@ -219,7 +217,7 @@ const GDLobby = () => {
                 <div className="flex items-center gap-2">
                     <Badge variant="outline" className="text-indigo-600 border-indigo-200 bg-indigo-50">
                         <Users className="w-3 h-3 mr-1" />
-                        {participants.length}/2 Joined
+                        {participants.length}/5 Joined
                     </Badge>
                     {isConnected && (
                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Connected" />
@@ -281,7 +279,7 @@ const GDLobby = () => {
                                     <Clock className="w-3.5 h-3.5" /> {timeLimit} min
                                 </span>
                                 <span className="flex items-center gap-1">
-                                    <Users className="w-3.5 h-3.5" /> 2 users + 3 AI
+                                    <Users className="w-3.5 h-3.5" /> {participants.length} user{participants.length > 1 ? 's' : ''} + {aiCount} AI
                                 </span>
                             </div>
                         </div>
@@ -324,58 +322,55 @@ const GDLobby = () => {
                                 )}
                             </div>
 
-                            {/* Friend slot */}
-                            <div className={cn(
-                                "flex items-center gap-3 p-3 rounded-xl transition-all",
-                                friendParticipant ? "bg-emerald-50 border border-emerald-100" : "bg-slate-50 border border-dashed border-slate-200"
-                            )}>
-                                {friendParticipant ? (
-                                    <>
-                                        <Avatar className="h-10 w-10 border-2 border-emerald-300">
-                                            <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${friendParticipant.name}`} />
-                                            <AvatarFallback>{friendParticipant.name[0]}</AvatarFallback>
-                                        </Avatar>
-                                        <div className="flex-1">
-                                            <div className="font-semibold text-slate-800 flex items-center gap-2">
-                                                {friendParticipant.name}
-                                                {!friendParticipant.isHost && !isHost && (
-                                                    <Badge variant="secondary" className="text-[10px] py-0">You</Badge>
-                                                )}
-                                            </div>
-                                            <div className="text-xs text-slate-500">Friend</div>
+                            {/* Friend slots (up to 4) */}
+                            {friendParticipants.map((friend, i) => (
+                                <div key={friend.socketId} className="flex items-center gap-3 p-3 rounded-xl transition-all bg-emerald-50 border border-emerald-100">
+                                    <Avatar className="h-10 w-10 border-2 border-emerald-300">
+                                        <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${friend.name}`} />
+                                        <AvatarFallback>{friend.name[0]}</AvatarFallback>
+                                    </Avatar>
+                                    <div className="flex-1">
+                                        <div className="font-semibold text-slate-800 flex items-center gap-2">
+                                            {friend.name}
+                                            {friend.userId === (userInfo?._id || userInfo?.id) && (
+                                                <Badge variant="secondary" className="text-[10px] py-0">You</Badge>
+                                            )}
                                         </div>
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                                    </>
-                                ) : (
-                                    <div className="flex items-center gap-3 text-slate-400 w-full">
-                                        <div className="w-10 h-10 rounded-full border-2 border-dashed border-slate-300 flex items-center justify-center">
-                                            <UserPlus className="w-4 h-4" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <span className="text-sm">Waiting for friend to join...</span>
-                                            <div className="flex items-center gap-1 mt-0.5">
-                                                <Loader2 className="w-3 h-3 animate-spin text-slate-300" />
-                                                <span className="text-xs text-slate-300">Share the code above</span>
-                                            </div>
-                                        </div>
+                                        <div className="text-xs text-slate-500">Friend #{i + 1}</div>
                                     </div>
-                                )}
-                            </div>
+                                    <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                                </div>
+                            ))}
+
+                            {/* Empty friend slots */}
+                            {Array.from({ length: Math.max(0, 4 - friendCount) }).map((_, i) => (
+                                <div key={`empty-${i}`} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-dashed border-slate-200">
+                                    <div className="w-10 h-10 rounded-full border-2 border-dashed border-slate-300 flex items-center justify-center">
+                                        <UserPlus className="w-4 h-4 text-slate-400" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <span className="text-sm text-slate-400">Open slot</span>
+                                        <div className="text-xs text-slate-300">Will be filled by AI if empty</div>
+                                    </div>
+                                </div>
+                            ))}
 
                             {/* AI Agents preview */}
-                            <div className="pt-2 border-t border-slate-100 mt-2">
-                                <div className="text-xs text-slate-400 mb-2 font-medium">+ 3 AI Participants will join</div>
-                                <div className="flex items-center gap-2">
-                                    {['Alex', 'Sarah', 'Mike'].map(name => (
-                                        <div key={name} className="flex items-center gap-1.5 bg-slate-50 px-2 py-1 rounded-full text-xs text-slate-500">
-                                            <Avatar className="h-5 w-5">
-                                                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
-                                            </Avatar>
-                                            {name}
-                                        </div>
-                                    ))}
+                            {aiCount > 0 && (
+                                <div className="pt-2 border-t border-slate-100 mt-2">
+                                    <div className="text-xs text-slate-400 mb-2 font-medium">+ {aiCount} AI Participant{aiCount > 1 ? 's' : ''} will fill remaining slots</div>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {['Alex', 'Sarah', 'Mike', 'Priya'].slice(0, aiCount).map(name => (
+                                            <div key={name} className="flex items-center gap-1.5 bg-slate-50 px-2 py-1 rounded-full text-xs text-slate-500">
+                                                <Avatar className="h-5 w-5">
+                                                    <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
+                                                </Avatar>
+                                                {name}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -384,16 +379,10 @@ const GDLobby = () => {
                         <Button
                             size="lg"
                             onClick={startDiscussion}
-                            disabled={!friendJoined}
-                            className={cn(
-                                "h-14 rounded-full text-lg font-bold shadow-lg transition-all",
-                                friendJoined
-                                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-indigo-200"
-                                    : "bg-slate-200 text-slate-400 cursor-not-allowed"
-                            )}
+                            className="h-14 rounded-full text-lg font-bold shadow-lg transition-all bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-indigo-200"
                         >
                             <Play className="w-5 h-5 mr-2" />
-                            {friendJoined ? 'Start Discussion' : 'Waiting for friend...'}
+                            {friendCount > 0 ? `Start with ${friendCount} Friend${friendCount > 1 ? 's' : ''} + ${aiCount} AI` : 'Start Solo (You + 4 AI)'}
                         </Button>
                     )}
 

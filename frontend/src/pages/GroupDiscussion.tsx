@@ -101,7 +101,7 @@ const GroupDiscussion = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const { topic: initialTopic, timeLimit = 10, isMultiplayer = false, peerUser = null, roomCode: lobbyRoomCode = '' } = location.state || {}; // Default 10 mins
+    const { topic: initialTopic, timeLimit = 10, isMultiplayer = false, peerUsers = [], roomCode: lobbyRoomCode = '' } = location.state || {}; // Default 10 mins
 
     // User Info
     const [userInfo, setUserInfo] = useState<any>(null);
@@ -109,8 +109,9 @@ const GroupDiscussion = () => {
         const stored = localStorage.getItem("userInfo");
         if (stored) setUserInfo(JSON.parse(stored));
     }, []);
-    // In multiplayer mode, use only 3 AI agents (remove last one to make room for peer)
-    const activeAIAgents = isMultiplayer ? AI_AGENTS.slice(0, 3) : AI_AGENTS;
+    // In multiplayer mode, reduce AI agents based on how many friends joined
+    const peerCount = Array.isArray(peerUsers) ? peerUsers.length : (peerUsers ? 1 : 0);
+    const activeAIAgents = AI_AGENTS.slice(0, Math.max(0, 4 - peerCount));
 
     // State
     const [topic, setTopic] = useState(initialTopic || 'Universal Basic Income');
@@ -445,12 +446,13 @@ const GroupDiscussion = () => {
 
 
     // Participants list including Moderator
+    const normalizedPeerUsers = Array.isArray(peerUsers) ? peerUsers : (peerUsers ? [peerUsers] : []);
     const allParticipants = [
         { ...MODERATOR, isUser: false },
         { id: 'user', name: userInfo?.name?.split(' ')[0] || 'You', role: 'Candidate', isUser: true, color: 'bg-indigo-100 text-indigo-700', systemPrompt: '', avatar: '' },
-        ...(isMultiplayer && peerUser ? [{
-            id: 'peer', name: peerUser.name?.split(' ')[0] || 'Friend', role: 'Candidate', isUser: false, isPeer: true, color: 'bg-teal-100 text-teal-700', systemPrompt: '', avatar: peerUser.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${peerUser.name}`
-        }] : []),
+        ...normalizedPeerUsers.map((pu: any, i: number) => ({
+            id: `peer-${i}`, name: pu.name?.split(' ')[0] || `Friend ${i + 1}`, role: 'Candidate', isUser: false, isPeer: true, color: 'bg-teal-100 text-teal-700', systemPrompt: '', avatar: pu.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${pu.name}`
+        })),
         ...peers.map((p, i) => ({ ...activeAIAgents[i], ...p, isUser: false, isPeer: true })),
         ...activeAIAgents.slice(peers.length)
     ];

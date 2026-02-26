@@ -129,8 +129,8 @@ io.on('connection', (socket) => {
             return;
         }
 
-        // Check if room is full (max 2)
-        if (lobbies[roomCode] && lobbies[roomCode].length >= 2) {
+        // Check if room is full (max 5 human participants)
+        if (lobbies[roomCode] && lobbies[roomCode].length >= 5) {
             socket.emit('lobby-full');
             return;
         }
@@ -146,7 +146,7 @@ io.on('connection', (socket) => {
         }
 
         io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
-        console.log(`[Lobby] ${userInfo.name} joined room ${roomCode} (${lobbies[roomCode].length}/2)`);
+        console.log(`[Lobby] ${userInfo.name} joined room ${roomCode} (${lobbies[roomCode].length}/5)`);
     });
 
     socket.on('leave-lobby', (roomCode) => {
