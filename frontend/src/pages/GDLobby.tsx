@@ -116,8 +116,13 @@ const GDLobby = () => {
 
         // Discussion started by host
         socketRef.current.on('discussion-started', (data: { topic: string; timeLimit: number; participants: LobbyParticipant[] }) => {
-            socketRef.current.disconnect();
-            const peerUsers = (data.participants || participants).filter(p => p.socketId !== socketRef.current?.id && !p.isHost);
+            // Save socket ID before disconnecting
+            const mySocketId = socketRef.current?.id;
+            const allParticipants = data.participants || participants;
+            // Filter out ourselves and the host to get peer users
+            const peerUsers = allParticipants.filter(p => p.socketId !== mySocketId && !p.isHost);
+
+            // Navigate FIRST, then disconnect
             navigate('/group-discussion/room', {
                 state: {
                     topic: data.topic,
@@ -127,6 +132,9 @@ const GDLobby = () => {
                     peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar }))
                 }
             });
+
+            // Disconnect AFTER navigation
+            setTimeout(() => socketRef.current?.disconnect(), 100);
         });
 
         // Room full
