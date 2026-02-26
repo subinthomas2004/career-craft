@@ -3,6 +3,7 @@ import axios from 'axios';
 export const getJobs = async (req, res) => {
     try {
         const rapidApiKey = process.env.RAPIDAPI_KEY;
+        console.log(`[JobPortal] RAPIDAPI_KEY present: ${!!rapidApiKey}, length: ${rapidApiKey ? rapidApiKey.length : 0}`);
 
         if (rapidApiKey) {
             const query = req.query.search || 'Software Engineer';
@@ -45,6 +46,10 @@ export const getJobs = async (req, res) => {
                 }
             } catch (apiError) {
                 console.error("JSearch API Error, falling back to mock data:", apiError.message);
+                if (apiError.response) {
+                    console.error("JSearch API Response Status:", apiError.response.status);
+                    console.error("JSearch API Response Data:", JSON.stringify(apiError.response.data));
+                }
                 // Fallthrough to mock data below
             }
         }
