@@ -142,14 +142,9 @@ export const loginUser = async (req, res) => {
                 return res.status(401).json({ message: 'Please verify your email first' });
             }
 
-            // Check if user already has an active session
-            if (user.activeSessionToken) {
-                return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout from that session first.' });
-            }
-
             const token = generateToken(user.id);
 
-            // Save the active session token
+            // Set the active session token (replaces any previous session)
             user.activeSessionToken = token;
             await user.save();
 
@@ -283,12 +278,8 @@ export const googleLogin = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user) {
-            // Check if user already has an active session
-            if (user.activeSessionToken) {
-                return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout from that session first.' });
-            }
-
             const token = generateToken(user._id);
+            // Set the active session token (replaces any previous session)
             user.activeSessionToken = token;
             await user.save();
 
