@@ -32,7 +32,7 @@ const Auth = () => {
     confirmPassword: ""
   });
 
-  const handleSubmit = async (e: React.FormEvent, force = false) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (isRegister && formData.password !== formData.confirmPassword) {
@@ -55,19 +55,16 @@ const Auth = () => {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-          ...(force && { force: true }),
         }
       );
 
       if (isRegister) {
-        // Step 1: Registration initiated, OTP sent
         setShowOTP(true);
         toast({
           title: "Verify your email",
           description: "We've sent a 6-digit code to your email.",
         });
       } else {
-        // Login successful
         localStorage.setItem("userInfo", JSON.stringify(data));
         toast({
           title: "Welcome back!",
@@ -81,16 +78,12 @@ const Auth = () => {
       }
 
     } catch (error: any) {
-      // Check for already logged in error
-      if (error.response?.status === 409 && !force) {
+      if (error.response?.status === 409) {
         toast({
           title: "Already Logged In",
-          description: "This account is active on another device. Logging out that session...",
+          description: "This account is already logged in on another device/tab. Please logout from that session first.",
+          variant: "destructive"
         });
-        // Automatically retry with force to kick the old session
-        const fakeEvent = { preventDefault: () => { } } as React.FormEvent;
-        await handleSubmit(fakeEvent, true);
-        return;
       } else if (error.response?.data?.message === 'Please verify your email first') {
         toast({
           title: "Not Verified",
@@ -139,7 +132,7 @@ const Auth = () => {
     }
   };
 
-  const handleGoogleLogin = async (force = false) => {
+  const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -153,7 +146,6 @@ const Auth = () => {
           email: user.email,
           googleId: user.uid,
           picture: user.photoURL,
-          ...(force && { force: true }),
         }
       );
 
@@ -168,14 +160,12 @@ const Auth = () => {
       navigate("/dashboard");
     } catch (error: any) {
       console.error("Google Login Error:", error);
-      if (error.response?.status === 409 && !force) {
+      if (error.response?.status === 409) {
         toast({
           title: "Already Logged In",
-          description: "This account is active on another device. Logging out that session...",
+          description: "This account is already logged in on another device/tab. Please logout from that session first.",
+          variant: "destructive",
         });
-        // Automatically retry with force to kick the old session
-        await handleGoogleLogin(true);
-        return;
       } else {
         toast({
           title: "Authentication Failed",

@@ -132,7 +132,7 @@ export const verifyOtp = async (req, res) => {
 // @access  Public
 export const loginUser = async (req, res) => {
     try {
-        const { email, password, force } = req.body;
+        const { email, password } = req.body;
 
         // Check for user email
         const user = await User.findOne({ email });
@@ -143,8 +143,8 @@ export const loginUser = async (req, res) => {
             }
 
             // Check if user already has an active session
-            if (user.activeSessionToken && !force) {
-                return res.status(409).json({ message: 'This account is already logged in on another device/tab.' });
+            if (user.activeSessionToken) {
+                return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
             }
 
             const token = generateToken(user.id);
@@ -284,8 +284,8 @@ export const googleLogin = async (req, res) => {
 
         if (user) {
             // Check if user already has an active session
-            if (user.activeSessionToken && !req.body.force) {
-                return res.status(409).json({ message: 'This account is already logged in on another device/tab.' });
+            if (user.activeSessionToken) {
+                return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
             }
 
             const token = generateToken(user._id);
