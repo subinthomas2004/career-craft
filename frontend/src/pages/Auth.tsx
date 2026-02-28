@@ -32,7 +32,7 @@ const Auth = () => {
     confirmPassword: ""
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent, force = false) => {
     e.preventDefault();
 
     if (isRegister && formData.password !== formData.confirmPassword) {
@@ -55,6 +55,7 @@ const Auth = () => {
           name: formData.name,
           email: formData.email,
           password: formData.password,
+          ...(force && { force: true }),
         }
       );
 
@@ -81,12 +82,15 @@ const Auth = () => {
 
     } catch (error: any) {
       // Check for already logged in error
-      if (error.response?.status === 409) {
+      if (error.response?.status === 409 && !force) {
         toast({
           title: "Already Logged In",
-          description: "This account is already logged in on another device/tab. Please logout from that session first.",
-          variant: "destructive"
+          description: "This account is active on another device. Logging out that session...",
         });
+        // Automatically retry with force to kick the old session
+        const fakeEvent = { preventDefault: () => { } } as React.FormEvent;
+        await handleSubmit(fakeEvent, true);
+        return;
       } else if (error.response?.data?.message === 'Please verify your email first') {
         toast({
           title: "Not Verified",
@@ -135,7 +139,7 @@ const Auth = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (force = false) => {
     setIsLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -148,7 +152,8 @@ const Auth = () => {
           name: user.displayName,
           email: user.email,
           googleId: user.uid,
-          picture: user.photoURL
+          picture: user.photoURL,
+          ...(force && { force: true }),
         }
       );
 
@@ -163,12 +168,14 @@ const Auth = () => {
       navigate("/dashboard");
     } catch (error: any) {
       console.error("Google Login Error:", error);
-      if (error.response?.status === 409) {
+      if (error.response?.status === 409 && !force) {
         toast({
           title: "Already Logged In",
-          description: "This account is already logged in on another device/tab. Please logout from that session first.",
-          variant: "destructive",
+          description: "This account is active on another device. Logging out that session...",
         });
+        // Automatically retry with force to kick the old session
+        await handleGoogleLogin(true);
+        return;
       } else {
         toast({
           title: "Authentication Failed",
