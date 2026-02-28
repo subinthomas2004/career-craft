@@ -12,6 +12,16 @@ const generateToken = (id) => {
     });
 };
 
+// Check if a stored session token is still valid (not expired)
+const isTokenValid = (token) => {
+    try {
+        jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_key_change_me');
+        return true;
+    } catch (err) {
+        return false;
+    }
+};
+
 // @desc    Register a new user (Step 1: Send OTP)
 // @route   POST /api/auth/register
 // @access  Public
@@ -143,8 +153,13 @@ export const loginUser = async (req, res) => {
             }
 
             // Check if user already has an active session
-            if (user.activeSessionToken) {
+            if (user.activeSessionToken && isTokenValid(user.activeSessionToken)) {
                 return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
+            }
+
+            // Clear stale token if it was invalid/expired
+            if (user.activeSessionToken && !isTokenValid(user.activeSessionToken)) {
+                user.activeSessionToken = null;
             }
 
             const token = generateToken(user.id);
@@ -284,8 +299,13 @@ export const googleLogin = async (req, res) => {
 
         if (user) {
             // Check if user already has an active session
-            if (user.activeSessionToken) {
+            if (user.activeSessionToken && isTokenValid(user.activeSessionToken)) {
                 return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
+            }
+
+            // Clear stale token if it was invalid/expired
+            if (user.activeSessionToken && !isTokenValid(user.activeSessionToken)) {
+                user.activeSessionToken = null;
             }
 
             const token = generateToken(user._id);
