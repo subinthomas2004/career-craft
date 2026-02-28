@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    sessionLastActive: {
+        type: Date,
+        default: null
+    },
     recentActivities: [{
         title: { type: String, required: true },
         activityType: { type: String, required: true }, // 'interview', 'quiz', 'coding', 'resume', 'learning'

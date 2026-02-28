@@ -12,14 +12,12 @@ const generateToken = (id) => {
     });
 };
 
-// Check if a stored session token is still valid (not expired)
-const isTokenValid = (token) => {
-    try {
-        jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_key_change_me');
-        return true;
-    } catch (err) {
-        return false;
-    }
+// Check if a session is still actively being used (heartbeat within last 2 minutes)
+const isSessionActive = (user) => {
+    if (!user.activeSessionToken) return false;
+    if (!user.sessionLastActive) return false; // No heartbeat ever recorded = stale
+    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+    return user.sessionLastActive > twoMinutesAgo;
 };
 
 // @desc    Register a new user (Step 1: Send OTP)
@@ -152,20 +150,16 @@ export const loginUser = async (req, res) => {
                 return res.status(401).json({ message: 'Please verify your email first' });
             }
 
-            // Check if user already has an active session
-            if (user.activeSessionToken && isTokenValid(user.activeSessionToken)) {
+            // Check if user already has an active session (heartbeat within last 2 min)
+            if (isSessionActive(user)) {
                 return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
-            }
-
-            // Clear stale token if it was invalid/expired
-            if (user.activeSessionToken && !isTokenValid(user.activeSessionToken)) {
-                user.activeSessionToken = null;
             }
 
             const token = generateToken(user.id);
 
             // Set the active session token (replaces any previous session if force)
             user.activeSessionToken = token;
+            user.sessionLastActive = new Date();
             await user.save();
 
             res.json({
@@ -298,19 +292,15 @@ export const googleLogin = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user) {
-            // Check if user already has an active session
-            if (user.activeSessionToken && isTokenValid(user.activeSessionToken)) {
+            // Check if user already has an active session (heartbeat within last 2 min)
+            if (isSessionActive(user)) {
                 return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
-            }
-
-            // Clear stale token if it was invalid/expired
-            if (user.activeSessionToken && !isTokenValid(user.activeSessionToken)) {
-                user.activeSessionToken = null;
             }
 
             const token = generateToken(user._id);
             // Set the active session token (replaces any previous session if force)
             user.activeSessionToken = token;
+            user.sessionLastActive = new Date();
             await user.save();
 
             // User exists - Login

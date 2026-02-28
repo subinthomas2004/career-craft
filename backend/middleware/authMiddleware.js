@@ -23,15 +23,18 @@ export const protect = async (req, res, next) => {
                 return res.status(401).json({ message: 'Session expired. Please login again.' });
             }
 
-            next();
+            // Update last active timestamp (heartbeat)
+            await User.findByIdAndUpdate(decoded.id, { sessionLastActive: new Date() });
+
+            return next();
         } catch (error) {
             console.error(error);
-            res.status(401).json({ message: 'Not authorized' });
+            return res.status(401).json({ message: 'Not authorized' });
         }
     }
 
     if (!token) {
-        res.status(401).json({ message: 'Not authorized, no token' });
+        return res.status(401).json({ message: 'Not authorized, no token' });
     }
 };
 
