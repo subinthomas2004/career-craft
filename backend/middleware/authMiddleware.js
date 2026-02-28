@@ -18,6 +18,11 @@ export const protect = async (req, res, next) => {
             // Get user from the token
             req.user = await User.findById(decoded.id).select('-password');
 
+            // Validate that the token matches the active session
+            if (!req.user || req.user.activeSessionToken !== token) {
+                return res.status(401).json({ message: 'Session expired. Please login again.' });
+            }
+
             next();
         } catch (error) {
             console.error(error);

@@ -80,9 +80,14 @@ const Auth = () => {
       }
 
     } catch (error: any) {
-      // Check for specific verfication error
-      if (error.response?.data?.message === 'Please verify your email first') {
-        // Optional: You could trigger OTP resend here or show a manual "Verify" button
+      // Check for already logged in error
+      if (error.response?.status === 409) {
+        toast({
+          title: "Already Logged In",
+          description: "This account is already logged in on another device/tab. Please logout from that session first.",
+          variant: "destructive"
+        });
+      } else if (error.response?.data?.message === 'Please verify your email first') {
         toast({
           title: "Not Verified",
           description: "This email is registered but not verified. Please register again to get a new code.",
@@ -158,11 +163,19 @@ const Auth = () => {
       navigate("/dashboard");
     } catch (error: any) {
       console.error("Google Login Error:", error);
-      toast({
-        title: "Authentication Failed",
-        description: error.response?.data?.message || error.message || "Failed to sign in with Google",
-        variant: "destructive",
-      });
+      if (error.response?.status === 409) {
+        toast({
+          title: "Already Logged In",
+          description: "This account is already logged in on another device/tab. Please logout from that session first.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Authentication Failed",
+          description: error.response?.data?.message || error.message || "Failed to sign in with Google",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
