@@ -1,0 +1,32 @@
+// Auto-generated index of all aptitude question data files
+
+export { decisionMakingQuestions } from "./decisionMakingData";
+export { causeEffectQuestions } from "./causeEffectData";
+export { statementAssumptionQuestions } from "./statementAssumptionData";
+export { logicalDeductionsQuestions } from "./logicalDeductionsData";
+export { clocksCalendarsQuestions } from "./clocksCalendarsData";
+export { averagesMixturesQuestions } from "./averagesMixturesData";
+export { permutationCombinationQuestions } from "./permutationCombinationData";
+export { simpleCompoundInterestQuestions } from "./simpleCompoundInterestData";
+export { profitLossDiscountQuestions } from "./profitLossDiscountData";
+export { timeWorkWagesQuestions } from "./timeWorkWagesData";
+export { timeSpeedDistanceQuestions } from "./timeSpeedDistanceData";
+export { letterSeriesQuestions } from "./letterSeriesData";
+export { numberSeriesQuestions } from "./numberSeriesData";
+export { puzzlesQuestions } from "./puzzlesData";
+export { seatingArrangementQuestions } from "./seatingArrangementData";
+export { syllogismQuestions } from "./syllogismData";
+export { codingDecodingQuestions } from "./codingDecodingData";
+export { directionSenseQuestions } from "./directionSenseData";
+export { bloodRelationsQuestions } from "./bloodRelationsData";
+export { nonVerbalReasoningQuestions } from "./nonVerbalReasoningData";
+export { verbalReasoningQuestions } from "./verbalReasoningData";
+export { dataSufficiencyQuestions } from "./dataSufficiencyData";
+export { dataInterpretationQuestions } from "./dataInterpretationData";
+export { geometryMensurationQuestions } from "./geometryMensurationData";
+export { algebraEquationsQuestions } from "./algebraEquationsData";
+export { arithmeticAbilityQuestions } from "./arithmeticAbilityData";
+export { quantitativeAptitudeQuestions } from "./quantitativeAptitudeData";
+export { analyticalReasoningQuestions } from "./analyticalReasoningData";
+export { logicalReasoningQuestions } from "./logicalReasoningData";
+export { ratioProportionQuestions } from "./ratioProportionData";

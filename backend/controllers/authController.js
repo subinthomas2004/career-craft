@@ -12,14 +12,6 @@ const generateToken = (id) => {
     });
 };
 
-// Check if a session is still actively being used (heartbeat within last 2 minutes)
-const isSessionActive = (user) => {
-    if (!user.activeSessionToken) return false;
-    if (!user.sessionLastActive) return false; // No heartbeat ever recorded = stale
-    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
-    return user.sessionLastActive > twoMinutesAgo;
-};
-
 // @desc    Register a new user (Step 1: Send OTP)
 // @route   POST /api/auth/register
 // @access  Public
@@ -114,9 +106,6 @@ export const verifyOtp = async (req, res) => {
         user.isVerified = true;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
-
-        const token = generateToken(user._id);
-        user.activeSessionToken = token;
         await user.save();
 
         res.status(201).json({
@@ -124,7 +113,7 @@ export const verifyOtp = async (req, res) => {
             name: user.name,
             email: user.email,
             role: user.role,
-            token,
+            token: generateToken(user._id),
             profilePicture: user.profilePicture || "",
             stats: user.stats
         });
@@ -150,24 +139,12 @@ export const loginUser = async (req, res) => {
                 return res.status(401).json({ message: 'Please verify your email first' });
             }
 
-            // Check if user already has an active session (heartbeat within last 2 min)
-            if (isSessionActive(user)) {
-                return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
-            }
-
-            const token = generateToken(user.id);
-
-            // Set the active session token (replaces any previous session if force)
-            user.activeSessionToken = token;
-            user.sessionLastActive = new Date();
-            await user.save();
-
             res.json({
                 _id: user.id,
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                token,
+                token: generateToken(user.id),
                 profilePicture: user.profilePicture || "",
                 stats: user.stats
             });
@@ -292,29 +269,17 @@ export const googleLogin = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user) {
-            // Check if user already has an active session (heartbeat within last 2 min)
-            if (isSessionActive(user)) {
-                return res.status(409).json({ message: 'This account is already logged in on another device/tab. Please logout first.' });
-            }
-
-            const token = generateToken(user._id);
-            // Set the active session token (replaces any previous session if force)
-            user.activeSessionToken = token;
-            user.sessionLastActive = new Date();
-            await user.save();
-
             // User exists - Login
             res.json({
                 _id: user._id,
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                token
+                token: generateToken(user._id)
             });
         } else {
             // User doesn't exist - Register
             const { name, email, googleId, picture } = req.body;
-
             // Note: Password is not required in schema for Google users
             user = await User.create({
                 name,
@@ -325,15 +290,11 @@ export const googleLogin = async (req, res) => {
             });
 
             if (user) {
-                const userToken = generateToken(user._id);
-                user.activeSessionToken = userToken;
-                await user.save();
-
                 res.status(201).json({
                     name: user.name,
                     email: user.email,
                     role: user.role,
-                    token: userToken
+                    token: generateToken(user._id)
                 });
             } else {
                 res.status(400).json({ message: 'Invalid user data' });
@@ -444,25 +405,5 @@ export const addRecentActivity = async (req, res) => {
     } catch (error) {
         console.error('Error in addRecentActivity:', error);
         res.status(500).json({ message: 'Server error' });
-    }
-};
-
-// @desc    Logout user (clear active session)
-// @route   POST /api/auth/logout
-// @access  Private
-export const logoutUser = async (req, res) => {
-    try {
-        const user = await User.findById(req.user.id);
-
-        if (user) {
-            user.activeSessionToken = null;
-            await user.save();
-            res.json({ message: 'Logged out successfully' });
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error in logoutUser:', error);
-        res.status(500).json({ message: 'Server error', error: error.message });
     }
 };

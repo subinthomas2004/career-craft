@@ -59,12 +59,14 @@ const Auth = () => {
       );
 
       if (isRegister) {
+        // Step 1: Registration initiated, OTP sent
         setShowOTP(true);
         toast({
           title: "Verify your email",
           description: "We've sent a 6-digit code to your email.",
         });
       } else {
+        // Login successful
         localStorage.setItem("userInfo", JSON.stringify(data));
         toast({
           title: "Welcome back!",
@@ -78,13 +80,9 @@ const Auth = () => {
       }
 
     } catch (error: any) {
-      if (error.response?.status === 409) {
-        toast({
-          title: "Already Logged In",
-          description: "This account is already logged in on another device/tab. Please logout from that session first.",
-          variant: "destructive"
-        });
-      } else if (error.response?.data?.message === 'Please verify your email first') {
+      // Check for specific verfication error
+      if (error.response?.data?.message === 'Please verify your email first') {
+        // Optional: You could trigger OTP resend here or show a manual "Verify" button
         toast({
           title: "Not Verified",
           description: "This email is registered but not verified. Please register again to get a new code.",
@@ -145,7 +143,7 @@ const Auth = () => {
           name: user.displayName,
           email: user.email,
           googleId: user.uid,
-          picture: user.photoURL,
+          picture: user.photoURL
         }
       );
 
@@ -160,19 +158,11 @@ const Auth = () => {
       navigate("/dashboard");
     } catch (error: any) {
       console.error("Google Login Error:", error);
-      if (error.response?.status === 409) {
-        toast({
-          title: "Already Logged In",
-          description: "This account is already logged in on another device/tab. Please logout from that session first.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Authentication Failed",
-          description: error.response?.data?.message || error.message || "Failed to sign in with Google",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Authentication Failed",
+        description: error.response?.data?.message || error.message || "Failed to sign in with Google",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }

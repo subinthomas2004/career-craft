@@ -42,14 +42,6 @@ const userSchema = new mongoose.Schema({
         averageScore: { type: Number, default: 0 },
         resumeScore: { type: Number, default: 0 }
     },
-    activeSessionToken: {
-        type: String,
-        default: null
-    },
-    sessionLastActive: {
-        type: Date,
-        default: null
-    },
     recentActivities: [{
         title: { type: String, required: true },
         activityType: { type: String, required: true }, // 'interview', 'quiz', 'coding', 'resume', 'learning'

@@ -27,7 +27,7 @@ interface QuizModeProps {
 export const QuizMode = ({ onBack }: QuizModeProps) => {
     const [stage, setStage] = useState<"select" | "loading" | "quiz" | "result">("select");
     const [selectedTopic, setSelectedTopic] = useState<{ id: string, name: string } | null>(null);
-    const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium");
+
     const [questionCount, setQuestionCount] = useState(5);
 
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -44,7 +44,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
 
         // Simulate a brief loading for UX (optional, can be removed for instant load)
         setTimeout(() => {
-            const fetchedQuestions = getQuestionsForTopic(selectedTopic.id, questionCount, difficulty);
+            const fetchedQuestions = getQuestionsForTopic(selectedTopic.id, questionCount, "medium");
 
             if (fetchedQuestions.length > 0) {
                 setQuestions(fetchedQuestions);
@@ -149,26 +149,6 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                             </CardHeader>
                             <CardContent className="space-y-6">
 
-                                {/* Difficulty */}
-                                <div>
-                                    <label className="block text-sm font-medium mb-3">Difficulty Level</label>
-                                    <div className="flex gap-3">
-                                        {(['easy', 'medium', 'hard'] as const).map((level) => (
-                                            <button
-                                                key={level}
-                                                onClick={() => setDifficulty(level)}
-                                                className={cn(
-                                                    "flex-1 py-3 px-4 rounded-lg border capitalize font-medium transition-all",
-                                                    difficulty === level
-                                                        ? "border-primary bg-primary text-primary-foreground"
-                                                        : "hover:bg-accent"
-                                                )}
-                                            >
-                                                {level}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
 
                                 {/* Question Count */}
                                 <div>
@@ -197,9 +177,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                                         <p className="text-sm text-muted-foreground">
                                             Topic: <span className="text-foreground font-medium">{selectedTopic.name}</span>
                                         </p>
-                                        <p className="text-sm text-muted-foreground">
-                                            Difficulty: <span className="text-foreground font-medium capitalize">{difficulty}</span>
-                                        </p>
+
                                         <p className="text-sm text-muted-foreground">
                                             Questions: <span className="text-foreground font-medium">{questionCount}</span>
                                         </p>
@@ -233,7 +211,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h2 className="text-xl font-bold">{selectedTopic?.name} Quiz</h2>
-                        <p className="text-sm text-muted-foreground capitalize">{difficulty} Level</p>
+
                     </div>
                     <div className="text-right">
                         <span className="text-2xl font-bold font-mono">{currentQuestion + 1}<span className="text-muted-foreground text-lg">/{questions.length}</span></span>
@@ -331,10 +309,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                         <p className="text-sm text-muted-foreground mb-1">Topic</p>
                         <p className="font-medium">{selectedTopic?.name}</p>
                     </div>
-                    <div className="p-4 rounded-xl bg-card border">
-                        <p className="text-sm text-muted-foreground mb-1">Difficulty</p>
-                        <p className="font-medium capitalize">{difficulty}</p>
-                    </div>
+
                 </div>
 
                 <div className="flex gap-4 w-full">

@@ -1,5 +1,4 @@
 import { Link, useLocation, Outlet, useNavigate } from "react-router-dom";
-import { api } from "@/lib/api";
 import {
   Rocket,
   LayoutDashboard,
@@ -71,23 +70,6 @@ const DashboardLayout = () => {
   const location = useLocation();
 
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      const userInfo = localStorage.getItem("userInfo");
-      if (userInfo) {
-        const { token } = JSON.parse(userInfo);
-        await api.post('/auth/logout', {}, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-      }
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      localStorage.removeItem("userInfo");
-      navigate('/');
-    }
-  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("userInfo");
@@ -170,13 +152,13 @@ const DashboardLayout = () => {
               <Settings className="w-5 h-5" />
               Settings
             </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-destructive hover:bg-destructive/10 transition-colors w-full text-left"
+            <Link
+              to="/"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg text-destructive hover:bg-destructive/10 transition-colors"
             >
               <LogOut className="w-5 h-5" />
               Logout
-            </button>
+            </Link>
           </div>
         </div>
       )}
@@ -326,9 +308,11 @@ const DashboardLayout = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 text-destructive cursor-pointer">
-                <LogOut className="w-4 h-4" />
-                Logout
+              <DropdownMenuItem asChild>
+                <Link to="/" className="flex items-center gap-2 text-destructive">
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
