@@ -105,60 +105,59 @@ export default function HrOnlyView({
                         </div>
                     </div>
 
-                    {/* Controls Overlay (Bottom Center) */}
-                    <div className="absolute bottom-6 left-0 right-0 z-30 flex justify-center items-end gap-6 px-6">
+                    {/* Controls Overlay */}
+                    <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center items-end w-full px-4 pointer-events-none">
+                        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 bg-black/60 backdrop-blur-xl p-3 rounded-3xl border border-white/15 pointer-events-auto shadow-2xl scale-90 md:scale-100 max-w-full">
+                            {/* Mic Toggle */}
+                            <Button
+                                variant={isMicOn ? "default" : "destructive"}
+                                size="icon"
+                                className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
+                                    isMicOn ? "bg-white text-black hover:bg-slate-200" : "bg-red-500 text-white hover:bg-red-600",
+                                    avatarState === 'talking' && "opacity-50 grayscale cursor-not-allowed"
+                                )}
+                                onClick={() => setIsMicOn(!isMicOn)}
+                                disabled={avatarState === 'talking'}
+                                title={isMicOn ? "Mute Microphone" : "Unmute Microphone"}
+                            >
+                                {isMicOn ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
+                            </Button>
 
-                        {/* Mic Toggle */}
-                        <Button
-                            variant={isMicOn ? "default" : "destructive"}
-                            size="icon"
-                            className={cn("w-14 h-14 rounded-full shadow-xl border-2 border-white/20 transition-all duration-300 hover:scale-110",
-                                isMicOn ? "bg-white text-black hover:bg-slate-200" : "bg-red-500 text-white hover:bg-red-600",
-                                avatarState === 'talking' && "opacity-50 grayscale cursor-not-allowed"
-                            )}
-                            onClick={() => setIsMicOn(!isMicOn)}
-                            disabled={avatarState === 'talking'}
-                            title={isMicOn ? "Mute Microphone" : "Unmute Microphone"}
-                        >
-                            {isMicOn ? <Mic className="w-6 h-6" /> : <MicOff className="w-6 h-6" />}
-                        </Button>
+                            {/* Camera Toggle */}
+                            <Button
+                                variant={isVideoOn ? "secondary" : "destructive"}
+                                size="icon"
+                                className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
+                                    isVideoOn ? "bg-white/90 hover:bg-white text-black" : "bg-red-500/90 hover:bg-red-500 text-white")}
+                                onClick={() => setIsVideoOn(!isVideoOn)}
+                                title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
+                            >
+                                {isVideoOn ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+                            </Button>
 
-                        {/* End Call */}
-                        <Button
-                            variant="destructive"
-                            size="icon"
-                            className="w-16 h-16 rounded-full shadow-2xl bg-red-600 hover:bg-red-700 border-4 border-red-800/20 text-white transition-all duration-300 hover:scale-105"
-                            onClick={onEndInterview}
-                            title="End Interview"
-                        >
-                            <Phone className="w-7 h-7 fill-current" />
-                        </Button>
+                            {/* End Call */}
+                            <Button
+                                variant="destructive"
+                                size="icon"
+                                className="w-14 h-14 mx-2 rounded-full shadow-2xl bg-red-600 hover:bg-red-700 border-2 border-red-800/20 text-white transition-all hover:scale-110"
+                                onClick={onEndInterview}
+                                title="End Interview"
+                            >
+                                <Phone className="w-6 h-6 fill-current" />
+                            </Button>
 
-                        {/* Camera Toggle */}
-                        <Button
-                            variant={isVideoOn ? "secondary" : "destructive"}
-                            size="icon"
-                            className={cn("w-14 h-14 rounded-full shadow-xl border-2 border-white/20 transition-all duration-300 hover:scale-110",
-                                isVideoOn ? "bg-white/90 hover:bg-white text-black" : "bg-red-500/90 hover:bg-red-500 text-white")}
-                            onClick={() => setIsVideoOn(!isVideoOn)}
-                            title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
-                        >
-                            {isVideoOn ? <Video className="w-6 h-6" /> : <VideoOff className="w-6 h-6" />}
-                        </Button>
-
-                        {/* Submit Answer (Floating Action Button style on right side of controls) */}
-                        <div className="absolute right-8 bottom-2">
+                            {/* Submit Answer */}
                             <Button
                                 size="lg"
-                                className={cn("rounded-full font-bold shadow-2xl transition-all duration-300 border border-white/10",
+                                className={cn("rounded-full font-bold shadow-2xl transition-all duration-300 ml-2 h-12 px-6",
                                     (currentTranscript || isListening)
-                                        ? "bg-green-500 hover:bg-green-600 text-white opacity-100 translate-y-0"
-                                        : "bg-gray-500 text-gray-300 opacity-0 translate-y-10 pointer-events-none"
+                                        ? "bg-green-500 hover:bg-green-600 text-white"
+                                        : "bg-gray-500 text-gray-300 hover:bg-gray-500 pointer-events-none"
                                 )}
                                 onClick={onManualSubmit}
                                 disabled={!currentTranscript && !isListening}
                             >
-                                Next Question <ArrowRight className="w-5 h-5 ml-2" />
+                                Submit <ArrowRight className="w-4 h-4 ml-2" />
                             </Button>
                         </div>
                     </div>

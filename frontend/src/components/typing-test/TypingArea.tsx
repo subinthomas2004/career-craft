@@ -12,21 +12,18 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ state, className }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const cursorRef = useRef<HTMLSpanElement>(null);
 
-    // Auto-scroll to cursor
+    // Auto-scroll to keep cursor visible and centered
     useEffect(() => {
         if (cursorRef.current && containerRef.current) {
-            // Simple logic: maintain cursor in view
-            // More complex logic: center cursor?
-
             const container = containerRef.current;
             const cursor = cursorRef.current;
 
             const containerRect = container.getBoundingClientRect();
             const cursorRect = cursor.getBoundingClientRect();
 
-            // Check if cursor is near bottom
-            if (cursorRect.bottom > containerRect.bottom - 40) {
-                container.scrollTop += 40; // Scroll down a line approx
+            // If cursor is near the bottom edge or below visible area, scroll smoothly
+            if (cursorRect.bottom > containerRect.bottom - 60 || cursorRect.top < containerRect.top + 20) {
+                cursor.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
     }, [state.cursorPosition]);
@@ -34,7 +31,7 @@ export const TypingArea: React.FC<TypingAreaProps> = ({ state, className }) => {
     return (
         <div
             className={cn(
-                "relative font-mono text-xl lg:text-2xl leading-relaxed outline-none select-none",
+                "relative font-mono text-xl lg:text-2xl leading-relaxed outline-none select-none max-h-[350px] overflow-y-auto scroll-smooth",
                 className
             )}
             ref={containerRef}

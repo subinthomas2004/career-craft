@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageSquare, Share2, MoreHorizontal, ArrowBigUp, ArrowBigDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import {
@@ -10,27 +10,116 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ForumPost } from "./types";
+import { ForumPost, ForumComment } from "./types";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "@/firebase";
 
 interface PostCardProps {
     post: ForumPost;
     compact?: boolean;
+    onDelete?: (postId: string) => void;
 }
 
-export const PostCard = ({ post, compact = false }: PostCardProps) => {
-    const [voteStatus, setVoteStatus] = useState<"up" | "down" | null>(null);
-    const [score, setScore] = useState(post.likes);
+export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => {
+    const [user, setUser] = useState<User | null>(null);
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+        return () => unsubscribe();
+    }, []);
 
-    const handleVote = (type: "up" | "down") => {
-        if (voteStatus === type) {
-            setVoteStatus(null);
-            setScore(type === "up" ? score - 1 : score + 1);
-        } else {
-            if (voteStatus === "up") setScore(score - 2);
-            else if (voteStatus === "down") setScore(score + 2);
-            else setScore(type === "up" ? score + 1 : score - 1);
-            setVoteStatus(type);
+    // Current user - hardcode or pull from context later, using local storage for toggle
+    const [score, setScore] = useState(post.likes.length);
+    const [voteStatus, setVoteStatus] = useState<"up" | "down" | null>(null);
+
+    // Comments state
+    const [showComments, setShowComments] = useState(false);
+    const [comments, setComments] = useState<ForumComment[]>([]);
+    const [newComment, setNewComment] = useState("");
+    const [loadingComments, setLoadingComments] = useState(false);
+
+    const loadComments = async () => {
+        if (!showComments) {
+            setLoadingComments(true);
+            try {
+                const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/comments`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setComments(data);
+                }
+            } catch (err) {
+                console.error("Failed to load comments", err);
+            } finally {
+                setLoadingComments(false);
+            }
+        }
+        setShowComments(!showComments);
+    };
+
+    const handleAddComment = async () => {
+        if (!newComment.trim() || !user) return;
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/comments`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    content: newComment,
+                    authorId: user.uid,
+                    authorName: user.displayName || user.email?.split("@")[0] || "Anonymous",
+                }),
+            });
+            if (res.ok) {
+                const comment = await res.json();
+                setComments([...comments, comment]);
+                setNewComment("");
+            }
+        } catch (err) {
+            console.error("Failed to add comment", err);
+        }
+    };
+
+    const handleVote = async (type: "up" | "down") => {
+        if (!user) {
+            alert("Please log in to vote.");
+            return;
+        }
+
+        // We only support 'likes' array in DB (which equates to an upvote)
+        // If users click 'down', we can just remove their like if they had one or do nothing for now since schema only has likes.
+        if (type === "down") {
+             if (voteStatus === "up") {
+                  setVoteStatus(null);
+                  setScore(score - 1);
+                  // Call API to remove like
+                  await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/like`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ userId: user.uid }),
+                  });
+             }
+             return;
+        }
+
+        // Type is "up"
+        try {
+            await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/like`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user.uid }),
+            });
+
+            if (voteStatus === "up") {
+                setVoteStatus(null);
+                setScore(score - 1);
+            } else {
+                setVoteStatus("up");
+                setScore(score + 1);
+            }
+        } catch (err) {
+            console.error("Error toggling like:", err);
         }
     };
 
@@ -75,29 +164,18 @@ export const PostCard = ({ post, compact = false }: PostCardProps) => {
             <div className="flex-1 min-w-0 p-2 sm:p-3">
                 {/* Header */}
                 <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                    {post.community.icon && <span className="text-base">{post.community.icon}</span>}
-                    <span className="font-bold text-foreground hover:underline z-10 relative" onClick={(e) => e.stopPropagation()}>
-                        {post.community.name}
-                    </span>
+                    <Avatar className="w-5 h-5">
+                        <AvatarFallback>{post.authorName[0]}</AvatarFallback>
+                    </Avatar>
+                    <span className="hover:underline font-medium text-foreground">Post by {post.authorName}</span>
                     <span>•</span>
-                    <span className="hover:underline">Posted by u/{post.author.name}</span>
-                    <span>•</span>
-                    <span>{post.createdAt}</span>
+                    <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
 
                 {/* Title */}
                 <h3 className="text-lg font-medium leading-6 text-foreground mb-2">{post.title}</h3>
 
-                {/* Tags */}
-                {post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-3">
-                        {post.tags.map(tag => (
-                            <Badge key={tag} variant="secondary" className="text-xs font-normal rounded-full px-2 py-0">
-                                {tag}
-                            </Badge>
-                        ))}
-                    </div>
-                )}
+
 
                 {/* Body Preview */}
                 {!compact && (
@@ -105,19 +183,14 @@ export const PostCard = ({ post, compact = false }: PostCardProps) => {
                         <div className="text-sm text-foreground/90 line-clamp-3 mb-3">
                             {post.content}
                         </div>
-                        {post.image && (
-                            <div className="rounded-lg overflow-hidden border border-border mb-3 max-h-[400px] flex justify-center bg-black/5">
-                                <img src={post.image} alt={post.title} className="object-contain max-h-[400px] w-full" />
-                            </div>
-                        )}
                     </>
                 )}
 
                 {/* Actions */}
-                <div className="flex items-center gap-1 text-muted-foreground">
-                    <Button variant="ghost" size="sm" className="gap-2 h-8 px-2 text-xs sm:text-sm hover:bg-muted">
+                <div className="flex items-center gap-1 text-muted-foreground mb-2">
+                    <Button variant="ghost" size="sm" className="gap-2 h-8 px-2 text-xs sm:text-sm hover:bg-muted" onClick={loadComments}>
                         <MessageSquare className="w-4 h-4" />
-                        {post.replies} Comments
+                        {post.commentCount || 0} Comments
                     </Button>
                     <Button variant="ghost" size="sm" className="gap-2 h-8 px-2 text-xs sm:text-sm hover:bg-muted">
                         <Share2 className="w-4 h-4" />
@@ -132,12 +205,61 @@ export const PostCard = ({ post, compact = false }: PostCardProps) => {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem>Save</DropdownMenuItem>
-                                <DropdownMenuItem>Hide</DropdownMenuItem>
                                 <DropdownMenuItem>Report</DropdownMenuItem>
+                                {user && user.uid === post.authorId && onDelete && (
+                                    <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => onDelete(post._id)}>
+                                        Delete Post
+                                    </DropdownMenuItem>
+                                )}
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
                 </div>
+
+                {/* Comments Section */}
+                {showComments && (
+                    <div className="mt-4 border-t pt-4 space-y-4">
+                        {user ? (
+                            <div className="flex gap-2 mb-4">
+                                <Input 
+                                    placeholder="Add a comment..."
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') handleAddComment();
+                                    }}
+                                    className="bg-muted/40 h-9"
+                                />
+                                <Button size="sm" onClick={handleAddComment} disabled={!newComment.trim()}>Post</Button>
+                            </div>
+                        ) : (
+                            <p className="text-xs text-muted-foreground mb-4">Log in to comment.</p>
+                        )}
+                        
+                        {loadingComments ? (
+                            <p className="text-xs text-muted-foreground text-center py-2">Loading comments...</p>
+                        ) : comments.length === 0 ? (
+                            <p className="text-xs text-muted-foreground text-center py-2">No comments yet. Be the first!</p>
+                        ) : (
+                            <div className="space-y-4">
+                                {comments.map((comment) => (
+                                    <div key={comment._id} className="flex gap-2">
+                                        <Avatar className="w-6 h-6">
+                                            <AvatarFallback className="text-[10px]">{comment.authorName[0]}</AvatarFallback>
+                                        </Avatar>
+                                        <div className="bg-muted/40 rounded-lg p-2 flex-1">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <span className="font-semibold text-xs text-foreground cursor-pointer hover:underline">{comment.authorName}</span>
+                                                <span className="text-[10px] text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString()}</span>
+                                            </div>
+                                            <p className="text-sm text-foreground/90">{comment.content}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );

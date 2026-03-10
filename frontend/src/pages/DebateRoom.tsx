@@ -160,8 +160,24 @@ const DebateRoom = () => {
     const speakText = (text: string) => {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
+
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 1.1;
+
+        // Find and assign a male voice
+        const voices = window.speechSynthesis.getVoices();
+        const maleVoice = voices.find(voice =>
+            voice.name.toLowerCase().includes('male') ||
+            voice.name.includes('David') ||
+            voice.name.includes('Mark') ||
+            voice.name.includes('Daniel') ||
+            voice.name.includes('Guy') ||
+            voice.name.includes('Matthew') ||
+            voice.name.includes('Brian')
+        );
+        if (maleVoice) {
+            utterance.voice = maleVoice;
+        }
 
         utterance.onstart = () => setAiSpeaking(true);
         utterance.onend = () => setAiSpeaking(false);
@@ -389,28 +405,44 @@ const DebateRoom = () => {
                         </div>
 
                         {/* Central Visual */}
-                        <div className="flex-1 flex flex-col items-center justify-center relative p-6">
+                        <div className="flex-1 flex flex-col items-center justify-center relative w-full h-full">
                             {/* Pulse Effect when speaking */}
                             {aiSpeaking && (
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl animate-pulse z-0" />
                             )}
 
-                            <div className="relative z-10 w-32 h-32 md:w-40 md:h-40 rounded-full bg-slate-800 border-4 border-slate-700/50 flex items-center justify-center shadow-2xl">
-                                <Bot className={cn("w-16 h-16 transition-all duration-300", aiSpeaking ? "text-blue-400 scale-110" : "text-slate-500")} />
+                            <div className="relative z-10 w-full h-full bg-black flex items-center justify-center overflow-hidden">
+                                <video
+                                    key={aiSpeaking ? 'speaking' : 'listening'}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    src={aiSpeaking ? "/videos/debate_speaking.mp4" : "/videos/debate_listening.mp4"}
+                                    /* 
+                                     * Apply scaling conditionally. 
+                                     * The speaking video has baked-in black bars requiring a crop.
+                                     * The listening video doesn't need this extra crop.
+                                     */
+                                    className={cn(
+                                        "w-full h-full object-cover origin-center",
+                                        aiSpeaking ? "scale-[1.35]" : "scale-100"
+                                    )}
+                                />
                             </div>
 
-                            <div className="mt-6 text-center z-10">
-                                <h3 className="text-xl md:text-2xl font-bold text-slate-200">AI Debater</h3>
-                                <p className="text-sm text-slate-500 mt-1 font-medium">
+                            <div className="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1.5 rounded-full z-20 border border-white/10">
+                                <h3 className="text-sm font-bold text-slate-200">AI Debater</h3>
+                                <p className="text-[10px] text-slate-400 font-medium">
                                     {aiSpeaking ? "Arguing..." : "Listening..."}
                                 </p>
                             </div>
                         </div>
 
-                        {/* AI Transcript Overlay (Optional - showing last line?) */}
+                        {/* AI Transcript Overlay */}
                         {aiSpeaking && lastAiMessage(transcript) && (
-                            <div className="absolute bottom-6 left-6 right-6 bg-black/40 backdrop-blur px-4 py-3 rounded-xl border border-white/10 text-center">
-                                <p className="text-sm text-slate-200 line-clamp-2 italic">"{lastAiMessage(transcript)}"</p>
+                            <div className="absolute bottom-6 left-6 right-6 bg-black/70 backdrop-blur-md px-4 py-3 rounded-xl border border-white/20 text-center z-50 shadow-2xl">
+                                <p className="text-base text-white font-medium line-clamp-3 italic drop-shadow-md tracking-wide">"{lastAiMessage(transcript)}"</p>
                             </div>
                         )}
                     </Card>

@@ -1,4 +1,5 @@
 import { ResumeData, ATSScore, ATSFeedback } from '@/types/resume';
+import { api } from '@/lib/api';
 
 const POWER_WORDS = [
     'achieved', 'improved', 'increased', 'reduced', 'developed', 'created',
@@ -13,7 +14,35 @@ const COMMON_KEYWORDS = [
     'development', 'analysis', 'strategy', 'customer', 'client',
 ];
 
-export function analyzeResume(data: ResumeData): ATSScore {
+export async function analyzeResume(data: ResumeData, jobDescription?: string): Promise<ATSScore> {
+    try {
+        const resumeText = JSON.stringify(data);
+        const response = await api.post('/groq/resume/analyze', {
+            resumeText: resumeText,
+            jobDescription: jobDescription || ''
+        });
+
+        if (response.data && response.data.success && response.data.score) {
+            const score = response.data.score;
+
+            // Generate unique IDs or keys for feedback items if needed, but the interface handles it
+            return {
+                overall: score.overall || 0,
+                breakdown: score.breakdown || {
+                    formatting: 0, keywords: 0, structure: 0, content: 0, readability: 0
+                },
+                feedback: Array.isArray(score.feedback) ? score.feedback : []
+            };
+        }
+    } catch (error) {
+        console.error("AI ATS Analysis failed:", error);
+    }
+
+    // Fallback to local analysis if the API fails
+    return analyzeResumeLocal(data);
+}
+
+function analyzeResumeLocal(data: ResumeData): ATSScore {
     const feedback: ATSFeedback[] = [];
 
     // Analyze formatting

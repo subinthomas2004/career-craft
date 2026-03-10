@@ -4,6 +4,8 @@ import { Upload, FileText, CheckCircle, AlertTriangle, XCircle, Info, Sparkles, 
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { useResume } from '@/context/ResumeContext';
 import { parseResumeFile } from '@/lib/resume-parser';
 import { analyzeResume } from '@/lib/ats-analyzer';
@@ -20,6 +22,7 @@ export function ResumeAnalyzer() {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
+    const [jobDescription, setJobDescription] = useState("");
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
 
@@ -70,11 +73,11 @@ export function ResumeAnalyzer() {
             await new Promise(resolve => setTimeout(resolve, 1500));
             const resumeData = await parseResumeFile(file);
             setResumeData(resumeData);
-            analyzeCurrentResume();
+            analyzeCurrentResume(jobDescription);
 
             // Record Activity
             try {
-                const score = analyzeResume(resumeData);
+                const score = await analyzeResume(resumeData, jobDescription);
                 const userInfo = localStorage.getItem("userInfo");
                 if (userInfo) {
                     const { token } = JSON.parse(userInfo);
@@ -82,6 +85,10 @@ export function ResumeAnalyzer() {
                         title: `Resume Analysis`,
                         activityType: 'resume',
                         score: `${score.overall}%`
+                    }, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
                     });
                 }
             } catch (err) {
@@ -140,6 +147,19 @@ export function ResumeAnalyzer() {
                     <p className="text-muted-foreground">
                         Upload your resume to get an instant ATS score and actionable feedback
                     </p>
+                </div>
+
+                {/* Optional Job Description */}
+                <div className="mb-6 space-y-2">
+                    <Label htmlFor="jobDesc" className="text-foreground font-medium">Target Job Description (Optional)</Label>
+                    <Textarea
+                        id="jobDesc"
+                        placeholder="Paste the job requirements here to get a customized ATS score..."
+                        className="min-h-[100px] resize-y bg-background"
+                        value={jobDescription}
+                        onChange={(e) => setJobDescription(e.target.value)}
+                        disabled={isAnalyzing}
+                    />
                 </div>
 
                 {/* Upload Section */}

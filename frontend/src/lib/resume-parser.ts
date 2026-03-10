@@ -4,27 +4,92 @@ import { emptyResumeData } from './sample-data';
 // This is a client-side parser that extracts text from files
 // For production, you'd use a proper backend parser
 
+import { api } from '@/lib/api';
+
 export async function parseResumeFile(file: File): Promise<ResumeData> {
-    const text = await extractTextFromFile(file);
-    return parseResumeText(text);
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    try {
+        const response = await api.post('/upload/resume', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        if (response.data && response.data.success) {
+            console.log("Raw API Response:", response.data);
+            const mappedData = mapGroqDataToResumeData(response.data.data, response.data.text);
+            console.log("Mapped Resume Data:", mappedData);
+            return mappedData;
+        } else {
+            throw new Error(response.data?.error || 'Failed to parse resume');
+        }
+    } catch (error) {
+        console.error("Resume upload error:", error);
+        // Fallback to text parsing if backend fails
+        const text = await extractTextFromFile(file);
+        return parseResumeText(text);
+    }
 }
 
+function mapGroqDataToResumeData(aiData: any, rawText: string): ResumeData {
+    const resume = { ...emptyResumeData };
+
+    // Safely extract from AI structure
+    if (!aiData) return parseResumeText(rawText); // Fallback
+
+    if (aiData.full_name) resume.contact.name = aiData.full_name;
+    if (aiData.email) resume.contact.email = aiData.email;
+    if (aiData.phone) resume.contact.phone = aiData.phone;
+    if (aiData.location) resume.contact.location = aiData.location;
+
+    if (aiData.summary) resume.summary = aiData.summary;
+
+    if (Array.isArray(aiData.skills)) {
+        resume.skills = aiData.skills.map((skill: any, i: number) => ({
+            id: generateId(),
+            name: typeof skill === 'string' ? skill : skill.name || '',
+            level: 'intermediate'
+        })).filter((s: Skill) => s.name);
+    }
+
+    if (Array.isArray(aiData.experience)) {
+        resume.experience = aiData.experience.map((exp: any) => ({
+            id: generateId(),
+            title: exp.role || '',
+            company: exp.company || '',
+            location: '',
+            startDate: exp.duration?.split('-')[0]?.trim() || '',
+            endDate: exp.duration?.split('-')[1]?.trim() || '',
+            current: exp.duration?.toLowerCase().includes('present') || false,
+            description: Array.isArray(exp.summary) ? exp.summary : exp.summary?.split(/[\n•]/).filter((s: string) => s.trim()) || ['']
+        }));
+    }
+
+    if (Array.isArray(aiData.education)) {
+        resume.education = aiData.education.map((edu: any) => ({
+            id: generateId(),
+            degree: edu.degree || '',
+            field: '',
+            institution: edu.school || '',
+            location: '',
+            graduationDate: edu.year || '',
+        }));
+    }
+
+    return resume;
+}
+
+// Keep extractTextFromFile and parseResumeText as fallback for plain text or if backend is down
 async function extractTextFromFile(file: File): Promise<string> {
-    // For PDF files, we'll need to handle them differently
-    // In production, this would use a proper PDF parser
     if (file.type === 'application/pdf') {
-        // Simulate PDF parsing - in production use pdf.js or backend
         return new Promise((resolve) => {
             const reader = new FileReader();
-            reader.onload = () => {
-                // This is a placeholder - real PDF parsing would extract text
-                resolve('');
-            };
+            reader.onload = () => resolve('');
             reader.readAsArrayBuffer(file);
         });
     }
-
-    // For text-based files
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result as string);
@@ -35,26 +100,12 @@ async function extractTextFromFile(file: File): Promise<string> {
 
 export function parseResumeText(text: string): ResumeData {
     const resume: ResumeData = { ...emptyResumeData };
-
-    // Extract email
     const emailMatch = text.match(/[\w.-]+@[\w.-]+\.\w+/);
-    if (emailMatch) {
-        resume.contact.email = emailMatch[0];
-    }
-
-    // Extract phone
+    if (emailMatch) resume.contact.email = emailMatch[0];
     const phoneMatch = text.match(/\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/);
-    if (phoneMatch) {
-        resume.contact.phone = phoneMatch[0];
-    }
-
-    // Extract LinkedIn
+    if (phoneMatch) resume.contact.phone = phoneMatch[0];
     const linkedinMatch = text.match(/linkedin\.com\/in\/[\w-]+/i);
-    if (linkedinMatch) {
-        resume.contact.linkedin = linkedinMatch[0];
-    }
-
-    // Extract potential name (first line or line before email)
+    if (linkedinMatch) resume.contact.linkedin = linkedinMatch[0];
     const lines = text.split('\n').filter(l => l.trim());
     if (lines.length > 0) {
         const potentialName = lines[0].trim();
@@ -62,23 +113,11 @@ export function parseResumeText(text: string): ResumeData {
             resume.contact.name = potentialName;
         }
     }
-
-    // Extract skills from common patterns
     const skillsSection = text.match(/skills?:?\s*([\s\S]*?)(?=\n\n|experience|education|$)/i);
     if (skillsSection) {
-        const skillText = skillsSection[1];
-        const skills = skillText
-            .split(/[,|•·\n]/)
-            .map(s => s.trim())
-            .filter(s => s.length > 1 && s.length < 30);
-
-        resume.skills = skills.map((name, index) => ({
-            id: `skill-${index}`,
-            name,
-            level: 'intermediate' as const,
-        }));
+        const skills = skillsSection[1].split(/[,|•·\n]/).map(s => s.trim()).filter(s => s.length > 1 && s.length < 30);
+        resume.skills = skills.map((name, index) => ({ id: `skill-${index}`, name, level: 'intermediate' as const }));
     }
-
     return resume;
 }
 

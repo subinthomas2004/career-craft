@@ -36,7 +36,7 @@ export type LanguageId = (typeof ALL_LANGUAGES)[number]["id"];
 export function getStarterCode(problem: CodingProblem, language: LanguageId): string {
     const explicit = problem.starterCode[language as keyof StarterCode];
     if (explicit) return explicit;
-    return `// Write your ${language} solution here`;
+    return "// Write your " + language + " solution here";
 }
 
 export interface CodingProblem {
@@ -57,1667 +57,2820 @@ export interface CodingProblem {
 }
 
 export const codingProblems: CodingProblem[] = [
-    {
-        id: 1,
-        title: "Weighted Word Mapping",
-        slug: "weighted-word-mapping",
-        difficulty: "Easy",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Weighted Word Mapping. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(weighted_word_mapping([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction weighted_word_mapping() {\n  // Your code here\n  \n}`,
-            python: `def weighted_word_mapping():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 56,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 2,
-        title: "Count Dominant Indices",
-        slug: "count-dominant-indices",
-        difficulty: "Easy",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Count Dominant Indices. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_dominant_indices([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_dominant_indices() {\n  // Your code here\n  \n}`,
-            python: `def count_dominant_indices():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 67,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 3,
-        title: "Toggle Light Bulbs",
-        slug: "toggle-light-bulbs",
-        difficulty: "Easy",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Toggle Light Bulbs. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(toggle_light_bulbs([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction toggle_light_bulbs() {\n  // Your code here\n  \n}`,
-            python: `def toggle_light_bulbs():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 61,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 4,
-        title: "Reverse Letters Then Special Characters in a String",
-        slug: "reverse-letters-then-special-characters-in-a-string",
-        difficulty: "Easy",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Reverse Letters Then Special Characters in a String. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(reverse_letters_then_special_characters_in_a_string([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction reverse_letters_then_special_characters_in_a_string() {\n  // Your code here\n  \n}`,
-            python: `def reverse_letters_then_special_characters_in_a_string():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 77,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 5,
-        title: "Count Monobit Integers",
-        slug: "count-monobit-integers",
-        difficulty: "Easy",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Count Monobit Integers. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_monobit_integers([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_monobit_integers() {\n  // Your code here\n  \n}`,
-            python: `def count_monobit_integers():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 78,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 6,
-        title: "Count Residue Prefixes",
-        slug: "count-residue-prefixes",
-        difficulty: "Easy",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Count Residue Prefixes. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_residue_prefixes([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_residue_prefixes() {\n  // Your code here\n  \n}`,
-            python: `def count_residue_prefixes():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 52,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 7,
-        title: "Largest Even Number",
-        slug: "largest-even-number",
-        difficulty: "Easy",
-        category: "Stacks",
-        tags: ["Stacks"],
-        description: "Implement the solution for Largest Even Number. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(largest_even_number([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction largest_even_number() {\n  // Your code here\n  \n}`,
-            python: `def largest_even_number():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 73,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 8,
-        title: "Vowel-Consonant Score",
-        slug: "vowel-consonant-score",
-        difficulty: "Easy",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Vowel-Consonant Score. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(vowel_consonant_score([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction vowel_consonant_score() {\n  // Your code here\n  \n}`,
-            python: `def vowel_consonant_score():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 30,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 9,
-        title: "Reverse String Prefix",
-        slug: "reverse-string-prefix",
-        difficulty: "Easy",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Reverse String Prefix. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(reverse_string_prefix([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction reverse_string_prefix() {\n  // Your code here\n  \n}`,
-            python: `def reverse_string_prefix():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 78,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 10,
-        title: "Mirror Distance of an Integer",
-        slug: "mirror-distance-of-an-integer",
-        difficulty: "Easy",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Mirror Distance of an Integer. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(mirror_distance_of_an_integer([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction mirror_distance_of_an_integer() {\n  // Your code here\n  \n}`,
-            python: `def mirror_distance_of_an_integer():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 67,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 11,
-        title: "Absolute Difference Between Maximum and Minimum K Elements",
-        slug: "absolute-difference-between-maximum-and-minimum-k-elements",
-        difficulty: "Easy",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Absolute Difference Between Maximum and Minimum K Elements. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(absolute_difference_between_maximum_and_minimum_k_elements([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction absolute_difference_between_maximum_and_minimum_k_elements() {\n  // Your code here\n  \n}`,
-            python: `def absolute_difference_between_maximum_and_minimum_k_elements():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 67,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 12,
-        title: "Sort Integers by Binary Reflection",
-        slug: "sort-integers-by-binary-reflection",
-        difficulty: "Easy",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Sort Integers by Binary Reflection. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(sort_integers_by_binary_reflection([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction sort_integers_by_binary_reflection() {\n  // Your code here\n  \n}`,
-            python: `def sort_integers_by_binary_reflection():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 76,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 13,
-        title: "Concatenate Non-Zero Digits and Multiply by Sum I",
-        slug: "concatenate-non-zero-digits-and-multiply-by-sum-i",
-        difficulty: "Easy",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Concatenate Non-Zero Digits and Multiply by Sum I. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(concatenate_non_zero_digits_and_multiply_by_sum_i([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction concatenate_non_zero_digits_and_multiply_by_sum_i() {\n  // Your code here\n  \n}`,
-            python: `def concatenate_non_zero_digits_and_multiply_by_sum_i():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 36,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 14,
-        title: "Minimum Number of Flips to Reverse Binary String",
-        slug: "minimum-number-of-flips-to-reverse-binary-string",
-        difficulty: "Easy",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Minimum Number of Flips to Reverse Binary String. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_number_of_flips_to_reverse_binary_string([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_number_of_flips_to_reverse_binary_string() {\n  // Your code here\n  \n}`,
-            python: `def minimum_number_of_flips_to_reverse_binary_string():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 79,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 15,
-        title: "Minimum Moves to Equal Array Elements III",
-        slug: "minimum-moves-to-equal-array-elements-iii",
-        difficulty: "Easy",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Minimum Moves to Equal Array Elements III. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_moves_to_equal_array_elements_iii([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_moves_to_equal_array_elements_iii() {\n  // Your code here\n  \n}`,
-            python: `def minimum_moves_to_equal_array_elements_iii():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 68,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 16,
-        title: "Minimum Distance Between Three Equal Elements I",
-        slug: "minimum-distance-between-three-equal-elements-i",
-        difficulty: "Easy",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Minimum Distance Between Three Equal Elements I. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_distance_between_three_equal_elements_i([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_distance_between_three_equal_elements_i() {\n  // Your code here\n  \n}`,
-            python: `def minimum_distance_between_three_equal_elements_i():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 79,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 17,
-        title: "Maximize Expression of Three Elements",
-        slug: "maximize-expression-of-three-elements",
-        difficulty: "Easy",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Maximize Expression of Three Elements. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximize_expression_of_three_elements([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximize_expression_of_three_elements() {\n  // Your code here\n  \n}`,
-            python: `def maximize_expression_of_three_elements():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 57,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 18,
-        title: "Find Missing Elements",
-        slug: "find-missing-elements",
-        difficulty: "Easy",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Find Missing Elements. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(find_missing_elements([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction find_missing_elements() {\n  // Your code here\n  \n}`,
-            python: `def find_missing_elements():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 79,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 19,
-        title: "Smallest Missing Multiple of K",
-        slug: "smallest-missing-multiple-of-k",
-        difficulty: "Easy",
-        category: "Stacks",
-        tags: ["Stacks"],
-        description: "Implement the solution for Smallest Missing Multiple of K. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(smallest_missing_multiple_of_k([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction smallest_missing_multiple_of_k() {\n  // Your code here\n  \n}`,
-            python: `def smallest_missing_multiple_of_k():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 40,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 20,
-        title: "Sum of Elements With Frequency Divisible by K",
-        slug: "sum-of-elements-with-frequency-divisible-by-k",
-        difficulty: "Easy",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Sum of Elements With Frequency Divisible by K. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(sum_of_elements_with_frequency_divisible_by_k([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction sum_of_elements_with_frequency_divisible_by_k() {\n  // Your code here\n  \n}`,
-            python: `def sum_of_elements_with_frequency_divisible_by_k():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 80,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 21,
-        title: "Compute Alternating Sum",
-        slug: "compute-alternating-sum",
-        difficulty: "Easy",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Compute Alternating Sum. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(compute_alternating_sum([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction compute_alternating_sum() {\n  // Your code here\n  \n}`,
-            python: `def compute_alternating_sum():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 76,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 22,
-        title: "Majority Frequency Characters",
-        slug: "majority-frequency-characters",
-        difficulty: "Easy",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Majority Frequency Characters. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(majority_frequency_characters([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction majority_frequency_characters() {\n  // Your code here\n  \n}`,
-            python: `def majority_frequency_characters():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 76,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 23,
-        title: "Equal Score Substrings",
-        slug: "equal-score-substrings",
-        difficulty: "Easy",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Equal Score Substrings. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(equal_score_substrings([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction equal_score_substrings() {\n  // Your code here\n  \n}`,
-            python: `def equal_score_substrings():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 63,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 24,
-        title: "Remove Zeros in Decimal Representation",
-        slug: "remove-zeros-in-decimal-representation",
-        difficulty: "Easy",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Remove Zeros in Decimal Representation. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(remove_zeros_in_decimal_representation([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction remove_zeros_in_decimal_representation() {\n  // Your code here\n  \n}`,
-            python: `def remove_zeros_in_decimal_representation():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 67,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 25,
-        title: "Compute Decimal Representation",
-        slug: "compute-decimal-representation",
-        difficulty: "Easy",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Compute Decimal Representation. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(compute_decimal_representation([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction compute_decimal_representation() {\n  // Your code here\n  \n}`,
-            python: `def compute_decimal_representation():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 48,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 26,
-        title: "Earliest Time to Finish One Task",
-        slug: "earliest-time-to-finish-one-task",
-        difficulty: "Easy",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Earliest Time to Finish One Task. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(earliest_time_to_finish_one_task([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction earliest_time_to_finish_one_task() {\n  // Your code here\n  \n}`,
-            python: `def earliest_time_to_finish_one_task():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 34,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 27,
-        title: "Smallest Absent Positive Greater Than Average",
-        slug: "smallest-absent-positive-greater-than-average",
-        difficulty: "Easy",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Smallest Absent Positive Greater Than Average. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(smallest_absent_positive_greater_than_average([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction smallest_absent_positive_greater_than_average() {\n  // Your code here\n  \n}`,
-            python: `def smallest_absent_positive_greater_than_average():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 36,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 28,
-        title: "Bitwise OR of Even Numbers in an Array",
-        slug: "bitwise-or-of-even-numbers-in-an-array",
-        difficulty: "Easy",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Bitwise OR of Even Numbers in an Array. This is a Easy difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(bitwise_or_of_even_numbers_in_an_array([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction bitwise_or_of_even_numbers_in_an_array() {\n  // Your code here\n  \n}`,
-            python: `def bitwise_or_of_even_numbers_in_an_array():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 65,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 29,
-        title: "Check Digitorial Permutation",
-        slug: "check-digitorial-permutation",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Check Digitorial Permutation. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(check_digitorial_permutation([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction check_digitorial_permutation() {\n  // Your code here\n  \n}`,
-            python: `def check_digitorial_permutation():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 54,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 30,
-        title: "Find the Score Difference in a Game",
-        slug: "find-the-score-difference-in-a-game",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Find the Score Difference in a Game. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(find_the_score_difference_in_a_game([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction find_the_score_difference_in_a_game() {\n  // Your code here\n  \n}`,
-            python: `def find_the_score_difference_in_a_game():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 57,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 31,
-        title: "Longest Almost-Palindromic Substring",
-        slug: "longest-almost-palindromic-substring",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Longest Almost-Palindromic Substring. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(longest_almost_palindromic_substring([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction longest_almost_palindromic_substring() {\n  // Your code here\n  \n}`,
-            python: `def longest_almost_palindromic_substring():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 52,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 32,
-        title: "First Element with Unique Frequency",
-        slug: "first-element-with-unique-frequency",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for First Element with Unique Frequency. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(first_element_with_unique_frequency([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction first_element_with_unique_frequency() {\n  // Your code here\n  \n}`,
-            python: `def first_element_with_unique_frequency():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 41,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 33,
-        title: "Merge Adjacent Equal Elements",
-        slug: "merge-adjacent-equal-elements",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Merge Adjacent Equal Elements. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(merge_adjacent_equal_elements([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction merge_adjacent_equal_elements() {\n  // Your code here\n  \n}`,
-            python: `def merge_adjacent_equal_elements():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 71,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 34,
-        title: "Count Subarrays With Cost Less Than or Equal to K",
-        slug: "count-subarrays-with-cost-less-than-or-equal-to-k",
-        difficulty: "Medium",
-        category: "Stacks",
-        tags: ["Stacks"],
-        description: "Implement the solution for Count Subarrays With Cost Less Than or Equal to K. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_subarrays_with_cost_less_than_or_equal_to_k([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_subarrays_with_cost_less_than_or_equal_to_k() {\n  // Your code here\n  \n}`,
-            python: `def count_subarrays_with_cost_less_than_or_equal_to_k():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 79,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 35,
-        title: "Minimum Prefix Removal to Make Array Strictly Increasing",
-        slug: "minimum-prefix-removal-to-make-array-strictly-increasing",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Minimum Prefix Removal to Make Array Strictly Increasing. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_prefix_removal_to_make_array_strictly_increasing([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_prefix_removal_to_make_array_strictly_increasing() {\n  // Your code here\n  \n}`,
-            python: `def minimum_prefix_removal_to_make_array_strictly_increasing():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 59,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 36,
-        title: "Minimum Operations to Reach Target Array",
-        slug: "minimum-operations-to-reach-target-array",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Minimum Operations to Reach Target Array. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_operations_to_reach_target_array([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_operations_to_reach_target_array() {\n  // Your code here\n  \n}`,
-            python: `def minimum_operations_to_reach_target_array():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 58,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 37,
-        title: "Best Reachable Tower",
-        slug: "best-reachable-tower",
-        difficulty: "Medium",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Best Reachable Tower. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(best_reachable_tower([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction best_reachable_tower() {\n  // Your code here\n  \n}`,
-            python: `def best_reachable_tower():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 63,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 38,
-        title: "Count Caesar Cipher Pairs",
-        slug: "count-caesar-cipher-pairs",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Count Caesar Cipher Pairs. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_caesar_cipher_pairs([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_caesar_cipher_pairs() {\n  // Your code here\n  \n}`,
-            python: `def count_caesar_cipher_pairs():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 76,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 39,
-        title: "Pythagorean Distance Nodes in a Tree",
-        slug: "pythagorean-distance-nodes-in-a-tree",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Pythagorean Distance Nodes in a Tree. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(pythagorean_distance_nodes_in_a_tree([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction pythagorean_distance_nodes_in_a_tree() {\n  // Your code here\n  \n}`,
-            python: `def pythagorean_distance_nodes_in_a_tree():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 34,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 40,
-        title: "Minimum K to Reduce Array Within Limit",
-        slug: "minimum-k-to-reduce-array-within-limit",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Minimum K to Reduce Array Within Limit. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_k_to_reduce_array_within_limit([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_k_to_reduce_array_within_limit() {\n  // Your code here\n  \n}`,
-            python: `def minimum_k_to_reduce_array_within_limit():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 61,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 41,
-        title: "Smallest All-Ones Multiple",
-        slug: "smallest-all-ones-multiple",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Smallest All-Ones Multiple. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(smallest_all_ones_multiple([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction smallest_all_ones_multiple() {\n  // Your code here\n  \n}`,
-            python: `def smallest_all_ones_multiple():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 68,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 42,
-        title: "Maximum Score of a Split",
-        slug: "maximum-score-of-a-split",
-        difficulty: "Medium",
-        category: "Stacks",
-        tags: ["Stacks"],
-        description: "Implement the solution for Maximum Score of a Split. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_score_of_a_split([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_score_of_a_split() {\n  // Your code here\n  \n}`,
-            python: `def maximum_score_of_a_split():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 53,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 43,
-        title: "Rotate Non Negative Elements",
-        slug: "rotate-non-negative-elements",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Rotate Non Negative Elements. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(rotate_non_negative_elements([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction rotate_non_negative_elements() {\n  // Your code here\n  \n}`,
-            python: `def rotate_non_negative_elements():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 37,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 44,
-        title: "Minimum Number of Operations to Have Distinct Elements",
-        slug: "minimum-number-of-operations-to-have-distinct-elements",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Minimum Number of Operations to Have Distinct Elements. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_number_of_operations_to_have_distinct_elements([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_number_of_operations_to_have_distinct_elements() {\n  // Your code here\n  \n}`,
-            python: `def minimum_number_of_operations_to_have_distinct_elements():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 43,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 45,
-        title: "Maximum Sum of Three Numbers Divisible by Three",
-        slug: "maximum-sum-of-three-numbers-divisible-by-three",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Maximum Sum of Three Numbers Divisible by Three. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_sum_of_three_numbers_divisible_by_three([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_sum_of_three_numbers_divisible_by_three() {\n  // Your code here\n  \n}`,
-            python: `def maximum_sum_of_three_numbers_divisible_by_three():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 35,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 46,
-        title: "Reverse Words With Same Vowel Count",
-        slug: "reverse-words-with-same-vowel-count",
-        difficulty: "Medium",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Reverse Words With Same Vowel Count. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(reverse_words_with_same_vowel_count([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction reverse_words_with_same_vowel_count() {\n  // Your code here\n  \n}`,
-            python: `def reverse_words_with_same_vowel_count():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 54,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 47,
-        title: "Minimum Cost to Make Two Binary Strings Equal",
-        slug: "minimum-cost-to-make-two-binary-strings-equal",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Minimum Cost to Make Two Binary Strings Equal. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_cost_to_make_two_binary_strings_equal([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_cost_to_make_two_binary_strings_equal() {\n  // Your code here\n  \n}`,
-            python: `def minimum_cost_to_make_two_binary_strings_equal():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 37,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 48,
-        title: "Minimum Subarray Length With Distinct Sum At Least K",
-        slug: "minimum-subarray-length-with-distinct-sum-at-least-k",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Minimum Subarray Length With Distinct Sum At Least K. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_subarray_length_with_distinct_sum_at_least_k([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_subarray_length_with_distinct_sum_at_least_k() {\n  // Your code here\n  \n}`,
-            python: `def minimum_subarray_length_with_distinct_sum_at_least_k():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 63,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 49,
-        title: "Minimum Cost to Acquire Required Items",
-        slug: "minimum-cost-to-acquire-required-items",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Minimum Cost to Acquire Required Items. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_cost_to_acquire_required_items([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_cost_to_acquire_required_items() {\n  // Your code here\n  \n}`,
-            python: `def minimum_cost_to_acquire_required_items():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 57,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 50,
-        title: "Total Score of Dungeon Runs",
-        slug: "total-score-of-dungeon-runs",
-        difficulty: "Medium",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Total Score of Dungeon Runs. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(total_score_of_dungeon_runs([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction total_score_of_dungeon_runs() {\n  // Your code here\n  \n}`,
-            python: `def total_score_of_dungeon_runs():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 71,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 51,
-        title: "Number of Alternating XOR Partitions",
-        slug: "number-of-alternating-xor-partitions",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Number of Alternating XOR Partitions. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(number_of_alternating_xor_partitions([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction number_of_alternating_xor_partitions() {\n  // Your code here\n  \n}`,
-            python: `def number_of_alternating_xor_partitions():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 54,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 52,
-        title: "Count Elements With at Least K Greater Values",
-        slug: "count-elements-with-at-least-k-greater-values",
-        difficulty: "Medium",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Count Elements With at Least K Greater Values. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_elements_with_at_least_k_greater_values([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_elements_with_at_least_k_greater_values() {\n  // Your code here\n  \n}`,
-            python: `def count_elements_with_at_least_k_greater_values():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 51,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 53,
-        title: "Minimum Absolute Distance Between Mirror Pairs",
-        slug: "minimum-absolute-distance-between-mirror-pairs",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Minimum Absolute Distance Between Mirror Pairs. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_absolute_distance_between_mirror_pairs([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_absolute_distance_between_mirror_pairs() {\n  // Your code here\n  \n}`,
-            python: `def minimum_absolute_distance_between_mirror_pairs():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 50,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 54,
-        title: "Minimum Deletion Cost to Make All Characters Equal",
-        slug: "minimum-deletion-cost-to-make-all-characters-equal",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Minimum Deletion Cost to Make All Characters Equal. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_deletion_cost_to_make_all_characters_equal([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_deletion_cost_to_make_all_characters_equal() {\n  // Your code here\n  \n}`,
-            python: `def minimum_deletion_cost_to_make_all_characters_equal():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 55,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 55,
-        title: "Number of Prefix Connected Groups",
-        slug: "number-of-prefix-connected-groups",
-        difficulty: "Medium",
-        category: "Stacks",
-        tags: ["Stacks"],
-        description: "Implement the solution for Number of Prefix Connected Groups. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(number_of_prefix_connected_groups([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction number_of_prefix_connected_groups() {\n  // Your code here\n  \n}`,
-            python: `def number_of_prefix_connected_groups():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 51,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 56,
-        title: "Concatenate Non-Zero Digits and Multiply by Sum II",
-        slug: "concatenate-non-zero-digits-and-multiply-by-sum-ii",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Concatenate Non-Zero Digits and Multiply by Sum II. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(concatenate_non_zero_digits_and_multiply_by_sum_ii([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction concatenate_non_zero_digits_and_multiply_by_sum_ii() {\n  // Your code here\n  \n}`,
-            python: `def concatenate_non_zero_digits_and_multiply_by_sum_ii():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 31,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 57,
-        title: "Maximum Score After Binary Swaps",
-        slug: "maximum-score-after-binary-swaps",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Maximum Score After Binary Swaps. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_score_after_binary_swaps([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_score_after_binary_swaps() {\n  // Your code here\n  \n}`,
-            python: `def maximum_score_after_binary_swaps():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 72,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 58,
-        title: "Number of Centered Subarrays",
-        slug: "number-of-centered-subarrays",
-        difficulty: "Medium",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Number of Centered Subarrays. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(number_of_centered_subarrays([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction number_of_centered_subarrays() {\n  // Your code here\n  \n}`,
-            python: `def number_of_centered_subarrays():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 73,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 59,
-        title: "Final Element After Subarray Deletions",
-        slug: "final-element-after-subarray-deletions",
-        difficulty: "Medium",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Final Element After Subarray Deletions. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(final_element_after_subarray_deletions([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction final_element_after_subarray_deletions() {\n  // Your code here\n  \n}`,
-            python: `def final_element_after_subarray_deletions():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 67,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 60,
-        title: "Minimum Distance Between Three Equal Elements II",
-        slug: "minimum-distance-between-three-equal-elements-ii",
-        difficulty: "Medium",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Minimum Distance Between Three Equal Elements II. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_distance_between_three_equal_elements_ii([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_distance_between_three_equal_elements_ii() {\n  // Your code here\n  \n}`,
-            python: `def minimum_distance_between_three_equal_elements_ii():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 80,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 61,
-        title: "Design Ride Sharing System",
-        slug: "design-ride-sharing-system",
-        difficulty: "Medium",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Design Ride Sharing System. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(design_ride_sharing_system([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction design_ride_sharing_system() {\n  // Your code here\n  \n}`,
-            python: `def design_ride_sharing_system():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 64,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 62,
-        title: "Maximum Product of Three Elements After One Replacement",
-        slug: "maximum-product-of-three-elements-after-one-replacement",
-        difficulty: "Medium",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Maximum Product of Three Elements After One Replacement. This is a Medium difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_product_of_three_elements_after_one_replacement([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_product_of_three_elements_after_one_replacement() {\n  // Your code here\n  \n}`,
-            python: `def maximum_product_of_three_elements_after_one_replacement():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 51,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 63,
-        title: "Palindromic Path Queries in a Tree",
-        slug: "palindromic-path-queries-in-a-tree",
-        difficulty: "Hard",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Palindromic Path Queries in a Tree. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(palindromic_path_queries_in_a_tree([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction palindromic_path_queries_in_a_tree() {\n  // Your code here\n  \n}`,
-            python: `def palindromic_path_queries_in_a_tree():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 74,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 64,
-        title: "Maximum Subarray XOR with Bounded Range",
-        slug: "maximum-subarray-xor-with-bounded-range",
-        difficulty: "Hard",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Maximum Subarray XOR with Bounded Range. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_subarray_xor_with_bounded_range([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_subarray_xor_with_bounded_range() {\n  // Your code here\n  \n}`,
-            python: `def maximum_subarray_xor_with_bounded_range():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 62,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 65,
-        title: "Maximum Score Using Exactly K Pairs",
-        slug: "maximum-score-using-exactly-k-pairs",
-        difficulty: "Hard",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Maximum Score Using Exactly K Pairs. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_score_using_exactly_k_pairs([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_score_using_exactly_k_pairs() {\n  // Your code here\n  \n}`,
-            python: `def maximum_score_using_exactly_k_pairs():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 74,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 66,
-        title: "Longest Alternating Subarray After Removing At Most One Element",
-        slug: "longest-alternating-subarray-after-removing-at-most-one-element",
-        difficulty: "Hard",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Longest Alternating Subarray After Removing At Most One Element. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(longest_alternating_subarray_after_removing_at_most_one_element([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction longest_alternating_subarray_after_removing_at_most_one_element() {\n  // Your code here\n  \n}`,
-            python: `def longest_alternating_subarray_after_removing_at_most_one_element():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 68,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 67,
-        title: "Find Nth Smallest Integer With K One Bits",
-        slug: "find-nth-smallest-integer-with-k-one-bits",
-        difficulty: "Hard",
-        category: "Stacks",
-        tags: ["Stacks"],
-        description: "Implement the solution for Find Nth Smallest Integer With K One Bits. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(find_nth_smallest_integer_with_k_one_bits([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction find_nth_smallest_integer_with_k_one_bits() {\n  // Your code here\n  \n}`,
-            python: `def find_nth_smallest_integer_with_k_one_bits():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 39,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 68,
-        title: "Minimum Edge Toggles on a Tree",
-        slug: "minimum-edge-toggles-on-a-tree",
-        difficulty: "Hard",
-        category: "Arrays",
-        tags: ["Arrays"],
-        description: "Implement the solution for Minimum Edge Toggles on a Tree. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(minimum_edge_toggles_on_a_tree([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction minimum_edge_toggles_on_a_tree() {\n  // Your code here\n  \n}`,
-            python: `def minimum_edge_toggles_on_a_tree():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 33,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 69,
-        title: "Last Remaining Integer After Alternating Deletion Operations",
-        slug: "last-remaining-integer-after-alternating-deletion-operations",
-        difficulty: "Hard",
-        category: "Strings",
-        tags: ["Strings"],
-        description: "Implement the solution for Last Remaining Integer After Alternating Deletion Operations. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(last_remaining_integer_after_alternating_deletion_operations([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction last_remaining_integer_after_alternating_deletion_operations() {\n  // Your code here\n  \n}`,
-            python: `def last_remaining_integer_after_alternating_deletion_operations():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 30,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 70,
-        title: "Maximum Bitwise AND After Increment Operations",
-        slug: "maximum-bitwise-and-after-increment-operations",
-        difficulty: "Hard",
-        category: "Math",
-        tags: ["Math"],
-        description: "Implement the solution for Maximum Bitwise AND After Increment Operations. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_bitwise_and_after_increment_operations([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_bitwise_and_after_increment_operations() {\n  // Your code here\n  \n}`,
-            python: `def maximum_bitwise_and_after_increment_operations():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 76,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 71,
-        title: "Count Routes to Climb a Rectangular Grid",
-        slug: "count-routes-to-climb-a-rectangular-grid",
-        difficulty: "Hard",
-        category: "Dynammic Programming",
-        tags: ["Dynammic Programming"],
-        description: "Implement the solution for Count Routes to Climb a Rectangular Grid. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(count_routes_to_climb_a_rectangular_grid([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction count_routes_to_climb_a_rectangular_grid() {\n  // Your code here\n  \n}`,
-            python: `def count_routes_to_climb_a_rectangular_grid():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 52,
-        supportedLanguages: ["javascript"]
-    },
-    {
-        id: 72,
-        title: "Maximum Subgraph Score in a Tree",
-        slug: "maximum-subgraph-score-in-a-tree",
-        difficulty: "Hard",
-        category: "Trees",
-        tags: ["Trees"],
-        description: "Implement the solution for Maximum Subgraph Score in a Tree. This is a Hard difficulty problem from LeetCode.",
-        constraints: ["1 <= n <= 10^4"],
-        examples: [
-            { input: "[1,2,3]", output: "[1,2,3]" }
-        ],
-        testCases: [
-            { input: "JSON.stringify(maximum_subgraph_score_in_a_tree([1,2,3]))", expected: "\"[1,2,3]\"" }
-        ],
-        starterCode: {
-            javascript: `/**\n * @return {any}\n */\nfunction maximum_subgraph_score_in_a_tree() {\n  // Your code here\n  \n}`,
-            python: `def maximum_subgraph_score_in_a_tree():\n    pass`
-        },
-        hints: ["Think about edge cases."],
-        acceptance: 77,
-        supportedLanguages: ["javascript"]
-    },
+{
+    "id": 1,
+    "title": "Two Sum",
+    "slug": "two-sum",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "javascript"
+    ],
+    "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [2,7,11,15], target = 9",
+            "output": "[0,1]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "twoSum([2,7,11,15], 9)",
+            "expected": "[0,1]"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nfunction twoSum(nums, target) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 33,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 2,
+    "title": "Valid Anagram",
+    "slug": "valid-anagram",
+    "difficulty": "Easy",
+    "category": "Strings",
+    "tags": [
+        "Strings",
+        "javascript"
+    ],
+    "description": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = 'anagram', t = 'nagaram'",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "isAnagram('anagram', 'nagaram')",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nfunction isAnagram(s, t) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 49,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 3,
+    "title": "Reverse String",
+    "slug": "reverse-string",
+    "difficulty": "Easy",
+    "category": "Strings",
+    "tags": [
+        "Strings",
+        "javascript"
+    ],
+    "description": "Write a function that reverses a string. The input string is given as an array of characters `s`. You must do this by modifying the input array in-place with O(1) extra memory.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = ['h','e','l','l','o']",
+            "output": "['o','l','l','e','h']"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "reverseString(['h','e','l','l','o'])",
+            "expected": "['o','l','l','e','h']"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nfunction reverseString(s) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 55,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 4,
+    "title": "Group Anagrams",
+    "slug": "group-anagrams",
+    "difficulty": "Medium",
+    "category": "Hash Table",
+    "tags": [
+        "Hash Table",
+        "javascript"
+    ],
+    "description": "Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "strs = ['eat','tea','tan','ate','nat','bat']",
+            "output": "[['bat'],['nat','tan'],['ate','eat','tea']]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "groupAnagrams(['eat','tea','tan','ate','nat','bat'])",
+            "expected": "[['eat','tea','ate'],['tan','nat'],['bat']]"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {string[]} strs\n * @return {string[][]}\n */\nfunction groupAnagrams(strs) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 37,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 5,
+    "title": "Longest Consecutive Sequence",
+    "slug": "longest-consecutive-sequence",
+    "difficulty": "Medium",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "javascript"
+    ],
+    "description": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [100,4,200,1,3,2]",
+            "output": "4"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "longestConsecutive([100,4,200,1,3,2])",
+            "expected": "4"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction longestConsecutive(nums) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 78,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 6,
+    "title": "Container With Most Water",
+    "slug": "container-with-most-water",
+    "difficulty": "Medium",
+    "category": "Two Pointers",
+    "tags": [
+        "Two Pointers",
+        "javascript"
+    ],
+    "description": "You are given an integer array `height` of length n. There are n vertical lines drawn such that the two endpoints of the ith line are `(i, 0)` and `(i, height[i])`. Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "height = [1,8,6,2,5,4,8,3,7]",
+            "output": "49"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "maxArea([1,8,6,2,5,4,8,3,7])",
+            "expected": "49"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {number[]} height\n * @return {number}\n */\nfunction maxArea(height) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 55,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 7,
+    "title": "Trapping Rain Water",
+    "slug": "trapping-rain-water",
+    "difficulty": "Hard",
+    "category": "Two Pointers",
+    "tags": [
+        "Two Pointers",
+        "javascript"
+    ],
+    "description": "Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "height = [0,1,0,2,1,0,1,3,2,1,2,1]",
+            "output": "6"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "trap([0,1,0,2,1,0,1,3,2,1,2,1])",
+            "expected": "6"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {number[]} height\n * @return {number}\n */\nfunction trap(height) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 66,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 8,
+    "title": "Merge k Sorted Lists",
+    "slug": "merge-k-sorted-lists",
+    "difficulty": "Hard",
+    "category": "Linked List",
+    "tags": [
+        "Linked List",
+        "javascript"
+    ],
+    "description": "You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "lists = [[1,4,5],[1,3,4],[2,6]]",
+            "output": "[1,1,2,3,4,4,5,6]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "mergeKLists([[1,4,5],[1,3,4],[2,6]])",
+            "expected": "[1,1,2,3,4,4,5,6]"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode[]} lists\n * @return {ListNode}\n */\nfunction mergeKLists(lists) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 78,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 9,
+    "title": "Minimum Window Substring",
+    "slug": "minimum-window-substring",
+    "difficulty": "Hard",
+    "category": "Sliding Window",
+    "tags": [
+        "Sliding Window",
+        "javascript"
+    ],
+    "description": "Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `\"\"`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = 'ADOBECODEBANC', t = 'ABC'",
+            "output": "'BANC'"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "minWindow('ADOBECODEBANC', 'ABC')",
+            "expected": "'BANC'"
+        }
+    ],
+    "starterCode": {
+        "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {string}\n */\nfunction minWindow(s, t) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 35,
+    "supportedLanguages": [
+        "javascript"
+    ]
+},
+{
+    "id": 10,
+    "title": "Valid Parentheses",
+    "slug": "valid-parentheses",
+    "difficulty": "Easy",
+    "category": "Stack",
+    "tags": [
+        "Stack",
+        "python"
+    ],
+    "description": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = '()[]{}'",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "isValid('()[]{}')",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def isValid(self, s: str) -> bool:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 50,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 11,
+    "title": "Best Time to Buy and Sell Stock",
+    "slug": "best-time-to-buy-and-sell-stock",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "python"
+    ],
+    "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "prices = [7,1,5,3,6,4]",
+            "output": "5"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "maxProfit([7,1,5,3,6,4])",
+            "expected": "5"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def maxProfit(self, prices: list[int]) -> int:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 73,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 12,
+    "title": "Contains Duplicate",
+    "slug": "contains-duplicate",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "python"
+    ],
+    "description": "Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,2,3,1]",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "containsDuplicate([1,2,3,1])",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def containsDuplicate(self, nums: list[int]) -> bool:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 56,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 13,
+    "title": "Longest Substring Without Repeating Characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "difficulty": "Medium",
+    "category": "Sliding Window",
+    "tags": [
+        "Sliding Window",
+        "python"
+    ],
+    "description": "Given a string `s`, find the length of the longest substring without repeating characters.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = 'abcabcbb'",
+            "output": "3"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "lengthOfLongestSubstring('abcabcbb')",
+            "expected": "3"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 53,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 14,
+    "title": "Product of Array Except Self",
+    "slug": "product-of-array-except-self",
+    "difficulty": "Medium",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "python"
+    ],
+    "description": "Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`. The algorithm must run in O(n) time without using the division operation.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,2,3,4]",
+            "output": "[24,12,8,6]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "productExceptSelf([1,2,3,4])",
+            "expected": "[24,12,8,6]"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def productExceptSelf(self, nums: list[int]) -> list[int]:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 34,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 15,
+    "title": "Maximum Subarray",
+    "slug": "maximum-subarray",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "python"
+    ],
+    "description": "Given an integer array `nums`, find the subarray with the largest sum, and return its sum.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]",
+            "output": "6"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "maxSubArray([-2,1,-3,4,-1,2,1,-5,4])",
+            "expected": "6"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def maxSubArray(self, nums: list[int]) -> int:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 33,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 16,
+    "title": "Median of Two Sorted Arrays",
+    "slug": "median-of-two-sorted-arrays",
+    "difficulty": "Hard",
+    "category": "Binary Search",
+    "tags": [
+        "Binary Search",
+        "python"
+    ],
+    "description": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums1 = [1,3], nums2 = [2]",
+            "output": "2.0"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "findMedianSortedArrays([1,3], [2])",
+            "expected": "2.0"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 44,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 17,
+    "title": "Regular Expression Matching",
+    "slug": "regular-expression-matching",
+    "difficulty": "Hard",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "python"
+    ],
+    "description": "Given an input string `s` and a pattern `p`, implement regular expression matching with support for `'.'` and `'*'` where: `'.'` Matches any single character. `'*'` Matches zero or more of the preceding element.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = 'aa', p = 'a*'",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "isMatch('aa', 'a*')",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 74,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 18,
+    "title": "Largest Rectangle in Histogram",
+    "slug": "largest-rectangle-in-histogram",
+    "difficulty": "Hard",
+    "category": "Stack",
+    "tags": [
+        "Stack",
+        "python"
+    ],
+    "description": "Given an array of integers `heights` representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "heights = [2,1,5,6,2,3]",
+            "output": "10"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "largestRectangleArea([2,1,5,6,2,3])",
+            "expected": "10"
+        }
+    ],
+    "starterCode": {
+        "python": "class Solution:\n    def largestRectangleArea(self, heights: list[int]) -> int:\n        "
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 51,
+    "supportedLanguages": [
+        "python"
+    ]
+},
+{
+    "id": 19,
+    "title": "Two Sum",
+    "slug": "two-sum",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "java"
+    ],
+    "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [2,7,11,15], target = 9",
+            "output": "[0,1]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "twoSum(new int[]{2,7,11,15}, 9)",
+            "expected": "new int[]{0,1}"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 65,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 20,
+    "title": "Merge Two Sorted Lists",
+    "slug": "merge-two-sorted-lists",
+    "difficulty": "Easy",
+    "category": "Linked List",
+    "tags": [
+        "Linked List",
+        "java"
+    ],
+    "description": "You are given the heads of two sorted linked lists `list1` and `list2`. Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "list1 = [1,2,4], list2 = [1,3,4]",
+            "output": "[1,1,2,3,4,4]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "mergeTwoLists(l1, l2)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 66,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 21,
+    "title": "Climbing Stairs",
+    "slug": "climbing-stairs",
+    "difficulty": "Easy",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "java"
+    ],
+    "description": "You are climbing a staircase. It takes `n` steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "n = 2",
+            "output": "2"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "climbStairs(2)",
+            "expected": "2"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public int climbStairs(int n) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 77,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 22,
+    "title": "Word Break",
+    "slug": "word-break",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "java"
+    ],
+    "description": "Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = 'leetcode', wordDict = ['leet','code']",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "wordBreak('leetcode', Arrays.asList('leet','code'))",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 78,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 23,
+    "title": "Coin Change",
+    "slug": "coin-change",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "java"
+    ],
+    "description": "You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money. Return the fewest number of coins that you need to make up that amount.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "coins = [1,2,5], amount = 11",
+            "output": "3"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "coinChange(new int[]{1,2,5}, 11)",
+            "expected": "3"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 78,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 24,
+    "title": "Number of Islands",
+    "slug": "number-of-islands",
+    "difficulty": "Medium",
+    "category": "Graphs",
+    "tags": [
+        "Graphs",
+        "java"
+    ],
+    "description": "Given an `m x n` 2D binary grid `grid` which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "grid = [['1','1','0','0','0'],['1','1','0','0','0'],['0','0','1','0','0'],['0','0','0','1','1']]",
+            "output": "3"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "numIslands(grid)",
+            "expected": "3"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 30,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 25,
+    "title": "N-Queens",
+    "slug": "n-queens",
+    "difficulty": "Hard",
+    "category": "Backtracking",
+    "tags": [
+        "Backtracking",
+        "java"
+    ],
+    "description": "The n-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other. Given an integer `n`, return all distinct solutions to the n-queens puzzle.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "n = 4",
+            "output": "[['.Q..','...Q','Q...','..Q.'],['..Q.','Q...','...Q','.Q..']]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "solveNQueens(4)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public List<List<String>> solveNQueens(int n) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 57,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 26,
+    "title": "Edit Distance",
+    "slug": "edit-distance",
+    "difficulty": "Hard",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "java"
+    ],
+    "description": "Given two strings `word1` and `word2`, return the minimum number of operations required to convert `word1` to `word2`. You have the following three operations permitted on a word: Insert a character, Delete a character, Replace a character.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "word1 = 'horse', word2 = 'ros'",
+            "output": "3"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "minDistance('horse', 'ros')",
+            "expected": "3"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public int minDistance(String word1, String word2) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 40,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 27,
+    "title": "Word Search II",
+    "slug": "word-search-ii",
+    "difficulty": "Hard",
+    "category": "Trie",
+    "tags": [
+        "Trie",
+        "java"
+    ],
+    "description": "Given an `m x n` `board` of characters and a list of strings `words`, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "board = [['o','a','a','n'],['e','t','a','e'],['i','h','k','r'],['i','f','l','v']], words = ['oath','pea','eat','rain']",
+            "output": "['eat','oath']"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "findWords(board, new String[]{'oath','pea','eat','rain'})",
+            "expected": "['eat','oath']"
+        }
+    ],
+    "starterCode": {
+        "java": "class Solution {\n    public List<String> findWords(char[][] board, String[] words) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 45,
+    "supportedLanguages": [
+        "java"
+    ]
+},
+{
+    "id": 28,
+    "title": "Palindrome Number",
+    "slug": "palindrome-number",
+    "difficulty": "Easy",
+    "category": "Math",
+    "tags": [
+        "Math",
+        "cpp"
+    ],
+    "description": "Given an integer `x`, return `true` if `x` is a palindrome, and `false` otherwise.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "x = 121",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "isPalindrome(121)",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class Solution {\npublic:\n    bool isPalindrome(int x) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 30,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 29,
+    "title": "Maximum Depth of Binary Tree",
+    "slug": "maximum-depth-of-binary-tree",
+    "difficulty": "Easy",
+    "category": "Trees",
+    "tags": [
+        "Trees",
+        "cpp"
+    ],
+    "description": "Given the `root` of a binary tree, return its maximum depth. A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "root = [3,9,20,null,null,15,7]",
+            "output": "3"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "maxDepth(root)",
+            "expected": "3"
+        }
+    ],
+    "starterCode": {
+        "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 49,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 30,
+    "title": "Single Number",
+    "slug": "single-number",
+    "difficulty": "Easy",
+    "category": "Bit Manipulation",
+    "tags": [
+        "Bit Manipulation",
+        "cpp"
+    ],
+    "description": "Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one. You must implement a solution with a linear runtime complexity and use only constant extra space.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [2,2,1]",
+            "output": "1"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "singleNumber({2,2,1})",
+            "expected": "1"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 53,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 31,
+    "title": "Generate Parentheses",
+    "slug": "generate-parentheses",
+    "difficulty": "Medium",
+    "category": "Backtracking",
+    "tags": [
+        "Backtracking",
+        "cpp"
+    ],
+    "description": "Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "n = 3",
+            "output": "['((()))','(()())','(())()','()(())','()()()']"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "generateParenthesis(3)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 57,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 32,
+    "title": "Permutations",
+    "slug": "permutations",
+    "difficulty": "Medium",
+    "category": "Backtracking",
+    "tags": [
+        "Backtracking",
+        "cpp"
+    ],
+    "description": "Given an array `nums` of distinct integers, return all the possible permutations. You can return the answer in any order.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,2,3]",
+            "output": "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "permute({1,2,3})",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 40,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 33,
+    "title": "Merge Intervals",
+    "slug": "merge-intervals",
+    "difficulty": "Medium",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "cpp"
+    ],
+    "description": "Given an array of `intervals` where `intervals[i] = [start_i, end_i]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]",
+            "output": "[[1,6],[8,10],[15,18]]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "merge({{1,3},{2,6},{8,10},{15,18}})",
+            "expected": "{{1,6},{8,10},{15,18}}"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 32,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 34,
+    "title": "LRU Cache",
+    "slug": "lru-cache",
+    "difficulty": "Hard",
+    "category": "Design",
+    "tags": [
+        "Design",
+        "cpp"
+    ],
+    "description": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. Implement the `LRUCache` class. It must support `get` and `put` operations in O(1) average time complexity.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "LRUCache lRUCache = new LRUCache(2); lRUCache.put(1, 1);",
+            "output": "null"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "cache.get(1)",
+            "expected": "1"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class LRUCache {\npublic:\n    LRUCache(int capacity) {\n        \n    }\n    \n    int get(int key) {\n        \n    }\n    \n    void put(int key, int value) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 50,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 35,
+    "title": "Reverse Nodes in k-Group",
+    "slug": "reverse-nodes-in-k-group",
+    "difficulty": "Hard",
+    "category": "Linked List",
+    "tags": [
+        "Linked List",
+        "cpp"
+    ],
+    "description": "Given the `head` of a linked list, reverse the nodes of the list `k` at a time, and return the modified list. `k` is a positive integer and is less than or equal to the length of the linked list.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "head = [1,2,3,4,5], k = 2",
+            "output": "[2,1,4,3,5]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "reverseKGroup(head, 2)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseKGroup(ListNode* head, int k) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 60,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 36,
+    "title": "First Missing Positive",
+    "slug": "first-missing-positive",
+    "difficulty": "Hard",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "cpp"
+    ],
+    "description": "Given an unsorted integer array `nums`, return the smallest missing positive integer. You must implement an algorithm that runs in O(n) time and uses constant extra space.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [3,4,-1,1]",
+            "output": "2"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "firstMissingPositive({3,4,-1,1})",
+            "expected": "2"
+        }
+    ],
+    "starterCode": {
+        "cpp": "class Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        \n    }\n};"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 41,
+    "supportedLanguages": [
+        "cpp"
+    ]
+},
+{
+    "id": 37,
+    "title": "Two Sum",
+    "slug": "two-sum",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "c"
+    ],
+    "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [2,7,11,15], target = 9",
+            "output": "[0,1]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "twoSum(nums, 4, 9, returnSize)",
+            "expected": "[0,1]"
+        }
+    ],
+    "starterCode": {
+        "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 36,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 38,
+    "title": "Remove Element",
+    "slug": "remove-element",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "c"
+    ],
+    "description": "Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` in-place. The relative order of the elements may be changed.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [3,2,2,3], val = 3",
+            "output": "2, nums = [2,2,_,_]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "removeElement(nums, 4, 3)",
+            "expected": "2"
+        }
+    ],
+    "starterCode": {
+        "c": "int removeElement(int* nums, int numsSize, int val) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 76,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 39,
+    "title": "Search Insert Position",
+    "slug": "search-insert-position",
+    "difficulty": "Easy",
+    "category": "Binary Search",
+    "tags": [
+        "Binary Search",
+        "c"
+    ],
+    "description": "Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You must write an algorithm with O(log n) runtime complexity.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,3,5,6], target = 5",
+            "output": "2"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "searchInsert(nums, 4, 5)",
+            "expected": "2"
+        }
+    ],
+    "starterCode": {
+        "c": "int searchInsert(int* nums, int numsSize, int target) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 74,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 40,
+    "title": "Search a 2D Matrix",
+    "slug": "search-a-2d-matrix",
+    "difficulty": "Medium",
+    "category": "Binary Search",
+    "tags": [
+        "Binary Search",
+        "c"
+    ],
+    "description": "Write an efficient algorithm that searches for a value `target` in an `m x n` integer matrix `matrix`. This matrix has the following properties: Integers in each row are sorted from left to right. The first integer of each row is greater than the last integer of the previous row.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "searchMatrix(matrix, 3, 4, 3)",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "c": "bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 40,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 41,
+    "title": "Sort Colors",
+    "slug": "sort-colors",
+    "difficulty": "Medium",
+    "category": "Two Pointers",
+    "tags": [
+        "Two Pointers",
+        "c"
+    ],
+    "description": "Given an array `nums` with `n` objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue. We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [2,0,2,1,1,0]",
+            "output": "[0,0,1,1,2,2]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "sortColors(nums, 6)",
+            "expected": "[0,0,1,1,2,2]"
+        }
+    ],
+    "starterCode": {
+        "c": "void sortColors(int* nums, int numsSize) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 36,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 42,
+    "title": "Reverse Linked List II",
+    "slug": "reverse-linked-list-ii",
+    "difficulty": "Medium",
+    "category": "Linked List",
+    "tags": [
+        "Linked List",
+        "c"
+    ],
+    "description": "Given the `head` of a singly linked list and two integers `left` and `right` where `left <= right`, reverse the nodes of the list from position `left` to position `right`, and return the reversed list.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "head = [1,2,3,4,5], left = 2, right = 4",
+            "output": "[1,4,3,2,5]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "reverseBetween(head, 2, 4)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "c": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     struct ListNode *next;\n * };\n */\nstruct ListNode* reverseBetween(struct ListNode* head, int left, int right) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 78,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 43,
+    "title": "Merge k Sorted Lists",
+    "slug": "merge-k-sorted-lists",
+    "difficulty": "Hard",
+    "category": "Linked List",
+    "tags": [
+        "Linked List",
+        "c"
+    ],
+    "description": "You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "lists = [[1,4,5],[1,3,4],[2,6]]",
+            "output": "[1,1,2,3,4,4,5,6]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "mergeKLists(lists, 3)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "c": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     struct ListNode *next;\n * };\n */\nstruct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 35,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 44,
+    "title": "Sliding Window Maximum",
+    "slug": "sliding-window-maximum",
+    "difficulty": "Hard",
+    "category": "Sliding Window",
+    "tags": [
+        "Sliding Window",
+        "c"
+    ],
+    "description": "You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+            "output": "[3,3,5,5,6,7]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "maxSlidingWindow(nums, 8, 3, returnSize)",
+            "expected": "[3,3,5,5,6,7]"
+        }
+    ],
+    "starterCode": {
+        "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 45,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 45,
+    "title": "Sudoku Solver",
+    "slug": "sudoku-solver",
+    "difficulty": "Hard",
+    "category": "Backtracking",
+    "tags": [
+        "Backtracking",
+        "c"
+    ],
+    "description": "Write a program to solve a Sudoku puzzle by filling the empty cells. A sudoku solution must satisfy all of the following rules: Each of the digits 1-9 must occur exactly once in each row, column, and 3x3 sub-box. The empty cells are indicated by the character '.'.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "board = [...]",
+            "output": "solved_board"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "solveSudoku(board, 9, boardColSize)",
+            "expected": "solved_board"
+        }
+    ],
+    "starterCode": {
+        "c": "void solveSudoku(char** board, int boardSize, int* boardColSize) {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 35,
+    "supportedLanguages": [
+        "c"
+    ]
+},
+{
+    "id": 46,
+    "title": "Valid Parentheses",
+    "slug": "valid-parentheses",
+    "difficulty": "Easy",
+    "category": "Stack",
+    "tags": [
+        "Stack",
+        "csharp"
+    ],
+    "description": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = '()[]{}'",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "IsValid('()[]{}')",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public bool IsValid(string s) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 71,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 47,
+    "title": "Maximum Subarray",
+    "slug": "maximum-subarray",
+    "difficulty": "Easy",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "csharp"
+    ],
+    "description": "Given an integer array `nums`, find the subarray with the largest sum, and return its sum.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]",
+            "output": "6"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "MaxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4})",
+            "expected": "6"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public int MaxSubArray(int[] nums) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 40,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 48,
+    "title": "Symmetric Tree",
+    "slug": "symmetric-tree",
+    "difficulty": "Easy",
+    "category": "Trees",
+    "tags": [
+        "Trees",
+        "csharp"
+    ],
+    "description": "Given the `root` of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "root = [1,2,2,3,4,4,3]",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "IsSymmetric(root)",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "csharp": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\npublic class Solution {\n    public bool IsSymmetric(TreeNode root) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 44,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 49,
+    "title": "Top K Frequent Elements",
+    "slug": "top-k-frequent-elements",
+    "difficulty": "Medium",
+    "category": "Heap",
+    "tags": [
+        "Heap",
+        "csharp"
+    ],
+    "description": "Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. You may return the answer in any order.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,1,1,2,2,3], k = 2",
+            "output": "[1,2]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "TopKFrequent(new int[]{1,1,1,2,2,3}, 2)",
+            "expected": "[1,2]"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public int[] TopKFrequent(int[] nums, int k) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 77,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 50,
+    "title": "Search in Rotated Sorted Array",
+    "slug": "search-in-rotated-sorted-array",
+    "difficulty": "Medium",
+    "category": "Binary Search",
+    "tags": [
+        "Binary Search",
+        "csharp"
+    ],
+    "description": "There is an integer array `nums` sorted in ascending order (with distinct values). Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index. Given the array `nums` after the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or -1 if it is not in `nums`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [4,5,6,7,0,1,2], target = 0",
+            "output": "4"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Search(new int[]{4,5,6,7,0,1,2}, 0)",
+            "expected": "4"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public int Search(int[] nums, int target) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 51,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 51,
+    "title": "Course Schedule",
+    "slug": "course-schedule",
+    "difficulty": "Medium",
+    "category": "Graphs",
+    "tags": [
+        "Graphs",
+        "csharp"
+    ],
+    "description": "There are a total of `numCourses` courses you have to take, labeled from 0 to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` indicates that you must take course `bi` first if you want to take course `ai`. Return `true` if you can finish all courses. Otherwise, return `false`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "numCourses = 2, prerequisites = [[1,0]]",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "CanFinish(2, new int[][]{new int[]{1,0}})",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public bool CanFinish(int numCourses, int[][] prerequisites) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 51,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 52,
+    "title": "Median of Two Sorted Arrays",
+    "slug": "median-of-two-sorted-arrays",
+    "difficulty": "Hard",
+    "category": "Binary Search",
+    "tags": [
+        "Binary Search",
+        "csharp"
+    ],
+    "description": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums1 = [1,3], nums2 = [2]",
+            "output": "2.0"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "FindMedianSortedArrays(new int[]{1,3}, new int[]{2})",
+            "expected": "2.0"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 38,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 53,
+    "title": "Serialize and Deserialize Binary Tree",
+    "slug": "serialize-and-deserialize-binary-tree",
+    "difficulty": "Hard",
+    "category": "Trees",
+    "tags": [
+        "Trees",
+        "csharp"
+    ],
+    "description": "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer. Design an algorithm to serialize and deserialize a binary tree.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "root = [1,2,3,null,null,4,5]",
+            "output": "[1,2,3,null,null,4,5]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "codec.deserialize(codec.serialize(root))",
+            "expected": "root"
+        }
+    ],
+    "starterCode": {
+        "csharp": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int x) { val = x; }\n * }\n */\npublic class Codec {\n    // Encodes a tree to a single string.\n    public string serialize(TreeNode root) {\n        \n    }\n\n    // Decodes your encoded data to tree.\n    public TreeNode deserialize(string data) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 72,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 54,
+    "title": "Trapping Rain Water",
+    "slug": "trapping-rain-water",
+    "difficulty": "Hard",
+    "category": "Two Pointers",
+    "tags": [
+        "Two Pointers",
+        "csharp"
+    ],
+    "description": "Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "height = [0,1,0,2,1,0,1,3,2,1,2,1]",
+            "output": "6"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1})",
+            "expected": "6"
+        }
+    ],
+    "starterCode": {
+        "csharp": "public class Solution {\n    public int Trap(int[] height) {\n        \n    }\n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 33,
+    "supportedLanguages": [
+        "csharp"
+    ]
+},
+{
+    "id": 55,
+    "title": "Contains Duplicate",
+    "slug": "contains-duplicate",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "typescript"
+    ],
+    "description": "Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [1,2,3,1]",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "containsDuplicate([1,2,3,1])",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "typescript": "function containsDuplicate(nums: number[]): boolean {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 67,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 56,
+    "title": "Valid Palindrome",
+    "slug": "valid-palindrome",
+    "difficulty": "Easy",
+    "category": "Strings",
+    "tags": [
+        "Strings",
+        "typescript"
+    ],
+    "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = 'A man, a plan, a canal: Panama'",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "isPalindrome('A man, a plan, a canal: Panama')",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "typescript": "function isPalindrome(s: string): boolean {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 69,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 57,
+    "title": "Intersection of Two Arrays",
+    "slug": "intersection-of-two-arrays",
+    "difficulty": "Easy",
+    "category": "Arrays",
+    "tags": [
+        "Arrays",
+        "typescript"
+    ],
+    "description": "Given two integer arrays `nums1` and `nums2`, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums1 = [1,2,2,1], nums2 = [2,2]",
+            "output": "[2]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "intersection([1,2,2,1], [2,2])",
+            "expected": "[2]"
+        }
+    ],
+    "starterCode": {
+        "typescript": "function intersection(nums1: number[], nums2: number[]): number[] {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 33,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 58,
+    "title": "Kth Largest Element in an Array",
+    "slug": "kth-largest-element-in-an-array",
+    "difficulty": "Medium",
+    "category": "Heap",
+    "tags": [
+        "Heap",
+        "typescript"
+    ],
+    "description": "Given an integer array `nums` and an integer `k`, return the `kth` largest element in the array. Note that it is the `kth` largest element in the sorted order, not the `kth` distinct element.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [3,2,1,5,6,4], k = 2",
+            "output": "5"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "findKthLargest([3,2,1,5,6,4], 2)",
+            "expected": "5"
+        }
+    ],
+    "starterCode": {
+        "typescript": "function findKthLargest(nums: number[], k: number): number {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 47,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 59,
+    "title": "Validate Binary Search Tree",
+    "slug": "validate-binary-search-tree",
+    "difficulty": "Medium",
+    "category": "Trees",
+    "tags": [
+        "Trees",
+        "typescript"
+    ],
+    "description": "Given the `root` of a binary tree, determine if it is a valid binary search tree (BST).",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "root = [2,1,3]",
+            "output": "true"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "isValidBST(root)",
+            "expected": "true"
+        }
+    ],
+    "starterCode": {
+        "typescript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction isValidBST(root: TreeNode | null): boolean {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 46,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 60,
+    "title": "Longest Increasing Subsequence",
+    "slug": "longest-increasing-subsequence",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "tags": [
+        "Dynamic Programming",
+        "typescript"
+    ],
+    "description": "Given an integer array `nums`, return the length of the longest strictly increasing subsequence.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "nums = [10,9,2,5,3,7,101,18]",
+            "output": "4"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "lengthOfLIS([10,9,2,5,3,7,101,18])",
+            "expected": "4"
+        }
+    ],
+    "starterCode": {
+        "typescript": "function lengthOfLIS(nums: number[]): number {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 51,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 61,
+    "title": "Merge k Sorted Lists",
+    "slug": "merge-k-sorted-lists",
+    "difficulty": "Hard",
+    "category": "Linked List",
+    "tags": [
+        "Linked List",
+        "typescript"
+    ],
+    "description": "You are given an array of `k` linked-lists `lists`, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "lists = [[1,4,5],[1,3,4],[2,6]]",
+            "output": "[1,1,2,3,4,4,5,6]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "mergeKLists(lists)",
+            "expected": "expected_list"
+        }
+    ],
+    "starterCode": {
+        "typescript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 48,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 62,
+    "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+    "difficulty": "Hard",
+    "category": "Trees",
+    "tags": [
+        "Trees",
+        "typescript"
+    ],
+    "description": "Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]",
+            "output": "[3,9,20,null,null,15,7]"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "buildTree([3,9,20,15,7], [9,3,15,20,7])",
+            "expected": "root"
+        }
+    ],
+    "starterCode": {
+        "typescript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction buildTree(preorder: number[], inorder: number[]): TreeNode | null {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 57,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 63,
+    "title": "Basic Calculator",
+    "slug": "basic-calculator",
+    "difficulty": "Hard",
+    "category": "Strings",
+    "tags": [
+        "Strings",
+        "typescript"
+    ],
+    "description": "Given a string `s` representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation. The expression string may contain open `(` and closing parentheses `)`, the plus `+` or minus sign `-`, non-negative integers and empty spaces.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "s = '(1+(4+5+2)-3)+(6+8)'",
+            "output": "23"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "calculate('(1+(4+5+2)-3)+(6+8)')",
+            "expected": "23"
+        }
+    ],
+    "starterCode": {
+        "typescript": "function calculate(s: string): number {\n    \n}"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 37,
+    "supportedLanguages": [
+        "typescript"
+    ]
+},
+{
+    "id": 64,
+    "title": "Combine Two Tables",
+    "slug": "combine-two-tables",
+    "difficulty": "Easy",
+    "category": "Joins",
+    "tags": [
+        "Joins",
+        "sql"
+    ],
+    "description": "Write a SQL query to report the first name, last name, city, and state of each person in the `Person` table. If the address of a `PersonId` is not present in the `Address` table, report `null` instead.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Person table, Address table",
+            "output": "FirstName, LastName, City, State"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Combine Two Tables query",
+            "expected": "Return matching rows"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 30,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 65,
+    "title": "Duplicate Emails",
+    "slug": "duplicate-emails",
+    "difficulty": "Easy",
+    "category": "Group By",
+    "tags": [
+        "Group By",
+        "sql"
+    ],
+    "description": "Write an SQL query to report all the duplicate emails. Note that it's guaranteed that the email field is not NULL.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Person table: (1, 'a@b.com'), (2, 'c@d.com'), (3, 'a@b.com')",
+            "output": "Email: a@b.com"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Duplicate Emails query",
+            "expected": "Return duplicate emails"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 66,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 66,
+    "title": "Customers Who Never Order",
+    "slug": "customers-who-never-order",
+    "difficulty": "Easy",
+    "category": "Joins",
+    "tags": [
+        "Joins",
+        "sql"
+    ],
+    "description": "Write an SQL query to report all customers who never order anything.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Customers table, Orders table",
+            "output": "Customers"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Customers Who Never Order query",
+            "expected": "Return unmatched customers"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 46,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 67,
+    "title": "Nth Highest Salary",
+    "slug": "nth-highest-salary",
+    "difficulty": "Medium",
+    "category": "Functions",
+    "tags": [
+        "Functions",
+        "sql"
+    ],
+    "description": "Write an SQL query to report the `n`th highest salary from the Employee table. If there is no `n`th highest salary, the query should report `null`.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Employee table, n = 2",
+            "output": "Second Highest Salary"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Nth Highest Salary query",
+            "expected": "Return nth salary"
+        }
+    ],
+    "starterCode": {
+        "sql": "CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT\nBEGIN\n  RETURN (\n      # Write your MySQL query statement below.\n      \n  );\nEND"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 65,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 68,
+    "title": "Department Highest Salary",
+    "slug": "department-highest-salary",
+    "difficulty": "Medium",
+    "category": "Joins",
+    "tags": [
+        "Joins",
+        "sql"
+    ],
+    "description": "Write an SQL query to find employees who have the highest salary in each of the departments.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Employee table, Department table",
+            "output": "Department, Employee, Salary"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Department Highest Salary query",
+            "expected": "Return max earner per branch"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 56,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 69,
+    "title": "Rank Scores",
+    "slug": "rank-scores",
+    "difficulty": "Medium",
+    "category": "Window Functions",
+    "tags": [
+        "Window Functions",
+        "sql"
+    ],
+    "description": "Write an SQL query to rank the scores. The ranking should be calculated according to the following rules: 1. The scores should be ranked from the highest to the lowest. 2. If there is a tie between two scores, both should have the same ranking. 3. After a tie, the next ranking number should be the next consecutive integer value.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Scores table",
+            "output": "Score, Rank"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Rank Scores query",
+            "expected": "Return dense rank"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 49,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 70,
+    "title": "Department Top Three Salaries",
+    "slug": "department-top-three-salaries",
+    "difficulty": "Hard",
+    "category": "Joins",
+    "tags": [
+        "Joins",
+        "sql"
+    ],
+    "description": "A company's executives are interested in seeing who earns the most money in each of the company's departments. A high earner in a department is an employee who has a salary in the top three unique salaries for that department.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Employee table, Department table",
+            "output": "Department, Employee, Salary"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Department Top Three Salaries query",
+            "expected": "Return top 3 earners"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 70,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 71,
+    "title": "Human Traffic of Stadium",
+    "slug": "human-traffic-of-stadium",
+    "difficulty": "Hard",
+    "category": "Window Functions",
+    "tags": [
+        "Window Functions",
+        "sql"
+    ],
+    "description": "Write an SQL query to display the records with three or more rows with consecutive `id`'s, and the number of people is greater than or equal to 100 for each. Return the result table ordered by `visit_date` in ascending order.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Stadium table",
+            "output": "id, visit_date, people"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Human Traffic of Stadium query",
+            "expected": "Return consecutive days > 100"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 47,
+    "supportedLanguages": [
+        "sql"
+    ]
+},
+{
+    "id": 72,
+    "title": "Trips and Users",
+    "slug": "trips-and-users",
+    "difficulty": "Hard",
+    "category": "Joins",
+    "tags": [
+        "Joins",
+        "sql"
+    ],
+    "description": "The cancellation rate is computed by dividing the number of canceled (by client or driver) requests with unbanned users by the total number of requests with unbanned users on that day. Write an SQL query to find the cancellation rate of requests with unbanned users (both client and driver must not be banned) each day between '2013-10-01' and '2013-10-03'. Round Cancellation Rate to two decimal points.",
+    "constraints": [
+        "1 <= n <= 10^4",
+        "Data types fit within standard bounds"
+    ],
+    "examples": [
+        {
+            "input": "Trips table, Users table",
+            "output": "Day, Cancellation Rate"
+        }
+    ],
+    "testCases": [
+        {
+            "input": "Run Trips and Users query",
+            "expected": "Return rounded rate"
+        }
+    ],
+    "starterCode": {
+        "sql": "-- Write your MySQL query statement below\n"
+    },
+    "hints": [
+        "Think about optimal time complexity.",
+        "Consider edge cases."
+    ],
+    "acceptance": 47,
+    "supportedLanguages": [
+        "sql"
+    ]
+}
 ];
 
-export const getCategories = () => {
-    const categories = new Set(codingProblems.map((p) => p.category));
-    return Array.from(categories).sort();
-};
+export function getCategories() {
+    return Array.from(new Set(codingProblems.map(p => p.category)));
+}
 
-export const getProblemById = (id: number) => codingProblems.find((p) => p.id === id);
+export function getProblemById(id: number) {
+    return codingProblems.find(p => p.id === id);
+}

@@ -7,12 +7,24 @@ import { cn } from "@/lib/utils";
 interface AudioRecorderProps {
     onTranscriptChange: (transcript: string) => void;
     isProcessing: boolean;
+    onRecordingComplete?: (wpm: number, duration: number) => void;
+    onRecordingStart?: () => void;
+    forceStop?: boolean; // Used by external timers to stop recording
 }
 
-const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isProcessing }) => {
+const AudioRecorder: React.FC<AudioRecorderProps> = ({
+    onTranscriptChange,
+    isProcessing,
+    onRecordingComplete,
+    onRecordingStart,
+    forceStop
+}) => {
     const [isRecording, setIsRecording] = useState(false);
     const [transcript, setTranscript] = useState("");
     const [interimTranscript, setInterimTranscript] = useState("");
+
+    // Tracking for WPM
+    const startTimeRef = useRef<number | null>(null);
     const recognitionRef = useRef<any>(null);
 
     useEffect(() => {
@@ -38,7 +50,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isPro
                 if (final) {
                     setTranscript(prev => {
                         const newTranscript = prev + " " + final;
-                        onTranscriptChange(newTranscript);
+                        onTranscriptChange(newTranscript.trim());
                         return newTranscript;
                     });
                 }
@@ -47,15 +59,12 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isPro
 
             recognitionRef.current.onerror = (event: any) => {
                 console.error("Speech recognition error", event.error);
-                setIsRecording(false);
+                handleStop();
             };
 
             recognitionRef.current.onend = () => {
                 if (isRecording) {
-                    // If it stops unexpectedly, restart it if we are still 'recording' state
-                    // mostly happens in some browsers on silence
-                    // console.log("Restarting recognition...");
-                    // recognitionRef.current.start();
+                    // Speech recognition sometimes stops randomly after a pause
                     setIsRecording(false);
                 }
             };
@@ -70,24 +79,56 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isPro
         };
     }, []);
 
-    const startRecording = () => {
+    // Effect to handle external stop (e.g., from timer)
+    useEffect(() => {
+        if (forceStop && isRecording) {
+            handleStop();
+        }
+    }, [forceStop]);
+
+    const handleStart = () => {
         setTranscript("");
         setInterimTranscript("");
         onTranscriptChange("");
+        startTimeRef.current = Date.now();
         setIsRecording(true);
-        recognitionRef.current?.start();
+        if (onRecordingStart) onRecordingStart();
+        try {
+            recognitionRef.current?.start();
+        } catch (e) {
+            console.error("Failed to start recognition:", e);
+        }
     };
 
-    const stopRecording = () => {
+    const handleStop = () => {
         setIsRecording(false);
-        recognitionRef.current?.stop();
-        // Final update ensures parent has everything, though onresult does it too.
+        try {
+            recognitionRef.current?.stop();
+        } catch (e) {
+            console.error("Failed to stop recognition:", e);
+        }
+
+        // Calculate WPM if we have a callback
+        if (onRecordingComplete && startTimeRef.current) {
+            // Need latest transcript, so wait a tiny bit for final results
+            setTimeout(() => {
+                // Use a ref-like approach to get latest or just use the current state
+                setTranscript(currentTranscript => {
+                    const durationInSeconds = (Date.now() - startTimeRef.current!) / 1000;
+                    const wordCount = currentTranscript.trim().split(/\s+/).filter(w => w.length > 0).length;
+                    const wpm = durationInSeconds > 0 ? Math.round((wordCount / durationInSeconds) * 60) : 0;
+                    onRecordingComplete(wpm, Math.round(durationInSeconds));
+                    return currentTranscript;
+                });
+            }, 500); // Wait half a second for recognition to finalize
+        }
     };
 
     const reset = () => {
         setTranscript("");
         setInterimTranscript("");
         onTranscriptChange("");
+        startTimeRef.current = null;
     };
 
     return (
@@ -95,7 +136,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isPro
             <div className="flex justify-center gap-4">
                 {!isRecording ? (
                     <Button
-                        onClick={startRecording}
+                        onClick={handleStart}
                         size="lg"
                         className="rounded-full w-16 h-16 bg-red-500 hover:bg-red-600 shadow-lg transition-all hover:scale-105"
                         disabled={isProcessing}
@@ -104,7 +145,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isPro
                     </Button>
                 ) : (
                     <Button
-                        onClick={stopRecording}
+                        onClick={handleStop}
                         size="lg"
                         variant="destructive"
                         className="rounded-full w-16 h-16 animate-pulse"
@@ -140,7 +181,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({ onTranscriptChange, isPro
                 </CardContent>
             </Card>
 
-            {/* Visualizer Placeholder - could use canvas later */}
+            {/* Visualizer Placeholder */}
             {isRecording && (
                 <div className="flex justify-center gap-1 h-8 items-center">
                     {[...Array(5)].map((_, i) => (

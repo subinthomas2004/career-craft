@@ -62,6 +62,7 @@ const GDReport = () => {
     // Record Activity
     React.useEffect(() => {
         const recordActivity = async () => {
+            window.speechSynthesis.cancel();
             try {
                 // Prevent duplicate recording if possible (e.g. check a flag or just do it)
                 // Using a simple check to see if we have valid data

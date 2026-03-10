@@ -36,6 +36,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    location: { type: String, default: "" },
+    targetRole: { type: String, default: "" },
+    education: { type: String, default: "" },
+    college: { type: String, default: "" },
+    graduationYear: { type: String, default: "" },
+    bio: { type: String, default: "" },
+    skills: { type: [String], default: [] },
     stats: {
         interviewsAttended: { type: Number, default: 0 },
         quizzesTaken: { type: Number, default: 0 },

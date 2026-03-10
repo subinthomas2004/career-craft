@@ -8,7 +8,7 @@ interface ResumeContextType {
     setResumeData: (data: ResumeData) => void;
     updateResumeData: (partial: Partial<ResumeData>) => void;
     atsScore: ATSScore | null;
-    analyzeCurrentResume: () => void;
+    analyzeCurrentResume: (jobDescription?: string) => Promise<void>;
     selectedTemplate: TemplateId;
     setSelectedTemplate: (template: TemplateId) => void;
     activeStep: 'upload' | 'analyze' | 'edit' | 'template' | 'export';
@@ -29,14 +29,14 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
         setResumeData(prev => ({ ...prev, ...partial }));
     }, []);
 
-    const analyzeCurrentResume = useCallback(() => {
-        const score = analyzeResume(resumeData);
+    const analyzeCurrentResume = useCallback(async (jobDescription?: string) => {
+        const score = await analyzeResume(resumeData, jobDescription);
         setAtsScore(score);
     }, [resumeData]);
 
-    const loadSampleData = useCallback(() => {
+    const loadSampleData = useCallback(async () => {
         setResumeData(sampleResumeData);
-        const score = analyzeResume(sampleResumeData);
+        const score = await analyzeResume(sampleResumeData);
         setAtsScore(score);
     }, []);
 

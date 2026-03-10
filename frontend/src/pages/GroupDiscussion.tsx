@@ -63,11 +63,32 @@ const AI_AGENTS: Participant[] = [
     { id: 'p4', name: 'Priya', role: 'Candidate', color: 'bg-purple-100 text-purple-700', systemPrompt: "You are a candidate in a Group Discussion. Focus on bringing a balanced perspective to the topic.", avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya' }
 ];
 
+const ALEX_VIDEOS = {
+    idle: "/videos/gd/alex_listening.mp4",
+    talking: "/videos/gd/alex_speaking.mp4",
+    listening: "/videos/gd/alex_listening.mp4",
+    nodding: "/videos/gd/alex_listening.mp4"
+};
+
+const MIKE_VIDEOS = {
+    idle: "/videos/gd/mike_listening.mp4",
+    talking: "/videos/gd/mike_speaking.mp4",
+    listening: "/videos/gd/mike_listening.mp4",
+    nodding: "/videos/gd/mike_listening.mp4"
+};
+
+const PRIYA_VIDEOS = {
+    idle: "/videos/gd/priya_listening.mp4",
+    talking: "/videos/gd/priya_speaking.mp4",
+    listening: "/videos/gd/priya_listening.mp4",
+    nodding: "/videos/gd/priya_listening.mp4"
+};
+
 const SARAH_VIDEOS = {
-    idle: "/avatars/hr/hr_listening.mp4",
-    talking: "/avatars/hr/hr_talking.mp4",
-    listening: "/avatars/hr/hr_listening.mp4",
-    nodding: "/avatars/hr/hr_nodding.mp4"
+    idle: "/videos/gd/sarah_listening.mp4",
+    talking: "/videos/gd/sarah_speaking.mp4",
+    listening: "/videos/gd/sarah_listening.mp4",
+    nodding: "/videos/gd/sarah_listening.mp4"
 };
 
 const DAVID_VIDEOS = {
@@ -160,6 +181,7 @@ const GroupDiscussion = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
     const userStream = useRef<MediaStream>();
+    const isMounted = useRef(true);
 
     // Multiplayer State
     const [peers, setPeers] = useState<PeerData[]>([]);
@@ -224,8 +246,11 @@ const GroupDiscussion = () => {
         });
 
         return () => {
+            isMounted.current = false;
             socketRef.current.disconnect();
             userStream.current?.getTracks().forEach(track => track.stop());
+            window.speechSynthesis.cancel();
+            if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         };
     }, []);
 
@@ -262,7 +287,7 @@ const GroupDiscussion = () => {
             const text = `Hello everyone, good evening. The topic for today's group discussion is ${topic}. Please take 2 minutes to prepare your thoughts. You may begin preparation now.`;
             setCurrentSpeaker(MODERATOR.id);
             setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
-            await speakText(text);
+            await speakText(text, 'male');
             setCurrentSpeaker(null);
             setIsIntro(false);
             setIsPreparing(true);
@@ -299,7 +324,7 @@ const GroupDiscussion = () => {
         setCurrentSpeaker(MODERATOR.id);
         const text = "Time is up. Please start the discussion.";
         setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
-        await speakText(text);
+        await speakText(text, 'male');
         setCurrentSpeaker(null);
         setIsActive(true);
         toast.success("Discussion Started!", { description: "The floor is open." });
@@ -326,10 +351,36 @@ const GroupDiscussion = () => {
         }, delayMs);
     };
 
-    const speakText = (text: string): Promise<void> => {
+    const speakText = (text: string, voiceType: 'male' | 'female' = 'male'): Promise<void> => {
         return new Promise((resolve) => {
             const synth = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(text);
+
+            const voices = synth.getVoices();
+            let selectedVoice;
+
+            if (voiceType === 'female') {
+                selectedVoice = voices.find(v => (v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.toLowerCase().includes('female')));
+            } else {
+                // Microsoft David or any specific male voice known to Chrome/Edge
+                selectedVoice = voices.find(v => (v.name.includes('Male') || v.name.includes('David') || v.name.includes('Mark') || v.name.includes('Google UK English Male') || v.name.toLowerCase().includes('male')));
+            }
+
+            // Fallbacks in case explicit male/female tags aren't present
+            if (!selectedVoice && voices.length > 0) {
+                if (voiceType === 'male') {
+                    // Try to find any known male voice if the above fails
+                    selectedVoice = voices.find(v => v.name.includes('Daniel') || v.name.includes('Google US English'));
+                }
+                // If still nothing, just take the first
+                selectedVoice = selectedVoice || voices[0];
+            }
+
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            utterance.pitch = voiceType === 'female' ? 1.2 : 0.8; // Lower pitch slightly more for male
+
             utterance.onend = () => { resolve(); };
             utterance.onerror = () => { resolve(); };
             synth.speak(utterance);
@@ -337,6 +388,8 @@ const GroupDiscussion = () => {
     };
 
     const concludeSession = async () => {
+        window.speechSynthesis.cancel();
+        if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         setIsActive(false);
         // Immediate termination and navigation to report
         const participantsData = allParticipants.map(p => ({
@@ -366,18 +419,23 @@ const GroupDiscussion = () => {
                 topic, agentName: agent.name, role: agent.role, style: agent.systemPrompt, context
             });
             const text = res.data.response;
+            if (!isMounted.current) return; // Prevent speaking if user left during API call
+
             if (text) {
                 setCurrentSpeaker(agent.id);
                 setTranscript(prev => [...prev, { speakerId: agent.id, speakerName: agent.name, text, timestamp: new Date().toLocaleTimeString() }]);
-                await speakText(text);
+                const isFemale = agent.name === 'Sarah' || agent.name === 'Priya';
+                await speakText(text, isFemale ? 'female' : 'male');
             }
         } catch (e) {
             console.error(e);
         } finally {
-            setCurrentSpeaker(null);
-            setProcessing(false);
-            // After AI finishes, wait for user again (2 seconds)
-            handleTurnTransition(2000);
+            if (isMounted.current) {
+                setCurrentSpeaker(null);
+                setProcessing(false);
+                // After AI finishes, wait for user again (2 seconds)
+                handleTurnTransition(2000);
+            }
         }
     };
 
@@ -441,7 +499,12 @@ const GroupDiscussion = () => {
         }
     }
 
-    const handleStop = () => navigate('/dashboard/group-discussion');
+    const handleStop = () => {
+        window.speechSynthesis.cancel();
+        if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
+        setIsActive(false);
+        navigate('/dashboard/group-discussion');
+    };
     const handleSkipPreparation = () => { setIsPreparing(false); setIsActive(true); setTimeLeft(0); };
 
 
@@ -542,7 +605,13 @@ const GroupDiscussion = () => {
                                             // AI Agents & Moderator
                                             <AvatarPlayer
                                                 state={isSpeaking ? 'talking' : 'idle'}
-                                                videoSet={(isMod || ['Alex', 'Mike'].includes(p.name)) ? DAVID_VIDEOS : SARAH_VIDEOS}
+                                                videoSet={
+                                                    isMod ? DAVID_VIDEOS :
+                                                        p.name === 'Alex' ? ALEX_VIDEOS :
+                                                            p.name === 'Mike' ? MIKE_VIDEOS :
+                                                                p.name === 'Priya' ? PRIYA_VIDEOS :
+                                                                    SARAH_VIDEOS
+                                                }
                                                 isActive={isSpeaking}
                                                 className="w-full h-full object-cover"
                                             />

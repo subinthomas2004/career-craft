@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useResume } from '@/context/ResumeContext';
+import { useToast } from '@/hooks/use-toast';
+import { api } from '@/lib/api';
 import {
     createEmptyExperience,
     createEmptyEducation,
@@ -18,6 +20,7 @@ import { Experience, Education, Skill, Certification, Project } from '@/types/re
 
 export function ResumeEditor() {
     const { resumeData, updateResumeData, setActiveStep } = useResume();
+    const { toast } = useToast();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({
         contact: true,
         summary: true,
@@ -27,6 +30,35 @@ export function ResumeEditor() {
         projects: false,
         certifications: false,
     });
+    const [isGenerating, setIsGenerating] = useState<Record<string, boolean>>({});
+
+    const generateBulletPoint = async (expId: string, index: number, originalDesc: string, role: string, company: string) => {
+        if (!originalDesc.trim()) {
+            toast({ title: "Please enter some text first", variant: "destructive" });
+            return;
+        }
+
+        const key = `${expId}-${index}`;
+        setIsGenerating(prev => ({ ...prev, [key]: true }));
+
+        try {
+            const response = await api.post('/groq/resume/bullet', {
+                role,
+                company,
+                description: originalDesc
+            });
+
+            if (response.data && response.data.success && response.data.bullet) {
+                updateExperienceDescription(expId, index, response.data.bullet);
+                toast({ title: "Bullet point optimized!" });
+            }
+        } catch (error) {
+            console.error("Failed to generate bullet point:", error);
+            toast({ title: "Failed to optimize bullet point", variant: "destructive" });
+        } finally {
+            setIsGenerating(prev => ({ ...prev, [key]: false }));
+        }
+    };
 
     const toggleSection = (section: string) => {
         setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
@@ -378,14 +410,23 @@ export function ResumeEditor() {
                                     <div className="space-y-2">
                                         <Label>Responsibilities & Achievements</Label>
                                         {exp.description.map((desc, descIndex) => (
-                                            <div key={descIndex} className="flex gap-2">
-                                                <span className="text-muted-foreground mt-2">•</span>
+                                            <div key={descIndex} className="flex gap-2 items-center">
+                                                <span className="text-muted-foreground">•</span>
                                                 <Input
                                                     value={desc}
                                                     onChange={(e) => updateExperienceDescription(exp.id, descIndex, e.target.value)}
-                                                    placeholder="Describe an achievement or responsibility..."
+                                                    placeholder="Describe an achievement or responsibility (e.g. built a fast api)"
                                                     className="flex-1"
                                                 />
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    title="Optimize with AI"
+                                                    disabled={isGenerating[`${exp.id}-${descIndex}`] || !desc}
+                                                    onClick={() => generateBulletPoint(exp.id, descIndex, desc, exp.title, exp.company)}
+                                                >
+                                                    <Sparkles className={`w-4 h-4 text-primary ${isGenerating[`${exp.id}-${descIndex}`] ? 'animate-pulse' : ''}`} />
+                                                </Button>
                                                 {exp.description.length > 1 && (
                                                     <Button
                                                         variant="ghost"

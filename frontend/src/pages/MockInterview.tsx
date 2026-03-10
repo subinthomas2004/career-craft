@@ -8,7 +8,9 @@ import {
   Mic,
   ArrowRight,
   Lightbulb,
-  Code
+  Code,
+  Keyboard,
+  LayoutGrid
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -17,6 +19,7 @@ import { cn } from "@/lib/utils";
 import InterviewTimer from "@/components/interview/InterviewTimer";
 import HrTechView from "@/components/interview/HrTechView";
 import HrOnlyView from "@/components/interview/HrOnlyView";
+import TechOnlyView from "@/components/interview/TechOnlyView";
 import { useInterviewSession } from "@/hooks/useInterviewSession";
 import { Difficulty } from "@/lib/interview/types";
 
@@ -36,8 +39,9 @@ const domains = [
 ];
 
 const interviewTypes = [
-  { id: "hr", label: "HR Only", description: "Behavioral and situational questions" },
-  { id: "hr-tech", label: "HR + Technical", description: "Complete interview experience" },
+  { id: "hr", label: "HR Interview", description: "Sarah — Behavioral and situational questions", icon: "👩‍💼" },
+  { id: "hr-tech", label: "HR + Technical", description: "Sarah & David — Complete interview experience", icon: "👥" },
+  { id: "technical", label: "Technical Interview", description: "David — Technical and coding questions", icon: "👨‍💻" },
 ];
 
 const MockInterview = () => {
@@ -49,6 +53,14 @@ const MockInterview = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isMicOn, setIsMicOn] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
+
+  // NEW: Domain input mode toggle
+  const [domainMode, setDomainMode] = useState<"grid" | "text">("grid");
+  const [jobRoleText, setJobRoleText] = useState<string>("");
+
+  // Compute effective domain/jobRole
+  const effectiveDomain = domainMode === "grid" ? selectedDomain : "";
+  const effectiveJobRole = domainMode === "text" ? jobRoleText : "";
 
   const {
     sessionState,
@@ -62,13 +74,15 @@ const MockInterview = () => {
     startListening,
     stopListening,
     endSession,
-    ready
+    ready,
+    isTransitioning
   } = useInterviewSession({
-    domain: selectedType === 'hr' ? '' : selectedDomain,
+    domain: effectiveDomain,
     includeHr: selectedType === 'hr' || selectedType === 'hr-tech',
-    interviewType: selectedType === 'hr-tech' ? 'hr-tech' : 'hr',
+    interviewType: selectedType as any || 'hr',
     difficulty: 'intermediate' as Difficulty,
-    resumeText: resumeText
+    resumeText: resumeText,
+    jobRole: effectiveJobRole
   });
 
   // Local Video Assets
@@ -86,8 +100,17 @@ const MockInterview = () => {
     nodding: "/avatars/tech/tech_nodding.mp4"
   }), []);
 
+  // Check if setup is valid for proceeding
+  const isSetupValid = () => {
+    const hasDomainOrRole = domainMode === "grid" ? !!selectedDomain : jobRoleText.trim().length > 2;
+    const hasType = !!selectedType;
+    // For HR only, domain/role is optional (behavioral questions don't need a domain)
+    if (selectedType === 'hr') return hasType;
+    return hasDomainOrRole && hasType;
+  };
+
   const handleStartSetup = () => {
-    if (selectedDomain && selectedType) {
+    if (isSetupValid()) {
       setStage("instructions");
     }
   };
@@ -108,12 +131,12 @@ const MockInterview = () => {
     try {
       if (sessionState && sessionState.history.length > 0) {
         const avgScore = Math.round(sessionState.history.reduce((a, b) => a + b.score, 0) / sessionState.history.length);
+        const label = effectiveJobRole || effectiveDomain.toUpperCase() || "General";
 
         const userInfo = localStorage.getItem("userInfo");
         if (userInfo) {
-          const { token } = JSON.parse(userInfo);
           await api.post('/auth/activity', {
-            title: `Mock Interview: ${selectedDomain.toUpperCase()}`,
+            title: `Mock Interview: ${label}`,
             activityType: 'interview',
             score: `${avgScore}%`
           });
@@ -122,7 +145,7 @@ const MockInterview = () => {
     } catch (err) {
       console.error("Failed to record activity", err);
     }
-  }, [endSession, sessionState, selectedDomain]);
+  }, [endSession, sessionState, effectiveDomain, effectiveJobRole]);
 
   const handleManualSubmit = () => {
     setIsMicOn(false);
@@ -134,26 +157,23 @@ const MockInterview = () => {
 
   useEffect(() => {
     if (stage === 'interview') {
-      // Logic: 
-      // 1. If Avatar is talking -> Force Mic OFF and Stop Listening
       if (avatarState === 'talking') {
         if (isMicOn) setIsMicOn(false);
         if (isListening) stopListening();
       }
 
-      // 2. AUTO-MIC: Detect transition directly from 'talking' to 'idle'
-      // This means the avatar just finished the question.
       if (prevAvatarState.current === 'talking' && avatarState === 'idle') {
-        console.log("Avatar finished talking -> Auto-starting Mic");
-        setIsMicOn(true);
-        // Note: The next effect block will pick up isMicOn=true and call startListening()
+        if (!isTransitioning) {
+            console.log("Avatar finished talking -> Auto-starting Mic");
+            setIsMicOn(true);
+        } else {
+            console.log("Avatar finished talking but we are transitioning -> keeping mic off");
+        }
       }
 
-      // Update ref
       prevAvatarState.current = avatarState;
 
-      // 3. If Avatar is IDLE (or listening), respect the Manual Toggle
-      if (avatarState !== 'talking') {
+      if (avatarState !== 'talking' && !isTransitioning) {
         if (isMicOn) {
           if (!isListening) startListening();
         } else {
@@ -161,7 +181,7 @@ const MockInterview = () => {
         }
       }
     }
-  }, [isMicOn, stage, startListening, stopListening, isListening, avatarState]);
+  }, [isMicOn, stage, startListening, stopListening, isListening, avatarState, isTransitioning]);
 
   useEffect(() => {
     if (stage === 'interview' && sessionState?.isOver) {
@@ -200,36 +220,85 @@ const MockInterview = () => {
             </p>
           </div>
 
+          {/* Domain / Job Role Selection */}
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle>Select Your Domain</CardTitle>
-              <CardDescription>Choose the area you want to be interviewed in</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {domains.map((domain) => (
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Your Domain / Role</CardTitle>
+                  <CardDescription>Choose a domain or type your target job role</CardDescription>
+                </div>
+                <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
                   <button
-                    key={domain.id}
-                    onClick={() => setSelectedDomain(domain.id)}
+                    onClick={() => setDomainMode("grid")}
                     className={cn(
-                      "p-4 rounded-xl border-2 transition-all text-center backdrop-blur-xl",
-                      selectedDomain === domain.id
-                        ? "border-primary bg-primary/10"
-                        : "border-border/50 bg-background/40 hover:border-primary/50 hover:shadow-md"
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all",
+                      domainMode === "grid"
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
                     )}
                   >
-                    <span className="text-3xl mb-2 block">{domain.icon}</span>
-                    <span className="font-medium text-foreground">{domain.label}</span>
+                    <LayoutGrid className="w-3.5 h-3.5" />
+                    Select
                   </button>
-                ))}
+                  <button
+                    onClick={() => setDomainMode("text")}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all",
+                      domainMode === "text"
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <Keyboard className="w-3.5 h-3.5" />
+                    Type Role
+                  </button>
+                </div>
               </div>
+            </CardHeader>
+            <CardContent>
+              {domainMode === "grid" ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {domains.map((domain) => (
+                    <button
+                      key={domain.id}
+                      onClick={() => setSelectedDomain(domain.id)}
+                      className={cn(
+                        "p-4 rounded-xl border-2 transition-all text-center backdrop-blur-xl",
+                        selectedDomain === domain.id
+                          ? "border-primary bg-primary/10"
+                          : "border-border/50 bg-background/40 hover:border-primary/50 hover:shadow-md"
+                      )}
+                    >
+                      <span className="text-3xl mb-2 block">{domain.icon}</span>
+                      <span className="font-medium text-foreground">{domain.label}</span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <Input
+                    type="text"
+                    placeholder="e.g., Full Stack Developer, Data Analyst, DevOps Engineer..."
+                    value={jobRoleText}
+                    onChange={(e) => setJobRoleText(e.target.value)}
+                    className="h-12 text-base"
+                  />
+                  {jobRoleText.trim().length > 0 && (
+                    <p className="text-sm text-muted-foreground">
+                      The AI interviewers will tailor questions for the <span className="font-semibold text-foreground">{jobRoleText}</span> role.
+                    </p>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
 
+          {/* Resume Upload (Optional) */}
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle>Resume Context</CardTitle>
-              <CardDescription>Upload your resume (PDF) for a personalized interview experience.</CardDescription>
+              <CardTitle>Resume Context <Badge variant="outline" className="ml-2 text-xs">Optional</Badge></CardTitle>
+              <CardDescription>Upload your resume (PDF) for a personalized interview experience. Without a resume, the interview will focus on the selected domain/role.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-4">
@@ -246,8 +315,12 @@ const MockInterview = () => {
                       formData.append("resume", file);
 
                       try {
-                        // Removed manual Content-Type header to let axios set it with boundary
-                        const { data } = await api.post("/upload/resume", formData);
+                        const { data } = await api.post("/upload/resume", formData, {
+                          headers: {
+                            "Content-Type": "multipart/form-data",
+                          },
+                          timeout: 60000, // 60s timeout to prevent infinite circling
+                        });
 
                         if (data.success) {
                           setResumeText(data.text);
@@ -290,10 +363,9 @@ const MockInterview = () => {
                           <div>
                             <span className="font-semibold text-foreground block mb-1">Top Skills:</span>
                             <div className="flex flex-wrap gap-1">
-                              {parsedResumeData.skills.slice(0, 8).map((skill: string, i: number) => (
+                              {parsedResumeData.skills.map((skill: string, i: number) => (
                                 <Badge key={i} variant="secondary" className="text-xs">{skill}</Badge>
                               ))}
-                              {parsedResumeData.skills.length > 8 && <span className="text-xs text-muted-foreground">+{parsedResumeData.skills.length - 8} more</span>}
                             </div>
                           </div>
                         )}
@@ -310,19 +382,31 @@ const MockInterview = () => {
                         )}
                       </div>
                     )}
+                    
+                    {resumeText && (
+                      <div className="bg-muted/30 rounded-lg p-4 border border-border/50 text-sm space-y-3 animate-in fade-in slide-in-from-top-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">Parsed Words (Raw Text)</Badge>
+                        </div>
+                        <div className="max-h-40 overflow-y-auto p-2 bg-background rounded border border-border/50 text-xs text-muted-foreground whitespace-pre-wrap">
+                          {resumeText}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
             </CardContent>
           </Card>
 
+          {/* Interview Type */}
           <Card className="mb-6">
             <CardHeader>
               <CardTitle>Interview Type</CardTitle>
               <CardDescription>Choose your interview experience</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-3 gap-4">
                 {interviewTypes.map((type) => (
                   <button
                     key={type.id}
@@ -334,6 +418,7 @@ const MockInterview = () => {
                         : "border-border/50 bg-background/40 hover:border-primary/50 hover:shadow-xl"
                     )}
                   >
+                    <span className="text-2xl mb-2 block">{type.icon}</span>
                     <h3 className="font-semibold text-foreground mb-1">{type.label}</h3>
                     <p className="text-sm text-muted-foreground">{type.description}</p>
                   </button>
@@ -345,7 +430,7 @@ const MockInterview = () => {
           <Button
             size="lg"
             className="w-full"
-            disabled={!selectedDomain || !selectedType}
+            disabled={!isSetupValid()}
             onClick={handleStartSetup}
           >
             Continue
@@ -399,7 +484,7 @@ const MockInterview = () => {
                 </div>
               </div>
 
-              {selectedType === 'hr-tech' && (
+              {(selectedType === 'hr-tech' || selectedType === 'technical') && (
                 <div className="flex items-start gap-4 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
                   <div className="p-2 bg-blue-500/20 rounded-full">
                     <Code className="w-6 h-6 text-blue-500" />
@@ -412,6 +497,16 @@ const MockInterview = () => {
                   </div>
                 </div>
               )}
+
+              {/* Interview summary */}
+              <div className="bg-muted/30 rounded-lg p-4 border border-border/50 text-sm">
+                <h4 className="font-semibold text-foreground mb-2">Your Interview Setup</h4>
+                <div className="space-y-1 text-muted-foreground">
+                  <p><span className="font-medium text-foreground">Type:</span> {interviewTypes.find(t => t.id === selectedType)?.label}</p>
+                  <p><span className="font-medium text-foreground">Domain:</span> {effectiveJobRole || domains.find(d => d.id === effectiveDomain)?.label || "General"}</p>
+                  <p><span className="font-medium text-foreground">Resume:</span> {resumeText ? "Uploaded ✓" : "Not provided"}</p>
+                </div>
+              </div>
             </div>
 
             <Button size="lg" className="w-full" onClick={handleStartInterview} disabled={!ready}>
@@ -431,11 +526,7 @@ const MockInterview = () => {
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
               <span className="font-medium text-foreground">Interview in Progress</span>
-              <Badge variant="secondary">
-                Question {sessionState.history.length + 1}
-              </Badge>
             </div>
-            <InterviewTimer isRunning={true} maxDurationSeconds={25 * 60} onTimeUp={handleEndInterview} />
           </div>
 
           <div className="flex-1 p-4 lg:p-6 overflow-hidden">
@@ -458,6 +549,35 @@ const MockInterview = () => {
           </div>
         </div>
       );
+    } else if (selectedType === 'technical') {
+      return (
+        <div className="h-screen flex flex-col bg-foreground/5">
+          <div className="bg-card/80 backdrop-blur-xl border-b border-border/50 px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+              <span className="font-medium text-foreground">Technical Interview in Progress</span>
+            </div>
+          </div>
+
+          <div className="flex-1 p-4 lg:p-6 overflow-hidden">
+            <TechOnlyView
+              sessionState={sessionState}
+              avatarState={avatarState}
+              techVideos={techVideos}
+              isMicOn={isMicOn}
+              setIsMicOn={setIsMicOn}
+              isVideoOn={isVideoOn}
+              setIsVideoOn={setIsVideoOn}
+              isListening={isListening}
+              currentTranscript={currentTranscript}
+              onManualSubmit={handleManualSubmit}
+              onEndInterview={handleEndInterview}
+              onCodeSubmit={handleCodeSubmit}
+              isCodeQuestion={isCodeQuestion}
+            />
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className="h-screen flex flex-col bg-foreground/5">
@@ -465,11 +585,7 @@ const MockInterview = () => {
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
               <span className="font-medium text-foreground">Interview in Progress</span>
-              <Badge variant="secondary">
-                Question {sessionState.history.length + 1}
-              </Badge>
             </div>
-            <InterviewTimer isRunning={true} />
           </div>
 
           <div className="flex-1 p-4 lg:p-6 overflow-hidden">
@@ -556,7 +672,15 @@ const MockInterview = () => {
                     <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center p-0 shrink-0">
                       {i + 1}
                     </Badge>
-                    <p className="font-medium text-foreground">{h.question.text}</p>
+                    <div className="flex flex-col gap-1">
+                      <p className="font-medium text-foreground">{h.question.text}</p>
+                      {h.question.codeTask && (
+                        <div className="mt-2 p-3 bg-muted/50 rounded-md border border-border">
+                          <p className="text-xs font-semibold text-blue-500 mb-1 uppercase tracking-wider">Coding Task</p>
+                          <p className="text-sm font-mono text-foreground/90 whitespace-pre-wrap">{h.question.codeTask}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <Badge className={h.score > 70 ? "bg-green-500/10 text-green-500" : "bg-yellow-500/10 text-yellow-500"}>
                     {h.score}% Match
@@ -566,17 +690,25 @@ const MockInterview = () => {
                 <div className="ml-8 space-y-3">
                   <div className="bg-background p-3 rounded-lg border border-border/50">
                     <p className="text-xs text-muted-foreground uppercase mb-1 font-semibold">Your Answer</p>
-                    <p className="text-sm text-foreground/90">{h.answer}</p>
+                    {h.answer.includes('[Submitted Code') ? (
+                      <pre className="text-sm text-foreground/90 font-mono whitespace-pre-wrap overflow-x-auto p-3 bg-[#1e1e1e] text-gray-200 rounded-md mt-2">
+                        {h.answer.replace(/\[Submitted Code - (.*?)\]\n/, '// Language: $1\n')}
+                      </pre>
+                    ) : (
+                      <p className="text-sm text-foreground/90">{h.answer}</p>
+                    )}
                   </div>
 
-                  <div className="bg-primary/5 p-3 rounded-lg border border-primary/10">
-                    <p className="text-xs text-primary uppercase mb-1 font-semibold flex items-center gap-1">
-                      <Lightbulb className="w-3 h-3" /> Suggested Improvement
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Try to include more specific examples. Mention keywords like: {h.question.expectedKeywords.join(", ")}.
-                    </p>
-                  </div>
+                  {h.question.expectedKeywords && h.question.expectedKeywords.length > 0 && (
+                    <div className="bg-primary/5 p-3 rounded-lg border border-primary/10">
+                      <p className="text-xs text-primary uppercase mb-1 font-semibold flex items-center gap-1">
+                        <Lightbulb className="w-3 h-3" /> Suggested Improvement
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Try to include more specific examples. Mention keywords like: {h.question.expectedKeywords.join(", ")}.
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

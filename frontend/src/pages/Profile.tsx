@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import {
   User,
   Mail,
-  Phone,
   MapPin,
   Briefcase,
   GraduationCap,
@@ -26,43 +25,61 @@ import {
   Video,
   Camera
 } from "lucide-react";
+import { api } from "@/lib/api";
 import ImageCropper from "@/components/profile/ImageCropper";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState({
     name: "",
     email: "",
-    phone: "",
     location: "",
-    role: "",
+    targetRole: "",
     education: "",
     college: "",
     graduationYear: "",
     bio: "",
-    skills: [],
+    skills: [] as string[],
     linkedin: "",
     github: "",
     avatar: ""
   });
 
   useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    const savedAvatar = localStorage.getItem("userAvatar");
-
-    if (userInfo) {
+    const fetchProfile = async () => {
       try {
-        const parsedUser = JSON.parse(userInfo);
+        const userInfoStr = localStorage.getItem("userInfo");
+        if (!userInfoStr) return;
+        
+        const userInfo = JSON.parse(userInfoStr);
+        const token = userInfo.token;
+
+        const { data } = await api.get("/auth/me", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
         setProfile(prev => ({
           ...prev,
-          name: parsedUser.name || "",
-          email: parsedUser.email || "",
-          avatar: savedAvatar || "", // Load saved avatar
+          name: data.name || "",
+          email: data.email || "",
+          avatar: data.profilePicture || "",
+          location: data.location || "",
+          targetRole: data.targetRole || "",
+          education: data.education || "",
+          college: data.college || "",
+          graduationYear: data.graduationYear || "",
+          bio: data.bio || "",
+          skills: data.skills || [],
         }));
       } catch (error) {
-        console.error("Failed to parse user info:", error);
+        console.error("Error fetching profile:", error);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
+    fetchProfile();
   }, []);
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -82,13 +99,47 @@ const Profile = () => {
 
   const onCropComplete = (croppedImage: string) => {
     setProfile(prev => ({ ...prev, avatar: croppedImage }));
-    localStorage.setItem("userAvatar", croppedImage); // Simple persistence
-    toast.success("Profile photo updated!");
+    setIsEditing(true);
+    toast.success("Profile photo updated! Don't forget to save your changes.");
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    toast.success("Profile updated successfully!");
+  const handleSave = async () => {
+    try {
+      const userInfoStr = localStorage.getItem("userInfo");
+      if (!userInfoStr) {
+        toast.error("User not authenticated");
+        return;
+      }
+      
+      const userInfo = JSON.parse(userInfoStr);
+      const token = userInfo.token;
+
+      const { data } = await api.put("/auth/profile", {
+        name: profile.name,
+        location: profile.location,
+        targetRole: profile.targetRole,
+        education: profile.education,
+        college: profile.college,
+        graduationYear: profile.graduationYear,
+        bio: profile.bio,
+        skills: profile.skills,
+        profilePicture: profile.avatar,
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      // Update local storage so the new avatar reflects in the dashboard
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      
+      // Dispatch custom event to let other components know userInfo updated
+      window.dispatchEvent(new Event("userInfoUpdated"));
+
+      toast.success("Profile updated successfully!");
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("An error occurred while updating the profile.");
+    }
   };
 
   const achievements = [
@@ -155,8 +206,10 @@ const Profile = () => {
                 />
               </div>
               <div className="flex-1 text-center sm:text-left">
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground">{profile.name}</h2>
-                <p className="text-muted-foreground">{profile.role}</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+                  {isLoading ? "Loading..." : profile.name}
+                </h2>
+                <p className="text-muted-foreground">{profile.targetRole}</p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-4 mt-2 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4" />
@@ -233,21 +286,6 @@ const Profile = () => {
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
-                {isEditing ? (
-                  <Input
-                    id="phone"
-                    value={profile.phone}
-                    onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-                  />
-                ) : (
-                  <p className="text-foreground py-2 flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-muted-foreground" />
-                    {profile.phone}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
                 {isEditing ? (
                   <Input
@@ -258,7 +296,7 @@ const Profile = () => {
                 ) : (
                   <p className="text-foreground py-2 flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-muted-foreground" />
-                    {profile.location}
+                    {profile.location || "Not specified"}
                   </p>
                 )}
               </div>
@@ -271,9 +309,10 @@ const Profile = () => {
                   value={profile.bio}
                   onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                   rows={3}
+                  placeholder="Tell us a little about yourself"
                 />
               ) : (
-                <p className="text-foreground py-2">{profile.bio}</p>
+                <p className="text-foreground py-2">{profile.bio || "No bio added yet."}</p>
               )}
             </div>
           </CardContent>
@@ -296,9 +335,10 @@ const Profile = () => {
                     id="education"
                     value={profile.education}
                     onChange={(e) => setProfile({ ...profile, education: e.target.value })}
+                    placeholder="e.g. B.Tech Computer Science"
                   />
                 ) : (
-                  <p className="text-foreground py-2">{profile.education}</p>
+                  <p className="text-foreground py-2">{profile.education || "Not specified"}</p>
                 )}
               </div>
               <div className="space-y-2">
@@ -308,9 +348,10 @@ const Profile = () => {
                     id="college"
                     value={profile.college}
                     onChange={(e) => setProfile({ ...profile, college: e.target.value })}
+                    placeholder="e.g. Example University"
                   />
                 ) : (
-                  <p className="text-foreground py-2">{profile.college}</p>
+                  <p className="text-foreground py-2">{profile.college || "Not specified"}</p>
                 )}
               </div>
               <div className="space-y-2">
@@ -320,11 +361,12 @@ const Profile = () => {
                     id="graduationYear"
                     value={profile.graduationYear}
                     onChange={(e) => setProfile({ ...profile, graduationYear: e.target.value })}
+                    placeholder="e.g. 2024"
                   />
                 ) : (
                   <p className="text-foreground py-2 flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-muted-foreground" />
-                    {profile.graduationYear}
+                    {profile.graduationYear || "Not specified"}
                   </p>
                 )}
               </div>
@@ -333,13 +375,14 @@ const Profile = () => {
                 {isEditing ? (
                   <Input
                     id="role"
-                    value={profile.role}
-                    onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+                    value={profile.targetRole}
+                    onChange={(e) => setProfile({ ...profile, targetRole: e.target.value })}
+                    placeholder="e.g. Software Engineer"
                   />
                 ) : (
                   <p className="text-foreground py-2 flex items-center gap-2">
                     <Briefcase className="w-4 h-4 text-muted-foreground" />
-                    {profile.role}
+                    {profile.targetRole || "Not specified"}
                   </p>
                 )}
               </div>

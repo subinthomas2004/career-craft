@@ -5,49 +5,28 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Image, Link, Type } from "lucide-react";
-import { Community, ForumPost } from "./types";
+import { ForumPost } from "./types";
 
 interface CreatePostDialogProps {
     children: React.ReactNode;
-    communities: Community[];
-    onCreate?: (post: ForumPost) => void;
+    onCreate?: (post: Pick<ForumPost, 'title' | 'content'>) => void;
 }
 
-export const CreatePostDialog = ({ children, communities, onCreate }: CreatePostDialogProps) => {
+export const CreatePostDialog = ({ children, onCreate }: CreatePostDialogProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedCommunityId, setSelectedCommunityId] = useState<string>("");
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [activeTab, setActiveTab] = useState("post");
 
     const handleSubmit = () => {
-        if (!selectedCommunityId || !title || !onCreate) return;
+        if (!title || !onCreate) return;
 
-        const community = communities.find(c => c.id === selectedCommunityId);
-        if (!community) return;
-
-        const newPost: ForumPost = {
-            id: Date.now().toString(),
-            title,
-            content,
-            author: { name: "You" }, // Mock current user
-            community: community,
-            likes: 0,
-            upvotes: 0,
-            downvotes: 0,
-            replies: 0,
-            views: 0,
-            createdAt: "Just now",
-            tags: ["New"],
-        };
-
-        onCreate(newPost);
+        onCreate({ title, content });
         setIsOpen(false);
 
         // Reset form
         setTitle("");
         setContent("");
-        setSelectedCommunityId("");
     };
 
     return (
@@ -59,19 +38,6 @@ export const CreatePostDialog = ({ children, communities, onCreate }: CreatePost
                 </DialogHeader>
 
                 <div className="p-4 flex flex-col flex-1 overflow-y-auto">
-                    {/* Community Selector */}
-                    <div className="mb-4">
-                        <select
-                            className="w-[300px] p-2 rounded-md bg-secondary text-foreground border-none focus:ring-1 focus:ring-primary outline-none"
-                            value={selectedCommunityId}
-                            onChange={(e) => setSelectedCommunityId(e.target.value)}
-                        >
-                            <option value="" disabled>Choose a community</option>
-                            {communities.map(c => (
-                                <option key={c.id} value={c.id}>{c.icon} {c.name}</option>
-                            ))}
-                        </select>
-                    </div>
 
                     <Tabs defaultValue="post" value={activeTab} className="flex-1 flex flex-col" onValueChange={setActiveTab}>
                         <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0 h-auto">
@@ -132,7 +98,7 @@ export const CreatePostDialog = ({ children, communities, onCreate }: CreatePost
 
                 <div className="p-4 border-t flex justify-end gap-2 bg-muted/10">
                     <Button variant="ghost" onClick={() => setIsOpen(false)}>Cancel</Button>
-                    <Button disabled={!selectedCommunityId || !title} onClick={handleSubmit}>Post</Button>
+                    <Button disabled={!title} onClick={handleSubmit}>Post</Button>
                 </div>
             </DialogContent>
         </Dialog>

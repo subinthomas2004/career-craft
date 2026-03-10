@@ -11,6 +11,7 @@ export interface Question {
     keywords: string[]; // Keywords that characterise this question
     expectedKeywords: string[]; // Keywords expected in the answer for scoring
     followUpIds?: string[]; // Direct follow-ups if this question is answered nicely
+    codeTask?: string; // The explicit problem statement for coding questions, separated from spoken text
 }
 
 export interface InterviewState {
@@ -34,7 +35,8 @@ export interface InterviewState {
 export interface InterviewConfig {
     domain: string; // e.g., "web", "android"
     includeHr: boolean;
-    interviewType: 'hr' | 'hr-tech' | 'intro-prep'; // Explicit type to distinguish modes
+    interviewType: 'hr' | 'hr-tech' | 'technical' | 'intro-prep'; // Explicit type to distinguish modes
     difficulty: Difficulty;
     resumeText?: string;
+    jobRole?: string; // Free-text job role (e.g., "Full Stack Developer")
 }

@@ -2,28 +2,36 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { TypingState, TypingConfig } from '@/lib/typing/engine';
-import { RefreshCw, Trophy, Share2, AlertCircle, Activity } from 'lucide-react';
+import { RefreshCw, Trophy, AlertCircle, Activity } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, BarChart, Bar, Cell } from 'recharts';
 
 interface ResultsDashboardProps {
     state: TypingState;
     config: TypingConfig;
     onRestart: () => void;
+    isRankedMode?: boolean;
+    consistencyScore?: number;
 }
 
-export const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ state, config, onRestart }) => {
+export const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ state, config, onRestart, isRankedMode = false, consistencyScore: externalConsistency }) => {
     // Chart Data
     const chartData = state.history.map((h, i) => ({
         time: config.duration - h.time,
         wpm: h.wpm
     }));
 
-    // Calculate Consistency (Std Dev of WPM)
-    const wpms = state.history.map(h => h.wpm);
-    const meanWpm = wpms.reduce((a, b) => a + b, 0) / (wpms.length || 1);
-    const variance = wpms.reduce((a, b) => a + Math.pow(b - meanWpm, 2), 0) / (wpms.length || 1);
-    const stdDev = Math.sqrt(variance);
-    const consistencyScore = Math.max(0, Math.round(100 - stdDev));
+    // Calculate Consistency — use external if provided, otherwise compute locally
+    const computeConsistency = () => {
+        const wpms = state.history.map(h => h.wpm).filter(w => w > 0);
+        if (wpms.length < 2) return 100;
+        const mean = wpms.reduce((a, b) => a + b, 0) / wpms.length;
+        if (mean === 0) return 0;
+        const variance = wpms.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / wpms.length;
+        const stdDev = Math.sqrt(variance);
+        const cv = (stdDev / mean) * 100;
+        return Math.max(0, Math.min(100, Math.round(100 - cv)));
+    };
+    const consistencyScore = externalConsistency ?? computeConsistency();
 
     // Error Analysis Data
     const errorData = Object.entries(state.missedKeys)
@@ -158,9 +166,6 @@ export const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ state, confi
             <div className="flex gap-4 max-w-lg mx-auto">
                 <Button size="lg" className="flex-1 rounded-full shadow-lg" onClick={onRestart}>
                     <RefreshCw className="mr-2 h-4 w-4" /> Try Again
-                </Button>
-                <Button size="lg" variant="outline" className="flex-1 rounded-full">
-                    Share Stats <Share2 className="ml-2 h-4 w-4" />
                 </Button>
             </div>
         </div>

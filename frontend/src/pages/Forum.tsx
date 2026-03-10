@@ -1,69 +1,132 @@
-import { useState } from "react";
-import { Search, Plus } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 // Custom Components
 import { ForumSidebar } from "@/components/forum/ForumSidebar";
 import { PostCard } from "@/components/forum/PostCard";
-import { CommunityInfo } from "@/components/forum/CommunityInfo";
 import { CreatePostDialog } from "@/components/forum/CreatePostDialog";
-import { Community, ForumPost } from "@/components/forum/types";
+import { ForumPost } from "@/components/forum/types";
+import { auth } from "@/firebase";
+import { onAuthStateChanged, User } from "firebase/auth";
 
-// Empty Initial State - "Clear all sections"
-const initialCommunities: Community[] = [];
-const initialPosts: ForumPost[] = [];
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
 const Forum = () => {
-  const [communities, setCommunities] = useState<Community[]>(initialCommunities);
-  const [posts, setPosts] = useState<ForumPost[]>(initialPosts);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<ForumPost[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Home");
+  const [isFetching, setIsFetching] = useState(true);
+
+  // Fetch posts from API
+  const fetchPosts = async () => {
+    setIsFetching(true);
+    try {
+      let url = `${API_BASE_URL}/api/forum/posts`;
+      if (selectedCategory === "YourPosts" && user) {
+        url = `${API_BASE_URL}/api/forum/posts/me/${user.uid}`;
+      } else if (searchQuery) {
+        url += `?search=${encodeURIComponent(searchQuery)}`;
+      }
+
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        setPosts(data);
+      } else {
+        console.error("Failed to fetch posts");
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (loading) return;
+    fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory, user, loading]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchPosts();
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
   // Handlers
-  const handleCreateCommunity = (newCommunity: Community) => {
-    setCommunities([...communities, newCommunity]);
-    setSelectedCategory(newCommunity.name); // Switch to new community
-  };
-
-  const handleCreatePost = (postDetails: any) => {
-    // In a real app this comes from the dialog. 
-    // For now we'll stub this or update the dialog to return data.
-    // Since CreatePostDialog is UI only in the previous step, we'll need to update it or accept the limitation.
-    // To strictly follow "manual upload", let's assume the dialog *works* or we add a simple function here.
-    // For this iteration, I'll update the Dialog props in the next step if needed, 
-    // but for now let's just make sure the PAGE logic is sound.
-
-    // Quick fix: The Dialog doesn't return data yet. 
-    // We will wrap the Dialog usage to intercept the "Post" action if we modify the Dialog, 
-    // but the user just said "do it" for the UI previously.
-    // To make it functional, I should update CreatePostDialog to actually return a post.
-  };
-
-  // Determine which posts to show
-  const filteredPosts = posts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.content.toLowerCase().includes(searchQuery.toLowerCase());
-
-    if (selectedCategory === "Home") {
-      return matchesSearch;
+  const handleCreatePost = async (postDetails: Pick<ForumPost, 'title' | 'content'>) => {
+    if (!user) {
+      alert("You must be logged in to post.");
+      return;
     }
 
-    return matchesSearch && post.community.name === selectedCategory;
-  });
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/forum/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: postDetails.title,
+          content: postDetails.content,
+          authorId: user.uid,
+          authorName: user.displayName || user.email?.split("@")[0] || "Anonymous",
+        }),
+      });
 
-  // Find selected community details for right sidebar
-  const activeCommunity = communities.find(c => c.name === selectedCategory);
+      if (response.ok) {
+        const newPost = await response.json();
+        if (selectedCategory === "Home" || selectedCategory === "YourPosts") {
+          setPosts([newPost, ...posts]);
+        }
+      } else {
+        console.error("Failed to create post");
+      }
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/forum/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user?.uid }),
+      });
+
+      if (response.ok) {
+        setPosts(posts.filter(p => p._id !== postId));
+      } else {
+        console.error("Failed to delete post.");
+      }
+    } catch (err) {
+      console.error("Error deleting post:", err);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Top Navigation Bar - Sticky */}
       <div className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-16 items-center px-4 md:px-6">
@@ -86,8 +149,7 @@ const Forum = () => {
           </div>
 
           <div className="ml-auto flex items-center space-x-2">
-            {/* Pass setPosts to the dialog (we'll update the dialog component next to support this) */}
-            <CreatePostDialog communities={communities} onCreate={(post) => setPosts([post, ...posts])}>
+            <CreatePostDialog onCreate={handleCreatePost}>
               <Button size="sm" className="gap-2 rounded-full hidden sm:flex">
                 <Plus className="h-4 w-4" /> Create
               </Button>
@@ -96,44 +158,47 @@ const Forum = () => {
         </div>
       </div>
 
-      <div className="container max-w-[1600px] flex gap-6 px-4 md:px-6 py-6">
+      <div className="flex-1 container max-w-[1200px] flex gap-6 px-4 md:px-6 py-6 mx-auto">
         {/* Left Sidebar - Navigation */}
-        <div className="hidden lg:block w-[270px] shrink-0">
+        <div className="hidden lg:block w-[250px] shrink-0">
           <ForumSidebar
-            communities={communities}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
-            onCreateCommunity={handleCreateCommunity}
           />
         </div>
 
         {/* Main Feed */}
-        <div className="flex-1 min-w-0 max-w-3xl mx-auto">
-          {/* Posts */}
+        <div className="flex-1 min-w-0 max-w-3xl">
           <div className="space-y-4">
-            {posts.length === 0 && (
+            {isFetching ? (
+              <div className="flex justify-center items-center py-20">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              </div>
+            ) : posts.length === 0 ? (
               <div className="text-center py-20 border-2 border-dashed rounded-xl">
                 <div className="text-4xl mb-4">📭</div>
                 <h3 className="text-lg font-semibold">It's quiet here...</h3>
-                <p className="text-muted-foreground mb-4">Join a community or create one to start discussing!</p>
-                {/* Prompt to create community if none exist */}
-                {communities.length === 0 && (
-                  <p className="text-sm text-primary font-medium">👈 Create a community in the sidebar</p>
+                <p className="text-muted-foreground mb-4">
+                  {selectedCategory === "YourPosts"
+                    ? "You haven't posted anything yet."
+                    : "Be the first to create a post!"}
+                </p>
+                {selectedCategory === "Home" && (
+                   <div className="flex justify-center mt-4">
+                     <CreatePostDialog onCreate={handleCreatePost}>
+                       <Button variant="outline" size="sm" className="gap-2 rounded-full">
+                         <Plus className="h-4 w-4" /> Create First Post
+                       </Button>
+                     </CreatePostDialog>
+                   </div>
                 )}
               </div>
+            ) : (
+              posts.map((post) => (
+                <PostCard key={post._id} post={post} onDelete={handleDeletePost} />
+              ))
             )}
-
-            {filteredPosts.map(post => (
-              <PostCard key={post.id} post={post} />
-            ))}
           </div>
-        </div>
-
-        {/* Right Sidebar - Community Info */}
-        <div className="hidden xl:block w-[320px] shrink-0">
-          {activeCommunity && (
-            <CommunityInfo community={activeCommunity} />
-          )}
         </div>
       </div>
     </div>

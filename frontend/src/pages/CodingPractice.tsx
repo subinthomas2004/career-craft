@@ -258,25 +258,25 @@ const CodingPractice = () => {
   const hasNext = currentIdx < codingProblems.length - 1;
 
   return (
-    <div className="h-screen flex flex-col bg-[#0a0a0f] text-gray-100 overflow-hidden">
+    <div className="h-screen flex flex-col bg-background text-foreground overflow-hidden">
       {/* Top Bar */}
-      <div className="h-12 bg-[#0f0f18] border-b border-gray-800/60 flex items-center justify-between px-4 shrink-0">
+      <div className="h-12 bg-card border-b border-border/60 flex items-center justify-between px-4 shrink-0">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/dashboard/coding")}
-            className="flex items-center gap-1.5 text-gray-400 hover:text-emerald-400 transition-colors text-sm"
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Problems</span>
           </button>
-          <div className="w-px h-5 bg-gray-800" />
+          <div className="w-px h-5 bg-border" />
           <div className="flex items-center gap-2">
-            <span className="text-white font-medium text-sm">{problem.id}. {problem.title}</span>
+            <span className="text-foreground font-medium text-sm">{problem.id}. {problem.title}</span>
             <span className={cn(
               "px-2 py-0.5 rounded-md text-xs font-semibold border",
-              problem.difficulty === "Easy" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
-                problem.difficulty === "Medium" ? "bg-amber-500/10 text-amber-400 border-amber-500/30" :
-                  "bg-red-500/10 text-red-400 border-red-500/30"
+              problem.difficulty === "Easy" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" :
+                problem.difficulty === "Medium" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30" :
+                  "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/30"
             )}>
               {problem.difficulty}
             </span>
@@ -284,7 +284,7 @@ const CodingPractice = () => {
         </div>
         <div className="flex items-center gap-3">
           {/* Execution mode indicator */}
-          <div className="flex items-center gap-1.5 text-xs text-gray-600">
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground/60">
             {execMode === "browser" ? (
               <>
                 <Globe className="w-3 h-3 text-emerald-500" />
@@ -297,8 +297,8 @@ const CodingPractice = () => {
               </>
             )}
           </div>
-          <div className="w-px h-5 bg-gray-800" />
-          <div className="flex items-center gap-1.5 text-gray-500 text-sm">
+          <div className="w-px h-5 bg-border" />
+          <div className="flex items-center gap-1.5 text-muted-foreground/80 text-sm">
             <Timer className="w-3.5 h-3.5" />
             <span className="font-mono">{formatTime(timer)}</span>
           </div>
@@ -306,16 +306,16 @@ const CodingPractice = () => {
             <button
               onClick={() => navigateProblem("prev")}
               disabled={!hasPrev}
-              className="p-1.5 rounded-lg hover:bg-gray-800/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-1.5 rounded-lg hover:bg-border/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
-              <ChevronLeft className="w-4 h-4 text-gray-400" />
+              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
             </button>
             <button
               onClick={() => navigateProblem("next")}
               disabled={!hasNext}
-              className="p-1.5 rounded-lg hover:bg-gray-800/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              className="p-1.5 rounded-lg hover:bg-border/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </button>
           </div>
         </div>
@@ -325,50 +325,50 @@ const CodingPractice = () => {
       <ResizablePanelGroup direction="horizontal" className="flex-1">
         {/* Left Panel - Problem Description */}
         <ResizablePanel defaultSize={38} minSize={25}>
-          <div className="h-full overflow-y-auto bg-[#0d0d15] p-6 custom-scrollbar">
+          <div className="h-full overflow-y-auto bg-muted/30 p-6 custom-scrollbar">
             <div className="prose prose-invert prose-sm max-w-none">
-              <h2 className="text-lg font-bold text-white mb-4">{problem.title}</h2>
-              <div className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap mb-6">
+              <h2 className="text-lg font-bold text-foreground mb-4">{problem.title}</h2>
+              <div className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap mb-6">
                 {problem.description}
               </div>
 
               {/* Examples */}
-              <h3 className="text-sm font-semibold text-gray-200 mb-3">Examples</h3>
+              <h3 className="text-sm font-semibold text-foreground/90 mb-3">Examples</h3>
               {problem.examples.map((ex, i) => (
-                <div key={i} className="mb-4 bg-gray-800/30 border border-gray-700/30 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-gray-500 mb-2">Example {i + 1}:</p>
+                <div key={i} className="mb-4 bg-border/30 border border-border/40 rounded-xl p-4">
+                  <p className="text-xs font-semibold text-muted-foreground/80 mb-2">Example {i + 1}:</p>
                   <div className="font-mono text-sm space-y-1">
-                    <p><span className="text-gray-500">Input: </span><span className="text-cyan-400">{ex.input}</span></p>
-                    <p><span className="text-gray-500">Output: </span><span className="text-emerald-400">{ex.output}</span></p>
+                    <p><span className="text-muted-foreground/80">Input: </span><span className="text-cyan-600 dark:text-cyan-400">{ex.input}</span></p>
+                    <p><span className="text-muted-foreground/80">Output: </span><span className="text-emerald-600 dark:text-emerald-400">{ex.output}</span></p>
                     {ex.explanation && (
-                      <p className="text-gray-500 text-xs mt-2 italic">{ex.explanation}</p>
+                      <p className="text-muted-foreground/80 text-xs mt-2 italic">{ex.explanation}</p>
                     )}
                   </div>
                 </div>
               ))}
 
               {/* Constraints */}
-              <h3 className="text-sm font-semibold text-gray-200 mb-3">Constraints</h3>
+              <h3 className="text-sm font-semibold text-foreground/90 mb-3">Constraints</h3>
               <ul className="list-disc list-inside space-y-1 mb-6">
                 {problem.constraints.map((c, i) => (
-                  <li key={i} className="text-gray-400 text-sm font-mono">{c}</li>
+                  <li key={i} className="text-muted-foreground text-sm font-mono">{c}</li>
                 ))}
               </ul>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {problem.tags.map((tag) => (
-                  <span key={tag} className="px-2.5 py-1 rounded-lg bg-gray-800/50 border border-gray-700/30 text-xs text-gray-400 font-medium">
+                  <span key={tag} className="px-2.5 py-1 rounded-lg bg-border/50 border border-border/40 text-xs text-muted-foreground font-medium">
                     {tag}
                   </span>
                 ))}
               </div>
 
               {/* Hints */}
-              <div className="border-t border-gray-800/60 pt-5">
+              <div className="border-t border-border/60 pt-5">
                 <button
                   onClick={() => setHintLevel((l) => Math.min(l + 1, problem.hints.length - 1))}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm hover:bg-amber-500/20 transition-all"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-sm hover:bg-amber-500/20 transition-all"
                 >
                   <Lightbulb className="w-4 h-4" />
                   {hintLevel < 0 ? "Get Hint" : hintLevel < problem.hints.length - 1 ? "Next Hint" : "No More Hints"}
@@ -377,7 +377,7 @@ const CodingPractice = () => {
                   <div className="mt-3 space-y-2">
                     {problem.hints.slice(0, hintLevel + 1).map((hint, i) => (
                       <div key={i} className="flex gap-2 p-3 bg-amber-500/5 border border-amber-500/10 rounded-xl">
-                        <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <Lightbulb className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                         <p className="text-sm text-amber-200/80">{hint}</p>
                       </div>
                     ))}
@@ -388,44 +388,51 @@ const CodingPractice = () => {
           </div>
         </ResizablePanel>
 
-        <ResizableHandle withHandle className="bg-gray-800/40 hover:bg-emerald-500/30 transition-colors" />
+        <ResizableHandle withHandle className="bg-border/40 hover:bg-emerald-500/30 transition-colors" />
 
         {/* Right Panel - Code Editor + Output */}
         <ResizablePanel defaultSize={62} minSize={35}>
           <ResizablePanelGroup direction="vertical">
             {/* Code Editor */}
             <ResizablePanel defaultSize={60} minSize={30}>
-              <div className="h-full flex flex-col bg-[#0d0d15]">
+              <div className="h-full flex flex-col bg-muted/30">
                 {/* Editor Toolbar */}
-                <div className="h-10 flex items-center justify-between px-3 border-b border-gray-800/60 bg-[#0f0f18] shrink-0">
+                <div className="h-10 flex items-center justify-between px-3 border-b border-border/60 bg-card shrink-0">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1.5">
-                      <Code className="w-3.5 h-3.5 text-gray-500" />
-                      <span className="text-xs text-gray-500">Code</span>
+                      <Code className="w-3.5 h-3.5 text-muted-foreground/80" />
+                      <span className="text-xs text-muted-foreground/80">Code</span>
                     </div>
-                    {/* 8-Language Selector */}
+                    {/* Language Selector */}
                     <select
                       value={language}
                       onChange={(e) => handleLanguageChange(e.target.value as LanguageId)}
                       className={cn(
-                        "px-2.5 py-1 bg-gray-800/50 border border-gray-700/40 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500/50 cursor-pointer",
-                        langColors[language] || "text-gray-300"
+                        "px-2.5 py-1 bg-border/50 border border-border/50 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500/50 cursor-pointer appearance-none",
+                        langColors[language] || "text-muted-foreground"
                       )}
+                      disabled={
+                        (problem.supportedLanguages && problem.supportedLanguages.length === 1) ||
+                        !!searchParams.get("lang")
+                      }
                     >
-                      {ALL_LANGUAGES.map((lang) => (
+                      {ALL_LANGUAGES.filter(lang =>
+                        (searchParams.get("lang") ? lang.id === searchParams.get("lang") : true) &&
+                        (!problem.supportedLanguages || problem.supportedLanguages.includes(lang.id as any))
+                      ).map((lang) => (
                         <option key={lang.id} value={lang.id}>
                           {lang.label}
                         </option>
                       ))}
                     </select>
                     {language === "python" && pyodideStatus === "loading" && (
-                      <div className="flex items-center gap-1.5 text-xs text-amber-400">
+                      <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
                         <Loader2 className="w-3 h-3 animate-spin" />
                         Loading Python...
                       </div>
                     )}
                     {language === "python" && pyodideStatus === "ready" && (
-                      <span className="text-xs text-emerald-400">Python ready ✓</span>
+                      <span className="text-xs text-emerald-600 dark:text-emerald-400">Python ready ✓</span>
                     )}
                     {execMode === "server" && (
                       <span className="text-xs text-blue-400/70 flex items-center gap-1">
@@ -437,21 +444,21 @@ const CodingPractice = () => {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={handleCopy}
-                      className="p-1.5 rounded-lg hover:bg-gray-800/50 transition-all"
+                      className="p-1.5 rounded-lg hover:bg-border/50 transition-all"
                       title="Copy code"
                     >
                       {copied ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5 text-gray-500" />
+                        <Copy className="w-3.5 h-3.5 text-muted-foreground/80" />
                       )}
                     </button>
                     <button
                       onClick={handleReset}
-                      className="p-1.5 rounded-lg hover:bg-gray-800/50 transition-all"
+                      className="p-1.5 rounded-lg hover:bg-border/50 transition-all"
                       title="Reset code"
                     >
-                      <RotateCcw className="w-3.5 h-3.5 text-gray-500" />
+                      <RotateCcw className="w-3.5 h-3.5 text-muted-foreground/80" />
                     </button>
                   </div>
                 </div>
@@ -461,11 +468,11 @@ const CodingPractice = () => {
                   {/* Line Numbers */}
                   <div
                     ref={lineNumbersRef}
-                    className="w-12 bg-[#0a0a12] border-r border-gray-800/40 overflow-hidden select-none shrink-0"
+                    className="w-12 bg-muted/20 border-r border-border/50 overflow-hidden select-none shrink-0"
                   >
                     <div className="py-4 px-2 text-right">
                       {Array.from({ length: lineCount }, (_, i) => (
-                        <div key={i} className="text-[11px] leading-[20px] text-gray-600 font-mono">
+                        <div key={i} className="text-[11px] leading-[20px] text-muted-foreground/60 font-mono">
                           {i + 1}
                         </div>
                       ))}
@@ -479,7 +486,7 @@ const CodingPractice = () => {
                     onChange={(e) => setCode(e.target.value)}
                     onScroll={handleScroll}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 w-full py-4 px-4 bg-transparent text-gray-200 font-mono text-sm leading-[20px] resize-none focus:outline-none placeholder-gray-700"
+                    className="flex-1 w-full py-4 px-4 bg-transparent text-foreground/90 font-mono text-sm leading-[20px] resize-none focus:outline-none placeholder-muted-foreground"
                     spellCheck={false}
                     placeholder="Write your solution here..."
                   />
@@ -487,19 +494,19 @@ const CodingPractice = () => {
               </div>
             </ResizablePanel>
 
-            <ResizableHandle withHandle className="bg-gray-800/40 hover:bg-emerald-500/30 transition-colors" />
+            <ResizableHandle withHandle className="bg-border/40 hover:bg-emerald-500/30 transition-colors" />
 
             {/* Bottom Panel - Test Cases & Results */}
             <ResizablePanel defaultSize={40} minSize={15}>
-              <div className="h-full flex flex-col bg-[#0d0d15]">
+              <div className="h-full flex flex-col bg-muted/30">
                 {/* Bottom Tabs & Actions */}
-                <div className="h-10 flex items-center justify-between px-3 border-b border-gray-800/60 bg-[#0f0f18] shrink-0">
+                <div className="h-10 flex items-center justify-between px-3 border-b border-border/60 bg-card shrink-0">
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => setBottomTab("testcase")}
                       className={cn(
                         "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        bottomTab === "testcase" ? "bg-gray-800/60 text-gray-200" : "text-gray-500 hover:text-gray-300"
+                        bottomTab === "testcase" ? "bg-border/60 text-foreground/90" : "text-muted-foreground/80 hover:text-muted-foreground"
                       )}
                     >
                       <FlaskConical className="w-3.5 h-3.5" />
@@ -509,7 +516,7 @@ const CodingPractice = () => {
                       onClick={() => setBottomTab("result")}
                       className={cn(
                         "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        bottomTab === "result" ? "bg-gray-800/60 text-gray-200" : "text-gray-500 hover:text-gray-300"
+                        bottomTab === "result" ? "bg-border/60 text-foreground/90" : "text-muted-foreground/80 hover:text-muted-foreground"
                       )}
                     >
                       <Terminal className="w-3.5 h-3.5" />
@@ -517,7 +524,7 @@ const CodingPractice = () => {
                       {testResults.length > 0 && (
                         <span className={cn(
                           "ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold",
-                          testResults.every(r => r.passed) ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"
+                          testResults.every(r => r.passed) ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-red-500/20 text-red-600 dark:text-red-400"
                         )}>
                           {testResults.filter(r => r.passed).length}/{testResults.length}
                         </span>
@@ -528,7 +535,7 @@ const CodingPractice = () => {
                     <button
                       onClick={handleRun}
                       disabled={isRunning || isSubmitting}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-700/50 border border-gray-600/40 text-gray-200 text-xs font-medium hover:bg-gray-700/70 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary border border-border text-foreground/90 text-xs font-medium hover:bg-secondary/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                       {isRunning ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -540,7 +547,7 @@ const CodingPractice = () => {
                     <button
                       onClick={handleSubmit}
                       disabled={isRunning || isSubmitting}
-                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-medium hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-emerald-600/20"
+                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-emerald-600 text-foreground text-xs font-medium hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-emerald-600/20"
                     >
                       {isSubmitting ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -565,21 +572,21 @@ const CodingPractice = () => {
                             className={cn(
                               "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
                               activeTestTab === i
-                                ? "bg-gray-700/50 text-gray-200 border border-gray-600/40"
-                                : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/30"
+                                ? "bg-secondary text-foreground/90 border border-border"
+                                : "text-muted-foreground/80 hover:text-muted-foreground hover:bg-border/30"
                             )}
                           >
                             Case {i + 1}
                           </button>
                         ))}
-                        <div className="w-px h-5 bg-gray-800" />
+                        <div className="w-px h-5 bg-border" />
                         <button
                           onClick={() => setActiveTestTab(-1)}
                           className={cn(
                             "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
                             activeTestTab === -1
-                              ? "bg-gray-700/50 text-gray-200 border border-gray-600/40"
-                              : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/30"
+                              ? "bg-secondary text-foreground/90 border border-border"
+                              : "text-muted-foreground/80 hover:text-muted-foreground hover:bg-border/30"
                           )}
                         >
                           Custom
@@ -589,14 +596,14 @@ const CodingPractice = () => {
                       {activeTestTab >= 0 && activeTestTab < problem.testCases.length && (
                         <div className="space-y-3">
                           <div>
-                            <label className="text-xs text-gray-500 font-medium mb-1.5 block">Input:</label>
-                            <div className="bg-gray-800/30 border border-gray-700/30 rounded-xl p-3 font-mono text-sm text-cyan-400">
+                            <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Input:</label>
+                            <div className="bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-cyan-600 dark:text-cyan-400">
                               {problem.testCases[activeTestTab].input}
                             </div>
                           </div>
                           <div>
-                            <label className="text-xs text-gray-500 font-medium mb-1.5 block">Expected Output:</label>
-                            <div className="bg-gray-800/30 border border-gray-700/30 rounded-xl p-3 font-mono text-sm text-emerald-400">
+                            <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Expected Output:</label>
+                            <div className="bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-emerald-600 dark:text-emerald-400">
                               {problem.testCases[activeTestTab].expected}
                             </div>
                           </div>
@@ -606,25 +613,25 @@ const CodingPractice = () => {
                       {activeTestTab === -1 && (
                         <div className="space-y-3">
                           <div>
-                            <label className="text-xs text-gray-500 font-medium mb-1.5 block">Custom Input Expression:</label>
+                            <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Custom Input Expression:</label>
                             <textarea
                               value={customInput}
                               onChange={(e) => setCustomInput(e.target.value)}
                               placeholder="e.g. twoSum([2,7,11,15], 9)"
-                              className="w-full h-20 bg-gray-800/30 border border-gray-700/30 rounded-xl p-3 font-mono text-sm text-gray-200 resize-none focus:outline-none focus:border-emerald-500/40"
+                              className="w-full h-20 bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-foreground/90 resize-none focus:outline-none focus:border-emerald-500/40"
                             />
                           </div>
                           <button
                             onClick={handleRunCustom}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-700/50 text-gray-200 text-xs font-medium hover:bg-gray-700/70 transition-all"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary text-foreground/90 text-xs font-medium hover:bg-secondary/80 transition-all"
                           >
                             <Play className="w-3 h-3" />
                             Run Custom
                           </button>
                           {customOutput && (
                             <div>
-                              <label className="text-xs text-gray-500 font-medium mb-1.5 block">Output:</label>
-                              <div className="bg-gray-800/30 border border-gray-700/30 rounded-xl p-3 font-mono text-sm text-emerald-400">
+                              <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Output:</label>
+                              <div className="bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-emerald-600 dark:text-emerald-400">
                                 {customOutput}
                               </div>
                             </div>
@@ -640,11 +647,11 @@ const CodingPractice = () => {
                       {allPassed && (
                         <div className="mb-4 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center gap-3">
                           <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center">
-                            <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+                            <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                           </div>
                           <div>
-                            <p className="text-emerald-400 font-semibold">All Test Cases Passed! 🎉</p>
-                            <p className="text-emerald-400/60 text-xs mt-0.5">Solved in {formatTime(timer)} using {ALL_LANGUAGES.find(l => l.id === language)?.label}</p>
+                            <p className="text-emerald-600 dark:text-emerald-400 font-semibold">All Test Cases Passed! 🎉</p>
+                            <p className="text-emerald-600 dark:text-emerald-400/60 text-xs mt-0.5">Solved in {formatTime(timer)} using {ALL_LANGUAGES.find(l => l.id === language)?.label}</p>
                           </div>
                         </div>
                       )}
@@ -653,8 +660,8 @@ const CodingPractice = () => {
                       {compilationError && (
                         <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
                           <div className="flex items-center gap-2 mb-2">
-                            <AlertTriangle className="w-4 h-4 text-red-400" />
-                            <span className="text-red-400 text-sm font-semibold">Compilation Error</span>
+                            <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
+                            <span className="text-red-600 dark:text-red-400 text-sm font-semibold">Compilation Error</span>
                           </div>
                           <pre className="text-red-300/80 text-xs font-mono whitespace-pre-wrap">{compilationError}</pre>
                         </div>
@@ -666,11 +673,11 @@ const CodingPractice = () => {
                           <div className="flex items-center gap-3 mb-4">
                             <span className={cn(
                               "text-sm font-semibold",
-                              testResults.every(r => r.passed) ? "text-emerald-400" : "text-red-400"
+                              testResults.every(r => r.passed) ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
                             )}>
                               {testResults.filter(r => r.passed).length}/{testResults.length} test cases passed
                             </span>
-                            <span className="text-xs text-gray-600">
+                            <span className="text-xs text-muted-foreground/60">
                               Runtime: {Math.round(testResults.reduce((s, r) => s + r.time, 0))}ms
                             </span>
                           </div>
@@ -684,8 +691,8 @@ const CodingPractice = () => {
 
                       {testResults.length === 0 && !compilationError && (
                         <div className="text-center py-12">
-                          <Terminal className="w-10 h-10 text-gray-700 mx-auto mb-3" />
-                          <p className="text-gray-600 text-sm">Run or submit your code to see results</p>
+                          <Terminal className="w-10 h-10 text-muted-foreground/40 mx-auto mb-3" />
+                          <p className="text-muted-foreground/60 text-sm">Run or submit your code to see results</p>
                         </div>
                       )}
                     </div>
@@ -706,11 +713,11 @@ const CodingPractice = () => {
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #2d2d3f;
+          background: rgba(150, 150, 150, 0.4);
           border-radius: 3px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #3d3d5f;
+          background: rgba(150, 150, 150, 0.6);
         }
       `}</style>
     </div>
@@ -736,39 +743,39 @@ const TestResultCard = ({ result, index }: { result: TestResult; index: number }
       >
         <div className="flex items-center gap-2.5">
           {result.passed ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           ) : (
-            <XCircle className="w-4 h-4 text-red-400" />
+            <XCircle className="w-4 h-4 text-red-600 dark:text-red-400" />
           )}
-          <span className={cn("text-sm font-medium", result.passed ? "text-emerald-400" : "text-red-400")}>
+          <span className={cn("text-sm font-medium", result.passed ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400")}>
             Test Case {index + 1}
           </span>
-          <span className="text-xs text-gray-600">{result.time}ms</span>
+          <span className="text-xs text-muted-foreground/60">{result.time}ms</span>
         </div>
         {expanded ? (
-          <EyeOff className="w-3.5 h-3.5 text-gray-600" />
+          <EyeOff className="w-3.5 h-3.5 text-muted-foreground/60" />
         ) : (
-          <Eye className="w-3.5 h-3.5 text-gray-600" />
+          <Eye className="w-3.5 h-3.5 text-muted-foreground/60" />
         )}
       </button>
       {expanded && (
-        <div className="px-4 pb-3 space-y-2 border-t border-gray-800/30 pt-3">
+        <div className="px-4 pb-3 space-y-2 border-t border-border/30 pt-3">
           <div>
-            <span className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Input</span>
-            <div className="bg-gray-900/50 rounded-lg p-2 mt-1 font-mono text-xs text-gray-300 break-all">
+            <span className="text-[10px] text-muted-foreground/80 uppercase tracking-wider font-semibold">Input</span>
+            <div className="bg-muted/80 rounded-lg p-2 mt-1 font-mono text-xs text-muted-foreground break-all">
               {result.input}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Expected</span>
-            <div className="bg-gray-900/50 rounded-lg p-2 mt-1 font-mono text-xs text-emerald-400 break-all">
+            <span className="text-[10px] text-muted-foreground/80 uppercase tracking-wider font-semibold">Expected</span>
+            <div className="bg-muted/80 rounded-lg p-2 mt-1 font-mono text-xs text-emerald-600 dark:text-emerald-400 break-all">
               {result.expected}
             </div>
           </div>
           {!result.passed && (
             <div>
-              <span className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Your Output</span>
-              <div className="bg-gray-900/50 rounded-lg p-2 mt-1 font-mono text-xs text-red-400 break-all">
+              <span className="text-[10px] text-muted-foreground/80 uppercase tracking-wider font-semibold">Your Output</span>
+              <div className="bg-muted/80 rounded-lg p-2 mt-1 font-mono text-xs text-red-600 dark:text-red-400 break-all">
                 {result.error || result.actual || "(empty)"}
               </div>
             </div>

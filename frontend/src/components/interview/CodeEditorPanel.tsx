@@ -74,8 +74,6 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
     }, [question]); */
 
     const [code, setCode] = useState(`# Write your ${LANGUAGES.find(l => l.id === language)?.label} code here\n\ndef solve():\n    # Your solution\n    pass\n`);
-    const [output, setOutput] = useState<string>("");
-    const [isRunning, setIsRunning] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
 
     const handleLanguageChange = (value: string) => {
@@ -100,32 +98,7 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
         }
     };
 
-    const handleRun = async () => {
-        setIsRunning(true);
-        setOutput("Running code...\n");
-
-        try {
-            const response = await api.post("/code/execute", { language, code });
-
-            const data = response.data;
-
-            if (data.output) {
-                setOutput(data.output);
-            } else if (data.error) {
-                setOutput(`Error: ${data.error}`);
-            } else {
-                setOutput("Execution completed with no output.");
-            }
-
-        } catch (error) {
-            setOutput(`Error connecting to execution server:\n${error}`);
-        } finally {
-            setIsRunning(false);
-            if (onRun) {
-                onRun(code, language);
-            }
-        }
-    };
+    // handleRun removed to simulate whiteboard interview
 
     const handleCopy = () => {
         navigator.clipboard.writeText(code);
@@ -136,7 +109,6 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
 
     const handleReset = () => {
         setCode("");
-        setOutput("");
     };
 
     // Simple line number generator
@@ -191,20 +163,11 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
                     >
                         <RotateCcw className="w-4 h-4" />
                     </Button>
-                    <Button
-                        size="sm"
-                        onClick={handleRun}
-                        disabled={isRunning}
-                        className="h-8 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold transition-all gap-2"
-                    >
-                        <Play className="w-3 h-3 fill-current" />
-                        {isRunning ? "Running..." : "Run"}
-                    </Button>
                     {onSubmit && (
                         <Button
                             size="sm"
                             onClick={() => onSubmit(code, language)}
-                            disabled={isRunning || code.trim().length < 10}
+                            disabled={code.trim().length < 10}
                             className="h-8 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all gap-2"
                             title="Submit code as your answer"
                         >
@@ -231,21 +194,8 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
                     className="flex-1 bg-transparent text-gray-200 p-0 pl-3 pt-4 border-none outline-none resize-none font-mono leading-6 whitespace-pre"
                     spellCheck={false}
                     style={{ tabSize: 4 }}
+                    style={{ tabSize: 4 }}
                 />
-            </div>
-
-            {/* Output Console (Bottom) */}
-            <div className="h-1/3 min-h-[120px] bg-[#1e1e1e] border-t border-white/10 flex flex-col">
-                <div className="flex items-center px-4 py-1.5 bg-[#252526] border-b border-black/40">
-                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Console Output</span>
-                </div>
-                <ScrollArea className="flex-1 p-3 font-mono text-sm">
-                    {output ? (
-                        <pre className="text-gray-300 whitespace-pre-wrap font-inherit">{output}</pre>
-                    ) : (
-                        <span className="text-gray-600 italic">Run execution to see output...</span>
-                    )}
-                </ScrollArea>
             </div>
         </div>
     );

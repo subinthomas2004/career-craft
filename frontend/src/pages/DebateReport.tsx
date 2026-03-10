@@ -18,8 +18,7 @@ import {
 import { api } from '@/lib/api';
 import { motion } from 'framer-motion';
 import { cn } from "@/lib/utils";
-import { db, auth } from '@/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { auth } from '@/firebase';
 
 ChartJS.register(
     RadialLinearScale,
@@ -116,9 +115,11 @@ const DebateReport = () => {
             `;
 
             // Use the api client to communicate with the backend
+            console.log("Calling Groq API...");
             const res = await api.post('/groq/debate/evaluate', {
                 message: prompt
             });
+            console.log("Response received from Groq");
 
             const jsonStr = res.data.response;
             const cleanJson = jsonStr.replace(/```json/g, '').replace(/```/g, '').trim();
@@ -126,17 +127,18 @@ const DebateReport = () => {
 
             setReport(data);
 
-            // Save to Firebase for Performance Analytics
+            // Save to MongoDB for Performance Analytics (non-blocking)
             if (auth.currentUser) {
-                try {
-                    await addDoc(collection(db, "debates"), {
-                        userId: auth.currentUser.uid,
+                const token = localStorage.getItem('token');
+                if (token) {
+                    console.log("Saving report to MongoDB...");
+                    api.post('/soft-skills/debate', {
                         topic: topic,
-                        overallScore: data.overallScore,
-                        createdAt: serverTimestamp(),
-                    });
-                } catch (saveErr) {
-                    console.error("Failed to save report to Firebase:", saveErr);
+                        overallScore: data.overallScore
+                    }, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    }).then(() => console.log("Saved to MongoDB successfully"))
+                      .catch((saveErr) => console.error("Failed to save report to MongoDB:", saveErr));
                 }
             }
         } catch (err) {
@@ -231,13 +233,9 @@ const DebateReport = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
-                    <Button variant="ghost" onClick={() => navigate('/dashboard/debate')} className="w-fit -ml-2 hover:bg-white/5">
+                    <Button variant="ghost" onClick={() => navigate('/dashboard/debate')} className="w-fit -ml-2 hover:bg-black/5 dark:hover:bg-white/5">
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Debate Home
                     </Button>
-                    <div className="flex gap-3">
-                        <Button variant="outline" className="border-white/10 hover:bg-white/5"><Share2 className="w-4 h-4 mr-2" /> Share Result</Button>
-                        <Button className="bg-indigo-600 hover:bg-indigo-700 text-white"><Download className="w-4 h-4 mr-2" /> Export PDF</Button>
-                    </div>
                 </motion.div>
 
                 {/* Title Section */}
@@ -262,15 +260,15 @@ const DebateReport = () => {
                             <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-sm font-medium uppercase text-muted-foreground tracking-wider flex items-center gap-2">
-                                    <TrendingUp className="w-4 h-4 text-indigo-400" /> Overall Score
+                                    <TrendingUp className="w-4 h-4 text-indigo-500 dark:text-indigo-400" /> Overall Score
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-7xl font-bold text-white tracking-tighter">{report.overallScore}</span>
+                                    <span className="text-7xl font-bold text-foreground tracking-tighter">{report.overallScore}</span>
                                     <span className="text-xl text-muted-foreground">/100</span>
                                 </div>
-                                <Progress value={report.overallScore} className="h-2 mt-6 bg-white/10" indicatorClassName="bg-gradient-to-r from-indigo-500 to-purple-500" />
+                                <Progress value={report.overallScore} className="h-2 mt-6 bg-black/10 dark:bg-white/10" indicatorClassName="bg-gradient-to-r from-indigo-500 to-purple-500" />
                             </CardContent>
                         </Card>
                     </motion.div>
@@ -300,14 +298,14 @@ const DebateReport = () => {
 
                     {/* Top Strength */}
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-                        <Card className="h-full bg-card/50 backdrop-blur border-white/10 hover:border-white/20 transition-colors">
+                        <Card className="h-full bg-card/50 backdrop-blur border-border hover:border-border/80 transition-colors">
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-sm font-medium uppercase text-muted-foreground tracking-wider flex items-center gap-2">
                                     <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Top Strength
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-xl font-medium leading-relaxed text-emerald-100">
+                                <p className="text-xl font-medium leading-relaxed text-emerald-700 dark:text-emerald-100">
                                     "{report.feedback.strengths[0]}"
                                 </p>
                                 <p className="text-xs text-muted-foreground mt-4">
@@ -323,7 +321,7 @@ const DebateReport = () => {
 
                     {/* Radar Chart */}
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
-                        <Card className="h-full bg-card/50 backdrop-blur border-white/10 p-6 flex flex-col items-center justify-center">
+                        <Card className="h-full bg-card/50 backdrop-blur border-border p-6 flex flex-col items-center justify-center">
                             <CardHeader className="w-full text-left p-0 mb-6">
                                 <CardTitle>Skill Breakdown</CardTitle>
                                 <CardDescription>Visual mapping of your debate capabilities.</CardDescription>
@@ -340,14 +338,14 @@ const DebateReport = () => {
                         {/* Strengths */}
                         <Card className="bg-emerald-500/5 border-emerald-500/20 backdrop-blur-sm">
                             <CardHeader className="pb-2">
-                                <CardTitle className="text-base text-emerald-400 flex items-center gap-2">
+                                <CardTitle className="text-base text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
                                     <CheckCircle2 className="w-4 h-4" /> What you did well
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-2">
                                     {report.feedback.strengths.slice(0, 3).map((item, i) => (
-                                        <li key={i} className="flex gap-3 text-sm text-emerald-100/80">
+                                        <li key={i} className="flex gap-3 text-sm text-emerald-800/90 dark:text-emerald-100/80">
                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
                                             {item}
                                         </li>
@@ -359,14 +357,14 @@ const DebateReport = () => {
                         {/* Weaknesses */}
                         <Card className="bg-red-500/5 border-red-500/20 backdrop-blur-sm">
                             <CardHeader className="pb-2">
-                                <CardTitle className="text-base text-red-400 flex items-center gap-2">
+                                <CardTitle className="text-base text-red-700 dark:text-red-400 flex items-center gap-2">
                                     <AlertCircle className="w-4 h-4" /> Areas to improve
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-2">
                                     {report.feedback.weaknesses.slice(0, 3).map((item, i) => (
-                                        <li key={i} className="flex gap-3 text-sm text-red-100/80">
+                                        <li key={i} className="flex gap-3 text-sm text-red-800/90 dark:text-red-100/80">
                                             <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
                                             {item}
                                         </li>
@@ -378,14 +376,14 @@ const DebateReport = () => {
                         {/* Suggestions */}
                         <Card className="bg-blue-500/5 border-blue-500/20 backdrop-blur-sm">
                             <CardHeader className="pb-2">
-                                <CardTitle className="text-base text-blue-400 flex items-center gap-2">
+                                <CardTitle className="text-base text-blue-700 dark:text-blue-400 flex items-center gap-2">
                                     <Lightbulb className="w-4 h-4" /> Pro Tips
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-2">
                                     {report.feedback.suggestions.slice(0, 3).map((item, i) => (
-                                        <li key={i} className="flex gap-3 text-sm text-blue-100/80">
+                                        <li key={i} className="flex gap-3 text-sm text-blue-800/90 dark:text-blue-100/80">
                                             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                                             {item}
                                         </li>

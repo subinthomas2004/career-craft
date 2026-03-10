@@ -1,27 +1,19 @@
-export interface Community {
-    id: string;
-    name: string;
-    icon: string;
-    members: number;
-    description: string;
+export interface ForumComment {
+    _id: string;
+    postId: string;
+    authorId: string;
+    authorName: string;
+    content: string;
+    createdAt: string;
 }
 
 export interface ForumPost {
-    id: string;
+    _id: string;
     title: string;
-    author: {
-        name: string;
-        avatar?: string;
-    };
-    community: Community;
     content: string;
-    likes: number; // This will act as upvotes - downvotes
-    upvotes: number;
-    downvotes: number;
-    replies: number;
-    views: number;
+    authorId: string;
+    authorName: string;
+    likes: string[]; // Array of User IDs
+    commentCount?: number;
     createdAt: string;
-    isPinned?: boolean;
-    tags: string[];
-    image?: string;
 }

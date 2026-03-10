@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { TypingMode, Difficulty, getRandomText } from './data';
+import { TypingMode, Difficulty, Duration, getRandomText } from './data';
 
 export interface TypingState {
     status: 'idle' | 'running' | 'paused' | 'finished';
@@ -20,6 +20,7 @@ export interface TypingConfig {
     duration: number; // in seconds
     mode: TypingMode;
     difficulty: Difficulty;
+    overrideText?: string; // For ranked mode — use this text instead of random
 }
 
 export const useTypingEngine = (config: TypingConfig) => {
@@ -43,11 +44,11 @@ export const useTypingEngine = (config: TypingConfig) => {
     // Initialize text when config changes
     useEffect(() => {
         resetTest();
-    }, [config.mode, config.difficulty, config.duration]);
+    }, [config.mode, config.difficulty, config.duration, config.overrideText]);
 
     const resetTest = useCallback(() => {
         if (timerRef.current) clearInterval(timerRef.current);
-        const newText = getRandomText(config.mode, config.difficulty);
+        const newText = config.overrideText || getRandomText(config.mode, config.difficulty, config.duration as Duration);
         setState({
             status: 'idle',
             text: newText,
@@ -133,16 +134,25 @@ export const useTypingEngine = (config: TypingConfig) => {
 
                 const newTyped = prev.typed.slice(0, -1);
 
+                // Recalculate accuracy based on current snapshot (backspace-friendly)
+                let correctCount = 0;
+                for (let i = 0; i < newTyped.length; i++) {
+                    if (newTyped[i] === prev.text[i]) correctCount++;
+                }
+                const newAccuracy = newTyped.length > 0
+                    ? Math.max(0, Math.round((correctCount / newTyped.length) * 100))
+                    : 100;
+
+                // Count current errors (snapshot, not cumulative)
+                const currentErrors = newTyped.length - correctCount;
+
                 return {
                     ...prev,
                     status: nextStatus,
                     typed: newTyped,
                     cursorPosition: newTyped.length,
-                    // note: we don't decrement errors here to be strict? 
-                    // usually backspace fixes the error visually but the "error count" stat might remain
-                    // or we can re-calc errors. Let's keep cumulative error count (did mistake once)
-                    // but we might want "current uncorrected errors" vs "total errors made".
-                    // 'errors' field currently logic is cumulative.
+                    errors: currentErrors,
+                    accuracy: newAccuracy,
                 };
             }
 
@@ -155,23 +165,21 @@ export const useTypingEngine = (config: TypingConfig) => {
                 const expectedChar = prev.text[index];
                 const isCorrect = key === expectedChar;
 
-                const newErrors = isCorrect ? prev.errors : prev.errors + 1;
-
                 // Track missed keys
                 const newMissedKeys = { ...prev.missedKeys };
                 if (!isCorrect) {
-                    // Track the key that SHOULD have been typed
                     const charShouldBe = expectedChar;
                     newMissedKeys[charShouldBe] = (newMissedKeys[charShouldBe] || 0) + 1;
                 }
 
-                // Calculate Accuracy
-                const totalTyped = newTyped.length;
-                // Accuracy = (Total Typed - Total Errors) / Total Typed?
-                // Or (Total Correct Keystrokes) / Total Keystrokes
-                const correctTyped = totalTyped - newErrors; // rough approx
-                const newAccuracy = totalTyped > 0
-                    ? Math.max(0, Math.round(((totalTyped - newErrors) / totalTyped) * 100))
+                // Calculate accuracy as snapshot (correct chars in current typed string)
+                let correctCount = 0;
+                for (let i = 0; i < newTyped.length; i++) {
+                    if (newTyped[i] === prev.text[i]) correctCount++;
+                }
+                const currentErrors = newTyped.length - correctCount;
+                const newAccuracy = newTyped.length > 0
+                    ? Math.max(0, Math.round((correctCount / newTyped.length) * 100))
                     : 100;
 
                 // Check completion
@@ -183,7 +191,7 @@ export const useTypingEngine = (config: TypingConfig) => {
                         status: 'finished',
                         typed: newTyped,
                         cursorPosition: newTyped.length,
-                        errors: newErrors,
+                        errors: currentErrors,
                         accuracy: newAccuracy,
                         missedKeys: newMissedKeys
                     };
@@ -194,7 +202,7 @@ export const useTypingEngine = (config: TypingConfig) => {
                     status: nextStatus,
                     typed: newTyped,
                     cursorPosition: newTyped.length,
-                    errors: newErrors,
+                    errors: currentErrors,
                     accuracy: newAccuracy,
                     totalChars: prev.totalChars + 1,
                     missedKeys: newMissedKeys

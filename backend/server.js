@@ -34,7 +34,8 @@ app.use(cors({
 // Handle preflight requests for all routes
 app.options('*', cors());
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Database Connection (serverless-optimized with connection caching)
 const promptForDB = 'mongodb://localhost:27017/careercraft';
@@ -84,6 +85,9 @@ import groqRoutes from './routes/groqRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import companyRoutes from './routes/companyRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
+import typingRoutes from './routes/typingRoutes.js';
+import softSkillsRoutes from './routes/softSkillsRoutes.js';
+import forumRoutes from './routes/forumRoutes.js';
 
 app.get('/', (req, res) => {
     res.send('Career Craft API is running');
@@ -99,6 +103,9 @@ app.use('/api/groq', groqRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/jobs', jobRoutes);
+app.use('/api/typing', typingRoutes);
+app.use('/api/soft-skills', softSkillsRoutes);
+app.use('/api/forum', forumRoutes);
 
 // Global error handler (must be after routes)
 app.use((err, req, res, next) => {

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { codingProblems, getCategories } from "@/data/codingProblems";
+import { codingProblems } from "@/data/codingProblems";
 import {
     Search,
     Filter,
@@ -35,7 +35,16 @@ const CodingProblemsListPage = () => {
     const [sortBy, setSortBy] = useState<"id" | "difficulty" | "acceptance">("id");
 
     const lang = langMeta[language || ""] || langMeta.javascript;
-    const categories = getCategories();
+
+    const baseProblems = useMemo(() => {
+        return language
+            ? codingProblems.filter(p => !p.supportedLanguages || p.supportedLanguages.includes(language as any))
+            : codingProblems;
+    }, [language]);
+
+    const categories = useMemo(() => {
+        return Array.from(new Set(baseProblems.map(p => p.category)));
+    }, [baseProblems]);
 
     const [solvedProblems] = useState<Set<number>>(() => {
         const saved = localStorage.getItem("solvedProblems");
@@ -43,14 +52,7 @@ const CodingProblemsListPage = () => {
     });
 
     const filteredProblems = useMemo(() => {
-        let problems = [...codingProblems];
-
-        // Filter by language
-        if (language) {
-            problems = problems.filter(p =>
-                !p.supportedLanguages || p.supportedLanguages.includes(language as any)
-            );
-        }
+        let problems = [...baseProblems];
 
         if (searchQuery) {
             const q = searchQuery.toLowerCase();
@@ -80,13 +82,10 @@ const CodingProblemsListPage = () => {
         }
 
         return problems;
-    }, [searchQuery, selectedDifficulty, selectedCategory, sortBy]);
+    }, [baseProblems, searchQuery, selectedDifficulty, selectedCategory, sortBy]);
 
     const stats = useMemo(() => {
-        // Filter by language first
-        const problemSet = language
-            ? codingProblems.filter(p => !p.supportedLanguages || p.supportedLanguages.includes(language as any))
-            : codingProblems;
+        const problemSet = baseProblems;
 
         const total = problemSet.length;
         const easy = problemSet.filter((p) => p.difficulty === "Easy").length;
@@ -96,7 +95,7 @@ const CodingProblemsListPage = () => {
         const mediumSolved = problemSet.filter((p) => p.difficulty === "Medium" && solvedProblems.has(p.id)).length;
         const hardSolved = problemSet.filter((p) => p.difficulty === "Hard" && solvedProblems.has(p.id)).length;
         return { total, easy, medium, hard, easySolved, mediumSolved, hardSolved };
-    }, [solvedProblems, language]);
+    }, [solvedProblems, baseProblems]);
 
     const toggleDifficulty = (diff: string) => {
         setSelectedDifficulty((prev) =>
@@ -239,7 +238,7 @@ const CodingProblemsListPage = () => {
                                     >
                                         {cat}
                                         <span className="text-muted-foreground/50 ml-1 text-xs">
-                                            ({codingProblems.filter(p => p.category === cat).length})
+                                            ({baseProblems.filter(p => p.category === cat).length})
                                         </span>
                                     </button>
                                 ))}

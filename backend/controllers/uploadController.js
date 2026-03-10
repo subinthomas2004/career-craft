@@ -43,7 +43,31 @@ export const parseResume = async (req, res) => {
                 messages: [
                     {
                         role: "system",
-                        content: "You are a resume parser. Extract the following fields from the resume text and return ONLY valid JSON. Fields: full_name (string), skills (array of strings), experience (array of objects with role, company, duration, summary), education (array of objects with degree, school, year). If not found, use empty strings/arrays. Do NOT add markdown blocks."
+                        content: `You are an expert resume parser. Extract the resume text and return ONLY valid JSON exactly matching this structure:
+{
+  "full_name": "string",
+  "email": "string",
+  "phone": "string",
+  "location": "string",
+  "summary": "string - professional summary",
+  "skills": ["string", "string"],
+  "experience": [
+    {
+      "role": "string",
+      "company": "string",
+      "duration": "string",
+      "summary": ["string", "string"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "string",
+      "school": "string",
+      "year": "string"
+    }
+  ]
+}
+If a field is not found, leave it as an empty string or empty array. Do NOT wrap in markdown block.`
                     },
                     {
                         role: "user",

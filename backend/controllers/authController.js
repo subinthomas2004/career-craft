@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import sendEmail from '../utils/sendEmail.js';
-import { getOtpEmailTemplate } from '../utils/emailTemplates.js';
+import { getOtpEmailTemplate, getWelcomeEmailTemplate } from '../utils/emailTemplates.js';
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -61,7 +61,7 @@ export const registerUser = async (req, res) => {
         }
 
         // Send OTP Email
-        const message = getOtpEmailTemplate(otp); // Customize template title if needed
+        const message = getOtpEmailTemplate(otp, 'verification'); // Use verification template
         try {
             await sendEmail({
                 email: email,
@@ -107,6 +107,21 @@ export const verifyOtp = async (req, res) => {
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
         await user.save();
+
+        // Send Welcome Email
+        const welcomeMessage = getWelcomeEmailTemplate(user.name);
+        try {
+            await sendEmail({
+                email: user.email,
+                subject: 'Welcome to CareerCraft! 🚀',
+                message: welcomeMessage,
+                isHtml: true
+            });
+            console.log(`Welcome email sent to ${user.email}`);
+        } catch (emailErr) {
+            console.error('Could not send welcome email:', emailErr);
+            // Non-blocking error: we still log the user in
+        }
 
         res.status(201).json({
             _id: user._id,
@@ -325,6 +340,13 @@ export const getMe = async (req, res) => {
                     averageScore: 0,
                     resumeScore: 0
                 },
+                location: user.location,
+                targetRole: user.targetRole,
+                education: user.education,
+                college: user.college,
+                graduationYear: user.graduationYear,
+                bio: user.bio,
+                skills: user.skills,
                 recentActivities: user.recentActivities || [],
                 role: user.role
             });
@@ -354,6 +376,13 @@ export const updateProfile = async (req, res) => {
             if (req.body.profilePicture) {
                 user.profilePicture = req.body.profilePicture;
             }
+            if (req.body.location !== undefined) user.location = req.body.location;
+            if (req.body.targetRole !== undefined) user.targetRole = req.body.targetRole;
+            if (req.body.education !== undefined) user.education = req.body.education;
+            if (req.body.college !== undefined) user.college = req.body.college;
+            if (req.body.graduationYear !== undefined) user.graduationYear = req.body.graduationYear;
+            if (req.body.bio !== undefined) user.bio = req.body.bio;
+            if (req.body.skills !== undefined) user.skills = req.body.skills;
 
             const updatedUser = await user.save();
 
@@ -363,6 +392,13 @@ export const updateProfile = async (req, res) => {
                 email: updatedUser.email,
                 role: updatedUser.role,
                 profilePicture: updatedUser.profilePicture,
+                location: updatedUser.location,
+                targetRole: updatedUser.targetRole,
+                education: updatedUser.education,
+                college: updatedUser.college,
+                graduationYear: updatedUser.graduationYear,
+                bio: updatedUser.bio,
+                skills: updatedUser.skills,
                 stats: updatedUser.stats,
                 token: generateToken(updatedUser._id)
             });

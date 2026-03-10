@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { ArrowLeft, Mail, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -54,27 +54,29 @@ const OTPVerification = ({ email, onVerify, onBack, isLoading }: OTPVerification
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in w-full text-white">
       {/* Back button */}
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        className="flex items-center gap-2 text-white/60 hover:text-white transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span className="text-sm">Back</span>
       </button>
 
       {/* Icon */}
-      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
-        <Mail className="w-8 h-8 text-primary" />
+      <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto border border-white/10 shadow-glow">
+        <Mail className="w-8 h-8 text-blue-400" />
       </div>
 
-      {/* Header */}
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-bold text-foreground">Verify your email</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-2xl font-bold text-white">Verify your email</h2>
+        <p className="text-white/70">
           We've sent a 6-digit code to{" "}
-          <span className="text-foreground font-medium">{email}</span>
+          <span className="text-white font-medium">{email}</span>
+        </p>
+        <p className="text-yellow-400/90 text-xs font-medium mt-1">
+          Please check your spam or junk folder if you don't see the email in your inbox.
         </p>
       </div>
 
@@ -86,16 +88,14 @@ const OTPVerification = ({ email, onVerify, onBack, isLoading }: OTPVerification
           maxLength={6}
           className="gap-2"
         >
-          <InputOTPGroup>
-            <InputOTPSlot index={0} className="w-12 h-14 text-lg border-border bg-background/50" />
-            <InputOTPSlot index={1} className="w-12 h-14 text-lg border-border bg-background/50" />
-            <InputOTPSlot index={2} className="w-12 h-14 text-lg border-border bg-background/50" />
-          </InputOTPGroup>
-          <InputOTPSeparator />
-          <InputOTPGroup>
-            <InputOTPSlot index={3} className="w-12 h-14 text-lg border-border bg-background/50" />
-            <InputOTPSlot index={4} className="w-12 h-14 text-lg border-border bg-background/50" />
-            <InputOTPSlot index={5} className="w-12 h-14 text-lg border-border bg-background/50" />
+          <InputOTPGroup className="gap-2">
+            {[0, 1, 2, 3, 4, 5].map((index) => (
+              <InputOTPSlot
+                key={index}
+                index={index}
+                className="w-12 h-14 text-lg border border-white/20 bg-white/5 text-white rounded-md"
+              />
+            ))}
           </InputOTPGroup>
         </InputOTP>
       </div>
@@ -103,11 +103,11 @@ const OTPVerification = ({ email, onVerify, onBack, isLoading }: OTPVerification
       {/* Verify Button */}
       <Button
         onClick={handleSubmit}
-        className="w-full h-12 text-base font-medium"
+        className="w-full h-12 text-base font-medium bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white border-0 rounded-xl shadow-lg hover:shadow-primary/25 transition-all"
         disabled={otp.length !== 6 || isLoading}
       >
         {isLoading ? (
-          <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
         ) : (
           "Verify Email"
         )}
@@ -115,15 +115,15 @@ const OTPVerification = ({ email, onVerify, onBack, isLoading }: OTPVerification
 
       {/* Resend */}
       <div className="text-center">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-white/60">
           Didn't receive the code?{" "}
           {countdown > 0 ? (
-            <span className="text-foreground">Resend in {countdown}s</span>
+            <span className="text-white">Resend in {countdown}s</span>
           ) : (
             <button
               onClick={handleResend}
               disabled={resendLoading}
-              className="text-primary font-medium hover:underline inline-flex items-center gap-1"
+              className="text-blue-400 font-medium hover:underline inline-flex items-center gap-1"
             >
               {resendLoading && <RefreshCw className="w-3 h-3 animate-spin" />}
               Resend code
