@@ -1,27 +1,31 @@
-import nodemailer from 'nodemailer';
+import * as brevo from '@getbrevo/brevo';
+
+const apiInstance = new brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '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');
 
 const sendEmail = async (options) => {
-    // Create reusable transporter object using the default SMTP transport
-    const transporter = nodemailer.createTransport({
-        service: process.env.EMAIL_SERVICE, // e.g., 'gmail'
-        auth: {
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD,
-        },
-    });
+    try {
+        const sendSmtpEmail = new brevo.SendSmtpEmail();
+        
+        sendSmtpEmail.subject = options.subject;
+        sendSmtpEmail.to = [{ email: options.email }];
+        sendSmtpEmail.sender = { 
+            name: process.env.FROM_NAME || 'CareerCraft', 
+            email: process.env.FROM_EMAIL || 'careercraft@example.com' 
+        };
 
-    // Send mail with defined transport object
-    const message = {
-        from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
-        to: options.email,
-        subject: options.subject,
-        text: options.message,
-        html: options.isHtml ? options.message : undefined,
-    };
+        if (options.isHtml) {
+            sendSmtpEmail.htmlContent = options.message;
+        } else {
+            sendSmtpEmail.textContent = options.message;
+        }
 
-    const info = await transporter.sendMail(message);
-
-    console.log('Message sent: %s', info.messageId);
+        const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
+        console.log('Brevo Email API called successfully. Message ID: %s', JSON.stringify(data));
+    } catch (error) {
+        console.error('Brevo API Error:', error);
+        throw error;
+    }
 };
 
 export default sendEmail;
