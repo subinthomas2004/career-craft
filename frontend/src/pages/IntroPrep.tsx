@@ -334,14 +334,21 @@ const IntroPrep = () => {
                                                         formData.append("resume", file);
 
                                                         try {
-                                                            const { data } = await api.post("/upload/resume", formData);
+                                                            const { data } = await api.post("/upload/resume", formData, {
+                                                                headers: {
+                                                                    "Content-Type": "multipart/form-data",
+                                                                },
+                                                                timeout: 60000,
+                                                            });
                                                             if (data.success) {
                                                                 setResumeText(data.text);
                                                                 setParsedResumeData(data.data);
                                                                 toast.success("Resume parsed successfully!");
                                                             }
                                                         } catch (error: any) {
-                                                            toast.error("Failed to upload resume.");
+                                                            console.error("Upload error:", error);
+                                                            const errorMessage = error.response?.data?.error || error.message || "Failed to upload resume.";
+                                                            toast.error(errorMessage);
                                                         } finally {
                                                             setIsUploading(false);
                                                         }
