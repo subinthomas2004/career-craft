@@ -299,17 +299,56 @@ const IntroPrep = () => {
                                 <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-border rounded-xl bg-background hover:bg-muted/30 transition-all shadow-sm">
                                     <div className="text-center w-full max-w-sm">
                                         {resumeText ? (
-                                            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col items-center gap-4">
-                                                <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center shadow-inner">
-                                                    <CheckCircle2 className="w-8 h-8 text-green-500" />
+                                            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex flex-col gap-4 w-full">
+                                                <div className="flex items-center justify-between border-b pb-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <CheckCircle2 className="w-5 h-5 text-green-500" />
+                                                        <span className="font-semibold text-foreground">Resume Ready</span>
+                                                    </div>
+                                                    <Button variant="ghost" size="sm" onClick={() => { setResumeText(""); setParsedResumeData(null); }} className="text-destructive hover:text-destructive text-xs h-7">
+                                                        Remove
+                                                    </Button>
                                                 </div>
-                                                <div>
-                                                    <p className="font-bold text-lg text-foreground">Resume Ready</p>
-                                                    <p className="text-sm text-muted-foreground">{parsedResumeData?.full_name || "Candidate"}'s File</p>
-                                                </div>
-                                                <Button variant="outline" size="sm" onClick={() => { setResumeText(""); setParsedResumeData(null); }} className="mt-2 rounded-full px-6">
-                                                    Change File
-                                                </Button>
+                                                
+                                                {parsedResumeData && (
+                                                    <div className="text-left space-y-3 bg-muted/30 p-4 rounded-xl border border-border/50 text-sm">
+                                                        {parsedResumeData.full_name && (
+                                                            <p><span className="text-muted-foreground mr-2 font-medium">Name:</span> 
+                                                            <span className="font-semibold">{parsedResumeData.full_name}</span></p>
+                                                        )}
+
+                                                        {parsedResumeData.skills && parsedResumeData.skills.length > 0 && (
+                                                            <div>
+                                                                <span className="text-muted-foreground block mb-1.5 font-medium">Top Skills:</span>
+                                                                <div className="flex flex-wrap gap-1.5">
+                                                                    {parsedResumeData.skills.map((skill: string, i: number) => (
+                                                                        <span key={i} className="bg-primary/10 text-primary border border-primary/20 text-xs px-2 py-0.5 rounded-full font-medium">
+                                                                            {skill}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        )}
+
+                                                        {parsedResumeData.experience && parsedResumeData.experience.length > 0 && (
+                                                            <div>
+                                                                <span className="text-muted-foreground block mb-1 font-medium">Latest Experience:</span>
+                                                                <ul className="list-disc list-inside text-foreground ml-1">
+                                                                    {parsedResumeData.experience.slice(0, 2).map((exp: any, i: number) => (
+                                                                        <li key={i} className="truncate">{exp.role} at {exp.company}</li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+                                                
+                                                {!parsedResumeData && (
+                                                    <div className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-lg flex items-center gap-2">
+                                                        <FileText className="w-4 h-4" />
+                                                        Resume parsed successfully ({resumeText.length} chars)
+                                                    </div>
+                                                )}
                                             </motion.div>
                                         ) : (
                                             <div className="flex flex-col items-center gap-4">
