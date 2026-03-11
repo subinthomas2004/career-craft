@@ -27,12 +27,9 @@ export const parseResume = async (req, res) => {
     }
 
     try {
-        console.log("Processing file:", req.file.path);
-        const dataBuffer = fs.readFileSync(req.file.path);
+        console.log("Processing file from in-memory buffer");
+        const dataBuffer = req.file.buffer;
         const data = await pdf(dataBuffer);
-
-        // Clean up file immediately
-        fs.unlinkSync(req.file.path);
 
         const rawText = data.text;
 
@@ -91,10 +88,6 @@ If a field is not found, leave it as an empty string or empty array. Do NOT wrap
 
     } catch (error) {
         console.error("PDF Parsing Error:", error);
-        // Ensure cleanup if fail
-        if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }
         res.status(500).json({ success: false, error: "Failed to process PDF: " + error.message });
     }
 };

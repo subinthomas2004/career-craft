@@ -2,11 +2,10 @@ import express from 'express';
 import multer from 'multer';
 import { parseResume } from '../controllers/uploadController.js';
 
-import path from 'path';
-
 const router = express.Router();
-const uploadDir = process.env.VERCEL ? '/tmp/uploads' : path.join(process.cwd(), 'uploads/');
-const upload = multer({ dest: uploadDir });
+
+// Fix: Use memory storage instead of disk to prevent ENOENT errors on serverless environments
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/resume', upload.single('resume'), parseResume);
 
