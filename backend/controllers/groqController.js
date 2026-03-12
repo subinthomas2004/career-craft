@@ -1,15 +1,33 @@
-import Groq from "groq-sdk";
+import axios from "axios";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+// Use axios instead of groq-sdk to avoid APIConnectionError on Render
+// The groq-sdk uses native fetch internally which fails on Render's infrastructure
+const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+
+const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", temperature = 0.7, max_tokens, response_format }) => {
+    const body = { messages, model, temperature };
+    if (max_tokens) body.max_tokens = max_tokens;
+    if (response_format) body.response_format = response_format;
+
+    const response = await axios.post(GROQ_API_URL, body, {
+        headers: {
+            "Authorization": `Bearer ${GROQ_API_KEY}`,
+            "Content-Type": "application/json"
+        },
+        timeout: 30000
+    });
+    return response.data;
+};
 
 export const testGroqConnection = async (req, res) => {
     const { message } = req.body;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 {
                     role: "user",
@@ -17,52 +35,18 @@ export const testGroqConnection = async (req, res) => {
                 },
             ],
             model: "llama-3.3-70b-versatile",
-        }).asResponse();
-
-        const headers = completion.headers;
-        const body = await completion.json();
-
-        // Helper to safely get header value
-        const getHeader = (name) => {
-            let val;
-            if (headers && typeof headers.get === 'function') {
-                val = headers.get(name);
-            } else {
-                val = headers ? headers[name] : null;
-            }
-            // Handle array response from some SDKs/Networks
-            return Array.isArray(val) ? val[0] : val;
-        };
+        });
 
         res.json({
             success: true,
-            reply: body.choices[0]?.message?.content || "No response content",
-            usage: body.usage,
-            limits: {
-                remainingRequests: getHeader('x-ratelimit-remaining-requests'),
-                remainingTokens: getHeader('x-ratelimit-remaining-tokens'),
-                resetRequests: getHeader('x-ratelimit-reset-requests'),
-                resetTokens: getHeader('x-ratelimit-reset-tokens'),
-                limitRequests: getHeader('x-ratelimit-limit-requests'),
-                limitTokens: getHeader('x-ratelimit-limit-tokens'),
-            }
+            reply: completion.choices[0]?.message?.content || "No response content",
+            usage: completion.usage,
         });
     } catch (error) {
-        console.error("Groq API Error:", error);
-        console.error("Error name:", error.name);
-        console.error("Error type:", error.constructor?.name);
-        console.error("Error cause:", error.cause);
-        console.error("Node version:", process.version);
-        console.error("GROQ_API_KEY set:", !!process.env.GROQ_API_KEY);
-        console.error("GROQ_API_KEY length:", process.env.GROQ_API_KEY?.length || 0);
+        console.error("Groq API Error:", error.response?.data || error.message);
         res.status(500).json({
             success: false,
-            error: error.message,
-            errorType: error.constructor?.name,
-            errorCause: error.cause?.message || null,
-            nodeVersion: process.version,
-            apiKeySet: !!process.env.GROQ_API_KEY,
-            apiKeyLength: process.env.GROQ_API_KEY?.length || 0,
+            error: error.response?.data?.error?.message || error.message,
             details: "Failed to connect to Groq API"
         });
     }
@@ -307,7 +291,7 @@ ${sharedGuidelines}`;
     ];
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: messages,
             model: "llama-3.3-70b-versatile",
             temperature: 0.7,
@@ -386,7 +370,7 @@ Output your spoken feedback directly. Do NOT use JSON format.`;
     ];
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: messages,
             model: "llama-3.3-70b-versatile",
             temperature: 0.6,
@@ -446,7 +430,7 @@ export const generateReport = async (req, res) => {
     ];
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: messages,
             model: "llama-3.3-70b-versatile",
             temperature: 0.5,
@@ -495,7 +479,7 @@ export const generateDebateResponse = async (req, res) => {
     ];
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: messages,
             model: "llama-3.3-70b-versatile",
             temperature: 0.7,
@@ -530,7 +514,7 @@ export const generateGroupDiscussionTopic = async (req, res) => {
     }
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: "Generate one topic." }
@@ -574,7 +558,7 @@ export const generateGDResponse = async (req, res) => {
     Output ONLY your spoken response.`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: "It is your turn to speak." }
@@ -636,7 +620,7 @@ export const analyzeSpeech = async (req, res) => {
     }`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: transcript }
@@ -663,7 +647,7 @@ export const evaluateDebate = async (req, res) => {
     You MUST output ONLY a valid JSON object matching the requested schema. Do not output markdown code blocks.`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: message }
@@ -695,7 +679,7 @@ export const generateResumeBullet = async (req, res) => {
     4. Provide strictly the text of the new bullet point. Do not add quotes, introductory text, or markdown.`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `Role: ${role || 'Not specified'}\nCompany: ${company || 'Not specified'}\nRaw description: ${description}` }
@@ -745,7 +729,7 @@ export const analyzeResumeATS = async (req, res) => {
     Make sure to give 4 to 7 feedback items total.`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `Resume Text:\n${resumeText || "No text provided"}\n\nJob Description Context:\n${jobDescription || "Not provided, judge against general software engineering standards"}` }
@@ -814,7 +798,7 @@ export const analyzeSkillGap = async (req, res) => {
     6. "summary": Personalized, encouraging but honest assessment.`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `My skills: ${userSkills.join(", ")}. I want to become a ${targetRole}.` }
@@ -870,7 +854,7 @@ export const generateSoftSkillsTips = async (req, res) => {
     6. Be encouraging but specific.`;
 
     try {
-        const completion = await groq.chat.completions.create({
+        const completion = await groqChat({
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: "Generate my personalized improvement tips." }
