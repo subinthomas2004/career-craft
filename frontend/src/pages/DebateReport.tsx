@@ -80,20 +80,45 @@ const DebateReport = () => {
             const fullConversation = transcript.map((t: any) => `${t.speaker}: ${t.text}`).join('\n');
 
             const prompt = `
-            Analyze the following debate transcript.
+            You are an Expert Debate Coach and Speech Evaluator. Analyze the following debate transcript with EXTREME precision and accuracy.
+            
             Topic: "${topic}"
             User Stance: ${stance}
             
-            Transcript:
+            FULL TRANSCRIPT:
             ${fullConversation}
             
-            Evaluate the "User" performance based on:
-            1. Speech Clarity
-            2. Confidence
-            3. Logical Reasoning
-            4. Relevance to Topic
-            5. Persuasiveness
-            6. Filler words usage (estimate count based on text like 'um', 'uh', 'like')
+            YOUR TASK: Evaluate ONLY the "User" speaker's performance. The "AI" speaker is the opponent — ignore their quality.
+
+            SCORING CRITERIA (be HONEST and CRITICAL — do NOT inflate scores):
+
+            1. **Speech Clarity** (0-100): How clearly did the user articulate their points? Were their sentences well-structured and easy to understand? Did they use proper grammar and vocabulary? Deduct points for rambling, incomplete sentences, or unclear phrasing.
+
+            2. **Confidence** (0-100): Did the user sound confident and assertive? Did they make definitive claims or were they wishy-washy? Did they use hedge words excessively ("maybe", "I think", "kind of")? Did they hold their ground against the AI's counter-arguments?
+
+            3. **Logical Reasoning** (0-100): Did the user provide logical, well-structured arguments? Did they use evidence, examples, or analogies effectively? Were there logical fallacies in their reasoning? Did they address the AI's counter-points or ignore them?
+
+            4. **Relevance to Topic** (0-100): Did the user stay on topic throughout? Did their arguments directly relate to the motion being debated? Did they go off on tangents? 
+
+            5. **Persuasiveness** (0-100): Overall, how persuasive was the user? Would an impartial judge be convinced by their arguments? Did they have strong opening and closing statements? Did they adapt their strategy during the debate?
+
+            6. **Filler Words**: Carefully scan ONLY the User's lines in the transcript. Count EVERY occurrence of these filler words/phrases: "um", "uh", "like" (when used as filler, not comparison), "you know", "basically", "actually", "literally", "I mean", "sort of", "kind of", "right", "so yeah". Return the EXACT total count. If none are found, return 0.
+
+            OVERALL SCORE CALCULATION:
+            - The overallScore should be a WEIGHTED assessment: Reasoning (30%), Persuasiveness (25%), Clarity (20%), Confidence (15%), Relevance (10%).
+            - CONTENT QUALITY IS KING: A user who speaks a lot but says nothing meaningful (rambling, repeating the same point, saying "blah blah" filler content) should score LOW. Only substantive, well-argued content gets high marks.
+            - Conversely, a user who speaks briefly but makes sharp, powerful arguments can score HIGH. Length alone does NOT matter.
+            - A score of 80+ = excellent debater who made compelling, well-reasoned arguments
+            - A score of 60-79 = decent but with clear room for improvement
+            - A score of 40-59 = needs significant work on argumentation
+            - A score below 40 = struggled to make coherent arguments
+            - If the user barely spoke or gave very short responses with no substance, score should be LOW (20-40)
+            - If the user contradicted themselves, the score should reflect that negatively
+
+            FEEDBACK RULES:
+            - Strengths: cite SPECIFIC quotes from the user's actual speech that were effective
+            - Weaknesses: cite SPECIFIC examples of where the user was weak, with quotes
+            - Suggestions: give ACTIONABLE, specific tips (not generic advice)
 
             Return ONLY a valid JSON object with this exact structure:
             {
@@ -106,9 +131,9 @@ const DebateReport = () => {
                     "persuasiveness": number (0-100)
                 },
                 "feedback": {
-                    "strengths": ["string", "string"],
-                    "weaknesses": ["string", "string"],
-                    "suggestions": ["string", "string"]
+                    "strengths": ["string", "string", "string"],
+                    "weaknesses": ["string", "string", "string"],
+                    "suggestions": ["string", "string", "string"]
                 },
                 "fillerWordsCount": number
             }
@@ -128,18 +153,53 @@ const DebateReport = () => {
             setReport(data);
 
             // Save to MongoDB for Performance Analytics (non-blocking)
-            if (auth.currentUser) {
-                const token = localStorage.getItem('token');
-                if (token) {
-                    console.log("Saving report to MongoDB...");
-                    api.post('/soft-skills/debate', {
-                        topic: topic,
-                        overallScore: data.overallScore
-                    }, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    }).then(() => console.log("Saved to MongoDB successfully"))
-                      .catch((saveErr) => console.error("Failed to save report to MongoDB:", saveErr));
+            try {
+                let userInfoStr = localStorage.getItem('userInfo');
+                
+                // FALLBACK: If user is logged in via Firebase but has no backend token
+                if (!userInfoStr && auth.currentUser) {
+                    console.log("[DEBUG] No userInfo found, but user is logged into Firebase. Attempting silent auth sync...");
+                    const user = auth.currentUser;
+                    try {
+                        const authSyncRes = await api.post('/auth/google', {
+                            name: user.displayName || "Debater",
+                            email: user.email,
+                            googleId: user.uid,
+                            picture: user.photoURL || ""
+                        });
+                        if (authSyncRes.data && authSyncRes.data.token) {
+                            localStorage.setItem('userInfo', JSON.stringify(authSyncRes.data));
+                            userInfoStr = JSON.stringify(authSyncRes.data);
+                            console.log("[DEBUG] Silent auth sync successful.");
+                        }
+                    } catch (syncErr) {
+                        console.error("[DEBUG] Failed silent auth sync:", syncErr);
+                    }
                 }
+
+                console.log("[DEBUG] userInfo from localStorage:", userInfoStr ? "EXISTS" : "NULL");
+                if (userInfoStr) {
+                    const userInfoParsed = JSON.parse(userInfoStr);
+                    const token = userInfoParsed.token;
+                    console.log("[DEBUG] Token extracted:", token ? "YES (length: " + token.length + ")" : "NULL/UNDEFINED");
+                    console.log("[DEBUG] Topic:", topic);
+                    console.log("[DEBUG] overallScore:", data.overallScore, "type:", typeof data.overallScore);
+                    if (token) {
+                        const saveRes = await api.post('/soft-skills/debate', {
+                            topic: topic,
+                            overallScore: Number(data.overallScore)
+                        }, {
+                            headers: { Authorization: `Bearer ${token}` }
+                        });
+                        console.log("[DEBUG] Save response:", saveRes.data);
+                    } else {
+                        console.error("[DEBUG] No token found in userInfo object. Keys:", Object.keys(userInfoParsed));
+                    }
+                } else {
+                    console.error("[DEBUG] userInfo not found in localStorage and Firebase fallback failed.");
+                }
+            } catch (saveErr: any) {
+                console.error("[DEBUG] Failed to save report to MongoDB:", saveErr?.response?.data || saveErr.message);
             }
         } catch (err) {
             console.error("Report generation failed:", err);
@@ -175,11 +235,11 @@ const DebateReport = () => {
     const radarOptions = {
         scales: {
             r: {
-                angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                grid: { color: 'rgba(0, 0, 0, 0.1)' },
                 pointLabels: {
-                    color: 'rgba(255, 255, 255, 0.7)',
-                    font: { size: 12 }
+                    color: 'rgba(15, 23, 42, 0.8)', // slate-900 with opacity for light mode
+                    font: { size: 12, weight: 'bold' as const }
                 },
                 ticks: { display: false, backdropColor: 'transparent' },
                 suggestedMin: 0,

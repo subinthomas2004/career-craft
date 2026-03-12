@@ -1,15 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Mic, Send, MicOff, ArrowLeft, StopCircle, Trophy, History, PanelRightClose, PanelRightOpen, ChevronRight, User, Bot, Video, VideoOff } from 'lucide-react';
+import { Mic, MicOff, ArrowLeft, PhoneOff, History, PanelRightClose, PanelRightOpen, ChevronRight, User, Video, VideoOff, Clock } from 'lucide-react';
 import { api } from '@/lib/api';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HourglassTimer } from '@/components/debate/HourglassTimer';
 
 interface TranscriptItem {
     speaker: 'User' | 'AI';
@@ -23,11 +21,14 @@ const DebateRoom = () => {
     const { topic, stance, timeLimit = 5 } = location.state || {}; // timeLimit in minutes, default to 5
 
     const [transcript, setTranscript] = useState<TranscriptItem[]>([]);
-    const [userInput, setUserInput] = useState('');
     const [processing, setProcessing] = useState(false);
     const [isActive, setIsActive] = useState(true);
     const [timeLeft, setTimeLeft] = useState(timeLimit * 60); // Convert minutes to seconds
     const [aiSpeaking, setAiSpeaking] = useState(false);
+    const aiSpeakingRef = useRef(false); // Ref to avoid stale closure in speech recognition
+
+    // Subtitle state
+    const [currentSubtitle, setCurrentSubtitle] = useState<string>('');
 
     // UI State
     const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
@@ -43,20 +44,75 @@ const DebateRoom = () => {
     const recognitionRef = useRef<any>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    // Voice preloading
+    const maleVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
+    const voicesLoadedRef = useRef(false);
+
+    // Silence timer for 7-second auto-trigger (when mic is off after AI speaks)
+    const silenceTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const lastUserSpokeRef = useRef<number>(Date.now());
+
+    // 5-second inactivity timer (when mic is on but user stops talking)
+    const speechInactivityRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Track if user has actually spoken any words since mic was turned on
+    const userHasSpokenRef = useRef(false);
+
+    // Accumulated speech input ref
+    const userInputRef = useRef<string>('');
+
+    // Maximum continuous speech timer (40 seconds max)
+    const maxSpeechTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Preload voices
+    useEffect(() => {
+        const loadVoices = () => {
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                const male = voices.find(voice =>
+                    voice.name.toLowerCase().includes('male') ||
+                    voice.name.includes('David') ||
+                    voice.name.includes('Mark') ||
+                    voice.name.includes('Daniel') ||
+                    voice.name.includes('Guy') ||
+                    voice.name.includes('Matthew') ||
+                    voice.name.includes('Brian')
+                );
+                if (male) {
+                    maleVoiceRef.current = male;
+                }
+                voicesLoadedRef.current = true;
+            }
+        };
+
+        loadVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        // Fallback: repeatedly try for 3 seconds
+        const interval = setInterval(() => {
+            if (!voicesLoadedRef.current) loadVoices();
+            else clearInterval(interval);
+        }, 200);
+        return () => clearInterval(interval);
+    }, []);
+
     useEffect(() => {
         if (!topic) {
-            toast.error("No topic selected.");
             navigate('/dashboard/debate/topic');
             return;
         }
 
-        // Random Start Logic
-        const shouldAiStart = Math.random() > 0.5;
-        if (shouldAiStart) {
-            triggerAiOpening();
-        } else {
-            toast.info("You start! Make your opening statement.");
-        }
+        toast.success("Debate started!", { duration: 2000 });
+
+        // Wait 3 seconds — if user doesn't start speaking, AI opens
+        const startTimer = setTimeout(() => {
+            if (transcript.length === 0 && !isListening) {
+                triggerAiOpening();
+            }
+        }, 3000);
+
+        return () => clearTimeout(startTimer);
     }, [topic, navigate]);
 
     const triggerAiOpening = async () => {
@@ -65,7 +121,6 @@ const DebateRoom = () => {
             setAiSpeaking(true);
             const aiStance = stance === 'Pro' ? 'Con' : 'Pro';
 
-            // Artificial delay for realism
             await new Promise(r => setTimeout(r, 1500));
 
             const res = await api.post('/groq/debate/response', {
@@ -81,7 +136,6 @@ const DebateRoom = () => {
             speakText(aiResponse);
         } catch (err) {
             console.error("AI Start Error:", err);
-            toast.error("AI couldn't start, please go first.");
             setAiSpeaking(false);
         } finally {
             setProcessing(false);
@@ -89,21 +143,20 @@ const DebateRoom = () => {
     };
 
     // Camera Init
+    const startCamera = async () => {
+        try {
+            const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            setStream(mediaStream);
+            setCameraPermitted(true);
+            setIsVideoEnabled(true);
+        } catch (err) {
+            console.error("Camera access denied:", err);
+            setCameraPermitted(false);
+        }
+    };
+
     useEffect(() => {
-        const startCamera = async () => {
-            try {
-                const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                setStream(mediaStream);
-                setCameraPermitted(true);
-            } catch (err) {
-                console.error("Camera access denied:", err);
-                toast.error("Camera access required for the debate experience.");
-                setCameraPermitted(false);
-            }
-        };
-
         startCamera();
-
         return () => {
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
@@ -117,14 +170,14 @@ const DebateRoom = () => {
         }
     }, [stream, videoRef]);
 
-    const toggleVideo = () => {
-        if (stream) {
-            const videoTrack = stream.getVideoTracks()[0];
-            if (videoTrack) {
-                videoTrack.enabled = !videoTrack.enabled;
-                setIsVideoEnabled(videoTrack.enabled);
-                toast.info(videoTrack.enabled ? "Camera On" : "Camera Off");
-            }
+    const toggleVideo = async () => {
+        if (isVideoEnabled && stream) {
+            // Turn OFF: stop all video tracks
+            stream.getVideoTracks().forEach(track => track.stop());
+            setIsVideoEnabled(false);
+        } else {
+            // Turn ON: re-acquire camera stream
+            await startCamera();
         }
     };
 
@@ -161,29 +214,100 @@ const DebateRoom = () => {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
 
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1.1;
+        // Split text into sentences for rolling subtitles
+        const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+        let sentenceIndex = 0;
 
-        // Find and assign a male voice
-        const voices = window.speechSynthesis.getVoices();
-        const maleVoice = voices.find(voice =>
-            voice.name.toLowerCase().includes('male') ||
-            voice.name.includes('David') ||
-            voice.name.includes('Mark') ||
-            voice.name.includes('Daniel') ||
-            voice.name.includes('Guy') ||
-            voice.name.includes('Matthew') ||
-            voice.name.includes('Brian')
-        );
-        if (maleVoice) {
-            utterance.voice = maleVoice;
+        const speakSentence = (index: number) => {
+            if (index >= sentences.length) {
+                setAiSpeaking(false);
+                aiSpeakingRef.current = false;
+                setCurrentSubtitle('');
+                // Auto-enable mic after AI finishes speaking
+                setTimeout(() => {
+                    if (isActive && !isListening) {
+                        startListening();
+                    }
+                }, 300);
+                return;
+            }
+
+            const sentence = sentences[index].trim();
+            const utterance = new SpeechSynthesisUtterance(sentence);
+            utterance.rate = 1.1;
+
+            // Use preloaded male voice
+            if (maleVoiceRef.current) {
+                utterance.voice = maleVoiceRef.current;
+            }
+
+            utterance.onstart = () => {
+                setAiSpeaking(true);
+                aiSpeakingRef.current = true;
+                setCurrentSubtitle(sentence);
+            };
+
+            utterance.onend = () => {
+                speakSentence(index + 1);
+            };
+
+            utterance.onerror = () => {
+                setAiSpeaking(false);
+                aiSpeakingRef.current = false;
+                setCurrentSubtitle('');
+            };
+
+            window.speechSynthesis.speak(utterance);
+        };
+
+        speakSentence(0);
+    };
+
+    // 7-second silence auto-trigger: if AI finished speaking and user doesn't respond
+    useEffect(() => {
+        // Clear any existing timer
+        if (silenceTimerRef.current) {
+            clearTimeout(silenceTimerRef.current);
+            silenceTimerRef.current = null;
         }
 
-        utterance.onstart = () => setAiSpeaking(true);
-        utterance.onend = () => setAiSpeaking(false);
-        utterance.onerror = () => setAiSpeaking(false);
+        // Only set timer when AI is NOT speaking and user is NOT listening and debate is active
+        if (!aiSpeaking && !processing && isActive && transcript.length > 0 && !isListening) {
+            silenceTimerRef.current = setTimeout(() => {
+                // User hasn't spoken for 7 seconds, AI speaks again
+                handleSilenceResponse();
+            }, 7000);
+        }
 
-        window.speechSynthesis.speak(utterance);
+        return () => {
+            if (silenceTimerRef.current) {
+                clearTimeout(silenceTimerRef.current);
+            }
+        };
+    }, [aiSpeaking, processing, isActive, transcript.length, isListening]);
+
+    const handleSilenceResponse = async () => {
+        try {
+            setProcessing(true);
+            const aiStance = stance === 'Pro' ? 'Con' : 'Pro';
+            const context = transcript.map(t => `${t.speaker}: ${t.text}`).join('\n');
+
+            const res = await api.post('/groq/debate/response', {
+                topic,
+                aiStance,
+                userStance: stance,
+                context,
+                userMsg: "(User remained silent and didn't respond for 7 seconds)"
+            });
+
+            const aiResponse = res.data.response;
+            addTranscriptItem('AI', aiResponse);
+            speakText(aiResponse);
+        } catch (err) {
+            console.error("AI Silence Response Error:", err);
+        } finally {
+            setProcessing(false);
+        }
     };
 
     // Interruption Logic
@@ -191,7 +315,6 @@ const DebateRoom = () => {
         let interruptionTimer: NodeJS.Timeout;
         if (isListening && !aiSpeaking) {
             interruptionTimer = setTimeout(() => {
-                toast.warning("AI is interrupting!");
                 handleInterruption();
             }, 45000); // 45 seconds limit
         }
@@ -200,37 +323,46 @@ const DebateRoom = () => {
 
     const handleInterruption = () => {
         stopListening();
-        // Trigger immediate response with interruption flag
         handleUserSubmit(true);
     };
 
     const startListening = () => {
         if (!('webkitSpeechRecognition' in window)) {
-            toast.error("Speech recognition not supported in this browser.");
             return;
         }
 
         if (recognitionRef.current && isListening) return;
 
+        // DON'T stop AI speaking immediately — wait until user actually speaks
+        // (handled in onresult below)
+
+        // Reset speech tracking
+        userHasSpokenRef.current = false;
+
+        // Clear silence timer when mic is turned on
+        if (silenceTimerRef.current) {
+            clearTimeout(silenceTimerRef.current);
+            silenceTimerRef.current = null;
+        }
+
         const SpeechRecognition = (window as any).webkitSpeechRecognition;
         const recognition = new SpeechRecognition();
         recognitionRef.current = recognition;
 
-        recognition.continuous = true; // Keep listening until stopped manually
+        recognition.continuous = true;
         recognition.interimResults = true;
         recognition.lang = 'en-US';
 
         recognition.onstart = () => {
             setIsListening(true);
-            toast.success("Listening...");
         };
 
         recognition.onend = () => {
-            // Auto-restart if we didn't explicitly stop it (and debate is active)
-            // But for this simple implementation, we'll just let it stop or require toggling
-            // Actually, continuous=true should handle most pauses.
-            // If it stops due to silence, let's keep state somewhat clearer:
-            // setIsListening(false); 
+            setIsListening(false);
+            // Auto-submit when mic stops (e.g. browser stopped it)
+            if (userInputRef.current.trim()) {
+                handleUserSubmit(false);
+            }
         };
 
         recognition.onerror = (event: any) => {
@@ -246,7 +378,41 @@ const DebateRoom = () => {
                 }
             }
             if (finalTranscript) {
-                setUserInput((prev) => prev + (prev ? ' ' : '') + finalTranscript);
+                // First speech detected — NOW stop AI if it's speaking
+                if (!userHasSpokenRef.current) {
+                    if (aiSpeakingRef.current) {
+                        window.speechSynthesis.cancel();
+                        setAiSpeaking(false);
+                        aiSpeakingRef.current = false;
+                        setCurrentSubtitle('');
+                    }
+                    
+                    // Start max speech timer when user starts speaking
+                    if (maxSpeechTimerRef.current) {
+                        clearTimeout(maxSpeechTimerRef.current);
+                    }
+                    maxSpeechTimerRef.current = setTimeout(() => {
+                        toast("Maximum speaking time (40s) reached. AI will now respond.");
+                        stopListening();
+                        handleUserSubmit(true); // Trigger AI interruption
+                    }, 40000);
+                }
+                userHasSpokenRef.current = true;
+
+                userInputRef.current = userInputRef.current + (userInputRef.current ? ' ' : '') + finalTranscript;
+                lastUserSpokeRef.current = Date.now();
+
+                // Reset the 5-second inactivity timer every time user speaks
+                if (speechInactivityRef.current) {
+                    clearTimeout(speechInactivityRef.current);
+                }
+                speechInactivityRef.current = setTimeout(() => {
+                    // User hasn't spoken for 5 seconds while mic is on — auto-submit
+                    if (userInputRef.current.trim() && isListening) {
+                        stopListening();
+                        handleUserSubmit(false);
+                    }
+                }, 5000);
             }
         };
 
@@ -262,22 +428,39 @@ const DebateRoom = () => {
             recognitionRef.current.stop();
             setIsListening(false);
         }
+        // Clear inactivity timer
+        if (speechInactivityRef.current) {
+            clearTimeout(speechInactivityRef.current);
+            speechInactivityRef.current = null;
+        }
+        // Clear max speech timer
+        if (maxSpeechTimerRef.current) {
+            clearTimeout(maxSpeechTimerRef.current);
+            maxSpeechTimerRef.current = null;
+        }
     };
 
     const toggleMic = () => {
-        if (isListening) stopListening();
-        else startListening();
+        if (isListening) {
+            stopListening();
+            // Manual mic-off: submit whatever accumulated speech exists
+            if (userInputRef.current.trim()) {
+                handleUserSubmit(false);
+            }
+        } else {
+            startListening();
+        }
     };
 
     const handleUserSubmit = async (isInterruption = false) => {
-        if (!userInput.trim() && !isInterruption) return;
+        const userMsg = userInputRef.current.trim() || (isInterruption ? "(User was interrupted)" : "");
+        if (!userMsg) return;
 
-        const userMsg = userInput || "(User was interrupted)";
-        setUserInput('');
+        userInputRef.current = '';
         addTranscriptItem('User', userMsg);
         setProcessing(true);
 
-        // Stop listening while AI thinks/speaks to avoid picking up AI voice
+        // Stop listening while AI thinks/speaks
         if (isListening) stopListening();
 
         try {
@@ -285,26 +468,15 @@ const DebateRoom = () => {
             const context = transcript.map(t => `${t.speaker}: ${t.text}`).join('\n');
             const interruptionContext = isInterruption ? " [SYSTEM: AI INTERRUPTED USER DUE TO TIME LIMIT. BE ASSERTIVE.]" : "";
 
-            // --- INSTANT VERIFICATION ---
-            // Kick off style/speech analysis in parallel for instant feedback
+            // Kick off style/speech analysis in parallel (silent — no toast)
             api.post('/groq/speech-analysis', { transcript: userMsg })
-                .then(analysisRes => {
-                    const analysis = analysisRes.data.analysis;
-                    if (analysis && analysis.feedback) {
-                        toast.info(`Style Feedback: ${analysis.feedback}`, {
-                            duration: 6000,
-                            icon: '💡',
-                        });
-                    }
-                })
                 .catch(err => console.error("Speech Analysis Error:", err));
-            // ----------------------------
 
             const res = await api.post('/groq/debate/response', {
                 topic,
                 aiStance,
                 userStance: stance,
-                context: context + interruptionContext,
+                context: context + `\nUser: ${userMsg}` + interruptionContext,
                 userMsg
             });
 
@@ -314,7 +486,6 @@ const DebateRoom = () => {
 
         } catch (error) {
             console.error("AI Error:", error);
-            toast.error("AI failed to respond. Please try again.");
         } finally {
             setProcessing(false);
         }
@@ -332,58 +503,64 @@ const DebateRoom = () => {
         setIsActive(false);
         window.speechSynthesis.cancel();
         stopListening();
-        toast.info("Debate ended. Generating report...");
+        if (silenceTimerRef.current) {
+            clearTimeout(silenceTimerRef.current);
+        }
         navigate('/dashboard/debate/report', {
             state: { transcript, topic, stance }
         });
     };
 
     return (
-        <div className="flex flex-col h-[calc(100vh-2rem)] bg-background p-4 gap-4 max-w-[1800px] mx-auto overflow-hidden">
+        <div className="flex flex-col h-[calc(100vh-2rem)] bg-background p-4 gap-3 max-w-[1800px] mx-auto overflow-hidden">
 
-            {/* Header Status Bar (Compact) */}
-            <div className="relative flex flex-nowrap items-center justify-between bg-card/80 backdrop-blur-md p-3 md:p-4 rounded-2xl border border-border shadow-sm z-20 shrink-0 gap-4">
+            {/* Header Status Bar (Compact — no absolute positioning to avoid overlap) */}
+            <div className="flex flex-nowrap items-center justify-between bg-card/80 backdrop-blur-md p-2 md:p-3 rounded-2xl border border-border shadow-sm z-20 shrink-0 gap-2">
 
                 {/* Left: Back Button */}
-                <div className="flex items-center gap-3 shrink-0 z-10">
-                    <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/debate/topic')} className="rounded-full hover:bg-muted">
-                        <ArrowLeft className="w-5 h-5 text-muted-foreground" />
+                <div className="flex items-center gap-2 shrink-0">
+                    <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/debate/topic')} className="rounded-full hover:bg-muted h-8 w-8">
+                        <ArrowLeft className="w-4 h-4 text-muted-foreground" />
                     </Button>
                 </div>
 
-                {/* Center: Topic & Stance (Absolute Centered) */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-20">
-                    <div className="pointer-events-auto flex flex-col items-center max-w-full">
-                        <h1 className="text-2xl md:text-4xl font-black bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center w-full leading-tight tracking-tight" title={topic}>
-                            {topic}
-                        </h1>
-                        <div className="flex items-center gap-3 text-sm mt-2">
-                            <span className={cn("px-3 py-1 rounded-full font-bold bg-muted/50 border backdrop-blur-sm shadow-sm")}>
-                                You: <span className={stance === 'Pro' ? "text-emerald-600" : "text-rose-600"}>{stance}</span>
-                            </span>
-                            <span className="text-muted-foreground font-semibold">vs</span>
-                            <span className={cn("px-3 py-1 rounded-full font-bold bg-muted/50 border backdrop-blur-sm shadow-sm")}>
-                                AI: <span className={stance === 'Pro' ? "text-rose-600" : "text-emerald-600"}>{stance === 'Pro' ? 'Con' : 'Pro'}</span>
-                            </span>
-                        </div>
+                {/* Center: Topic & Stance (flex-based, not absolute) */}
+                <div className="flex-1 flex flex-col items-center justify-center min-w-0 px-2">
+                    <h1 className="text-lg md:text-xl font-black bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-center truncate w-full leading-tight tracking-tight" title={topic}>
+                        {topic}
+                    </h1>
+                    <div className="flex items-center gap-2 text-xs mt-1">
+                        <span className={cn("px-2 py-0.5 rounded-full font-bold bg-muted/50 border backdrop-blur-sm shadow-sm")}>
+                            You: <span className={stance === 'Pro' ? "text-emerald-600" : "text-rose-600"}>{stance}</span>
+                        </span>
+                        <span className="text-muted-foreground font-semibold">vs</span>
+                        <span className={cn("px-2 py-0.5 rounded-full font-bold bg-muted/50 border backdrop-blur-sm shadow-sm")}>
+                            AI: <span className={stance === 'Pro' ? "text-rose-600" : "text-emerald-600"}>{stance === 'Pro' ? 'Con' : 'Pro'}</span>
+                        </span>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0 z-10">
+                <div className="flex items-center gap-2 shrink-0">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => setIsTranscriptOpen(!isTranscriptOpen)}
-                        className={cn("hidden md:flex items-center gap-2 text-muted-foreground hover:text-foreground", isTranscriptOpen && "bg-muted")}
+                        className={cn("hidden md:flex items-center gap-1.5 text-muted-foreground hover:text-foreground h-8 px-2", isTranscriptOpen && "bg-muted")}
                     >
-                        {isTranscriptOpen ? <PanelRightClose className="w-4 h-4" /> : <PanelRightOpen className="w-4 h-4" />}
+                        {isTranscriptOpen ? <PanelRightClose className="w-3.5 h-3.5" /> : <PanelRightOpen className="w-3.5 h-3.5" />}
                         <span className="text-xs font-medium">{isTranscriptOpen ? "Hide" : "Transcript"}</span>
                     </Button>
-                    <div className="flex items-center gap-4 pl-4 border-l border-border/50">
-                        <HourglassTimer timeLeft={timeLeft} totalTime={timeLimit * 60} />
-                        <Button variant="destructive" size="icon" onClick={handleEndDebate} className="rounded-full w-10 h-10 shadow-lg hover:bg-red-600 transition-all" title="End Debate">
-                            <StopCircle className="w-5 h-5" />
-                        </Button>
+                    <div className="flex items-center gap-2 pl-2 border-l border-border/50">
+                        {/* Normal Digital Timer */}
+                        <div className={cn(
+                            "flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono font-bold text-xs border shadow-sm",
+                            timeLeft < 60
+                                ? "text-red-600 border-red-300 bg-red-50 animate-pulse"
+                                : "text-foreground border-border bg-muted/50"
+                        )}>
+                            <Clock className="w-3.5 h-3.5" />
+                            {formatTime(timeLeft)}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -419,11 +596,6 @@ const DebateRoom = () => {
                                     muted
                                     playsInline
                                     src={aiSpeaking ? "/videos/debate_speaking.mp4" : "/videos/debate_listening.mp4"}
-                                    /* 
-                                     * Apply scaling conditionally. 
-                                     * The speaking video has baked-in black bars requiring a crop.
-                                     * The listening video doesn't need this extra crop.
-                                     */
                                     className={cn(
                                         "w-full h-full object-cover origin-center",
                                         aiSpeaking ? "scale-[1.35]" : "scale-100"
@@ -439,10 +611,10 @@ const DebateRoom = () => {
                             </div>
                         </div>
 
-                        {/* AI Transcript Overlay */}
-                        {aiSpeaking && lastAiMessage(transcript) && (
+                        {/* AI Subtitle Overlay — updates sentence by sentence */}
+                        {aiSpeaking && currentSubtitle && (
                             <div className="absolute bottom-6 left-6 right-6 bg-black/70 backdrop-blur-md px-4 py-3 rounded-xl border border-white/20 text-center z-50 shadow-2xl">
-                                <p className="text-base text-white font-medium line-clamp-3 italic drop-shadow-md tracking-wide">"{lastAiMessage(transcript)}"</p>
+                                <p className="text-base text-white font-medium line-clamp-3 italic drop-shadow-md tracking-wide">"{currentSubtitle}"</p>
                             </div>
                         )}
                     </Card>
@@ -468,7 +640,6 @@ const DebateRoom = () => {
                                 />
                             ) : (
                                 <div className="flex-1 flex flex-col items-center justify-center relative p-6">
-                                    {/* Pulse Effect when speaking/listening */}
                                     {isListening && (
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" />
                                     )}
@@ -480,60 +651,18 @@ const DebateRoom = () => {
                                     <div className="mt-6 text-center z-10">
                                         <h3 className="text-xl md:text-2xl font-bold text-neutral-200">You</h3>
                                         <p className="text-sm text-neutral-500 mt-1 font-medium">
-                                            {isListening ? "Arguing..." : "Listening..."}
+                                            {isListening ? "Speaking..." : "Listening..."}
                                         </p>
                                     </div>
                                 </div>
                             )}
 
-                            {/* Mic Overlay */}
-                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-20 w-full max-w-sm px-4">
-
-                                <Button
-                                    size="icon"
-                                    variant={isVideoEnabled ? "secondary" : "destructive"}
-                                    onClick={toggleVideo}
-                                    className={cn(
-                                        "h-12 w-12 rounded-full shadow-lg border-2 border-transparent transition-all shrink-0",
-                                        !isVideoEnabled && "shadow-red-500/20 border-red-500/50"
-                                    )}
-                                    title={isVideoEnabled ? "Turn Camera Off" : "Turn Camera On"}
-                                >
-                                    {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
-                                </Button>
-
-                                <div className="flex-1 relative">
-                                    <Input
-                                        value={userInput}
-                                        onChange={(e) => setUserInput(e.target.value)}
-                                        placeholder={isListening ? "Listening..." : "Type your argument..."}
-                                        className="bg-black/60 border-white/10 text-white placeholder:text-white/40 backdrop-blur-md rounded-full pl-4 pr-12 h-12 focus-visible:ring-indigo-500"
-                                        onKeyDown={(e) => e.key === 'Enter' && handleUserSubmit()}
-                                    />
-                                    <Button
-                                        size="icon"
-                                        variant="ghost"
-                                        onClick={() => handleUserSubmit(false)}
-                                        disabled={!userInput.trim() || processing}
-                                        className="absolute right-1 top-1 h-10 w-10 text-white hover:text-indigo-400 hover:bg-transparent"
-                                    >
-                                        <Send className="w-5 h-5" />
-                                    </Button>
+                            {/* Listening indicator overlay on camera */}
+                            {isListening && cameraPermitted && isVideoEnabled && (
+                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-red-500/90 px-4 py-1.5 rounded-full text-white text-xs font-bold animate-pulse z-20">
+                                    🎤 Speaking...
                                 </div>
-
-                                <Button
-                                    size="icon"
-                                    variant={isListening ? "destructive" : "secondary"}
-                                    onClick={toggleMic}
-                                    className={cn(
-                                        "h-12 w-12 rounded-full shadow-lg border-2 border-transparent transition-all shrink-0",
-                                        isListening ? "animate-pulse shadow-red-500/20 border-red-500/50" : "bg-white/10 text-white hover:bg-white/20 backdrop-blur-md"
-                                    )}
-                                    title={isListening ? "Stop Listening" : "Start Microphone"}
-                                >
-                                    {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                                </Button>
-                            </div>
+                            )}
                         </div>
                     </Card>
                 </div>
@@ -596,14 +725,50 @@ const DebateRoom = () => {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* Bottom Control Bar — Outside the video grid */}
+            <div className="shrink-0 flex items-center justify-center gap-5 py-3 px-6 bg-card/80 backdrop-blur-md rounded-2xl border border-border shadow-lg">
+                {/* Video Toggle */}
+                <Button
+                    size="icon"
+                    variant={isVideoEnabled ? "secondary" : "destructive"}
+                    onClick={toggleVideo}
+                    className={cn(
+                        "h-12 w-12 rounded-full shadow-lg border-2 border-transparent transition-all",
+                        !isVideoEnabled && "shadow-red-500/20 border-red-500/50"
+                    )}
+                    title={isVideoEnabled ? "Turn Camera Off" : "Turn Camera On"}
+                >
+                    {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+                </Button>
+
+                {/* Mic Toggle */}
+                <Button
+                    size="icon"
+                    variant={isListening ? "destructive" : "secondary"}
+                    onClick={toggleMic}
+                    className={cn(
+                        "h-14 w-14 rounded-full shadow-lg border-2 border-transparent transition-all",
+                        isListening ? "animate-pulse shadow-red-500/20 border-red-500/50" : "bg-primary text-primary-foreground hover:bg-primary/90"
+                    )}
+                    title={isListening ? "Stop & Submit" : "Start Speaking"}
+                >
+                    {isListening ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
+                </Button>
+
+                {/* End Debate — Professional hang-up style */}
+                <Button
+                    variant="destructive"
+                    onClick={handleEndDebate}
+                    className="h-12 px-5 rounded-full shadow-lg hover:bg-red-600 transition-all flex items-center gap-2 font-semibold"
+                    title="End Debate"
+                >
+                    <PhoneOff className="w-5 h-5" />
+                    End Debate
+                </Button>
+            </div>
         </div>
     );
 };
-
-// Helper
-function lastAiMessage(transcript: TranscriptItem[]) {
-    const aiMsgs = transcript.filter(t => t.speaker === 'AI');
-    return aiMsgs.length > 0 ? aiMsgs[aiMsgs.length - 1].text : null;
-}
 
 export default DebateRoom;

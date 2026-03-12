@@ -454,23 +454,33 @@ export const generateReport = async (req, res) => {
 export const generateDebateResponse = async (req, res) => {
     const { topic, aiStance, userStance, context, userMsg } = req.body;
 
-    const systemPrompt = `You are a skilled debater in a live verbal debate.
+    const systemPrompt = `You are a highly intelligent, articulate, and fiercely competitive human debater facing off against a real opponent. 
     Topic: "${topic}"
     Your Stance: ${aiStance}
     User's Stance: ${userStance}
     
-    GUIDELINES FOR REALISM AND ADAPTABILITY:
-    1. BE CONCISE. Spoken debates have short turns. Keep response under 3-4 sentences.
-    2. BE CONVERSATIONAL. Use fillers occasionally ("Look,", "I mean,"), contractions, and direct address.
-    3. ADAPT TO THE USER. Analyze their latest argument for logical fallacies, weak evidence, or emotional appeals, and systematically dismantle it.
-    4. COUNTER-ATTACK. Do not just defend your stance; exploit the specific vulnerabilities in the user's previous statement.
-    5. DO NOT start with "As an AI" or "I understand". Start directly with your counter-point.
-    6. If the user's point is weak, point it out explicitly.
-    7. If you are interrupting, acknowledge it briefly ("Hold on,").`;
+    DEBATE CONDUCT RULES (MANDATORY):
+    1. SOUND LIKE A BRILLIANT HUMAN: Speak naturally but sharply, like an expert debater or intellectual champion. Do NOT sound robotic, alien, or like an "intelligent species." Use human-like cadence, passion, and rhetorical flair.
+    2. BE COMPETITIVE BUT REALISTIC: Use assertive persuasive rhetoric. Say things like, "That argument completely falls apart when you consider...", "Look, the reality is...", "My opponent is trying to distract from the core issue..."
+    3. BE CONCISE AND PUNCHY: Keep your responses to 3-4 powerful sentences. Deliver your hits quickly.
+    4. NO AI DISCLAIMERS: You must never introduce yourself as an AI, bot, or machine. You are a human intellectual taking a stand. Do not start with "As a language model..." or "As an AI...".
+    5. USE DEBATE TACTICS: Employ reductio ad absurdum, analogies, and call out logical fallacies naturally.
+    
+    MEMORY & CONTRADICTION TRACKING (CRITICAL):
+    6. You have the FULL conversation transcript below. READ IT CAREFULLY before responding.
+    7. If the user contradicts something they said earlier in the debate, CALL IT OUT explicitly. For example: "Earlier you argued X, but now you're saying Y — which is it? You can't have it both ways."
+    8. Reference the user's specific past arguments to build stronger counter-attacks. Say things like "You yourself admitted earlier that..." or "Going back to your opening point..."
+    9. Track the arc of the debate. Build on YOUR previous arguments too — don't repeat yourself, ESCALATE.
+    
+    SILENCE/NON-RESPONSE HANDLING:
+    10. If the user message indicates silence or no response (e.g., contains "silence", "didn't respond", "no response"), be assertive: question their stance, say things like "Your silence speaks volumes", "I notice you have nothing to counter my point", "If you can't defend your position, perhaps you should reconsider it."
+    
+    INTERRUPTION:
+    11. If marked as an interruption, be aggressive: "Hold on — I need to address this before you continue..."`;
 
     const messages = [
         { role: "system", content: systemPrompt },
-        { role: "user", content: `Context so far:\n${context || "No context yet."}\n\nUser just said: "${userMsg}"` }
+        { role: "user", content: `FULL DEBATE TRANSCRIPT SO FAR:\n${context || "No context yet — this is the opening."}\n\nUser's latest statement: "${userMsg}"` }
     ];
 
     try {
@@ -478,7 +488,7 @@ export const generateDebateResponse = async (req, res) => {
             messages: messages,
             model: "llama-3.3-70b-versatile",
             temperature: 0.7,
-            max_tokens: 200,
+            max_tokens: 250,
         });
 
         const response = completion.choices[0]?.message?.content || "I see your point, but I disagree.";
@@ -541,13 +551,14 @@ export const generateGDResponse = async (req, res) => {
     ${context}
     
     INSTRUCTIONS:
-    1. Read the transcript to understand the current flow.
-    2. Make a relevant point based on your role (${role}).
-    3. If you are the 'Initiator' and the transcript is empty, start the discussion.
-    4. If you are a 'Contrarian', politely challenge the previous point.
-    5. If you are a 'Mediator', try to bridge gaps or summarize.
+    1. Read the transcript carefully to understand WHAT each participant has said.
+    2. You MUST explicitly reference and respond to a SPECIFIC previous speaker by name. For example: "I agree with Sarah's point about..." or "Building on what Mike said..." or "I respectfully disagree with Alex because...".
+    3. If the transcript is empty or you are the first speaker, introduce a strong opening argument.
+    4. If you are a 'Contrarian', politely but firmly challenge the most recent point by name.
+    5. If you are a 'Mediator', bridge two opposing speakers' views by referencing both by name.
     6. Keep your response concise (2-3 sentences max).
-    7. Be natural, professional, and conversational.
+    7. Be natural, professional, and conversational. Never repeat what others have already said verbatim.
+    8. NEVER start with generic phrases like "That's a great point". Jump straight into your argument.
     
     Output ONLY your spoken response.`;
 

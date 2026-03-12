@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PageBackground from "@/components/layout/PageBackground";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Loader2, Sparkles, SlidersHorizontal } from "lucide-react";
+import { Search, Loader2, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import JobCard from "@/components/jobs/JobCard";
@@ -12,9 +12,6 @@ const JobPortal: React.FC = () => {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
-    const [activeFilter, setActiveFilter] = useState("All");
-
-    const filters = ["All", "Full-Time", "Internship", "Remote", "Senior Level"];
 
     const fetchJobs = async (searchQuery?: string) => {
         try {
@@ -37,22 +34,6 @@ const JobPortal: React.FC = () => {
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         fetchJobs(search);
-    };
-
-    const handleFilterChange = (filter: string) => {
-        setActiveFilter(filter);
-        if (filter === "All") {
-            fetchJobs(search);
-        } else {
-            // Very simple frontend filtering for demonstration
-            fetchJobs(search).then(() => {
-                setJobs(prevJobs => prevJobs.filter(job =>
-                    job.type.includes(filter) ||
-                    job.experience.includes(filter) ||
-                    job.location.includes(filter)
-                ));
-            });
-        }
     };
 
     return (
@@ -85,7 +66,7 @@ const JobPortal: React.FC = () => {
                     transition={{ delay: 0.1 }}
                     className="max-w-4xl mx-auto mb-10"
                 >
-                    <form onSubmit={handleSearch} className="relative flex items-center gap-2 max-w-2xl mx-auto mb-6">
+                    <form onSubmit={handleSearch} className="relative flex items-center gap-2 max-w-2xl mx-auto">
                         <div className="relative flex-1 group">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                             <Input
@@ -99,22 +80,6 @@ const JobPortal: React.FC = () => {
                             Search
                         </Button>
                     </form>
-
-                    {/* Filter Pills */}
-                    <div className="flex flex-wrap items-center justify-center gap-2">
-                        <SlidersHorizontal className="w-4 h-4 text-muted-foreground mr-2" />
-                        {filters.map((filter) => (
-                            <Button
-                                key={filter}
-                                variant={activeFilter === filter ? "default" : "outline"}
-                                className={`rounded-full transition-all ${activeFilter === filter ? 'shadow-md' : 'hover:border-primary/50 bg-background/50 backdrop-blur-sm'}`}
-                                onClick={() => handleFilterChange(filter)}
-                                size="sm"
-                            >
-                                {filter}
-                            </Button>
-                        ))}
-                    </div>
                 </motion.div>
 
                 {/* Job Listings Loop */}
@@ -151,9 +116,9 @@ const JobPortal: React.FC = () => {
                                     <Search className="w-8 h-8 text-muted-foreground" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">No jobs found</h3>
-                                <p className="text-muted-foreground">Try adjusting your search criteria or filters.</p>
-                                <Button variant="outline" className="mt-6" onClick={() => { setSearch(''); handleFilterChange('All'); }}>
-                                    Clear Filters
+                                <p className="text-muted-foreground">Try adjusting your search criteria.</p>
+                                <Button variant="outline" className="mt-6" onClick={() => { setSearch(''); fetchJobs(''); }}>
+                                    Clear Search
                                 </Button>
                             </motion.div>
                         )}

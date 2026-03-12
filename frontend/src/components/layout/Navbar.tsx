@@ -34,15 +34,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/features" className="text-muted-foreground hover:text-foreground transition-colors">
-              Features
-            </Link>
-            <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-              About
-            </Link>
-            <Link to="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">
-              Pricing
-            </Link>
+            {/* Navigation links can be added here in the future */}
           </div>
 
           {/* Auth Buttons */}
@@ -74,27 +66,6 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border bg-card/95 backdrop-blur-lg">
             <div className="flex flex-col gap-4">
-              <Link 
-                to="/features" 
-                className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Features
-              </Link>
-              <Link 
-                to="/about" 
-                className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link 
-                to="/pricing" 
-                className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Pricing
-              </Link>
               <div className="flex flex-col gap-2 px-4 pt-4 border-t border-border">
                 <Button variant="ghost" asChild className="w-full justify-start">
                   <Link to="/auth" onClick={() => setIsOpen(false)}>

@@ -1,4 +1,12 @@
 import User from '../models/User.js';
+import Score from '../models/Score.js';
+import CodingScore from '../models/CodingScore.js';
+import { RankedScore, TypingHistory } from '../models/TypingScore.js';
+import Resume from '../models/Resume.js';
+import Debate from '../models/Debate.js';
+import CommunicationSession from '../models/CommunicationSession.js';
+import ForumPost from '../models/ForumPost.js';
+import ForumComment from '../models/ForumComment.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -440,6 +448,104 @@ export const addRecentActivity = async (req, res) => {
         }
     } catch (error) {
         console.error('Error in addRecentActivity:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Change Password
+// @route   PUT /api/auth/change-password
+// @access  Private
+export const changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if user registered via Google (might not have a password)
+        if (!user.password && user.profilePicture && user.isVerified) {
+            return res.status(400).json({ message: 'Cannot change password for Google-authenticated accounts.' });
+        }
+
+        // Check if current password matches
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Incorrect current password' });
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Error in changePassword:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Delete Account
+// @route   DELETE /api/auth/account
+// @access  Private
+export const deleteAccount = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const userId = req.user.id;
+
+        // Delete related data
+        await Score.deleteMany({ user: userId });
+        await CodingScore.deleteMany({ userId: userId });
+        await RankedScore.deleteMany({ userId: userId });
+        await TypingHistory.deleteMany({ userId: userId });
+        await Resume.deleteMany({ userId: userId });
+        await Debate.deleteMany({ userId: userId });
+        await CommunicationSession.deleteMany({ userId: userId });
+        await ForumPost.deleteMany({ author: userId });
+        await ForumComment.deleteMany({ author: userId });
+
+
+        await User.findByIdAndDelete(userId);
+
+        res.status(200).json({ message: 'Account and all related data deleted successfully' });
+    } catch (error) {
+        console.error('Error in deleteAccount:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Verify Current Password
+// @route   POST /api/auth/verify-password
+// @access  Private
+export const verifyPassword = async (req, res) => {
+    try {
+        const { currentPassword } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (!user.password && user.profilePicture && user.isVerified) {
+            return res.status(400).json({ message: 'No password set for Google auth users' });
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (isMatch) {
+            res.status(200).json({ success: true, message: 'Password verified' });
+        } else {
+            res.status(400).json({ success: false, message: 'Incorrect password' });
+        }
+
+    } catch (error) {
+        console.error('Error in verifyPassword:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };

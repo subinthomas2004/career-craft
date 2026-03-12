@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { codingProblems } from "@/data/codingProblems";
 import {
@@ -46,10 +46,33 @@ const CodingProblemsListPage = () => {
         return Array.from(new Set(baseProblems.map(p => p.category)));
     }, [baseProblems]);
 
-    const [solvedProblems] = useState<Set<number>>(() => {
-        const saved = localStorage.getItem("solvedProblems");
-        return saved ? new Set(JSON.parse(saved)) : new Set<number>();
-    });
+    const [solvedProblems, setSolvedProblems] = useState<Set<number>>(new Set());
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchScores = async () => {
+            try {
+                const userInfoStr = localStorage.getItem("userInfo");
+                if (!userInfoStr) {
+                    navigate('/auth');
+                    return;
+                }
+                const { token } = JSON.parse(userInfoStr);
+                const { api } = await import('@/lib/api');
+                const res = await api.get('/coding-scores', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (res.data?.success) {
+                    setSolvedProblems(new Set(res.data.solvedProblems || []));
+                }
+            } catch (err) {
+                console.error("Failed to fetch coding progress:", err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchScores();
+    }, [navigate]);
 
     const filteredProblems = useMemo(() => {
         let problems = [...baseProblems];

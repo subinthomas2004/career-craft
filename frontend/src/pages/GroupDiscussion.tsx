@@ -48,6 +48,7 @@ interface PeerData {
 }
 
 // --- Constants ---
+const ABUSIVE_WORDS = ["bullshit", "fuck", "bitch", "asshole", "shit", "bastard", "cunt", "motherfucker", "idiot", "stupid"];
 const MODERATOR = {
     id: 'moderator',
     name: 'Interviewer',
@@ -146,8 +147,16 @@ const GroupDiscussion = () => {
     const transcriptRef = useRef<TranscriptItem[]>([]);
     useEffect(() => { transcriptRef.current = transcript; }, [transcript]);
     const [currentSpeaker, setCurrentSpeaker] = useState<string | null>(null);
+    const currentSpeakerRef = useRef<string | null>(currentSpeaker);
+    useEffect(() => { currentSpeakerRef.current = currentSpeaker; }, [currentSpeaker]);
     const [processing, setProcessing] = useState(false);
+    const processingRef = useRef(processing);
+    useEffect(() => { processingRef.current = processing; }, [processing]);
     const [turnCycle, setTurnCycle] = useState<number>(0);
+    const [abuseCount, setAbuseCount] = useState(0);
+    const [isMicThrottled, setIsMicThrottled] = useState(false);
+    const abuseCountRef = useRef(0);
+    useEffect(() => { abuseCountRef.current = abuseCount; }, [abuseCount]);
     const discussionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [inputText, setInputText] = useState("");
@@ -164,17 +173,7 @@ const GroupDiscussion = () => {
 
     const isUserSpeaking = interimTranscript.length > 0;
 
-    // Sync Voice Input to Transcript
-    useEffect(() => {
-        if (userTranscript.trim()) {
-            const text = userTranscript.trim();
-            setTranscript(prev => [...prev, { speakerId: 'user', speakerName: 'You', text, timestamp: new Date().toLocaleTimeString() }]);
-            resetTranscript(); // Clear hook buffer so we don't duplicate
-
-            // Trigger Turn Transition
-            handleTurnTransition(2000);
-        }
-    }, [userTranscript, resetTranscript]);
+    // Removed auto-sync Voice Input to Transcript
 
     // Media & Hardware
     const [cameraActive, setCameraActive] = useState(true);
@@ -242,6 +241,27 @@ const GroupDiscussion = () => {
                     peersRef.current.push({ peerId: payload.callerID, peer });
                     setPeers(prev => [...prev, { peerId: payload.callerID, peer }]);
                 }
+            });
+
+            // Sync speaking status across peers
+            socketRef.current.on('speaking-status', (statusData: any) => {
+                if (statusData.isSpeaking) {
+                    setCurrentSpeaker(statusData.speakerId);
+                    if (discussionTimeoutRef.current) {
+                        clearTimeout(discussionTimeoutRef.current);
+                        discussionTimeoutRef.current = null;
+                    }
+                } else if (currentSpeaker === statusData.speakerId) {
+                    setCurrentSpeaker(null);
+                    // Remote peer stopped speaking, wait 3 seconds and trigger AI if no one jumps in
+                    if (isActive && !processing) {
+                        handleTurnTransition(3000);
+                    }
+                }
+            });
+
+            socketRef.current.on('speech-message', (messageData: any) => {
+                setTranscript(prev => [...prev, { speakerId: messageData.speakerId, speakerName: messageData.speakerName, text: messageData.text, timestamp: new Date().toLocaleTimeString() }]);
             });
         });
 
@@ -333,11 +353,11 @@ const GroupDiscussion = () => {
         handleTurnTransition(3000);
     };
 
-    const handleTurnTransition = (delayMs: number = 2000) => {
+    const handleTurnTransition = (delayMs: number = 3000) => {
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
 
         discussionTimeoutRef.current = setTimeout(() => {
-            if (!isUserSpeaking && !processing && !currentSpeaker) {
+            if (!processingRef.current && !currentSpeakerRef.current) {
                 // User didn't take the floor, trigger AI
                 const currentTranscript = transcriptRef.current;
                 const lastSpeakerId = currentTranscript[currentTranscript.length - 1]?.speakerId;
@@ -346,7 +366,7 @@ const GroupDiscussion = () => {
                 const availableAgents = activeAIAgents.filter(a => a.id !== lastSpeakerId);
                 const nextAgent = availableAgents[Math.floor(Math.random() * availableAgents.length)] || activeAIAgents[0];
 
-                triggerAgentTurn(nextAgent);
+                if (nextAgent) triggerAgentTurn(nextAgent);
             }
         }, delayMs);
     };
@@ -356,41 +376,87 @@ const GroupDiscussion = () => {
             const synth = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(text);
 
-            const voices = synth.getVoices();
-            let selectedVoice;
+            const setVoiceAndSpeak = () => {
+                const voices = synth.getVoices();
+                let selectedVoice;
 
-            if (voiceType === 'female') {
-                selectedVoice = voices.find(v => (v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.toLowerCase().includes('female')));
-            } else {
-                // Microsoft David or any specific male voice known to Chrome/Edge
-                selectedVoice = voices.find(v => (v.name.includes('Male') || v.name.includes('David') || v.name.includes('Mark') || v.name.includes('Google UK English Male') || v.name.toLowerCase().includes('male')));
-            }
-
-            // Fallbacks in case explicit male/female tags aren't present
-            if (!selectedVoice && voices.length > 0) {
-                if (voiceType === 'male') {
-                    // Try to find any known male voice if the above fails
-                    selectedVoice = voices.find(v => v.name.includes('Daniel') || v.name.includes('Google US English'));
+                if (voiceType === 'female') {
+                    selectedVoice = voices.find(v => (v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Samantha') || v.name.toLowerCase().includes('female')));
+                } else {
+                    selectedVoice = voices.find(v => (v.name.includes('Male') || v.name.includes('David') || v.name.includes('Mark') || v.name.includes('Google UK English Male') || v.name.toLowerCase().includes('male')));
                 }
-                // If still nothing, just take the first
-                selectedVoice = selectedVoice || voices[0];
-            }
 
-            if (selectedVoice) {
-                utterance.voice = selectedVoice;
-            }
-            utterance.pitch = voiceType === 'female' ? 1.2 : 0.8; // Lower pitch slightly more for male
+                if (!selectedVoice && voices.length > 0) {
+                    if (voiceType === 'male') {
+                        selectedVoice = voices.find(v => v.name.includes('Daniel') || v.name.includes('Google US English'));
+                    }
+                    selectedVoice = selectedVoice || voices[0];
+                }
 
-            utterance.onend = () => { resolve(); };
-            utterance.onerror = () => { resolve(); };
-            synth.speak(utterance);
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                }
+                utterance.pitch = voiceType === 'female' ? 1.2 : 0.8;
+
+                let isResolved = false;
+                const resolveOnce = () => {
+                    if (!isResolved) {
+                        isResolved = true;
+                        resolve();
+                    }
+                };
+
+                utterance.onend = resolveOnce;
+                utterance.onerror = (e) => {
+                    console.error("Speech error", e);
+                    resolveOnce();
+                };
+                
+                synth.speak(utterance);
+                
+                // Absolute fallback timeout so the promise never hangs indefinitely
+                setTimeout(resolveOnce, Math.max(3000, text.length * 80));
+            };
+
+            if (synth.getVoices().length === 0) {
+                let didRun = false;
+                synth.onvoiceschanged = () => {
+                    if (!didRun) {
+                        didRun = true;
+                        setVoiceAndSpeak();
+                    }
+                };
+                setTimeout(() => {
+                    if (!didRun) {
+                        didRun = true;
+                        setVoiceAndSpeak();
+                    }
+                }, 1000);
+            } else {
+                setVoiceAndSpeak();
+            }
         });
     };
 
-    const concludeSession = async () => {
+    const concludeSession = async (abortedByAbuse: boolean | any = false, skipSpeech: boolean = false) => {
         window.speechSynthesis.cancel();
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         setIsActive(false);
+
+        const isAborted = abortedByAbuse === true;
+
+        if (!skipSpeech) {
+            setCurrentSpeaker(MODERATOR.id);
+            const exitText = isAborted 
+                ? "Stop it. This kind of inappropriate language is not permitted in a professional discussion. I am terminating this session."
+                : "Time is up. Thank you all for participating in this group discussion. Let's conclude our session here.";
+                
+            setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text: exitText, timestamp: new Date().toLocaleTimeString() }]);
+            
+            await speakText(exitText, 'male');
+            setCurrentSpeaker(null);
+        }
+
         // Immediate termination and navigation to report
         const participantsData = allParticipants.map(p => ({
             id: p.id,
@@ -404,13 +470,14 @@ const GroupDiscussion = () => {
             state: {
                 topic,
                 transcript,
-                participants: participantsData
+                participants: participantsData,
+                abusiveKickout: isAborted
             }
         });
     };
 
     const triggerAgentTurn = async (agent: Participant) => {
-        if (processing || currentSpeaker) return;
+        if (processingRef.current || currentSpeakerRef.current) return;
         setProcessing(true);
         // await new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 1000)); // Remove extra artificial delay, we handled it in transition
         try {
@@ -433,8 +500,8 @@ const GroupDiscussion = () => {
             if (isMounted.current) {
                 setCurrentSpeaker(null);
                 setProcessing(false);
-                // After AI finishes, wait for user again (2 seconds)
-                handleTurnTransition(2000);
+                // After AI finishes, wait for user again (3 seconds)
+                handleTurnTransition(3000);
             }
         }
     };
@@ -450,30 +517,11 @@ const GroupDiscussion = () => {
         setInputText("");
         setTranscript(prev => [...prev, { speakerId: 'user', speakerName: 'You', text, timestamp: new Date().toLocaleTimeString() }]);
 
-        // After user speaks, wait for other agents to respond (2 seconds)
-        handleTurnTransition(2000);
+        // After user speaks, wait for other agents to respond (3 seconds)
+        handleTurnTransition(3000);
     };
 
-    // Monitor for User Voice Activity to Interrupt/Claim Turn
-    useEffect(() => {
-        if (isUserSpeaking) {
-            // If user starts speaking, CANCEL the AI turn timer immediately
-            if (discussionTimeoutRef.current) {
-                clearTimeout(discussionTimeoutRef.current);
-                discussionTimeoutRef.current = null;
-            }
-        }
-    }, [isUserSpeaking]);
-
-    // When User STOPS speaking (transcript receives data), trigger next turn
-    // Note: useSpeechRecognition logic might need to trigger this explicitly or we observe transcript length change
-    useEffect(() => {
-        // Simple check: if last transcript message is from user, trigger next turn transition
-        const lastMsg = transcript[transcript.length - 1];
-        if (lastMsg && lastMsg.speakerId === 'user' && isActive && !processing && !currentSpeaker) {
-            handleTurnTransition(2000);
-        }
-    }, [transcript, isActive, processing, currentSpeaker]);
+    // Removed auto-voice detection timeouts and intervals since we are moving to fully manual mic toggles
 
     /* Removed Random Loop */
 
@@ -485,10 +533,86 @@ const GroupDiscussion = () => {
         navigator.clipboard.writeText(url);
         toast.success(`Invite Code: ${roomId} copied!`);
     };
+    
+    const isMicDisabled = isIntro || isPreparing || (currentSpeaker !== null && currentSpeaker !== 'user') || isMicThrottled || processing;
+
     const handleMicToggle = () => {
-        if (isListening) stopListening();
-        else startListening();
+        if (isMicDisabled) return;
+
+        setIsMicThrottled(true);
+        setTimeout(() => setIsMicThrottled(false), 800);
+
+        if (isListening || currentSpeaker === 'user') {
+            stopListening();
+            
+            const textToSend = (userTranscript + " " + interimTranscript).trim();
+            if (textToSend) {
+                const isAbusive = ABUSIVE_WORDS.some(word => textToSend.toLowerCase().includes(word));
+                if (isAbusive) {
+                    stopListening();
+                    resetTranscript();
+                    setCurrentSpeaker(null);
+                    socketRef.current?.emit('speaking-status', { roomId, isSpeaking: false, speakerId: 'user' });
+                    
+                    if (abuseCountRef.current === 0) {
+                        setAbuseCount(1);
+                        const warningText = "Please monitor your language. Inappropriate words are not permitted. Consider this a warning.";
+                        setCurrentSpeaker(MODERATOR.id);
+                        setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text: warningText, timestamp: new Date().toLocaleTimeString() }]);
+                        
+                        speakText(warningText, 'male').then(() => {
+                            if (isMounted.current) {
+                                setCurrentSpeaker(null);
+                                handleTurnTransition(3000);
+                            }
+                        });
+                    } else {
+                        concludeSession(true);
+                    }
+                    return;
+                }
+                
+                setTranscript(prev => [...prev, { speakerId: 'user', speakerName: 'You', text: textToSend, timestamp: new Date().toLocaleTimeString() }]);
+                socketRef.current?.emit('speech-message', { roomId, speakerId: 'user', speakerName: userInfo?.name?.split(' ')[0] || 'You', text: textToSend });
+            }
+            resetTranscript();
+
+            setCurrentSpeaker(null);
+            socketRef.current?.emit('speaking-status', { roomId, isSpeaking: false, speakerId: 'user' });
+            
+            // Release the floor, give 3 seconds for others to act
+            handleTurnTransition(3000);
+        } else {
+            startListening();
+            setCurrentSpeaker('user');
+            if (discussionTimeoutRef.current) {
+                clearTimeout(discussionTimeoutRef.current);
+                discussionTimeoutRef.current = null;
+            }
+            socketRef.current?.emit('speaking-status', { roomId, isSpeaking: true, speakerId: 'user' });
+        }
     }
+
+    const handleMicToggleRef = useRef<() => void>(handleMicToggle);
+    
+    // Always keep the ref updated with the latest function closure
+    useEffect(() => {
+        handleMicToggleRef.current = handleMicToggle;
+    });
+
+    // 5-second Silence Timeout
+    useEffect(() => {
+        let silenceTimer: NodeJS.Timeout;
+        if (isListening || currentSpeaker === 'user') {
+            silenceTimer = setTimeout(() => {
+                toast("Turn Automatically Ended", { description: "You remained silent for 5 seconds." });
+                handleMicToggleRef.current?.();
+            }, 5000);
+        }
+        return () => {
+            if (silenceTimer) clearTimeout(silenceTimer);
+        };
+    }, [isListening, currentSpeaker, userTranscript, interimTranscript]);
 
     const toggleCam = () => {
         if (userStream.current) {
@@ -505,7 +629,7 @@ const GroupDiscussion = () => {
         setIsActive(false);
         navigate('/dashboard/group-discussion');
     };
-    const handleSkipPreparation = () => { setIsPreparing(false); setIsActive(true); setTimeLeft(0); };
+    const handleSkipPreparation = () => { setTimeLeft(0); };
 
 
     // Participants list including Moderator
@@ -537,7 +661,7 @@ const GroupDiscussion = () => {
                         {topic}
                     </h1>
                     <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400 mt-1">
-                        {isActive ? "LIVE SESSION" : isPreparing ? "PREPARATION" : "SESSION ENDED"}
+                        {isActive ? "LIVE SESSION" : isIntro ? "INTRODUCTION" : isPreparing ? "PREPARATION" : "SESSION ENDED"}
                     </span>
                 </div>
 
@@ -564,9 +688,7 @@ const GroupDiscussion = () => {
                     <Button size="icon" variant="ghost" className="rounded-full hover:bg-slate-100 text-slate-500" onClick={() => setIsTranscriptOpen(!isTranscriptOpen)}>
                         <MessageSquare className="w-5 h-5" />
                     </Button>
-                    <Button size="icon" variant="ghost" className="rounded-full hover:bg-slate-100 text-slate-500">
-                        <Users className="w-5 h-5" />
-                    </Button>
+
                 </div>
             </div>
 
@@ -587,7 +709,7 @@ const GroupDiscussion = () => {
                             <div key={p.id} className="flex flex-col gap-2 group h-full min-h-0">
                                 <div className={cn(
                                     "relative flex-1 rounded-2xl overflow-hidden bg-white border-2 transition-all duration-300 shadow-sm min-h-0",
-                                    isSpeaking ? "border-green-500 shadow-md ring-2 ring-green-100 scale-[1.01]" : "border-slate-200 hover:border-indigo-200 hover:shadow-md"
+                                    isSpeaking ? "border-green-500 shadow-md ring-2 ring-green-100" : "border-slate-200 hover:border-indigo-200 hover:shadow-md"
                                 )}>
                                     {/* Video/Avatar Area */}
                                     <div className="absolute inset-0 flex items-center justify-center bg-slate-100/50">
@@ -694,13 +816,14 @@ const GroupDiscussion = () => {
                             <Button
                                 variant={isListening ? "default" : "secondary"}
                                 size="lg"
-                                className={cn("rounded-full h-12 w-12 p-0 transition-all shadow-sm pointer-events-auto", isListening ? "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105" : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50")}
+                                className={cn("rounded-full h-12 w-12 p-0 transition-all shadow-sm pointer-events-auto", isListening ? "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105" : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50", isMicDisabled ? "opacity-50 cursor-not-allowed" : "")}
                                 onClick={handleMicToggle}
+                                disabled={isMicDisabled}
                             >
                                 {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent><p>{isListening ? "Mute" : "Unmute"}</p></TooltipContent>
+                        <TooltipContent><p>{isMicDisabled ? (isPreparing ? "Wait for preparation" : (isIntro ? "Host is introducing" : "Someone else is speaking")) : (isListening ? "Mute" : "Unmute")}</p></TooltipContent>
                     </Tooltip>
 
                     <Tooltip>
@@ -737,28 +860,32 @@ const GroupDiscussion = () => {
                                 variant="destructive"
                                 size="lg"
                                 className="rounded-full px-8 h-12 bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 hover:text-red-700 hover:border-red-200 font-bold hover:scale-105 transition-all shadow-sm pointer-events-auto"
-                                onClick={concludeSession}
+                                onClick={() => concludeSession(false, true)}
                             >
-                                <PhoneOff className="w-5 h-5 mr-2" /> End Call
+                                <PhoneOff className="w-5 h-5 mr-2" /> End GD
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent><p>Leave Discussion</p></TooltipContent>
                     </Tooltip>
 
-                    <div className="w-px h-8 bg-slate-200 mx-2" />
+                    {isMultiplayer && (
+                        <>
+                            <div className="w-px h-8 bg-slate-200 mx-2" />
 
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="secondary"
-                                className="rounded-full h-12 w-12 p-0 bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-indigo-600 shadow-sm pointer-events-auto"
-                                onClick={copyLink}
-                            >
-                                <UserPlus className="w-5 h-5" />
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent><p>Invite Others</p></TooltipContent>
-                    </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        variant="secondary"
+                                        className="rounded-full h-12 w-12 p-0 bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-indigo-600 shadow-sm pointer-events-auto"
+                                        onClick={copyLink}
+                                    >
+                                        <UserPlus className="w-5 h-5" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent><p>Invite Others</p></TooltipContent>
+                            </Tooltip>
+                        </>
+                    )}
 
                 </TooltipProvider>
 

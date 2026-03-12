@@ -37,6 +37,7 @@ import DebateLanding from "./pages/DebateLanding";
 import DebateTopicSelection from "./pages/DebateTopicSelection";
 import DebateRoom from "./pages/DebateRoom";
 import DebateReport from "./pages/DebateReport";
+import DebatePerformance from "./pages/DebatePerformance";
 import AptitudeQuiz from "./pages/AptitudeQuiz";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -93,6 +94,7 @@ const App = () => <QueryClientProvider client={queryClient}>
           <Route path="debate/topic" element={<DebateTopicSelection />} />
           <Route path="debate/room" element={<DebateRoom />} />
           <Route path="debate/report" element={<DebateReport />} />
+          <Route path="debate/performance" element={<DebatePerformance />} />
           <Route path="experimental/gd-3d" element={<GD3DRoom />} />
           <Route path="aptitude-quiz" element={<AptitudeQuiz />} />
           <Route path="communication-coach" element={<CommunicationCoach />} />

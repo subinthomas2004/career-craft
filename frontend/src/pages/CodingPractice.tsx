@@ -178,26 +178,28 @@ const CodingPractice = () => {
     if (result.summary.passed === result.summary.total && result.summary.total > 0) {
       setAllPassed(true);
       setTimerRunning(false);
-      const saved = localStorage.getItem("solvedProblems");
-      const solved: number[] = saved ? JSON.parse(saved) : [];
-      if (!solved.includes(problem.id)) {
-        solved.push(problem.id);
-        localStorage.setItem("solvedProblems", JSON.stringify(solved));
-      }
 
-      // Record Activity
       try {
         const userInfo = localStorage.getItem("userInfo");
         if (userInfo) {
           const { token } = JSON.parse(userInfo);
+          
+          // Save to MongoDB
+          await api.post('/coding-scores/solve', { problemId: problem.id }, {
+              headers: { Authorization: `Bearer ${token}` }
+          });
+
+          // Record Activity
           await api.post('/auth/activity', {
             title: `Solved: ${problem.title}`,
             activityType: 'coding',
             score: 'Solved'
+          }, {
+              headers: { Authorization: `Bearer ${token}` }
           });
         }
       } catch (err) {
-        console.error("Failed to record activity", err);
+        console.error("Failed to save progress or record activity", err);
       }
     }
   }, [problem, code, language, isSubmitting]);

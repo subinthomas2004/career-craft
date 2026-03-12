@@ -46,20 +46,10 @@ import PageBackground from "@/components/layout/PageBackground";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: Video, label: "Mock Interview", path: "/dashboard/interview" },
-  { icon: FileText, label: "Resume Analyzer", path: "/dashboard/resume" },
-  { icon: Brain, label: "Quizzes", path: "/dashboard/quiz" },
-  { icon: Keyboard, label: "Typing Test", path: "/dashboard/typing" },
-  { icon: Code, label: "Coding Practice", path: "/dashboard/coding" },
-  { icon: TrendingUp, label: "Soft Skills", path: "/dashboard/soft-skills" },
-  { icon: Target, label: "Skill Gap", path: "/dashboard/skill-gap" },
   { icon: BookOpen, label: "Domain Prep", path: "/dashboard/domain" },
-  { icon: Building2, label: "Company Prep", path: "/dashboard/company-prep" },
-  { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs" },
   { icon: MessageSquare, label: "Forum", path: "/dashboard/forum" },
   { icon: Bell, label: "Notifications", path: "/dashboard/notifications" },
   { icon: Shield, label: "Admin", path: "/dashboard/admin" },
-  { icon: Brain, label: "Aptitude Quiz", path: "/dashboard/aptitude-quiz" },
   { icon: MessageSquare, label: "Test Connection", path: "/dashboard/test-connection" },
 ];
 

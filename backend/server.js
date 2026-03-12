@@ -88,6 +88,7 @@ import jobRoutes from './routes/jobRoutes.js';
 import typingRoutes from './routes/typingRoutes.js';
 import softSkillsRoutes from './routes/softSkillsRoutes.js';
 import forumRoutes from './routes/forumRoutes.js';
+import codingScoreRoutes from './routes/codingScoreRoutes.js';
 
 app.get('/', (req, res) => {
     res.send('Career Craft API is running');
@@ -106,6 +107,7 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/typing', typingRoutes);
 app.use('/api/soft-skills', softSkillsRoutes);
 app.use('/api/forum', forumRoutes);
+app.use('/api/coding-scores', codingScoreRoutes);
 
 // Global error handler (must be after routes)
 app.use((err, req, res, next) => {
@@ -202,6 +204,17 @@ io.on('connection', (socket) => {
         socket.on('disconnect', () => {
             console.log(`User ${userId} disconnected`);
             socket.to(roomId).emit('user-disconnected', userId);
+        });
+
+        // New events for GD Turn Taking & Transcripts
+        socket.on('speaking-status', (statusData) => {
+            // Forward speaking status to everyone else in the room
+            socket.to(roomId).emit('speaking-status', statusData);
+        });
+
+        socket.on('speech-message', (messageData) => {
+             // Forward the processed speech text to everyone else
+             socket.to(roomId).emit('speech-message', messageData);
         });
     });
 

@@ -25,38 +25,24 @@ const features = [{
   description: "Upload your resume and get instant ATS optimization tips. Create professional resumes with our templates.",
   image: moduleResume
 }, {
-  icon: Brain,
-  title: "Smart Quizzes",
-  description: "Technical and aptitude quizzes with adaptive difficulty. Track your progress across topics.",
-  image: moduleQuiz
+  icon: Users,
+  title: "Group Discussions & Debates",
+  description: "Participate in real-time or AI-moderated virtual rooms to enhance your argumentation and communication skills."
 }, {
-  icon: Keyboard,
-  title: "Typing Trainer",
-  description: "Improve your typing speed with gamified exercises. Compete on leaderboards and track your WPM.",
-  image: moduleTyping
+  icon: Brain,
+  title: "Smart Assessments & Skill Gap",
+  description: "Assess your knowledge with adaptive aptitude and technical quizzes. Identify missing skills for your target role.",
+  image: moduleQuiz
 }, {
   icon: Code,
   title: "Coding Challenges",
   description: "Solve coding problems with our integrated IDE. Auto-graded test cases and detailed solutions.",
   image: moduleCoding
 }, {
-  icon: Target,
-  title: "Skill Gap Analysis",
-  description: "Identify missing skills for your target role. Get personalized learning roadmaps."
-}];
-
-const stats = [{
-  value: "10K+",
-  label: "Active Students"
-}, {
-  value: "95%",
-  label: "Placement Rate"
-}, {
-  value: "500+",
-  label: "Companies Hiring"
-}, {
-  value: "50K+",
-  label: "Mock Interviews"
+  icon: Keyboard,
+  title: "Typing Trainer",
+  description: "Improve your typing speed and accuracy with gamified exercises. Compete on leaderboards and track your WPM.",
+  image: moduleTyping
 }];
 
 const Landing = () => {
@@ -123,25 +109,8 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="pt-20 pb-8 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/50 to-transparent" />
-        <div className="container mx-auto relative">
-          <div className="glass-card p-8 md:p-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center group cursor-default">
-                  <p className="text-4xl md:text-5xl font-bold text-gradient mb-2 group-hover:scale-110 transition-transform duration-300 group-hover:drop-shadow-lg">{stat.value}</p>
-                  <p className="text-muted-foreground font-medium group-hover:text-foreground transition-colors duration-300">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
-      <section className="pt-8 pb-24 px-4 relative">
+      <section className="pt-24 pb-24 px-4 relative">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" />
           <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
@@ -244,7 +213,7 @@ const Landing = () => {
                 Ready to Land Your Dream Job?
               </h2>
               <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                Join thousands of students who have already accelerated their placement preparation with CareerCraft.
+                Join our platform and accelerate your placement preparation journey with CareerCraft today.
               </p>
               <Button size="lg" variant="secondary" asChild className="text-lg px-10 py-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
                 <Link to="/auth?mode=register">
@@ -267,11 +236,6 @@ const Landing = () => {
               </div>
               <span className="font-bold text-xl text-foreground font-display">CareerCraft</span>
             </Link>
-            <div className="flex items-center gap-8 text-sm text-muted-foreground">
-              <Link to="/privacy" className="hover:text-foreground transition-colors animated-underline">Privacy</Link>
-              <Link to="/terms" className="hover:text-foreground transition-colors animated-underline">Terms</Link>
-              <Link to="/contact" className="hover:text-foreground transition-colors animated-underline">Contact</Link>
-            </div>
             <p className="text-sm text-muted-foreground">
               © 2025 CareerCraft. All rights reserved.
             </p>

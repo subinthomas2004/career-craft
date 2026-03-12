@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,8 @@ import {
   Eye,
   EyeOff,
   Mail,
-  Smartphone
+  Smartphone,
+  Check
 } from "lucide-react";
 
 const Settings = () => {
@@ -47,11 +48,62 @@ const Settings = () => {
     confirm: false
   });
 
+  const [isCurrentPasswordValid, setIsCurrentPasswordValid] = useState(false);
+  const [isVerifyingPassword, setIsVerifyingPassword] = useState(false);
+
+  const token = localStorage.getItem('token');
+
   const handleSaveSettings = () => {
     toast.success("Settings saved successfully!");
   };
 
-  const handleChangePassword = () => {
+  useEffect(() => {
+    const verifyPassword = async () => {
+      if (!passwords.current) {
+        setIsCurrentPasswordValid(false);
+        return;
+      }
+
+      setIsVerifyingPassword(true);
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/verify-password`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ currentPassword: passwords.current })
+        });
+
+        if (response.ok) {
+          setIsCurrentPasswordValid(true);
+        } else {
+          setIsCurrentPasswordValid(false);
+        }
+      } catch (error) {
+        console.error("Error verifying password", error);
+        setIsCurrentPasswordValid(false);
+      } finally {
+        setIsVerifyingPassword(false);
+      }
+    };
+
+    const delayDebounceFn = setTimeout(() => {
+      verifyPassword();
+    }, 500); // 500ms debounce
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [passwords.current, token]);
+
+  const handleChangePassword = async () => {
+    if (!passwords.current || !passwords.new || !passwords.confirm) {
+      toast.error("Please fill all password fields.");
+      return;
+    }
+    if (!isCurrentPasswordValid) {
+      toast.error("Current password is incorrect.");
+      return;
+    }
     if (passwords.new !== passwords.confirm) {
       toast.error("New passwords don't match!");
       return;
@@ -60,12 +112,58 @@ const Settings = () => {
       toast.error("Password must be at least 8 characters!");
       return;
     }
-    toast.success("Password changed successfully!");
-    setPasswords({ current: "", new: "", confirm: "" });
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/change-password`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          currentPassword: passwords.current,
+          newPassword: passwords.new
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Password changed successfully!");
+        setPasswords({ current: "", new: "", confirm: "" });
+      } else {
+        toast.error(data.message || 'Failed to change password');
+      }
+    } catch (error) {
+      console.error("Error changing password", error);
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
-  const handleDeleteAccount = () => {
-    toast.error("Account deletion is disabled in demo mode.");
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Are you sure you want to delete your account? This action is irreversible and will delete ALL your data (scores, resumes, community posts, etc.).")) {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/account`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          toast.success("Account deleted successfully!");
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          window.location.href = '/login'; // Redirect to login
+        } else {
+          const data = await response.json();
+          toast.error(data.message || 'Failed to delete account');
+        }
+      } catch (error) {
+        console.error("Error deleting account", error);
+        toast.error("An error occurred. Please try again.");
+      }
+    }
   };
 
   return (
@@ -171,7 +269,7 @@ const Settings = () => {
                   <p className="text-xs sm:text-sm text-muted-foreground">Select your preferred language</p>
                 </div>
               </div>
-              <select 
+              <select
                 className="px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 value={settings.language}
                 onChange={(e) => setSettings({ ...settings, language: e.target.value })}
@@ -244,37 +342,44 @@ const Settings = () => {
               <div className="space-y-3">
                 <div className="relative">
                   <Label htmlFor="current-password" className="text-xs sm:text-sm">Current Password</Label>
-                  <div className="relative">
-                    <Input 
+                  <div className="relative flex items-center">
+                    <Input
                       id="current-password"
                       type={showPasswords.current ? "text" : "password"}
                       value={passwords.current}
                       onChange={(e) => setPasswords({ ...passwords, current: e.target.value })}
-                      className="pr-10"
+                      className={`pr-20 ${passwords.current ? (isCurrentPasswordValid ? 'border-green-500' : 'border-red-500') : ''}`}
                     />
-                    <button 
-                      type="button"
-                      className="absolute right-3 top-1/2 -translate-y-1/2"
-                      onClick={() => setShowPasswords({ ...showPasswords, current: !showPasswords.current })}
-                    >
-                      {showPasswords.current ? <EyeOff className="w-4 h-4 text-muted-foreground" /> : <Eye className="w-4 h-4 text-muted-foreground" />}
-                    </button>
+                    <div className="absolute right-3 flex items-center gap-2">
+                      {isVerifyingPassword && <span className="text-xs text-muted-foreground">Verifying...</span>}
+                      {!isVerifyingPassword && passwords.current && isCurrentPasswordValid && (
+                        <Check className="w-4 h-4 text-green-500 font-bold" />
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setShowPasswords({ ...showPasswords, current: !showPasswords.current })}
+                      >
+                        {showPasswords.current ? <EyeOff className="w-4 h-4 text-muted-foreground" /> : <Eye className="w-4 h-4 text-muted-foreground" />}
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="relative">
                   <Label htmlFor="new-password" className="text-xs sm:text-sm">New Password</Label>
                   <div className="relative">
-                    <Input 
+                    <Input
                       id="new-password"
                       type={showPasswords.new ? "text" : "password"}
                       value={passwords.new}
                       onChange={(e) => setPasswords({ ...passwords, new: e.target.value })}
                       className="pr-10"
+                      disabled={!isCurrentPasswordValid}
                     />
-                    <button 
+                    <button
                       type="button"
                       className="absolute right-3 top-1/2 -translate-y-1/2"
                       onClick={() => setShowPasswords({ ...showPasswords, new: !showPasswords.new })}
+                      disabled={!isCurrentPasswordValid}
                     >
                       {showPasswords.new ? <EyeOff className="w-4 h-4 text-muted-foreground" /> : <Eye className="w-4 h-4 text-muted-foreground" />}
                     </button>
@@ -283,23 +388,25 @@ const Settings = () => {
                 <div className="relative">
                   <Label htmlFor="confirm-password" className="text-xs sm:text-sm">Confirm New Password</Label>
                   <div className="relative">
-                    <Input 
+                    <Input
                       id="confirm-password"
                       type={showPasswords.confirm ? "text" : "password"}
                       value={passwords.confirm}
                       onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })}
                       className="pr-10"
+                      disabled={!isCurrentPasswordValid}
                     />
-                    <button 
+                    <button
                       type="button"
                       className="absolute right-3 top-1/2 -translate-y-1/2"
                       onClick={() => setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })}
+                      disabled={!isCurrentPasswordValid}
                     >
                       {showPasswords.confirm ? <EyeOff className="w-4 h-4 text-muted-foreground" /> : <Eye className="w-4 h-4 text-muted-foreground" />}
                     </button>
                   </div>
                 </div>
-                <Button onClick={handleChangePassword} className="w-full sm:w-auto">
+                <Button onClick={handleChangePassword} className="w-full sm:w-auto" disabled={!isCurrentPasswordValid || !passwords.new || !passwords.confirm}>
                   Update Password
                 </Button>
               </div>

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Play, Edit3, Grid, ArrowLeft, Dices, MessageSquare, Swords, Globe, Scale, Timer } from 'lucide-react';
+import { Play, Edit3, Grid, ArrowLeft, Dices, MessageSquare, Swords, Globe, Scale, Timer, BarChart3 } from 'lucide-react';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { api } from '@/lib/api';
@@ -430,7 +430,7 @@ const DebateTopicSelection = () => {
                 </div>
             </div>
 
-            {/* Back Button (Absolute) */}
+            {/* Top Buttons (Absolute) */}
             <div className="absolute top-6 left-6 z-20">
                 <Button
                     variant="ghost"
@@ -439,6 +439,16 @@ const DebateTopicSelection = () => {
                     className="text-muted-foreground hover:text-foreground hover:bg-background/80"
                 >
                     <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                </Button>
+            </div>
+            
+            <div className="absolute top-6 right-6 z-20">
+                <Button
+                    onClick={() => navigate('/dashboard/debate/performance')}
+                    className="h-12 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all border-none"
+                >
+                    <BarChart3 className="w-5 h-5 mr-2" /> 
+                    <span className="font-bold text-sm tracking-wide">View Performance</span>
                 </Button>
             </div>
         </div>

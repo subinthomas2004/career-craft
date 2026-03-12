@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { Code, ArrowRight, ArrowLeft, Flame } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Code, ArrowRight, ArrowLeft, Flame, Loader2 } from "lucide-react";
 import { codingProblems } from "@/data/codingProblems";
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
+import { api } from "@/lib/api";
 
 // 8 Language cards with icons, colors matching the dashboard design
 const languages = [
@@ -72,12 +73,44 @@ const languages = [
 ];
 
 const CodingPracticeHome = () => {
-    const solvedCount = useMemo(() => {
-        const saved = localStorage.getItem("solvedProblems");
-        return saved ? JSON.parse(saved).length : 0;
-    }, []);
+    const navigate = useNavigate();
+    const [solvedProblems, setSolvedProblems] = useState<number[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
+    useEffect(() => {
+        const fetchScores = async () => {
+            try {
+                const userInfoStr = localStorage.getItem("userInfo");
+                if (!userInfoStr) {
+                    navigate('/auth');
+                    return;
+                }
+                const { token } = JSON.parse(userInfoStr);
+                const res = await api.get('/coding-scores', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (res.data?.success) {
+                    setSolvedProblems(res.data.solvedProblems || []);
+                }
+            } catch (err) {
+                console.error("Failed to fetch coding progress:", err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchScores();
+    }, [navigate]);
+
+    const solvedCount = solvedProblems.length;
     const totalCount = codingProblems.length;
+
+    if (isLoading) {
+        return (
+            <div className="p-4 sm:p-6 lg:p-8 min-h-screen flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 sm:p-6 lg:p-8 min-h-screen">
@@ -125,36 +158,50 @@ const CodingPracticeHome = () => {
 
             {/* 8 Language Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 stagger-children">
-                {languages.map((lang) => (
-                    <Link
-                        key={lang.id}
-                        to={`/dashboard/coding/${lang.id}`}
-                        className="group relative overflow-hidden rounded-2xl bg-card/60 backdrop-blur-xl border border-border/40 p-4 sm:p-6 hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
-                    >
-                        {/* Gradient Icon */}
-                        <div
-                            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${lang.color} flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform shadow-lg`}
+                {languages.map((lang) => {
+                    // Calculate problems specific to this language
+                    const langProblems = codingProblems.filter(p => !p.supportedLanguages || p.supportedLanguages.includes(lang.id as any));
+                    const langTotal = langProblems.length;
+                    const langSolved = langProblems.filter(p => solvedProblems.includes(p.id)).length;
+
+                    return (
+                        <Link
+                            key={lang.id}
+                            to={`/dashboard/coding/${lang.id}`}
+                            className="group relative overflow-hidden rounded-2xl bg-card/60 backdrop-blur-xl border border-border/40 p-4 sm:p-6 hover:shadow-lg hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
                         >
-                            <span className="text-xl sm:text-2xl">{lang.icon}</span>
-                        </div>
+                            {/* Gradient Icon */}
+                            <div
+                                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${lang.color} flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform shadow-lg`}
+                            >
+                                <span className="text-xl sm:text-2xl">{lang.icon}</span>
+                            </div>
 
-                        {/* Label */}
-                        <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1">
-                            {lang.label}
-                        </h3>
-                        <p className="text-xs text-muted-foreground mb-3">{lang.description}</p>
+                            {/* Label */}
+                            <h3 className="text-sm sm:text-base font-semibold text-foreground mb-1">
+                                {lang.label}
+                            </h3>
+                            <p className="text-xs text-muted-foreground mb-3">{lang.description}</p>
 
-                        {/* Problem count */}
-                        <div className="flex items-center gap-1.5">
-                            <span className="text-xs font-medium text-primary">
-                                {codingProblems.filter(p => !p.supportedLanguages || p.supportedLanguages.includes(lang.id as any)).length} problems
-                            </span>
-                        </div>
+                            {/* Problem count */}
+                            <div className="flex flex-col gap-1.5 mt-auto">
+                                <div className="flex items-center justify-between text-xs font-medium">
+                                    <span className="text-muted-foreground">Progress</span>
+                                    <span className="text-primary">{langSolved}/{langTotal} solved</span>
+                                </div>
+                                <div className="w-full bg-muted/30 rounded-full h-1.5 mt-1">
+                                    <div
+                                        className={`bg-gradient-to-r ${lang.color} rounded-full h-1.5 transition-all duration-500`}
+                                        style={{ width: `${langTotal > 0 ? (langSolved / langTotal) * 100 : 0}%` }}
+                                    />
+                                </div>
+                            </div>
 
-                        {/* Arrow */}
-                        <ArrowRight className="absolute bottom-4 right-4 w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                    </Link>
-                ))}
+                            {/* Arrow */}
+                            <ArrowRight className="absolute top-6 right-5 w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all" />
+                        </Link>
+                    )
+                })}
             </div>
         </div>
     );

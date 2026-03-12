@@ -39,7 +39,7 @@ interface ParticipantStats {
 const GDReport = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { topic, transcript = [], participants = [] } = location.state || {};
+    const { topic, transcript = [], participants = [], abusiveKickout = false } = location.state || {};
 
     if (!topic || transcript.length === 0) {
         return (
@@ -186,16 +186,7 @@ const GDReport = () => {
                             Topic: <span className="font-semibold text-slate-800">{topic}</span>
                         </p>
                     </div>
-                    <div className="flex gap-2">
-                        <Button variant="outline" onClick={() => window.print()}>
-                            <Download className="w-4 h-4 mr-2" /> Download PDF
-                        </Button>
-                        <Button variant="outline">
-                            <Share2 className="w-4 h-4 mr-2" /> Share
-                        </Button>
-                    </div>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                     {/* Winner Card */}
@@ -259,7 +250,7 @@ const GDReport = () => {
                                     <div className="flex items-center gap-2 text-slate-500 text-sm mb-1">
                                         <Award className="w-4 h-4" /> Rank
                                     </div>
-                                    <p className="text-2xl font-bold text-slate-900">#{userStats?.rank || '-'}</p>
+                                    <p className="text-2xl font-bold text-slate-900">#{abusiveKickout ? 'DQ' : (userStats?.rank || '-')}</p>
                                     <p className="text-xs text-slate-400">Among {stats.length} participants</p>
                                 </div>
                             </div>
