@@ -6,7 +6,7 @@ dotenv.config();
 // Use axios instead of groq-sdk to avoid APIConnectionError on Render
 // The groq-sdk uses native fetch internally which fails on Render's infrastructure
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const GROQ_API_KEY = (process.env.GROQ_API_KEY || "").trim();
 
 const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", temperature = 0.7, max_tokens, response_format }) => {
     const body = { messages, model, temperature };
