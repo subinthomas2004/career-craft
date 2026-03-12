@@ -49,9 +49,20 @@ export const testGroqConnection = async (req, res) => {
         });
     } catch (error) {
         console.error("Groq API Error:", error);
+        console.error("Error name:", error.name);
+        console.error("Error type:", error.constructor?.name);
+        console.error("Error cause:", error.cause);
+        console.error("Node version:", process.version);
+        console.error("GROQ_API_KEY set:", !!process.env.GROQ_API_KEY);
+        console.error("GROQ_API_KEY length:", process.env.GROQ_API_KEY?.length || 0);
         res.status(500).json({
             success: false,
             error: error.message,
+            errorType: error.constructor?.name,
+            errorCause: error.cause?.message || null,
+            nodeVersion: process.version,
+            apiKeySet: !!process.env.GROQ_API_KEY,
+            apiKeyLength: process.env.GROQ_API_KEY?.length || 0,
             details: "Failed to connect to Groq API"
         });
     }
