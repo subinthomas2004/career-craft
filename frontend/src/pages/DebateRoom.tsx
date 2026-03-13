@@ -505,9 +505,23 @@ const DebateRoom = () => {
         stopListening();
         if (silenceTimerRef.current) {
             clearTimeout(silenceTimerRef.current);
+            silenceTimerRef.current = null;
+        }
+        if (speechInactivityRef.current) {
+            clearTimeout(speechInactivityRef.current);
+            speechInactivityRef.current = null;
+        }
+        if (maxSpeechTimerRef.current) {
+            clearTimeout(maxSpeechTimerRef.current);
+            maxSpeechTimerRef.current = null;
+        }
+        // Stop camera stream
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
         }
         navigate('/dashboard/debate/report', {
-            state: { transcript, topic, stance }
+            state: { transcript, topic, stance },
+            replace: true
         });
     };
 

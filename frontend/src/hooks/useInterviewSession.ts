@@ -8,6 +8,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
     const [engine, setEngine] = useState<InterviewEngine | null>(null);
     const [sessionState, setSessionState] = useState<InterviewState | null>(null);
     const [avatarState, setAvatarState] = useState<'idle' | 'talking' | 'listening'>('idle');
+    const [spokenCharIndex, setSpokenCharIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [isCodeQuestion, setIsCodeQuestion] = useState(false);
 
@@ -64,6 +65,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
 
             // Stop any current speech and clear previous timeouts
             window.speechSynthesis.cancel();
+            setSpokenCharIndex(0);
             if (safetyTimeoutRef.current) {
             clearTimeout(safetyTimeoutRef.current);
             safetyTimeoutRef.current = null;
@@ -148,8 +150,27 @@ export const useInterviewSession = (config: InterviewConfig) => {
         };
 
         utterance.onend = finishSpeaking;
+        utterance.onboundary = (event) => {
+            if (event.name === 'word') {
+                setSpokenCharIndex(event.charIndex);
+            }
+        };
+        // Fallback for browsers with poor onboundary support:
+        // Increment charIndex based on average reading speed if it hasn't updated
+        const progressInterval = setInterval(() => {
+            if (hasEnded) {
+                clearInterval(progressInterval);
+                return;
+            }
+            // If synthesis is speaking, slowly increment as a fallback
+            if (window.speechSynthesis.speaking) {
+                setSpokenCharIndex(prev => prev + 1);
+            }
+        }, 100);
+
         utterance.onerror = (e) => {
             console.error("Speech error", e);
+            clearInterval(progressInterval);
             finishSpeaking();
         };
 
@@ -158,6 +179,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
         const estimatedDurationMs = (wordCount / 100) * 60 * 1000 + 4000;
 
         safetyTimeoutRef.current = setTimeout(() => {
+            clearInterval(progressInterval);
             if (!hasEnded) {
                 console.warn("Speech synthesis 'onend' timed out - forcing listening state.");
                 finishSpeaking();
@@ -191,6 +213,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
 
     const endSession = useCallback(() => {
         isSessionActiveRef.current = false;
+        setSpokenCharIndex(0);
 
         // Stop Speech
         if ('speechSynthesis' in window) {
@@ -415,6 +438,7 @@ export const useInterviewSession = (config: InterviewConfig) => {
         ready: !!engine && voices.length > 0,
         sessionState,
         avatarState,
+        spokenCharIndex,
         currentTranscript: interimTranscript || transcript,
         isCodeQuestion,
         startSession,

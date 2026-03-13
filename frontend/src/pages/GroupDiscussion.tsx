@@ -472,7 +472,8 @@ const GroupDiscussion = () => {
                 transcript,
                 participants: participantsData,
                 abusiveKickout: isAborted
-            }
+            },
+            replace: true
         });
     };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -13,38 +13,148 @@ import {
     Loader2,
     AlertCircle,
     ArrowLeft,
-    ChevronLeft
+    ChevronLeft,
+    Sparkles,
+    BookOpen,
+    HelpCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-import { aptitudeTopics, getQuestionsForTopic, Question } from "@/data/aptitudeQuestions";
+import { aptitudeTopics, getQuestionsForTopic, getQuestionsForTopics, getAllAptitudeQuestions, Question } from "@/data/aptitudeQuestions";
 
 interface QuizModeProps {
     onBack: () => void;
 }
 
 export const QuizMode = ({ onBack }: QuizModeProps) => {
-    const [stage, setStage] = useState<"select" | "loading" | "quiz" | "result">("select");
-    const [selectedTopic, setSelectedTopic] = useState<{ id: string, name: string } | null>(null);
-
-    const [questionCount, setQuestionCount] = useState(5);
-
+    const lastViolationTime = useRef(0);
+    const [stage, setStage] = useState<"select" | "loading" | "quiz" | "result" | "exam-rules">("select");
+    const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+    const [isExamMode, setIsExamMode] = useState(false);
+    
+    const [questionCount, setQuestionCount] = useState(10);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-    const [answers, setAnswers] = useState<number[]>([]);
+    const [answers, setAnswers] = useState<{ questionId: number | string, selected: number | null, correct: number }[]>([]);
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
+    
+    // Exam State
+    const [timeLeft, setTimeLeft] = useState(0);
+    const [examWarnings, setExamWarnings] = useState(0);
+    const [terminationReason, setTerminationReason] = useState<string | null>(null);
+    const [isNavigating, setIsNavigating] = useState(false);
+
+    // Timer Effect
+    useEffect(() => {
+        if (!isExamMode || stage !== "quiz" || timeLeft <= 0) return;
+
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    submitQuiz();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [isExamMode, stage, timeLeft]);
+
+    // Anti-Cheating Logic
+    useEffect(() => {
+        if (!isExamMode || stage !== "quiz") return;
+
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                setTerminationReason("Switching tabs or minimizing the window is prohibited.");
+                setStage("result");
+                document.exitFullscreen().catch(() => { });
+            }
+        };
+
+        const handleFullscreenChange = () => {
+            if (!document.fullscreenElement) {
+                handleViolation("Exiting fullscreen is not allowed!");
+            }
+        };
+
+        const handleViolation = (msg: string) => {
+            const now = Date.now();
+            if (now - lastViolationTime.current < 2000) return;
+            lastViolationTime.current = now;
+
+            setExamWarnings(prev => {
+                const newCount = prev + 1;
+                toast.warning(`Warning ${newCount}/2: ${msg}`);
+                return newCount;
+            });
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            document.removeEventListener("fullscreenchange", handleFullscreenChange);
+        };
+    }, [isExamMode, stage]);
+
+    // Warning termination
+    useEffect(() => {
+        if (examWarnings >= 2) {
+            setTerminationReason("Multiple violations of fullscreen policy.");
+            setStage("result");
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => { });
+            }
+        }
+    }, [examWarnings]);
+
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs.toString().padStart(2, "0")}`;
+    };
+
+    const toggleTopic = (id: string) => {
+        if (selectedTopics.includes(id)) {
+            setSelectedTopics(selectedTopics.filter(t => t !== id));
+        } else {
+            setSelectedTopics([...selectedTopics, id]);
+        }
+    };
+
+    const handleFullExamSelect = () => {
+        setIsExamMode(true);
+        // If no topics selected, default to all
+        if (selectedTopics.length === 0) {
+            setSelectedTopics(aptitudeTopics.map(t => t.id));
+        }
+        setStage("exam-rules");
+    };
 
     const generateQuiz = () => {
-        if (!selectedTopic) return;
-
         setStage("loading");
-
-        // Simulate a brief loading for UX (optional, can be removed for instant load)
         setTimeout(() => {
-            const fetchedQuestions = getQuestionsForTopic(selectedTopic.id, questionCount, "medium");
+            let fetchedQuestions: Question[] = [];
+            
+            if (isExamMode) {
+                // Use selected topics if available, otherwise fallback to all for the 40-q exam
+                const sourceTopics = selectedTopics.length > 0 ? selectedTopics : aptitudeTopics.map(t => t.id);
+                fetchedQuestions = getQuestionsForTopics(sourceTopics, 40);
+                
+                setTimeLeft(720); // 12 mins
+                document.documentElement.requestFullscreen().catch(() => {
+                    toast.error("Fullscreen is required for exam mode");
+                });
+            } else {
+                fetchedQuestions = getQuestionsForTopics(selectedTopics, questionCount);
+            }
 
             if (fetchedQuestions.length > 0) {
                 setQuestions(fetchedQuestions);
@@ -53,51 +163,167 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                 setAnswers([]);
                 setSelectedAnswer(null);
                 setScore(0);
+                setExamWarnings(0);
+                setTerminationReason(null);
             } else {
-                toast.error(`No questions found for ${selectedTopic.name} yet. Check the data file!`);
+                toast.error("No questions found for the selected topics.");
                 setStage("select");
             }
         }, 600);
     };
 
-    const handleAnswer = (index: number) => {
-        setSelectedAnswer(index);
+    const jumpToQuestion = (index: number) => {
+        // Save current answer
+        saveCurrentAnswer();
+        setCurrentQuestion(index);
+        // Restore previous answer if any
+        const existing = answers.find(a => a.questionId === index);
+        setSelectedAnswer(existing ? existing.selected : null);
+    };
+
+    const saveCurrentAnswer = () => {
+        if (selectedAnswer !== null) {
+            setAnswers(prev => {
+                const filtered = prev.filter(a => a.questionId !== currentQuestion);
+                return [...filtered, {
+                    questionId: currentQuestion,
+                    selected: selectedAnswer,
+                    correct: questions[currentQuestion].correct
+                }];
+            });
+        }
     };
 
     const submitAnswer = () => {
+        if (isExamMode) {
+            handleNext();
+            return;
+        }
+
         if (selectedAnswer === null) return;
-
-        const isCorrect = selectedAnswer === questions[currentQuestion].correct;
-        if (isCorrect) setScore(score + 1);
-
-        setAnswers([...answers, selectedAnswer]);
+        saveCurrentAnswer();
         setShowResult(true);
     };
 
-    const nextQuestion = () => {
+    const handleNext = () => {
+        if (isNavigating) return;
+        
+        saveCurrentAnswer();
+
         if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
-            setSelectedAnswer(null);
+            const nextIdx = currentQuestion + 1;
+            const existing = answers.find(a => a.questionId === nextIdx);
+            setSelectedAnswer(existing ? existing.selected : null);
             setShowResult(false);
         } else {
-            setStage("result");
+            submitQuiz();
         }
+
+        setIsNavigating(true);
+        setTimeout(() => setIsNavigating(false), 300);
+    };
+
+    const submitQuiz = () => {
+        if (isExamMode) {
+            document.exitFullscreen().catch(() => { });
+        }
+        
+        // Calculate final score
+        let correct = 0;
+        let finalAnswers = [...answers];
+        
+        // Ensure final answer is preserved
+        if (selectedAnswer !== null) {
+            const filtered = finalAnswers.filter(a => a.questionId !== currentQuestion);
+            finalAnswers = [...filtered, {
+                questionId: currentQuestion,
+                selected: selectedAnswer,
+                correct: questions[currentQuestion].correct
+            }];
+        }
+
+        finalAnswers.forEach(ans => {
+            if (ans.selected === ans.correct) correct++;
+        });
+
+        setScore(correct);
+        setStage("result");
     };
 
     const restartQuiz = () => {
         setStage("select");
-        setSelectedTopic(null);
+        setSelectedTopics([]);
         setQuestions([]);
         setAnswers([]);
         setScore(0);
+        setIsExamMode(false);
     };
 
     if (stage === "loading") {
         return (
             <div className="flex flex-col items-center justify-center min-h-[50vh]">
                 <Loader2 className="h-16 w-16 text-primary animate-spin mb-4" />
-                <h2 className="text-2xl font-bold text-foreground">Generating Your Quiz</h2>
-                <p className="text-muted-foreground mt-2">Consulting AI for challenging questions...</p>
+                <h2 className="text-2xl font-bold text-foreground">Generating Your {isExamMode ? "Exam" : "Quiz"}</h2>
+                <p className="text-muted-foreground mt-2">Preparing your challenge questions...</p>
+            </div>
+        );
+    }
+
+    if (stage === "exam-rules") {
+        return (
+            <div className="p-6 lg:p-8 min-h-screen flex items-center justify-center bg-gray-50 text-gray-900">
+                <div className="w-full max-w-2xl">
+                    <Button variant="ghost" className="mb-6 pl-0 hover:bg-transparent hover:text-primary text-gray-500" onClick={() => setStage("select")}>
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Back
+                    </Button>
+
+                    <Card className="border-gray-200 bg-white shadow-xl">
+                        <CardHeader className="bg-gradient-to-r from-primary/10 to-blue-500/10 border-b border-gray-100">
+                            <CardTitle className="text-2xl flex items-center gap-3 text-gray-900">
+                                <Trophy className="w-8 h-8 text-primary" />
+                                Aptitude Exam Rules
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6 pt-6">
+                            <div className="grid gap-4 md:grid-cols-2">
+                                <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                                        <BookOpen className="w-4 h-4 text-blue-500" /> Format
+                                    </h4>
+                                    <ul className="text-sm text-gray-600 space-y-1">
+                                        <li>• 40 Random Questions</li>
+                                        <li>• All Aptitude Topics</li>
+                                        <li>• 12 Minutes Time Limit</li>
+                                    </ul>
+                                </div>
+                                <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
+                                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                                        <CheckCircle className="w-4 h-4 text-emerald-500" /> Scoring
+                                    </h4>
+                                    <ul className="text-sm text-gray-600 space-y-1">
+                                        <li>• +1 for Correct Answer</li>
+                                        <li>• 0 for Wrong/Unattempted</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-red-50 border border-red-100">
+                                <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-2">
+                                    <XCircle className="w-4 h-4" /> Strict Exam Policy
+                                </h4>
+                                <ul className="text-sm text-red-600 space-y-2">
+                                    <li>• Switching tabs or minimizing results in <strong>IMMEDIATE TERMINATION</strong>.</li>
+                                    <li>• Exiting Full Screen allows <strong>1 Warning</strong>. 2nd violation terminates exam.</li>
+                                </ul>
+                            </div>
+
+                            <Button onClick={generateQuiz} className="w-full bg-primary hover:bg-primary/90 text-lg py-6 shadow-lg">
+                                I Agree & Start Exam <Sparkles className="w-5 h-5 ml-2" />
+                            </Button>
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         );
     }
@@ -111,92 +337,128 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                     </Button>
 
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-foreground mb-2">AI-Powered Aptitude Quiz</h1>
+                        <h1 className="text-3xl font-bold text-foreground mb-2">Aptitude Exam Section</h1>
                         <p className="text-muted-foreground text-lg">
-                            Challenge yourself with dynamically generated questions across various categories.
+                            Take a full challenge or practice specific modules.
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid lg:grid-cols-3 gap-8">
                         {/* Topic Selection */}
-                        <Card className="h-full">
-                            <CardHeader>
-                                <CardTitle>Select Topic</CardTitle>
-                                <CardDescription>Choose an area to practice</CardDescription>
+                        <Card className="lg:col-span-2">
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0">
+                                <div>
+                                    <CardTitle>Select Topics</CardTitle>
+                                    <CardDescription>Practice specific areas (Multiple allowed)</CardDescription>
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button 
+                                        variant="ghost" 
+                                        size="sm" 
+                                        onClick={() => setSelectedTopics(aptitudeTopics.map(t => t.id))} 
+                                        className="text-primary h-8"
+                                    >
+                                        Select All
+                                    </Button>
+                                    {selectedTopics.length > 0 && (
+                                        <Button 
+                                            variant="ghost" 
+                                            size="sm" 
+                                            onClick={() => setSelectedTopics([])} 
+                                            className="text-primary h-8"
+                                        >
+                                            Clear
+                                        </Button>
+                                    )}
+                                </div>
                             </CardHeader>
-                            <CardContent className="grid grid-cols-2 gap-3 max-h-[500px] overflow-y-auto pr-2">
+                            <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto pr-2">
                                 {aptitudeTopics.map(topic => (
                                     <button
                                         key={topic.id}
-                                        onClick={() => setSelectedTopic({ id: topic.id, name: topic.name })}
+                                        onClick={() => toggleTopic(topic.id)}
                                         className={cn(
-                                            "p-4 rounded-xl border flex flex-col items-center text-center gap-2 hover:border-primary transition-all",
-                                            selectedTopic?.id === topic.id ? "border-primary bg-primary/10" : "bg-card"
+                                            "p-4 rounded-xl border flex flex-col items-center text-center gap-2 transition-all duration-200",
+                                            selectedTopics.includes(topic.id) 
+                                                ? "border-primary bg-primary/10 shadow-sm" 
+                                                : "bg-card hover:border-primary/50"
                                         )}
                                     >
-                                        <span className="text-3xl">{topic.icon}</span>
-                                        <span className="font-medium">{topic.name}</span>
+                                        <span className="text-2xl">{topic.icon}</span>
+                                        <span className="text-xs font-semibold">{topic.name}</span>
                                     </button>
                                 ))}
                             </CardContent>
                         </Card>
 
                         {/* Configuration */}
-                        <Card className="h-full">
-                            <CardHeader>
-                                <CardTitle>Configuration</CardTitle>
-                                <CardDescription>Customize your quiz experience</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-6">
+                        <div className="space-y-6">
+                            <Card className="border-primary/30 bg-primary/5">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <Trophy className="h-5 w-5 text-primary" />
+                                        Full Challenge
+                                    </CardTitle>
+                                    <CardDescription>40 Questions • 12 Mins • strict</CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-sm text-muted-foreground mb-6">
+                                        {selectedTopics.length > 0 
+                                            ? `Test your skills on ${selectedTopics.length} selected topics with AI monitoring.`
+                                            : "Test your skills against the full question bank with AI monitoring."}
+                                    </p>
+                                    <Button className="w-full" onClick={handleFullExamSelect}>
+                                        {selectedTopics.length > 0 ? "Start Topic Exam" : "Start Full Exam"}
+                                    </Button>
+                                    {selectedTopics.length > 0 && (
+                                        <button 
+                                            onClick={() => setSelectedTopics([])}
+                                            className="w-full mt-3 text-xs text-primary hover:underline"
+                                        >
+                                            Reset to All Topics
+                                        </button>
+                                    )}
+                                </CardContent>
+                            </Card>
 
-
-                                {/* Question Count */}
-                                <div>
-                                    <label className="block text-sm font-medium mb-3">Number of Questions</label>
-                                    <div className="flex gap-3">
-                                        {[5, 10, 15].map((count) => (
-                                            <button
-                                                key={count}
-                                                onClick={() => setQuestionCount(count)}
-                                                className={cn(
-                                                    "flex-1 py-3 px-4 rounded-lg border font-medium transition-all",
-                                                    questionCount === count
-                                                        ? "border-primary bg-primary text-primary-foreground"
-                                                        : "hover:bg-accent"
-                                                )}
-                                            >
-                                                {count}
-                                            </button>
-                                        ))}
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Practice Config</CardTitle>
+                                    <CardDescription>Set your practice volume</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-6">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-3">Questions</label>
+                                        <div className="flex gap-2">
+                                            {[5, 10, 15].map((count) => (
+                                                <button
+                                                    key={count}
+                                                    onClick={() => setQuestionCount(count)}
+                                                    className={cn(
+                                                        "flex-1 py-2 rounded-lg border font-medium transition-all text-sm",
+                                                        questionCount === count
+                                                            ? "border-primary bg-primary text-primary-foreground"
+                                                            : "hover:bg-accent"
+                                                    )}
+                                                >
+                                                    {count}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-
-                                {selectedTopic && (
-                                    <div className="mt-8 p-4 bg-muted/50 rounded-lg border">
-                                        <h3 className="font-medium mb-1">Summary</h3>
-                                        <p className="text-sm text-muted-foreground">
-                                            Topic: <span className="text-foreground font-medium">{selectedTopic.name}</span>
-                                        </p>
-
-                                        <p className="text-sm text-muted-foreground">
-                                            Questions: <span className="text-foreground font-medium">{questionCount}</span>
-                                        </p>
-                                    </div>
-                                )}
-
-                            </CardContent>
-                            <CardFooter>
-                                <Button
-                                    size="lg"
-                                    className="w-full"
-                                    disabled={!selectedTopic}
-                                    onClick={generateQuiz}
-                                >
-                                    <Brain className="mr-2 h-5 w-5" />
-                                    Start Quiz
-                                </Button>
-                            </CardFooter>
-                        </Card>
+                                    <Button 
+                                        className="w-full" 
+                                        disabled={selectedTopics.length === 0}
+                                        onClick={() => {
+                                            setIsExamMode(false);
+                                            generateQuiz();
+                                        }}
+                                    >
+                                        Start Practice
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -205,119 +467,229 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
 
     if (stage === "quiz") {
         const q = questions[currentQuestion];
+        const progress = ((currentQuestion) / questions.length) * 100;
+
         return (
-            <div className="max-w-3xl mx-auto p-0 min-h-[80vh] animate-in fade-in slide-in-from-bottom-5 duration-500">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-8">
-                    <div>
-                        <h2 className="text-xl font-bold">{selectedTopic?.name} Quiz</h2>
-
-                    </div>
-                    <div className="text-right">
-                        <span className="text-2xl font-bold font-mono">{currentQuestion + 1}<span className="text-muted-foreground text-lg">/{questions.length}</span></span>
-                    </div>
-                </div>
-
-                <Progress value={((currentQuestion) / questions.length) * 100} className="h-2 mb-10" />
-
-                {/* Question */}
-                <div className="mb-8">
-                    <h3 className="text-2xl font-medium leading-relaxed">{q.question}</h3>
-                </div>
-
-                {/* Options */}
-                <div className="grid gap-4 mb-8">
-                    {q.options.map((option, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => !showResult && handleAnswer(idx)}
-                            disabled={showResult}
-                            className={cn(
-                                "text-left p-5 rounded-xl border-2 transition-all flex items-center justify-between",
-                                showResult
-                                    ? idx === q.correct
-                                        ? "border-green-500 bg-green-500/10 text-green-700 dark:text-green-300"
-                                        : idx === selectedAnswer
-                                            ? "border-red-500 bg-red-500/10 text-red-700 dark:text-red-300"
-                                            : "border-border/50 opacity-60"
-                                    : selectedAnswer === idx
-                                        ? "border-primary bg-primary/5 shadow-md"
-                                        : "border-border hover:border-primary/50 hover:bg-accent/50"
-                            )}
-                        >
-                            <span className="font-medium">{option}</span>
-                            {showResult && idx === q.correct && <CheckCircle className="h-5 w-5 text-green-600" />}
-                            {showResult && idx === selectedAnswer && idx !== q.correct && <XCircle className="h-5 w-5 text-red-600" />}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Explanation */}
-                {showResult && (
-                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-4 rounded-lg mb-8 flex gap-3 animate-in fade-in zoom-in duration-300">
-                        <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-                        <div>
-                            <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-1">Explanation</h4>
-                            <p className="text-sm text-blue-700 dark:text-blue-200 text-opacity-90 leading-relaxed">
-                                {q.explanation}
-                            </p>
+            <div className="max-w-[1400px] mx-auto p-0 min-h-[85vh] animate-in fade-in duration-500">
+                <div className={cn("grid gap-8", isExamMode ? "lg:grid-cols-[1fr_300px]" : "max-w-3xl mx-auto")}>
+                    
+                    {/* Left Column: Question Area */}
+                    <div className="space-y-8">
+                        <div className="flex items-center justify-between">
+                            <Button variant="ghost" onClick={() => {
+                                if (isExamMode) document.exitFullscreen().catch(() => {});
+                                setStage("select");
+                            }} className="gap-2 text-muted-foreground">
+                                <ArrowLeft className="h-4 w-4" /> Exit
+                            </Button>
+                            
+                            <div className={cn(
+                                "flex items-center gap-2 px-6 py-2 rounded-full border-2 font-mono font-bold text-lg",
+                                isExamMode ? (timeLeft < 60 ? "bg-red-50 border-red-200 text-red-600 animate-pulse" : "bg-primary/5 border-primary/20 text-primary") : "bg-primary/5 text-primary border-primary/20"
+                            )}>
+                                <Clock className="h-5 w-5" />
+                                {isExamMode ? formatTime(timeLeft) : "Practice"}
+                            </div>
                         </div>
-                    </div>
-                )}
 
-                {/* Footer */}
-                <div className="flex justify-end">
-                    {!showResult ? (
-                        <Button size="lg" onClick={submitAnswer} disabled={selectedAnswer === null}>
-                            Submit Answer
-                        </Button>
-                    ) : (
-                        <Button size="lg" onClick={nextQuestion}>
-                            {currentQuestion < questions.length - 1 ? "Next Question" : "See Results"}
-                            <ChevronRight className="ml-2 h-4 w-4" />
-                        </Button>
+                        {!isExamMode && <Progress value={progress} className="h-2" />}
+
+                        <Card className="border-none shadow-xl bg-card overflow-hidden">
+                            <div className="p-8 sm:p-10 border-b bg-muted/30">
+                                <div className="flex justify-between items-start mb-6">
+                                    <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded">
+                                        Question {currentQuestion + 1}
+                                    </span>
+                                </div>
+                                <h3 className="text-2xl sm:text-3xl font-medium leading-relaxed">{q.question}</h3>
+                            </div>
+
+                            <CardContent className="p-8 sm:p-10 grid gap-4">
+                                {q.options.map((option, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => !showResult && setSelectedAnswer(idx)}
+                                        disabled={showResult}
+                                        className={cn(
+                                            "text-left p-6 rounded-2xl border-2 transition-all duration-200 flex items-center justify-between group",
+                                            showResult
+                                                ? idx === q.correct
+                                                    ? "border-green-500 bg-green-50 animate-in fade-in"
+                                                    : idx === selectedAnswer
+                                                        ? "border-red-500 bg-red-50"
+                                                        : "opacity-40"
+                                                : selectedAnswer === idx
+                                                    ? "border-primary bg-primary/5 ring-1 ring-primary"
+                                                    : "border-border hover:border-primary/50 hover:bg-accent/50"
+                                        )}
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <span className={cn(
+                                                "w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold border transition-colors",
+                                                selectedAnswer === idx ? "bg-primary border-primary text-white" : "bg-muted border-border text-muted-foreground group-hover:text-primary"
+                                            )}>
+                                                {String.fromCharCode(65 + idx)}
+                                            </span>
+                                            <span className="font-medium text-lg">{option}</span>
+                                        </div>
+                                        {showResult && idx === q.correct && <CheckCircle className="h-6 w-6 text-green-600" />}
+                                    </button>
+                                ))}
+                            </CardContent>
+
+                            <CardFooter className="p-8 sm:p-10 pt-0 flex justify-end gap-4">
+                                {isExamMode ? (
+                                    <Button size="lg" onClick={handleNext} className="gap-2 px-10">
+                                        {currentQuestion === questions.length - 1 ? "Finish Exam" : "Next Question"}
+                                        <ChevronRight className="h-4 w-4" />
+                                    </Button>
+                                ) : (
+                                    !showResult ? (
+                                        <Button size="lg" onClick={submitAnswer} disabled={selectedAnswer === null} className="px-10">
+                                            Check Answer
+                                        </Button>
+                                    ) : (
+                                        <Button size="lg" onClick={handleNext} className="gap-2 px-10">
+                                            {currentQuestion < questions.length - 1 ? "Next Question" : "View Results"}
+                                            <ChevronRight className="h-4 w-4" />
+                                        </Button>
+                                    )
+                                )}
+                            </CardFooter>
+                        </Card>
+
+                        {showResult && q.explanation && (
+                            <div className="bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500 p-6 rounded-xl animate-in fade-in slide-in-from-left-2">
+                                <div className="flex gap-4">
+                                    <AlertCircle className="h-6 w-6 text-blue-500 shrink-0" />
+                                    <div>
+                                        <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-2">Explanation</h4>
+                                        <p className="text-blue-800 dark:text-blue-200 leading-relaxed italic">
+                                            {q.explanation}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Right Column: Exam Palette */}
+                    {isExamMode && (
+                        <div className="space-y-6">
+                            <Card className="sticky top-8 border-none shadow-xl">
+                                <CardHeader className="border-b pb-4">
+                                    <CardTitle className="text-lg">Question Palette</CardTitle>
+                                </CardHeader>
+                                <CardContent className="pt-6">
+                                    <div className="grid grid-cols-5 gap-2">
+                                        {questions.map((_, idx) => {
+                                            const ansState = answers.find(a => a.questionId === idx);
+                                            const isCurr = currentQuestion === idx;
+                                            
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => jumpToQuestion(idx)}
+                                                    className={cn(
+                                                        "h-10 rounded-lg text-sm font-bold transition-all border-2",
+                                                        isCurr 
+                                                            ? "border-primary bg-primary text-white shadow-lg scale-110" 
+                                                            : ansState 
+                                                                ? "bg-emerald-500 border-emerald-500 text-white" 
+                                                                : "bg-muted border-border text-muted-foreground hover:bg-muted/80"
+                                                    )}
+                                                >
+                                                    {idx + 1}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="mt-8 space-y-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-4 h-4 rounded bg-emerald-500" /> 
+                                            <span>Answered</span>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-4 h-4 rounded bg-muted border-border" /> 
+                                            <span>Not Attended</span>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-4 h-4 rounded bg-primary" /> 
+                                            <span>Current</span>
+                                        </div>
+                                    </div>
+                                    <Button onClick={submitQuiz} variant="secondary" className="w-full mt-10 bg-gray-900 text-white hover:bg-gray-800">
+                                        Submit Final Exam
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </div>
                     )}
                 </div>
-
             </div>
         );
     }
 
     if (stage === "result") {
         const percentage = Math.round((score / questions.length) * 100);
-        return (
-            <div className="max-w-2xl mx-auto p-0 min-h-[50vh] text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-500">
+        
+        if (isExamMode && terminationReason) {
+            return (
+                <div className="max-w-md mx-auto min-h-[60vh] flex flex-col items-center justify-center text-center animate-in zoom-in duration-500">
+                    <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center mb-8 shadow-inner">
+                        <XCircle className="h-12 w-12 text-red-600" />
+                    </div>
+                    <h2 className="text-3xl font-bold text-red-600 mb-4">Exam Terminated</h2>
+                    <p className="text-lg text-muted-foreground mb-8 text-balance">
+                        {terminationReason}
+                    </p>
+                    <Button size="lg" className="w-full bg-gray-900" onClick={restartQuiz}>
+                        Return to Menu
+                    </Button>
+                </div>
+            );
+        }
 
-                <div className="mb-6 relative">
-                    <div className="h-32 w-32 rounded-full border-8 border-muted flex items-center justify-center relative overflow-hidden">
+        return (
+            <div className="max-w-4xl mx-auto text-center animate-in fade-in duration-700">
+                <div className="mb-10 relative inline-block">
+                    <div className="h-48 w-48 rounded-full border-8 border-muted flex items-center justify-center relative overflow-hidden shadow-2xl">
                         <div
                             className="absolute inset-0 bg-primary opacity-20"
                             style={{ top: `${100 - percentage}%` }}
                         />
-                        <span className="text-3xl font-bold relative z-10">{percentage}%</span>
+                        <span className="text-5xl font-black relative z-10">{percentage}%</span>
                     </div>
-                    {percentage >= 70 && <Trophy className="absolute -top-4 -right-4 h-12 w-12 text-yellow-500 animate-bounce" />}
+                    {percentage >= 70 && <Trophy className="absolute -top-6 -right-6 h-16 w-16 text-yellow-500 animate-bounce drop-shadow-lg" />}
                 </div>
 
-                <h2 className="text-3xl font-bold mb-2">Quiz Completed!</h2>
-                <p className="text-muted-foreground mb-8 text-lg">
-                    You scored <span className="text-foreground font-bold">{score}</span> out of <span className="text-foreground font-bold">{questions.length}</span>
+                <h2 className="text-5xl font-black mb-4 tracking-tight">
+                    {isExamMode ? "Exam Concluded" : "Quiz Mastered!"}
+                </h2>
+                <p className="text-xl text-muted-foreground mb-12">
+                    Final Score: <span className="text-foreground font-black text-2xl">{score}</span> / {questions.length}
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 w-full mb-8">
-                    <div className="p-4 rounded-xl bg-card border">
-                        <p className="text-sm text-muted-foreground mb-1">Topic</p>
-                        <p className="font-medium">{selectedTopic?.name}</p>
-                    </div>
-
+                <div className="grid md:grid-cols-2 gap-6 mb-12">
+                    <Card className="p-8 border-none shadow-lg bg-emerald-50 dark:bg-emerald-950/20">
+                        <div className="text-4xl font-black text-emerald-600 mb-2">{score}</div>
+                        <div className="font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest text-sm">Correct Hits</div>
+                    </Card>
+                    <Card className="p-8 border-none shadow-lg bg-red-50 dark:bg-red-950/20">
+                        <div className="text-4xl font-black text-red-600 mb-2">{questions.length - score}</div>
+                        <div className="font-bold text-red-800 dark:text-red-400 uppercase tracking-widest text-sm">Missed/Skipped</div>
+                    </Card>
                 </div>
 
-                <div className="flex gap-4 w-full">
-                    <Button variant="outline" className="flex-1" onClick={onBack}>
-                        Back to Menu
+                <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <Button variant="outline" size="lg" className="flex-1 text-lg py-8 shadow-sm" onClick={restartQuiz}>
+                        Explore New Topics
                     </Button>
-                    <Button className="flex-1" onClick={restartQuiz}>
-                        Retry Quiz
+                    <Button size="lg" className="flex-1 text-lg py-8 shadow-xl" onClick={() => {
+                        setIsExamMode(isExamMode);
+                        generateQuiz();
+                    }}>
+                        Restart Session
                     </Button>
                 </div>
             </div>

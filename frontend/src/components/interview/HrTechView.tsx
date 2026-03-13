@@ -24,6 +24,7 @@ interface HrTechViewProps {
     onEndInterview: () => void;
     onCodeSubmit?: (code: string, language: string) => void;
     isCodeQuestion?: boolean;
+    spokenCharIndex?: number;
 }
 
 export default function HrTechView({
@@ -40,7 +41,8 @@ export default function HrTechView({
     onManualSubmit,
     onEndInterview,
     onCodeSubmit,
-    isCodeQuestion
+    isCodeQuestion,
+    spokenCharIndex = 0
 }: HrTechViewProps) {
     const [showCodeEditor, setShowCodeEditor] = useState(false);
 
@@ -85,9 +87,49 @@ export default function HrTechView({
                     )}
                     {/* Subtitle for Sarah */}
                     {isHrActive && currentQ && (
-                        <div className="absolute bottom-24 left-4 right-4 z-10 flex justify-center">
-                            <div className="bg-black/80 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center shadow-2xl max-w-[90%]">
-                                <p className="text-sm text-white/95 font-medium leading-relaxed">"{currentQ.text}"</p>
+                        <div className="absolute bottom-6 left-4 right-4 z-20 flex justify-center pointer-events-none">
+                            <div className="bg-black/85 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10 text-center shadow-xl max-w-[95%] animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <p className="text-sm md:text-base text-white/95 font-medium leading-relaxed tracking-wide">
+                                    {showCodeEditor ? (
+                                        (() => {
+                                            const rawText = currentQ.text;
+                                            const words = rawText.split(/\s+/).filter(Boolean);
+                                            
+                                            // More robust word tracking
+                                            let charAcc = 0;
+                                            let currentWordIndex = 0;
+                                            for (let i = 0; i < words.length; i++) {
+                                                const word = words[i];
+                                                // Find actual start index of this word in raw text to handle double spaces etc
+                                                const actualPos = rawText.indexOf(word, charAcc);
+                                                if (spokenCharIndex >= actualPos) {
+                                                    currentWordIndex = i;
+                                                }
+                                                charAcc = actualPos + word.length;
+                                            }
+
+                                            // Determine chunk (targeting 6 words approx)
+                                            const chunkSize = 6;
+                                            const chunkIndex = Math.floor(currentWordIndex / chunkSize);
+                                            const start = chunkIndex * chunkSize;
+                                            const end = Math.min(start + chunkSize, words.length);
+                                            
+                                            const chunkText = words.slice(start, end).join(' ');
+                                            const hasPrefix = start > 0;
+                                            const hasSuffix = end < words.length;
+
+                                            return (
+                                                <span className="inline-block transition-all duration-300">
+                                                    {hasPrefix && <span className="text-white/40 mr-1">..</span>}
+                                                    {chunkText}
+                                                    {hasSuffix && <span className="text-white/40 ml-1">...</span>}
+                                                </span>
+                                            );
+                                        })()
+                                    ) : (
+                                        `"${currentQ.text}"`
+                                    )}
+                                </p>
                             </div>
                         </div>
                     )}
@@ -116,9 +158,46 @@ export default function HrTechView({
                     )}
                     {/* Subtitle for David */}
                     {!isHrActive && currentQ && (
-                        <div className="absolute bottom-24 left-4 right-4 z-10 flex justify-center">
-                            <div className="bg-black/80 backdrop-blur-md rounded-xl p-3 border border-white/10 text-center shadow-2xl max-w-[90%]">
-                                <p className="text-sm text-white/95 font-medium leading-relaxed">"{currentQ.text}"</p>
+                        <div className="absolute bottom-6 left-4 right-4 z-20 flex justify-center pointer-events-none">
+                            <div className="bg-black/85 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10 text-center shadow-xl max-w-[95%] animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <p className="text-sm md:text-base text-white/95 font-medium leading-relaxed tracking-wide">
+                                    {showCodeEditor ? (
+                                        (() => {
+                                            const rawText = currentQ.text;
+                                            const words = rawText.split(/\s+/).filter(Boolean);
+                                            
+                                            let charAcc = 0;
+                                            let currentWordIndex = 0;
+                                            for (let i = 0; i < words.length; i++) {
+                                                const word = words[i];
+                                                const actualPos = rawText.indexOf(word, charAcc);
+                                                if (spokenCharIndex >= actualPos) {
+                                                    currentWordIndex = i;
+                                                }
+                                                charAcc = actualPos + word.length;
+                                            }
+
+                                            const chunkSize = 6;
+                                            const chunkIndex = Math.floor(currentWordIndex / chunkSize);
+                                            const start = chunkIndex * chunkSize;
+                                            const end = Math.min(start + chunkSize, words.length);
+                                            
+                                            const chunkText = words.slice(start, end).join(' ');
+                                            const hasPrefix = start > 0;
+                                            const hasSuffix = end < words.length;
+
+                                            return (
+                                                <span className="inline-block transition-all duration-300">
+                                                    {hasPrefix && <span className="text-white/40 mr-1">..</span>}
+                                                    {chunkText}
+                                                    {hasSuffix && <span className="text-white/40 ml-1">...</span>}
+                                                </span>
+                                            );
+                                        })()
+                                    ) : (
+                                        `"${currentQ.text}"`
+                                    )}
+                                </p>
                             </div>
                         </div>
                     )}

@@ -112,7 +112,6 @@ export const getQuestionsForTopic = (topicId: string, count: number, difficulty:
     const allQuestions = aptitudeQuestions[topicId] || [];
 
     // Filter by difficulty if specified, or fallback to all if not enough questions
-    // Include questions with matching difficulty OR questions with NO difficulty if looking for 'medium' (backward compatibility)
     let filtered = allQuestions.filter(q => q.difficulty === difficulty || (!q.difficulty && difficulty === 'medium'));
 
     // Fallback: If no questions match the difficulty, fallback to ALL questions
@@ -122,5 +121,17 @@ export const getQuestionsForTopic = (topicId: string, count: number, difficulty:
 
     // Shuffle array
     const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+};
+
+// Get all aptitude questions from all topics
+export const getAllAptitudeQuestions = (): Question[] => {
+    return Object.values(aptitudeQuestions).flat();
+};
+
+// Get questions for a selection of topics
+export const getQuestionsForTopics = (topicIds: string[], count: number): Question[] => {
+    const allQuestions = topicIds.flatMap(id => aptitudeQuestions[id] || []);
+    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 };

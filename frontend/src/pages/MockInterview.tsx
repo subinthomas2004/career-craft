@@ -74,6 +74,7 @@ const MockInterview = () => {
     startListening,
     stopListening,
     endSession,
+    spokenCharIndex,
     ready,
     isTransitioning
   } = useInterviewSession({
@@ -125,6 +126,7 @@ const MockInterview = () => {
     endSession();
     setIsMicOn(false);
     setIsVideoOn(false);
+    window.speechSynthesis.cancel();
     setStage("feedback");
 
     // Record Activity
@@ -533,6 +535,7 @@ const MockInterview = () => {
             <HrTechView
               sessionState={sessionState}
               avatarState={avatarState}
+              spokenCharIndex={spokenCharIndex}
               hrVideos={hrVideos}
               techVideos={techVideos}
               isMicOn={isMicOn}
