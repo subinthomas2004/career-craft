@@ -31,16 +31,7 @@ import {
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
-// Placeholder data for Reports and Content until we have real models
-const recentReports = [
-  { id: 1, type: "Forum Post", reporter: "John D.", reason: "Inappropriate content", status: "pending", date: "2024-01-15" },
-  { id: 2, type: "User Profile", reporter: "Sarah K.", reason: "Spam", status: "resolved", date: "2024-01-14" },
-];
 
-const forumPosts = [
-  { id: 1, title: "Tips for technical interviews", author: "John Doe", replies: 24, status: "active", created: "2024-01-15" },
-  { id: 2, title: "Resume feedback needed", author: "Sarah K.", replies: 12, status: "active", created: "2024-01-14" },
-];
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -143,7 +134,7 @@ const Admin = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
         {stats.map((stat, index) => (
           <Card key={index} className="bg-card/50 backdrop-blur border-border">
             <CardContent className="p-4 md:p-6">
@@ -166,18 +157,10 @@ const Admin = () => {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="users" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:inline-flex">
+        <TabsList className="grid w-full grid-cols-1 lg:w-auto lg:inline-flex">
           <TabsTrigger value="users" className="gap-2">
             <Users className="w-4 h-4 hidden sm:block" />
             Users
-          </TabsTrigger>
-          <TabsTrigger value="reports" className="gap-2">
-            <AlertTriangle className="w-4 h-4 hidden sm:block" />
-            Reports
-          </TabsTrigger>
-          <TabsTrigger value="content" className="gap-2">
-            <MessageSquare className="w-4 h-4 hidden sm:block" />
-            Content
           </TabsTrigger>
         </TabsList>
 
@@ -195,6 +178,7 @@ const Admin = () => {
                     <TableHead>User</TableHead>
                     <TableHead className="hidden sm:table-cell">Role</TableHead>
                     <TableHead>Verified</TableHead>
+                    <TableHead>Status</TableHead>
                     <TableHead className="hidden md:table-cell">Joined</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
@@ -228,6 +212,21 @@ const Admin = () => {
                           {user.isVerified ? "Verified" : "Pending"}
                         </Badge>
                       </TableCell>
+                      <TableCell>
+                        {(() => {
+                          const lastActive = new Date(user.lastActive);
+                          const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+                          const isActive = lastActive >= fiveMinutesAgo;
+                          return (
+                            <Badge
+                              variant={isActive ? 'default' : 'secondary'}
+                              className={isActive ? 'bg-green-500/10 text-green-500' : ''}
+                            >
+                              {isActive ? "Active" : "Away"}
+                            </Badge>
+                          );
+                        })()}
+                      </TableCell>
                       <TableCell className="hidden md:table-cell text-muted-foreground">
                         {new Date(user.createdAt).toLocaleDateString()}
                       </TableCell>
@@ -253,104 +252,6 @@ const Admin = () => {
                       </TableCell>
                     </TableRow>
                   )}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Reports Tab - Static for now */}
-        <TabsContent value="reports">
-          <Card className="bg-card/50 backdrop-blur border-border">
-            <CardHeader>
-              <CardTitle>Content Reports</CardTitle>
-              <CardDescription>Review and moderate reported content (Placeholder Data)</CardDescription>
-            </CardHeader>
-            <CardContent className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Type</TableHead>
-                    <TableHead className="hidden sm:table-cell">Reporter</TableHead>
-                    <TableHead>Reason</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {recentReports.map((report) => (
-                    <TableRow key={report.id}>
-                      <TableCell className="font-medium">{report.type}</TableCell>
-                      <TableCell className="hidden sm:table-cell text-muted-foreground">
-                        {report.reporter}
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">{report.reason}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{report.status}</Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-1">
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-green-500">
-                            <CheckCircle className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
-                            <XCircle className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Content Tab - Static for now */}
-        <TabsContent value="content">
-          <Card className="bg-card/50 backdrop-blur border-border">
-            <CardHeader>
-              <CardTitle>Forum Content</CardTitle>
-              <CardDescription>Manage forum posts and discussions (Placeholder Data)</CardDescription>
-            </CardHeader>
-            <CardContent className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead className="hidden sm:table-cell">Author</TableHead>
-                    <TableHead className="hidden md:table-cell">Replies</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {forumPosts.map((post) => (
-                    <TableRow key={post.id}>
-                      <TableCell className="font-medium max-w-[200px] truncate">
-                        {post.title}
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell text-muted-foreground">
-                        {post.author}
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell text-muted-foreground">
-                        {post.replies}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{post.status}</Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-1">
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
                 </TableBody>
               </Table>
             </CardContent>

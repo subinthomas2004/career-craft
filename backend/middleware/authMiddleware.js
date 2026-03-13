@@ -17,6 +17,11 @@ export const protect = async (req, res, next) => {
 
             // Get user from the token
             req.user = await User.findById(decoded.id).select('-password');
+            
+            if (req.user) {
+                req.user.lastActive = new Date();
+                await req.user.save();
+            }
 
             next();
         } catch (error) {

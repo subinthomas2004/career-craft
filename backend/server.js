@@ -216,15 +216,6 @@ io.on('connection', (socket) => {
              // Forward the processed speech text to everyone else
              socket.to(roomId).emit('speech-message', messageData);
         });
-
-        // Sync actions
-        socket.on('skip-preparation', () => {
-             socket.to(roomId).emit('skip-preparation');
-        });
-
-        socket.on('end-discussion', (abortedByAbuse) => {
-             socket.to(roomId).emit('end-discussion', abortedByAbuse);
-        });
     });
 
     // Simple Peer Signaling

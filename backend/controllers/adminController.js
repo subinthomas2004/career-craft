@@ -7,16 +7,17 @@ export const getStats = async (req, res) => {
     console.log("Admin getStats hit");
     try {
         const totalUsers = await User.countDocuments();
-        // Since we don't have explicit models for these yet, we'll placeholder them or calculate what we can
-        // Active sessions is hard without session store, so we'll use a placeholder or check recent logins if we tracked them (we don't currently)
-        // Reports and Content are also placeholders for now
+        
+        // Calculate active sessions (users active in the last 5 minutes)
+        const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+        const activeSessions = await User.countDocuments({
+            lastActive: { $gte: fiveMinutesAgo }
+        });
 
         res.json({
             stats: [
                 { label: "Total Users", value: totalUsers.toString(), change: "+0%", icon: "Users", trend: "neutral" },
-                { label: "Active Sessions", value: "0", change: "0%", icon: "Activity", trend: "neutral" },
-                { label: "Pending Reports", value: "0", change: "0%", icon: "AlertTriangle", trend: "neutral" },
-                { label: "Total Content", value: "0", change: "0%", icon: "FileText", trend: "neutral" },
+                { label: "Active Sessions", value: activeSessions.toString(), change: "0%", icon: "Activity", trend: "neutral" },
             ]
         });
     } catch (error) {

@@ -135,8 +135,6 @@ const GroupDiscussion = () => {
     const peerCount = Array.isArray(peerUsers) ? peerUsers.length : (peerUsers ? 1 : 0);
     const activeAIAgents = AI_AGENTS.slice(0, Math.max(0, 4 - peerCount));
 
-    const isHost = location.state?.isHost === true; // Check if current user is host
-
     // State
     const [topic, setTopic] = useState(initialTopic || 'Universal Basic Income');
     const [isActive, setIsActive] = useState(false);
@@ -198,7 +196,7 @@ const GroupDiscussion = () => {
         return result;
     }
 
-    const [roomId] = useState(sentParams || lobbyRoomCode || generateRoomId());
+    const [roomId] = useState(sentParams || generateRoomId());
     const [userId] = useState(Math.random().toString(36).substring(7));
 
     // 1. Initialize & Socket Connection
@@ -265,16 +263,6 @@ const GroupDiscussion = () => {
             socketRef.current.on('speech-message', (messageData: any) => {
                 setTranscript(prev => [...prev, { speakerId: messageData.speakerId, speakerName: messageData.speakerName, text: messageData.text, timestamp: new Date().toLocaleTimeString() }]);
             });
-
-            // Sync skip preparation
-            socketRef.current.on('skip-preparation', () => {
-                setTimeLeft(0);
-            });
-
-            // Sync end discussion
-            socketRef.current.on('end-discussion', (abortedByAbuse: boolean) => {
-                concludeSession(abortedByAbuse, false, true); // Prevent host speech if triggered remotely, skip emit
-            });
         });
 
         return () => {
@@ -319,13 +307,7 @@ const GroupDiscussion = () => {
             const text = `Hello everyone, good evening. The topic for today's group discussion is ${topic}. Please take 2 minutes to prepare your thoughts. You may begin preparation now.`;
             setCurrentSpeaker(MODERATOR.id);
             setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
-            // Only host or solo player speaks the intro audio to avoid overlapping voices
-            if (isHost || !isMultiplayer) {
-                await speakText(text, 'male');
-            } else {
-                // Non-hosts just wait a similar duration
-                await new Promise(resolve => setTimeout(resolve, text.length * 80)); 
-            }
+            await speakText(text, 'male');
             setCurrentSpeaker(null);
             setIsIntro(false);
             setIsPreparing(true);
@@ -333,7 +315,7 @@ const GroupDiscussion = () => {
         if (isIntro && timeLeft === 120 && !isPreparing) {
             playIntro();
         }
-    }, [isIntro, timeLeft, isPreparing, topic, isHost, isMultiplayer]);
+    }, [isIntro, timeLeft, isPreparing, topic]);
 
     // 2. Cool-off Timer
     useEffect(() => {
@@ -362,20 +344,13 @@ const GroupDiscussion = () => {
         setCurrentSpeaker(MODERATOR.id);
         const text = "Time is up. Please start the discussion.";
         setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
-        if (isHost || !isMultiplayer) {
-            await speakText(text, 'male');
-        } else {
-            await new Promise(resolve => setTimeout(resolve, text.length * 80));
-        }
+        await speakText(text, 'male');
         setCurrentSpeaker(null);
         setIsActive(true);
         toast.success("Discussion Started!", { description: "The floor is open." });
 
         // Initial Wait for User (3 seconds)
-        // Only host manages the AI timeouts in multiplayer
-        if (!isMultiplayer || isHost) {
-            handleTurnTransition(3000);
-        }
+        handleTurnTransition(3000);
     };
 
     const handleTurnTransition = (delayMs: number = 3000) => {
@@ -383,9 +358,6 @@ const GroupDiscussion = () => {
 
         discussionTimeoutRef.current = setTimeout(() => {
             if (!processingRef.current && !currentSpeakerRef.current) {
-                // Ensure only Host triggers AI in multiplayer to prevent duplicate AI speech
-                if (!isHost && isMultiplayer) return;
-
                 // User didn't take the floor, trigger AI
                 const currentTranscript = transcriptRef.current;
                 const lastSpeakerId = currentTranscript[currentTranscript.length - 1]?.speakerId;
@@ -466,16 +438,12 @@ const GroupDiscussion = () => {
         });
     };
 
-    const concludeSession = async (abortedByAbuse: boolean | any = false, skipSpeech: boolean = false, fromRemote: boolean = false) => {
+    const concludeSession = async (abortedByAbuse: boolean | any = false, skipSpeech: boolean = false) => {
         window.speechSynthesis.cancel();
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         setIsActive(false);
 
         const isAborted = abortedByAbuse === true;
-
-        if (isHost && !fromRemote) {
-            socketRef.current?.emit('end-discussion', isAborted);
-        }
 
         if (!skipSpeech) {
             setCurrentSpeaker(MODERATOR.id);
@@ -596,9 +564,7 @@ const GroupDiscussion = () => {
                         speakText(warningText, 'male').then(() => {
                             if (isMounted.current) {
                                 setCurrentSpeaker(null);
-                                if (!isMultiplayer || isHost) {
-                                    handleTurnTransition(3000);
-                                }
+                                handleTurnTransition(3000);
                             }
                         });
                     } else {
@@ -616,10 +582,7 @@ const GroupDiscussion = () => {
             socketRef.current?.emit('speaking-status', { roomId, isSpeaking: false, speakerId: 'user' });
             
             // Release the floor, give 3 seconds for others to act
-            // Only host manages the AI timeouts in multiplayer
-            if (!isMultiplayer || isHost) {
-                handleTurnTransition(3000);
-            }
+            handleTurnTransition(3000);
         } else {
             startListening();
             setCurrentSpeaker('user');
@@ -667,41 +630,19 @@ const GroupDiscussion = () => {
         setIsActive(false);
         navigate('/dashboard/group-discussion');
     };
-    const handleSkipPreparation = () => { 
-        setTimeLeft(0); 
-        if (isHost) {
-            socketRef.current?.emit('skip-preparation');
-        }
-    };
+    const handleSkipPreparation = () => { setTimeLeft(0); };
 
 
     // Participants list including Moderator
     const normalizedPeerUsers = Array.isArray(peerUsers) ? peerUsers : (peerUsers ? [peerUsers] : []);
-    
-    // Map existing streams to corresponding lobby peerUsers by correlating peerId -> socketId
-    const mappedPeerUsers = normalizedPeerUsers.map((pu: any, i: number) => {
-        const streamData = peers.find(p => p.peerId === pu.socketId);
-        return {
-            id: `peer-${i}`, 
-            name: pu.name?.split(' ')[0] || `Friend ${i + 1}`, 
-            role: 'Candidate', 
-            isUser: false, 
-            isPeer: true, 
-            color: 'bg-teal-100 text-teal-700', 
-            systemPrompt: '', 
-            avatar: pu.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${pu.name}`,
-            stream: streamData?.stream
-        };
-    });
-
-    // Determine how many AI agents we need
-    const aiAgentsToUse = activeAIAgents.slice(0, Math.max(0, 4 - mappedPeerUsers.length));
-
     const allParticipants = [
         { ...MODERATOR, isUser: false },
         { id: 'user', name: userInfo?.name?.split(' ')[0] || 'You', role: 'Candidate', isUser: true, color: 'bg-indigo-100 text-indigo-700', systemPrompt: '', avatar: '' },
-        ...mappedPeerUsers,
-        ...aiAgentsToUse
+        ...normalizedPeerUsers.map((pu: any, i: number) => ({
+            id: `peer-${i}`, name: pu.name?.split(' ')[0] || `Friend ${i + 1}`, role: 'Candidate', isUser: false, isPeer: true, color: 'bg-teal-100 text-teal-700', systemPrompt: '', avatar: pu.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${pu.name}`
+        })),
+        ...peers.map((p, i) => ({ ...activeAIAgents[i], ...p, isUser: false, isPeer: true })),
+        ...activeAIAgents.slice(peers.length)
     ];
 
     return (
@@ -900,7 +841,7 @@ const GroupDiscussion = () => {
                         <TooltipContent><p>{cameraActive ? "Turn Off Camera" : "Turn On Camera"}</p></TooltipContent>
                     </Tooltip>
 
-                    {isPreparing && (isHost || !isMultiplayer) && (
+                    {isPreparing && (
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button

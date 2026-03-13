@@ -54,7 +54,11 @@ const userSchema = new mongoose.Schema({
         activityType: { type: String, required: true }, // 'interview', 'quiz', 'coding', 'resume', 'learning'
         score: { type: String }, // Optional score or result
         timestamp: { type: Date, default: Date.now }
-    }]
+    }],
+    lastActive: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const User = mongoose.model('User', userSchema);

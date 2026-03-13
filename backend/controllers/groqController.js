@@ -1,5 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
 
 dotenv.config();
 
@@ -8,19 +10,47 @@ dotenv.config();
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_API_KEY = (process.env.GROQ_API_KEY || "").trim();
 
+const logError = (errorInfo) => {
+    const logPath = path.join(process.cwd(), "groq_error.log");
+    const timestamp = new Date().toISOString();
+    const logMessage = `\n[${timestamp}] ERROR: ${JSON.stringify(errorInfo, null, 2)}\n`;
+    try {
+        fs.appendFileSync(logPath, logMessage);
+    } catch (err) {
+        console.error("Failed to write to groq_error.log:", err);
+    }
+};
+
 const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", temperature = 0.7, max_tokens, response_format }) => {
+    if (!GROQ_API_KEY) {
+        const error = "GROQ_API_KEY is missing or empty in environment variables.";
+        logError({ error, envKeys: Object.keys(process.env).filter(k => k.includes("GROQ")) });
+        throw new Error(error);
+    }
+
     const body = { messages, model, temperature };
     if (max_tokens) body.max_tokens = max_tokens;
     if (response_format) body.response_format = response_format;
 
-    const response = await axios.post(GROQ_API_URL, body, {
-        headers: {
-            "Authorization": `Bearer ${GROQ_API_KEY}`,
-            "Content-Type": "application/json"
-        },
-        timeout: 30000
-    });
-    return response.data;
+    try {
+        const response = await axios.post(GROQ_API_URL, body, {
+            headers: {
+                "Authorization": `Bearer ${GROQ_API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            timeout: 30000
+        });
+        return response.data;
+    } catch (error) {
+        logError({
+            message: error.message,
+            status: error.response?.status,
+            data: error.response?.data,
+            model,
+            body
+        });
+        throw error;
+    }
 };
 
 export const testGroqConnection = async (req, res) => {
