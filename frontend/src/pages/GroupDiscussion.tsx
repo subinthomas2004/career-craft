@@ -135,6 +135,8 @@ const GroupDiscussion = () => {
     const peerCount = Array.isArray(peerUsers) ? peerUsers.length : (peerUsers ? 1 : 0);
     const activeAIAgents = AI_AGENTS.slice(0, Math.max(0, 4 - peerCount));
 
+    const isHost = location.state?.isHost === true; // Check if current user is host
+
     // State
     const [topic, setTopic] = useState(initialTopic || 'Universal Basic Income');
     const [isActive, setIsActive] = useState(false);
@@ -263,6 +265,16 @@ const GroupDiscussion = () => {
             socketRef.current.on('speech-message', (messageData: any) => {
                 setTranscript(prev => [...prev, { speakerId: messageData.speakerId, speakerName: messageData.speakerName, text: messageData.text, timestamp: new Date().toLocaleTimeString() }]);
             });
+
+            // Sync skip preparation
+            socketRef.current.on('skip-preparation', () => {
+                setTimeLeft(0);
+            });
+
+            // Sync end discussion
+            socketRef.current.on('end-discussion', (abortedByAbuse: boolean) => {
+                concludeSession(abortedByAbuse, false, true); // Prevent host speech if triggered remotely, skip emit
+            });
         });
 
         return () => {
@@ -307,7 +319,13 @@ const GroupDiscussion = () => {
             const text = `Hello everyone, good evening. The topic for today's group discussion is ${topic}. Please take 2 minutes to prepare your thoughts. You may begin preparation now.`;
             setCurrentSpeaker(MODERATOR.id);
             setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
-            await speakText(text, 'male');
+            // Only host or solo player speaks the intro audio to avoid overlapping voices
+            if (isHost || !isMultiplayer) {
+                await speakText(text, 'male');
+            } else {
+                // Non-hosts just wait a similar duration
+                await new Promise(resolve => setTimeout(resolve, text.length * 80)); 
+            }
             setCurrentSpeaker(null);
             setIsIntro(false);
             setIsPreparing(true);
@@ -315,7 +333,7 @@ const GroupDiscussion = () => {
         if (isIntro && timeLeft === 120 && !isPreparing) {
             playIntro();
         }
-    }, [isIntro, timeLeft, isPreparing, topic]);
+    }, [isIntro, timeLeft, isPreparing, topic, isHost, isMultiplayer]);
 
     // 2. Cool-off Timer
     useEffect(() => {
@@ -344,13 +362,20 @@ const GroupDiscussion = () => {
         setCurrentSpeaker(MODERATOR.id);
         const text = "Time is up. Please start the discussion.";
         setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
-        await speakText(text, 'male');
+        if (isHost || !isMultiplayer) {
+            await speakText(text, 'male');
+        } else {
+            await new Promise(resolve => setTimeout(resolve, text.length * 80));
+        }
         setCurrentSpeaker(null);
         setIsActive(true);
         toast.success("Discussion Started!", { description: "The floor is open." });
 
         // Initial Wait for User (3 seconds)
-        handleTurnTransition(3000);
+        // Only host manages the AI timeouts in multiplayer
+        if (!isMultiplayer || isHost) {
+            handleTurnTransition(3000);
+        }
     };
 
     const handleTurnTransition = (delayMs: number = 3000) => {
@@ -358,6 +383,9 @@ const GroupDiscussion = () => {
 
         discussionTimeoutRef.current = setTimeout(() => {
             if (!processingRef.current && !currentSpeakerRef.current) {
+                // Ensure only Host triggers AI in multiplayer to prevent duplicate AI speech
+                if (!isHost && isMultiplayer) return;
+
                 // User didn't take the floor, trigger AI
                 const currentTranscript = transcriptRef.current;
                 const lastSpeakerId = currentTranscript[currentTranscript.length - 1]?.speakerId;
@@ -438,12 +466,16 @@ const GroupDiscussion = () => {
         });
     };
 
-    const concludeSession = async (abortedByAbuse: boolean | any = false, skipSpeech: boolean = false) => {
+    const concludeSession = async (abortedByAbuse: boolean | any = false, skipSpeech: boolean = false, fromRemote: boolean = false) => {
         window.speechSynthesis.cancel();
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         setIsActive(false);
 
         const isAborted = abortedByAbuse === true;
+
+        if (isHost && !fromRemote) {
+            socketRef.current?.emit('end-discussion', isAborted);
+        }
 
         if (!skipSpeech) {
             setCurrentSpeaker(MODERATOR.id);
@@ -564,7 +596,9 @@ const GroupDiscussion = () => {
                         speakText(warningText, 'male').then(() => {
                             if (isMounted.current) {
                                 setCurrentSpeaker(null);
-                                handleTurnTransition(3000);
+                                if (!isMultiplayer || isHost) {
+                                    handleTurnTransition(3000);
+                                }
                             }
                         });
                     } else {
@@ -582,7 +616,10 @@ const GroupDiscussion = () => {
             socketRef.current?.emit('speaking-status', { roomId, isSpeaking: false, speakerId: 'user' });
             
             // Release the floor, give 3 seconds for others to act
-            handleTurnTransition(3000);
+            // Only host manages the AI timeouts in multiplayer
+            if (!isMultiplayer || isHost) {
+                handleTurnTransition(3000);
+            }
         } else {
             startListening();
             setCurrentSpeaker('user');
@@ -630,7 +667,12 @@ const GroupDiscussion = () => {
         setIsActive(false);
         navigate('/dashboard/group-discussion');
     };
-    const handleSkipPreparation = () => { setTimeLeft(0); };
+    const handleSkipPreparation = () => { 
+        setTimeLeft(0); 
+        if (isHost) {
+            socketRef.current?.emit('skip-preparation');
+        }
+    };
 
 
     // Participants list including Moderator
@@ -841,7 +883,7 @@ const GroupDiscussion = () => {
                         <TooltipContent><p>{cameraActive ? "Turn Off Camera" : "Turn On Camera"}</p></TooltipContent>
                     </Tooltip>
 
-                    {isPreparing && (
+                    {isPreparing && (isHost || !isMultiplayer) && (
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button
