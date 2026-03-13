@@ -128,8 +128,9 @@ const GDLobby = () => {
                     topic: data.topic,
                     timeLimit: data.timeLimit,
                     roomCode,
+                    isHost: false,
                     isMultiplayer: peerUsers.length > 0,
-                    peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar }))
+                    peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar, socketId: p.socketId }))
                 }
             });
 
@@ -197,8 +198,9 @@ const GDLobby = () => {
                 topic,
                 timeLimit,
                 roomCode,
+                isHost: true,
                 isMultiplayer: peerUsers.length > 0,
-                peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar }))
+                peerUsers: peerUsers.map(p => ({ name: p.name, email: p.email, avatar: p.avatar, socketId: p.socketId }))
             }
         });
 

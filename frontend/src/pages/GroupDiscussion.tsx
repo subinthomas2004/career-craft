@@ -198,7 +198,7 @@ const GroupDiscussion = () => {
         return result;
     }
 
-    const [roomId] = useState(sentParams || generateRoomId());
+    const [roomId] = useState(sentParams || lobbyRoomCode || generateRoomId());
     const [userId] = useState(Math.random().toString(36).substring(7));
 
     // 1. Initialize & Socket Connection
@@ -677,14 +677,31 @@ const GroupDiscussion = () => {
 
     // Participants list including Moderator
     const normalizedPeerUsers = Array.isArray(peerUsers) ? peerUsers : (peerUsers ? [peerUsers] : []);
+    
+    // Map existing streams to corresponding lobby peerUsers by correlating peerId -> socketId
+    const mappedPeerUsers = normalizedPeerUsers.map((pu: any, i: number) => {
+        const streamData = peers.find(p => p.peerId === pu.socketId);
+        return {
+            id: `peer-${i}`, 
+            name: pu.name?.split(' ')[0] || `Friend ${i + 1}`, 
+            role: 'Candidate', 
+            isUser: false, 
+            isPeer: true, 
+            color: 'bg-teal-100 text-teal-700', 
+            systemPrompt: '', 
+            avatar: pu.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${pu.name}`,
+            stream: streamData?.stream
+        };
+    });
+
+    // Determine how many AI agents we need
+    const aiAgentsToUse = activeAIAgents.slice(0, Math.max(0, 4 - mappedPeerUsers.length));
+
     const allParticipants = [
         { ...MODERATOR, isUser: false },
         { id: 'user', name: userInfo?.name?.split(' ')[0] || 'You', role: 'Candidate', isUser: true, color: 'bg-indigo-100 text-indigo-700', systemPrompt: '', avatar: '' },
-        ...normalizedPeerUsers.map((pu: any, i: number) => ({
-            id: `peer-${i}`, name: pu.name?.split(' ')[0] || `Friend ${i + 1}`, role: 'Candidate', isUser: false, isPeer: true, color: 'bg-teal-100 text-teal-700', systemPrompt: '', avatar: pu.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${pu.name}`
-        })),
-        ...peers.map((p, i) => ({ ...activeAIAgents[i], ...p, isUser: false, isPeer: true })),
-        ...activeAIAgents.slice(peers.length)
+        ...mappedPeerUsers,
+        ...aiAgentsToUse
     ];
 
     return (
