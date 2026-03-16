@@ -26,6 +26,8 @@ import Admin from "./pages/Admin";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import ChatBot from "./components/chatbot/ChatBot";
 import NotFound from "./pages/NotFound";
+import SplashScreen from "./components/layout/SplashScreen";
+import { useState } from "react";
 
 import GroupDiscussion from "./pages/GroupDiscussion";
 import GDLanding from "./pages/GDLanding";
@@ -48,66 +50,76 @@ import CompanyDetails from "./pages/CompanyDetails";
 import JobPortal from "./pages/JobPortal";
 
 const queryClient = new QueryClient();
-const App = () => <QueryClientProvider client={queryClient}>
-  <TooltipProvider>
-    <Toaster />
-    <Sonner position="top-center" />
-    <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-        <Route path="/auth/reset-password" element={<ResetPassword />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/test-groq" element={<TestGroqConnection />} />
-        <Route path="/group-discussion/room" element={<GroupDiscussion />} />
-        <Route path="/group-discussion/lobby" element={<GDLobby />} />
-        <Route path="/group-discussion/join/:code" element={<GDLobby />} />
+const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
 
-        {/* Dashboard Routes */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="interview" element={<MockInterviewLanding />} />
-          <Route path="interview/session" element={<MockInterview />} />
-          <Route path="interview/hr-technical" element={<MockInterview type="hr-technical" />} />
-          <Route path="intro-prep" element={<IntroPrep />} /> {/* Added route */}
-          <Route path="resume" element={<ResumeAnalyzer />} />
-          <Route path="quiz" element={<Quiz />} />
-          <Route path="typing" element={<TypingTest />} />
-          <Route path="coding" element={<CodingPracticeHome />} />
-          <Route path="coding/:language" element={<CodingProblemsListPage />} />
-          <Route path="coding/problem/:id" element={<CodingPractice />} />
-          <Route path="soft-skills" element={<SoftSkills />} />
-          <Route path="skill-gap" element={<SkillGap />} />
-          <Route path="domain" element={<DomainPrep />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="forum" element={<Forum />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="settings" element={<Settings />} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <SplashScreen onComplete={() => setShowSplash(false)} />
+        {!showSplash && (
+          <>
+            <Toaster />
+            <Sonner position="top-center" />
+            <BrowserRouter>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Landing />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+                <Route path="/auth/reset-password" element={<ResetPassword />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/test-groq" element={<TestGroqConnection />} />
+                <Route path="/group-discussion/room" element={<GroupDiscussion />} />
+                <Route path="/group-discussion/lobby" element={<GDLobby />} />
+                <Route path="/group-discussion/join/:code" element={<GDLobby />} />
 
+                {/* Dashboard Routes */}
+                <Route path="/dashboard" element={<DashboardLayout />}>
+                  <Route index element={<Dashboard />} />
+                  <Route path="interview" element={<MockInterviewLanding />} />
+                  <Route path="interview/session" element={<MockInterview />} />
+                  <Route path="interview/hr-technical" element={<MockInterview type="hr-technical" />} />
+                  <Route path="intro-prep" element={<IntroPrep />} />
+                  <Route path="resume" element={<ResumeAnalyzer />} />
+                  <Route path="quiz" element={<Quiz />} />
+                  <Route path="typing" element={<TypingTest />} />
+                  <Route path="coding" element={<CodingPracticeHome />} />
+                  <Route path="coding/:language" element={<CodingProblemsListPage />} />
+                  <Route path="coding/problem/:id" element={<CodingPractice />} />
+                  <Route path="soft-skills" element={<SoftSkills />} />
+                  <Route path="skill-gap" element={<SkillGap />} />
+                  <Route path="domain" element={<DomainPrep />} />
+                  <Route path="notifications" element={<Notifications />} />
+                  <Route path="forum" element={<Forum />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="settings" element={<Settings />} />
 
-          <Route path="group-discussion" element={<GDLanding />} />
-          <Route path="group-discussion/topic" element={<GDTopicSelection />} />
-          <Route path="group-discussion/report" element={<GDReport />} />
-          <Route path="debate" element={<DebateLanding />} />
-          <Route path="debate/topic" element={<DebateTopicSelection />} />
-          <Route path="debate/room" element={<DebateRoom />} />
-          <Route path="debate/report" element={<DebateReport />} />
-          <Route path="debate/performance" element={<DebatePerformance />} />
-          <Route path="experimental/gd-3d" element={<GD3DRoom />} />
-          <Route path="aptitude-quiz" element={<AptitudeQuiz />} />
-          <Route path="communication-coach" element={<CommunicationCoach />} />
-          <Route path="company-prep" element={<CompanyPrep />} />
-          <Route path="company-prep/:id" element={<CompanyDetails />} />
-          <Route path="jobs" element={<JobPortal />} />
-        </Route>
+                  <Route path="group-discussion" element={<GDLanding />} />
+                  <Route path="group-discussion/topic" element={<GDTopicSelection />} />
+                  <Route path="group-discussion/report" element={<GDReport />} />
+                  <Route path="debate" element={<DebateTopicSelection />} />
+                  <Route path="debate/topic" element={<DebateTopicSelection />} />
+                  <Route path="debate/room" element={<DebateRoom />} />
+                  <Route path="debate/report" element={<DebateReport />} />
+                  <Route path="debate/performance" element={<DebatePerformance />} />
+                  <Route path="experimental/gd-3d" element={<GD3DRoom />} />
+                  <Route path="aptitude-quiz" element={<AptitudeQuiz />} />
+                  <Route path="communication-coach" element={<CommunicationCoach />} />
+                  <Route path="company-prep" element={<CompanyPrep />} />
+                  <Route path="company-prep/:id" element={<CompanyDetails />} />
+                  <Route path="jobs" element={<JobPortal />} />
+                </Route>
 
-        {/* Catch-all */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
-    </BrowserRouter>
-  </TooltipProvider>
-</QueryClientProvider>;
+                {/* Catch-all */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+            <ChatBot />
+          </>
+        )}
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 export default App;

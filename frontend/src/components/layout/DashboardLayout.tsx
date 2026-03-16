@@ -22,7 +22,11 @@ import {
   X,
   Shield,
   Users,
-  Briefcase
+  Briefcase,
+  Maximize,
+  Minimize,
+  ArrowLeft,
+  ArrowRight
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -56,9 +60,31 @@ const menuItems = [
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isTauri, setIsTauri] = useState(false);
   const [user, setUser] = useState<any>(null);
   const location = useLocation();
-  const isInterviewSession = location.pathname.includes('/dashboard/interview/session');
+  const isInterviewModule = location.pathname.includes('/dashboard/interview');
+  const isCodingModule = location.pathname.includes('/dashboard/coding');
+  const isDebateModule = location.pathname.includes('/dashboard/debate');
+  const isResumeModule = location.pathname.includes('/dashboard/resume');
+  const isQuizModule = location.pathname.includes('/dashboard/quiz');
+  const isTypingModule = location.pathname.includes('/dashboard/typing');
+  const isSkillGapModule = location.pathname.includes('/dashboard/skill-gap');
+  const isDomainModule = location.pathname.includes('/dashboard/domain');
+  const isGDModule = location.pathname.includes('/dashboard/group-discussion');
+  const isForumModule = location.pathname.includes('/dashboard/forum');
+  const isCommCoachModule = location.pathname.includes('/dashboard/communication-coach');
+  const isIntroPrepModule = location.pathname.includes('/dashboard/intro-prep');
+  const isCompanyPrepModule = location.pathname.includes('/dashboard/company-prep');
+  const isJobsModule = location.pathname.includes('/dashboard/jobs');
+  const isAptitudeModule = location.pathname.includes('/dashboard/aptitude-quiz');
+
+  const hideSidebar = isInterviewModule || isCodingModule || isDebateModule || 
+                      isResumeModule || isQuizModule || isTypingModule || 
+                      isSkillGapModule || isDomainModule || isGDModule || 
+                      isForumModule || isCommCoachModule || isIntroPrepModule || 
+                      isCompanyPrepModule || isJobsModule || isAptitudeModule;
 
   const navigate = useNavigate();
 
@@ -78,6 +104,9 @@ const DashboardLayout = () => {
 
     loadUser(); // Load on mount
 
+    // Check if running in Tauri
+    setIsTauri(!!(window as any).__TAURI_INTERNALS__);
+
     // Listen for custom event from Profile page
     window.addEventListener("userInfoUpdated", loadUser);
     
@@ -85,6 +114,26 @@ const DashboardLayout = () => {
       window.removeEventListener("userInfoUpdated", loadUser);
     };
   }, [navigate, location.pathname]);
+
+  const toggleFullscreen = async () => {
+    if (isTauri) {
+      const { Window } = await import('@tauri-apps/api/window');
+      const appWindow = Window.getCurrent();
+      const fullscreen = await appWindow.isFullscreen();
+      await appWindow.setFullscreen(!fullscreen);
+      setIsFullscreen(!fullscreen);
+    } else {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          setIsFullscreen(false);
+        }
+      }
+    }
+  };
 
   // Close mobile menu on route change & auto-collapse on interview
   useEffect(() => {
@@ -171,8 +220,43 @@ const DashboardLayout = () => {
     <div className="min-h-screen bg-background">
       <PageBackground variant="subtle" />
 
+      {/* Desktop Navigation Top Bar */}
+      {isTauri && (
+        <div className="hidden lg:flex fixed top-0 left-0 right-0 h-12 bg-card/40 backdrop-blur-md border-b border-border/20 z-[60] items-center justify-between px-4 ml-0 transition-all duration-300" style={{ left: !hideSidebar ? (collapsed ? '4rem' : '16rem') : '0' }}>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(-1)}
+              className="h-8 w-8 hover:bg-accent/50"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(1)}
+              className="h-8 w-8 hover:bg-accent/50"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleFullscreen}
+              className="h-8 w-8 hover:bg-accent/50"
+            >
+              {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Mobile Header */}
-      {!isInterviewSession && (
+      {!hideSidebar && (
         <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-card/70 backdrop-blur-xl border-b border-border/40 z-50 flex items-center justify-between px-4 shadow-lg">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
@@ -205,7 +289,7 @@ const DashboardLayout = () => {
       )}
 
       {/* Desktop Sidebar */}
-      {!isInterviewSession && (
+      {!hideSidebar && (
         <aside className={cn(
           "hidden lg:block fixed left-0 top-0 h-full transition-all duration-300 z-40",
           (location.pathname !== '/dashboard' && location.pathname !== '/dashboard/' && collapsed)
@@ -328,8 +412,9 @@ const DashboardLayout = () => {
       {/* Main Content */}
       <main className={cn(
         "transition-all duration-300 min-h-screen",
-        !isInterviewSession && "pt-14 lg:pt-0", // Account for mobile header
-        !isInterviewSession && (collapsed ? "lg:ml-16" : "lg:ml-64")
+        !hideSidebar && "pt-14 lg:pt-0", // Account for mobile header
+        isTauri && "lg:pt-12", // Account for desktop top bar
+        !hideSidebar && (collapsed ? "lg:ml-16" : "lg:ml-64")
       )}>
         <Outlet />
       </main>

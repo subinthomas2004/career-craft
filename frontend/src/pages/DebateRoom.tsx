@@ -519,6 +519,18 @@ const DebateRoom = () => {
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
         }
+
+        // Record Activity
+        try {
+            api.post('/auth/activity', {
+                title: `Debate: ${topic}`,
+                activityType: 'debate',
+                score: '100%'
+            }).catch(err => console.error("Failed to record debate activity", err));
+        } catch (err) {
+            console.error("Failed to record activity", err);
+        }
+
         navigate('/dashboard/debate/report', {
             state: { transcript, topic, stance },
             replace: true

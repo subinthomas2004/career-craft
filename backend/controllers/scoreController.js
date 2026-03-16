@@ -5,7 +5,7 @@ import User from '../models/User.js';
 // @route   POST /api/scores
 // @access  Private
 const submitScore = async (req, res) => {
-    const { score, totalQuestions, timeTaken } = req.body;
+    const { score, totalQuestions, timeTaken, quizType } = req.body;
 
     if (score === undefined || totalQuestions === undefined || timeTaken === undefined) {
         return res.status(400).json({ message: 'Please provide all fields' });
@@ -24,19 +24,52 @@ const submitScore = async (req, res) => {
 
         // Add to Recent Activity
         user.recentActivities.unshift({
-            title: `Quiz Completion`, // You might want to pass the quiz topic from frontend locally if available, or just generic
+            title: quizType === 'aptitude' ? 'Aptitude Exam' : 'Technical Quiz',
             activityType: 'quiz',
             score: `${Math.round((score / totalQuestions) * 100)}%`,
             timestamp: Date.now()
         });
 
-        // Limit to 20
+        // Handle Streak
+        // ... (streak logic remains)
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (!user.lastActiveDate) {
+            user.streak = 1;
+        } else {
+            const lastActive = new Date(user.lastActiveDate);
+            lastActive.setHours(0, 0, 0, 0);
+
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            if (lastActive.getTime() === yesterday.getTime()) {
+                user.streak += 1;
+            } else if (lastActive.getTime() < yesterday.getTime()) {
+                user.streak = 1;
+            }
+        }
+        user.lastActiveDate = today;
+
+        // Keep only the last 20 activities
         if (user.recentActivities.length > 20) {
             user.recentActivities = user.recentActivities.slice(0, 20);
         }
 
         // Update stats
         user.stats.quizzesTaken += 1;
+        
+        if (quizType === 'aptitude') {
+            if (totalQuestions === 40) {
+                user.stats.aptitudeExamCount += 1;
+            }
+        } else if (quizType === 'technical') {
+            if (totalQuestions === 40) {
+                user.stats.technicalQuizCount += 1;
+            }
+        }
+
         // Simple average calculation (approximate)
         const currentTotal = user.stats.averageScore * (user.stats.quizzesTaken - 1);
         const newAvg = (currentTotal + ((score / totalQuestions) * 100)) / user.stats.quizzesTaken;

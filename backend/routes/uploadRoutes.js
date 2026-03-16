@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
-import { parseResume } from '../controllers/uploadController.js';
+import { parseResume, parseProfileResume } from '../controllers/uploadController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -8,5 +9,6 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/resume', upload.single('resume'), parseResume);
+router.get('/resume-profile', protect, parseProfileResume);
 
 export default router;

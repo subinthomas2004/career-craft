@@ -355,7 +355,10 @@ export const getMe = async (req, res) => {
                 graduationYear: user.graduationYear,
                 bio: user.bio,
                 skills: user.skills,
+                resumeUrl: user.resumeUrl,
+                resumeOriginalName: user.resumeOriginalName,
                 recentActivities: user.recentActivities || [],
+                streak: user.streak || 0,
                 role: user.role
             });
         } else {
@@ -391,6 +394,8 @@ export const updateProfile = async (req, res) => {
             if (req.body.graduationYear !== undefined) user.graduationYear = req.body.graduationYear;
             if (req.body.bio !== undefined) user.bio = req.body.bio;
             if (req.body.skills !== undefined) user.skills = req.body.skills;
+            if (req.body.resumeUrl !== undefined) user.resumeUrl = req.body.resumeUrl;
+            if (req.body.resumeOriginalName !== undefined) user.resumeOriginalName = req.body.resumeOriginalName;
 
             const updatedUser = await user.save();
 
@@ -407,7 +412,10 @@ export const updateProfile = async (req, res) => {
                 graduationYear: updatedUser.graduationYear,
                 bio: updatedUser.bio,
                 skills: updatedUser.skills,
+                resumeUrl: updatedUser.resumeUrl,
+                resumeOriginalName: updatedUser.resumeOriginalName,
                 stats: updatedUser.stats,
+                streak: updatedUser.streak || 0,
                 token: generateToken(updatedUser._id)
             });
         } else {
@@ -428,7 +436,35 @@ export const addRecentActivity = async (req, res) => {
         const user = await User.findById(req.user.id);
 
         if (user) {
-            // Add new activity to the beginning of the array
+            // Update Stats
+            if (activityType === 'interview') user.stats.interviewsAttended += 1;
+            if (activityType === 'quiz') user.stats.quizzesTaken += 1;
+            if (activityType === 'gd') user.stats.gdCount += 1;
+            if (activityType === 'debate') user.stats.debateCount += 1;
+
+            // Handle Streak
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (!user.lastActiveDate) {
+                user.streak = 1;
+            } else {
+                const lastActive = new Date(user.lastActiveDate);
+                lastActive.setHours(0, 0, 0, 0);
+
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (lastActive.getTime() === yesterday.getTime()) {
+                    user.streak += 1;
+                } else if (lastActive.getTime() < yesterday.getTime()) {
+                    user.streak = 1;
+                }
+                // If today, streak stays the same
+            }
+            user.lastActiveDate = today;
+
+            // Add new activity
             user.recentActivities.unshift({
                 title,
                 activityType,
@@ -442,12 +478,72 @@ export const addRecentActivity = async (req, res) => {
             }
 
             await user.save();
-            res.status(201).json(user.recentActivities);
+            res.status(201).json({
+                recentActivities: user.recentActivities,
+                stats: user.stats,
+                streak: user.streak
+            });
         } else {
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
         console.error('Error in addRecentActivity:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Upload Resume
+// @route   POST /api/auth/upload-resume
+// @access  Private
+export const uploadResume = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'Please upload a file' });
+        }
+
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const resumeUrl = `/uploads/${req.file.filename}`;
+        user.resumeUrl = resumeUrl;
+        user.resumeOriginalName = req.file.originalname;
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            resumeUrl: user.resumeUrl,
+            resumeOriginalName: user.resumeOriginalName
+        });
+    } catch (error) {
+        console.error('Error in uploadResume:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// @desc    Remove Resume
+// @route   DELETE /api/auth/remove-resume
+// @access  Private
+export const removeResume = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.resumeUrl = "";
+        user.resumeOriginalName = "";
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Resume removed successfully"
+        });
+    } catch (error) {
+        console.error('Error in removeResume:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };

@@ -14,6 +14,10 @@ const forumCommentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  authorPicture: {
+    type: String,
+    default: ""
+  },
   content: {
     type: String,
     required: true

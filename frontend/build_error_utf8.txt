@@ -1,0 +1,188 @@
+﻿
+> vite_react_shadcn_ts@0.0.0 tauri
+> tauri build
+
+node.exe :         Info Looking up installed tauri packages 
+to check mismatched versions...
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (        Info L 
+   o...hed versions...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+        Warn The bundle identifier "com.careercraft.app" 
+set in `"tauri.conf.json" identifier` ends with `.app`. 
+This is not recommended because it conflicts with the 
+application bundle extension on macOS.
+     Running beforeBuildCommand `npm run build`
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+(node:15364) ExperimentalWarning: CommonJS module D:\VISWA\c
+areer\node_modules\tailwindcss\lib\lib\load-config.js is 
+loading ES Module 
+D:\VISWA\career\frontend\tailwind.config.ts using require().
+Support for loading ES Module in require() is an 
+experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning 
+was created)
+
+/grid.svg referenced in /grid.svg didn't resolve at build 
+time, it will remain unchanged to be resolved at runtime
+[1m[33m[plugin:vite:esbuild][39m[22m [33m[plugin 
+vite:esbuild] src/components/interview/CodeEditorPanel.tsx: 
+[33mDuplicate "style" attribute in JSX element[33m
+195|                      spellCheck={false}
+196|                      style={{ tabSize: 4 }}
+197|                      style={{ tabSize: 4 }}
+   |                      ^
+198|                  />
+199|              </div>
+[39m
+[1m[33m[plugin:vite:resolve][39m[22m [33m[plugin 
+vite:resolve] Module "events" has been externalized for 
+browser compatibility, imported by "D:/VISWA/career/node_mod
+ules/readable-stream/lib/_stream_readable.js". See https://v
+ite.dev/guide/troubleshooting.html#module-externalized-for-b
+rowser-compatibility for more details.[39m
+[1m[33m[plugin:vite:resolve][39m[22m [33m[plugin 
+vite:resolve] Module "events" has been externalized for 
+browser compatibility, imported by "D:/VISWA/career/node_mod
+ules/readable-stream/lib/internal/streams/stream-browser.js"
+. See https://vite.dev/guide/troubleshooting.html#module-ext
+ernalized-for-browser-compatibility for more details.[39m
+[32mΓ£ô[39m 3881 modules transformed.
+rendering chunks...
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin 
+vite:reporter] 
+(!) D:/VISWA/career/frontend/src/lib/api.ts is dynamically 
+imported by D:/VISWA/career/frontend/src/pages/CodingProblem
+sListPage.tsx but also statically imported by D:/VISWA/caree
+r/frontend/src/components/aptitude/QuizMode.tsx, D:/VISWA/ca
+reer/frontend/src/components/communication/SessionHistory.ts
+x, D:/VISWA/career/frontend/src/components/resume-builder/Re
+sumeAnalyzer.tsx, D:/VISWA/career/frontend/src/components/re
+sume-builder/ResumeEditor.tsx, D:/VISWA/career/frontend/src/
+components/typing-test/Leaderboard.tsx, D:/VISWA/career/fron
+tend/src/components/typing-test/PersonalProgress.tsx, D:/VIS
+WA/career/frontend/src/components/typing-test/TypingTestCont
+ainer.tsx, 
+D:/VISWA/career/frontend/src/hooks/useInterviewSession.ts, 
+D:/VISWA/career/frontend/src/lib/ats-analyzer.ts, 
+D:/VISWA/career/frontend/src/lib/codeRunner.ts, 
+D:/VISWA/career/frontend/src/lib/jobApi.ts, 
+D:/VISWA/career/frontend/src/lib/resume-parser.ts, 
+D:/VISWA/career/frontend/src/pages/Admin.tsx, 
+D:/VISWA/career/frontend/src/pages/Auth.tsx, 
+D:/VISWA/career/frontend/src/pages/CodingPractice.tsx, 
+D:/VISWA/career/frontend/src/pages/CodingPracticeHome.tsx, 
+D:/VISWA/career/frontend/src/pages/CommunicationCoach.tsx, 
+D:/VISWA/career/frontend/src/pages/CompanyDetails.tsx, 
+D:/VISWA/career/frontend/src/pages/CompanyPrep.tsx, 
+D:/VISWA/career/frontend/src/pages/Dashboard.tsx, 
+D:/VISWA/career/frontend/src/pages/DebatePerformance.tsx, 
+D:/VISWA/career/frontend/src/pages/DebateReport.tsx, 
+D:/VISWA/career/frontend/src/pages/DebateRoom.tsx, D:/VISWA/
+career/frontend/src/pages/DebateTopicSelection.tsx, 
+D:/VISWA/career/frontend/src/pages/ForgotPassword.tsx, 
+D:/VISWA/career/frontend/src/pages/GDReport.tsx, 
+D:/VISWA/career/frontend/src/pages/GDTopicSelection.tsx, 
+D:/VISWA/career/frontend/src/pages/GroupDiscussion.tsx, 
+D:/VISWA/career/frontend/src/pages/IntroPrep.tsx, 
+D:/VISWA/career/frontend/src/pages/MockInterview.tsx, 
+D:/VISWA/career/frontend/src/pages/Profile.tsx, 
+D:/VISWA/career/frontend/src/pages/Quiz.tsx, 
+D:/VISWA/career/frontend/src/pages/ResetPassword.tsx, 
+D:/VISWA/career/frontend/src/pages/SkillGap.tsx, 
+D:/VISWA/career/frontend/src/pages/SoftSkills.tsx, 
+D:/VISWA/career/frontend/src/pages/TestGroqConnection.tsx, 
+dynamic import will not move module into another chunk.
+[39m
+computing gzip size...
+[2mdist/[22m[32mindex.html                                     [39m[1m[2m    1.54 kB[22m[1m[22m[2m Γöé gzip:     0.65 kB[22m
+[2mdist/[22m[32massets/module-interview-B4Me4SLp.png           [39m[1m[2m   16.69 kB[22m[1m[22m
+[2mdist/[22m[32massets/module-resume-mW28kE_E.png              [39m[1m[2m   17.46 kB[22m[1m[22m
+[2mdist/[22m[32massets/module-quiz-D3fuj8LM.png                [39m[1m[2m   17.74 kB[22m[1m[22m
+[2mdist/[22m[32massets/module-coding-BRDwiXsm.png              [39m[1m[2m   22.43 kB[22m[1m[22m
+[2mdist/[22m[32massets/module-typing-uVdwMf5E.png              [39m[1m[2m   23.88 kB[22m[1m[22m
+[2mdist/[22m[32massets/bg-pattern-BiOneia0.jpg                 [39m[1m[2m  108.30 kB[22m[1m[22m
+[2mdist/[22m[35massets/index-DyzWR14S.css                      [39m[1m[2m  190.58 kB[22m[1m[22m[2m Γöé gzip:    28.28 kB[22m
+[2mdist/[22m[36massets/howler-D7nNQFV1.js                      [39m[1m[2m   27.04 kB[22m[1m[22m[2m Γöé gzip:     8.13 kB[22m
+[2mdist/[22m[36massets/navmesh-BFd9Mv4x.js                     [39m[1m[2m   55.09 kB[22m[1m[22m[2m Γöé gzip:    11.02 kB[22m
+[2mdist/[22m[36massets/boolean-DBCsdfyP.js                     [39m[1m[2m   56.50 kB[22m[1m[22m[2m Γöé gzip:    19.68 kB[22m
+[2mdist/[22m[36massets/process-B9H0U9ag.js                     [39m[1m[2m   67.74 kB[22m[1m[22m[2m Γöé gzip:    23.01 kB[22m
+[2mdist/[22m[36massets/gaussian-splat-compression-BblNKJdU.js  [39m[1m[2m   82.55 kB[22m[1m[22m[2m Γöé gzip:    23.40 kB[22m
+[2mdist/[22m[36massets/ui-BTQ6z9Zi.js                          [39m[1m[2m   91.97 kB[22m[1m[22m[2m Γöé gzip:    28.89 kB[22m
+[2mdist/[22m[36massets/opentype-BhA_KP3I.js                    [39m[1m[2m  171.88 kB[22m[1m[22m[2m Γöé gzip:    50.27 kB[22m
+[2mdist/[22m[36massets/Scene-BPetpUSz.js                       [39m[1m[33m1,009.10 kB[39m[22m[2m Γöé gzip:   284.79 kB[22m
+[2mdist/[22m[36massets/physics-BM4kW-A5.js                     [39m[1m[33m1,987.51 kB[39m[22m[2m Γöé gzip:   722.69 kB[22m
+[2mdist/[22m[36massets/index-aj6gjss1.js                       [39m[1m[33m5,707.38 kB[39m[22m[2m Γöé gzip: 1,590.18 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. 
+Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve 
+chunking: https://rollupjs.org/configuration-options/#output
+-manualchunks
+- Adjust chunk size limit for this warning via 
+build.chunkSizeWarningLimit.[39m
+[32mΓ£ô built in 25.27s[39m
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling serde_core v1.0.228
+   Compiling zerocopy v0.8.42
+   Compiling icu_properties_data v2.1.2
+   Compiling icu_normalizer_data v2.1.1
+   Compiling zmij v1.0.21
+   Compiling serde v1.0.228
+   Compiling thiserror v2.0.18
+   Compiling siphasher v0.3.11
+   Compiling windows-link v0.2.1
+error: linker `link.exe` not found
+  |
+  = note: program not found
+
+note: the msvc targets depend on the msvc linker but 
+`link.exe` was not found
+
+note: please ensure that Visual Studio 2017 or later, or 
+Build Tools for Visual Studio were installed with the 
+Visual C++ option.
+
+note: VS Code is a different product, and is not sufficient.
+
+error: could not compile `icu_properties_data` (build 
+script) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `icu_normalizer_data` (build 
+script) due to 1 previous error
+error: could not compile `quote` (build script) due to 1 
+previous error
+error: could not compile `proc-macro2` (build script) due 
+to 1 previous error
+error: could not compile `zmij` (build script) due to 1 
+previous error
+error: could not compile `serde_core` (build script) due to 
+1 previous error
+error: could not compile `serde_core` (build script) due to 
+1 previous error
+error: could not compile `serde` (build script) due to 1 
+previous error
+error: could not compile `zerocopy` (build script) due to 1 
+previous error
+error: could not compile `thiserror` (build script) due to 
+1 previous error
+failed to build app: failed to build app
+       Error failed to build app: failed to build app
+npm error Lifecycle script `tauri` failed with error:
+npm error code 1
+npm error path D:\VISWA\career\frontend
+npm error workspace vite_react_shadcn_ts@0.0.0
+npm error location D:\VISWA\career\frontend
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c 
+tauri build

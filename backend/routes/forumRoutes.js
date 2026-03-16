@@ -9,13 +9,7 @@ import {
     addComment
 } from '../controllers/forumController.js';
 
-/*
-import { authCheck } from '../middleware/auth.js'; 
-// Use your project's auth middleware if needed
-// For now, these routes don't strictly enforce backend auth middleware 
-// to keep them simple and based on client requests body logic as implemented in controller.
-// You can add it later if the rest of the application uses it consistently.
-*/
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -26,18 +20,18 @@ router.get('/posts', getPosts);
 router.get('/posts/me/:userId', getMyPosts);
 
 // Create a post
-router.post('/posts', createPost);
+router.post('/posts', protect, createPost);
 
 // Delete a post
-router.delete('/posts/:id', deletePost);
+router.delete('/posts/:id', protect, deletePost);
 
 // Toggle like on a post
-router.post('/posts/:id/like', toggleLike);
+router.post('/posts/:id/like', protect, toggleLike);
 
 // Get comments for a post
 router.get('/posts/:id/comments', getComments);
 
 // Add a comment
-router.post('/posts/:id/comments', addComment);
+router.post('/posts/:id/comments', protect, addComment);
 
 export default router;

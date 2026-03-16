@@ -24,9 +24,14 @@ interface PostCardProps {
 
 export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => {
     const [user, setUser] = useState<User | null>(null);
+    const [mongoUser, setMongoUser] = useState<any>(null);
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            const storedUser = localStorage.getItem("userInfo");
+            if (storedUser) {
+                setMongoUser(JSON.parse(storedUser));
+            }
         });
         return () => unsubscribe();
     }, []);
@@ -45,7 +50,7 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
         if (!showComments) {
             setLoadingComments(true);
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/comments`);
+                const res = await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/comments`);
                 if (res.ok) {
                     const data = await res.json();
                     setComments(data);
@@ -62,13 +67,18 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
     const handleAddComment = async () => {
         if (!newComment.trim() || !user) return;
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/comments`, {
+            const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+            const token = userInfo.token;
+
+            const res = await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/comments`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 body: JSON.stringify({
                     content: newComment,
-                    authorId: user.uid,
-                    authorName: user.displayName || user.email?.split("@")[0] || "Anonymous",
+                    authorId: mongoUser._id,
                 }),
             });
             if (res.ok) {
@@ -93,11 +103,17 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
              if (voteStatus === "up") {
                   setVoteStatus(null);
                   setScore(score - 1);
+                  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+                  const token = userInfo.token;
+
                   // Call API to remove like
-                  await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/like`, {
+                  await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/like`, {
                       method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ userId: user.uid }),
+                      headers: { 
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${token}`
+                      },
+                      body: JSON.stringify({ userId: mongoUser._id }),
                   });
              }
              return;
@@ -105,10 +121,16 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
 
         // Type is "up"
         try {
-            await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5001"}/api/forum/posts/${post._id}/like`, {
+            const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+            const token = userInfo.token;
+
+            await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/like`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId: user.uid }),
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ userId: mongoUser._id }),
             });
 
             if (voteStatus === "up") {
@@ -165,7 +187,11 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
                 {/* Header */}
                 <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                     <Avatar className="w-5 h-5">
-                        <AvatarFallback>{post.authorName[0]}</AvatarFallback>
+                        {post.authorPicture ? (
+                            <img src={post.authorPicture} alt={post.authorName} className="rounded-full object-cover" />
+                        ) : (
+                            <AvatarFallback>{post.authorName[0]}</AvatarFallback>
+                        )}
                     </Avatar>
                     <span className="hover:underline font-medium text-foreground">Post by {post.authorName}</span>
                     <span>•</span>
@@ -245,7 +271,11 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
                                 {comments.map((comment) => (
                                     <div key={comment._id} className="flex gap-2">
                                         <Avatar className="w-6 h-6">
-                                            <AvatarFallback className="text-[10px]">{comment.authorName[0]}</AvatarFallback>
+                                            {comment.authorPicture ? (
+                                                <img src={comment.authorPicture} alt={comment.authorName} className="rounded-full object-cover" />
+                                            ) : (
+                                                <AvatarFallback className="text-[10px]">{comment.authorName[0]}</AvatarFallback>
+                                            )}
                                         </Avatar>
                                         <div className="bg-muted/40 rounded-lg p-2 flex-1">
                                             <div className="flex items-center gap-2 mb-1">

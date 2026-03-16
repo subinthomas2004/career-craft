@@ -128,12 +128,12 @@ const Quiz = () => {
     }
   };
 
-  const submitScore = async (score: number, totalQuestions: number, timeTaken: number) => {
+  const submitScore = async (score: number, totalQuestions: number, timeTaken: number, quizType: string = 'technical') => {
     try {
       const token = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")!).token : null;
       if (!token) return;
 
-      await api.post("/scores", { score, totalQuestions, timeTaken });
+      await api.post("/scores", { score, totalQuestions, timeTaken, quizType });
       fetchLeaderboard(); // Refresh after submission
     } catch (err) {
       console.error("Failed to submit score", err);
@@ -168,7 +168,7 @@ const Quiz = () => {
       const timeUsed = 720 - timeLeft; // 720 is total time
       // Only submit if we haven't already shown results? Or rely on effect running once on stage change
       // Original logic was just on stage change.
-      submitScore(calculatedScore, quizQuestions.length, timeUsed);
+      submitScore(calculatedScore, quizQuestions.length, timeUsed, 'technical');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage]);

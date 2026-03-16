@@ -23,7 +23,9 @@ import {
   Code,
   Brain,
   Video,
-  Camera
+  Camera,
+  Users,
+  Swords
 } from "lucide-react";
 import { api } from "@/lib/api";
 import ImageCropper from "@/components/profile/ImageCropper";
@@ -43,7 +45,17 @@ const Profile = () => {
     skills: [] as string[],
     linkedin: "",
     github: "",
-    avatar: ""
+    avatar: "",
+    resumeUrl: "",
+    resumeOriginalName: "",
+    stats: {
+      interviewsAttended: 0,
+      technicalQuizCount: 0,
+      aptitudeExamCount: 0,
+      gdCount: 0,
+      debateCount: 0,
+      averageScore: 0
+    }
   });
 
   useEffect(() => {
@@ -71,6 +83,16 @@ const Profile = () => {
           graduationYear: data.graduationYear || "",
           bio: data.bio || "",
           skills: data.skills || [],
+          resumeUrl: data.resumeUrl || "",
+          resumeOriginalName: data.resumeOriginalName || "",
+          stats: data.stats || {
+            interviewsAttended: 0,
+            technicalQuizCount: 0,
+            aptitudeExamCount: 0,
+            gdCount: 0,
+            debateCount: 0,
+            averageScore: 0
+          }
         }));
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -142,11 +164,79 @@ const Profile = () => {
     }
   };
 
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+
+  const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("resume", file);
+
+    const userInfoStr = localStorage.getItem("userInfo");
+    const token = userInfoStr ? JSON.parse(userInfoStr).token : null;
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    try {
+      const { data } = await api.post("/auth/upload-resume", formData, {
+        headers: { 
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}` 
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(progress);
+          }
+        }
+      });
+      
+      setProfile(prev => ({ 
+        ...prev, 
+        resumeUrl: data.resumeUrl, 
+        resumeOriginalName: data.resumeOriginalName 
+      }));
+      toast.success("Resume uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading resume:", error);
+      toast.error("Failed to upload resume.");
+    } finally {
+      setIsUploading(false);
+      setUploadProgress(0);
+    }
+  };
+
+  const handleRemoveResume = async () => {
+    const userInfoStr = localStorage.getItem("userInfo");
+    const token = userInfoStr ? JSON.parse(userInfoStr).token : null;
+
+    try {
+      await api.delete("/auth/remove-resume", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setProfile(prev => ({ 
+        ...prev, 
+        resumeUrl: "", 
+        resumeOriginalName: "" 
+      }));
+      toast.success("Resume removed successfully!");
+    } catch (error) {
+      console.error("Error removing resume:", error);
+      toast.error("Failed to remove resume.");
+    }
+  };
+
   const achievements = [
-    { icon: Video, label: "Interviews", value: 0, color: "text-blue-500" },
-    { icon: Brain, label: "Quizzes", value: 0, color: "text-purple-500" },
-    { icon: Code, label: "Problems Solved", value: 0, color: "text-green-500" },
-    { icon: Target, label: "Skills Mastered", value: 0, color: "text-orange-500" },
+    { icon: Video, label: "Interviews", value: profile.stats.interviewsAttended || 0, color: "text-blue-500" },
+    { icon: Brain, label: "Aptitude", value: profile.stats.aptitudeExamCount || 0, color: "text-purple-500" },
+    { icon: Code, label: "Tech Quiz", value: profile.stats.technicalQuizCount || 0, color: "text-emerald-500" },
+    { icon: Users, label: "GDs", value: profile.stats.gdCount || 0, color: "text-orange-500" },
+    { icon: Swords, label: "Debates", value: profile.stats.debateCount || 0, color: "text-red-500" },
+    { icon: TrendingUp, label: "Avg Score", value: `${profile.stats.averageScore || 0}%`, color: "text-cyan-500" },
   ];
 
   return (
@@ -234,13 +324,13 @@ const Profile = () => {
         </Card>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-6">
           {achievements.map((item, index) => (
             <Card key={index}>
-              <CardContent className="p-3 sm:p-4 text-center">
-                <item.icon className={`w-6 h-6 sm:w-8 sm:h-8 ${item.color} mx-auto mb-2`} />
-                <p className="text-xl sm:text-2xl font-bold text-foreground">{item.value}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">{item.label}</p>
+              <CardContent className="p-2 sm:p-3 text-center">
+                <item.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${item.color} mx-auto mb-1.5`} />
+                <p className="text-lg sm:text-xl font-bold text-foreground">{item.value}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">{item.label}</p>
               </CardContent>
             </Card>
           ))}
@@ -411,30 +501,104 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Preparation Progress */}
-        <Card>
+        {/* Resume Section */}
+        <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
-              <TrendingUp className="w-5 h-5 text-primary" />
-              Preparation Progress
+              <Code className="w-5 h-5 text-primary" />
+              Professional Resume
             </CardTitle>
-            <CardDescription>Your overall readiness for placements</CardDescription>
+            <CardDescription>Upload and manage your resume</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {[
-              { label: "Technical Skills", value: 75 },
-              { label: "Communication", value: 82 },
-              { label: "Problem Solving", value: 68 },
-              { label: "Domain Knowledge", value: 70 },
-            ].map((item, index) => (
-              <div key={index}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-foreground">{item.label}</span>
-                  <span className="text-sm text-muted-foreground">{item.value}%</span>
-                </div>
-                <Progress value={item.value} className="h-2" />
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <div className="flex-1 w-full">
+                {isUploading ? (
+                  <div className="space-y-3 p-4 bg-secondary/10 rounded-lg border border-border/40">
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="font-medium text-primary flex items-center gap-2">
+                        <TrendingUp className="w-3 h-3 animate-pulse" />
+                        Uploading Resume...
+                      </span>
+                      <span className="text-muted-foreground">{uploadProgress}%</span>
+                    </div>
+                    <Progress value={uploadProgress} className="h-1.5" />
+                    <p className="text-[10px] text-muted-foreground text-center">
+                      Please wait while we process your document.
+                    </p>
+                  </div>
+                ) : profile.resumeUrl ? (
+                  <div className="flex items-center justify-between p-3 bg-secondary/20 rounded-lg border border-border">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-primary/10 rounded-md">
+                        <Briefcase className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium truncate max-w-[200px] sm:max-w-xs">
+                          {profile.resumeOriginalName || "Current Resume"}
+                        </span>
+                        <a 
+                          href={`${window.location.origin.replace(':5173', ':5001')}${profile.resumeUrl}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-xs text-primary hover:underline"
+                        >
+                          View Resume
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => document.getElementById('resume-upload')?.click()}
+                        className="text-xs hover:bg-primary/10 hover:text-primary"
+                      >
+                        Replace
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={handleRemoveResume}
+                        className="text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-8 border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center text-center space-y-3 hover:border-primary/50 transition-colors">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Briefcase className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground">No resume uploaded</h4>
+                      <p className="text-sm text-muted-foreground mt-1">Upload your resume to complete your profile</p>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => document.getElementById('resume-upload')?.click()}
+                      className="hover:bg-primary hover:text-primary-foreground"
+                    >
+                      Upload Resume
+                    </Button>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  id="resume-upload"
+                  className="hidden"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleResumeUpload}
+                  disabled={isUploading}
+                />
               </div>
-            ))}
+            </div>
+            {!isUploading && (
+              <p className="text-[10px] text-muted-foreground text-center">
+                Supported formats: PDF, DOC, DOCX. Max size 5MB.
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>

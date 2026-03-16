@@ -30,6 +30,8 @@ import {
   EyeOff,
   Globe,
   Monitor,
+  Trophy,
+  Brain,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -68,6 +70,14 @@ const CodingPractice = () => {
   const [customOutput, setCustomOutput] = useState("");
   const [pyodideStatus, setPyodideStatus] = useState<"idle" | "loading" | "ready">("idle");
   const [allPassed, setAllPassed] = useState(false);
+  const [groqAnalysis, setGroqAnalysis] = useState<{
+    hasErrors: boolean;
+    compilationError: string | null;
+    analysis: string;
+    feedback: string;
+    score: number;
+  } | null>(null);
+  const [isGroqAnalyzing, setIsGroqAnalyzing] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const lineNumbersRef = useRef<HTMLDivElement>(null);
 
@@ -154,11 +164,50 @@ const CodingPractice = () => {
     setCompilationError(null);
 
     const sampleTests = problem.testCases.slice(0, Math.min(3, problem.testCases.length));
-    const result = await executeCode(code, language, sampleTests);
+    
+    // Start Groq Analysis
+    setIsGroqAnalyzing(true);
+    setGroqAnalysis(null);
+    
+    // Record attempt
+    const userInfoStr = localStorage.getItem("userInfo");
+    if (userInfoStr) {
+      const { token } = JSON.parse(userInfoStr);
+      api.post('/coding-scores/attempt', { problemId: problem.id }, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).catch(console.error);
+    }
 
-    setTestResults(result.results);
-    setCompilationError(result.compilationError || null);
-    setIsRunning(false);
+    const runPromise = executeCode(code, language, sampleTests);
+    const groqPromise = api.post('/groq/coding-practice/analyze', {
+      code,
+      language,
+      problemTitle: problem.title,
+      problemDescription: problem.description
+    });
+
+    try {
+      const [result, groqRes] = await Promise.all([runPromise, groqPromise]);
+      
+      setTestResults(result.results);
+      // Strictly use Groq for compilation errors as requested
+      // If Groq says there's an error, show it.
+      // If Groq says no error but execution failed, it's a runtime error or runner issue.
+      if (groqRes.data.hasErrors) {
+        setCompilationError(groqRes.data.compilationError);
+      } else {
+        setCompilationError(null);
+      }
+      setGroqAnalysis(groqRes.data);
+    } catch (err) {
+      console.error("Analysis failed", err);
+      const result = await runPromise;
+      setTestResults(result.results);
+      setCompilationError(result.compilationError || null);
+    } finally {
+      setIsRunning(false);
+      setIsGroqAnalyzing(false);
+    }
   }, [problem, code, language, isRunning]);
 
   // Submit code (all test cases)
@@ -168,39 +217,73 @@ const CodingPractice = () => {
     setShowResults(true);
     setBottomTab("result");
     setCompilationError(null);
+    setIsGroqAnalyzing(true);
+    setGroqAnalysis(null);
 
-    const result = await executeCode(code, language, problem.testCases);
+    // Record attempt
+    const userInfoStr = localStorage.getItem("userInfo");
+    if (userInfoStr) {
+      const { token } = JSON.parse(userInfoStr);
+      api.post('/coding-scores/attempt', { problemId: problem.id }, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).catch(console.error);
+    }
 
-    setTestResults(result.results);
-    setCompilationError(result.compilationError || null);
-    setIsSubmitting(false);
+    const runPromise = executeCode(code, language, problem.testCases);
+    const groqPromise = api.post('/groq/coding-practice/analyze', {
+      code,
+      language,
+      problemTitle: problem.title,
+      problemDescription: problem.description
+    });
 
-    if (result.summary.passed === result.summary.total && result.summary.total > 0) {
-      setAllPassed(true);
-      setTimerRunning(false);
-
-      try {
-        const userInfo = localStorage.getItem("userInfo");
-        if (userInfo) {
-          const { token } = JSON.parse(userInfo);
-          
-          // Save to MongoDB
-          await api.post('/coding-scores/solve', { problemId: problem.id }, {
-              headers: { Authorization: `Bearer ${token}` }
-          });
-
-          // Record Activity
-          await api.post('/auth/activity', {
-            title: `Solved: ${problem.title}`,
-            activityType: 'coding',
-            score: 'Solved'
-          }, {
-              headers: { Authorization: `Bearer ${token}` }
-          });
-        }
-      } catch (err) {
-        console.error("Failed to save progress or record activity", err);
+    try {
+      const [result, groqRes] = await Promise.all([runPromise, groqPromise]);
+      
+      setTestResults(result.results);
+      // Strictly use Groq for compilation errors
+      if (groqRes.data.hasErrors) {
+        setCompilationError(groqRes.data.compilationError);
+      } else {
+        setCompilationError(null);
       }
+      setGroqAnalysis(groqRes.data);
+
+      if (result.summary.passed === result.summary.total && result.summary.total > 0 && !groqRes.data.hasErrors) {
+        setAllPassed(true);
+        setTimerRunning(false);
+
+        try {
+          const userInfo = localStorage.getItem("userInfo");
+          if (userInfo) {
+            const { token } = JSON.parse(userInfo);
+            
+            // Save to MongoDB
+            await api.post('/coding-scores/solve', { problemId: problem.id }, {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+
+            // Record Activity
+            await api.post('/auth/activity', {
+              title: `Solved: ${problem.title}`,
+              activityType: 'coding',
+              score: 'Solved'
+            }, {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+          }
+        } catch (err) {
+          console.error("Failed to save progress or record activity", err);
+        }
+      }
+    } catch (err) {
+      console.error("Submission failed", err);
+      const result = await runPromise;
+      setTestResults(result.results);
+      setCompilationError(result.compilationError || null);
+    } finally {
+      setIsSubmitting(false);
+      setIsGroqAnalyzing(false);
     }
   }, [problem, code, language, isSubmitting]);
 
@@ -253,121 +336,128 @@ const CodingPractice = () => {
   const lineCount = code.split("\n").length;
   const execMode = getExecutionMode(language);
 
-  if (!problem) return null;
-
-  const currentIdx = codingProblems.findIndex((p) => p.id === problem.id);
+  const currentIdx = problem ? codingProblems.findIndex((p) => p.id === problem.id) : -1;
   const hasPrev = currentIdx > 0;
   const hasNext = currentIdx < codingProblems.length - 1;
 
+  if (!problem) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-[#0a0c10]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative">
+            <div className="w-12 h-12 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+            <div className="absolute inset-0 blur-xl bg-primary/20 rounded-full animate-pulse" />
+          </div>
+          <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest animate-pulse">Initializing Lab...</span>
+        </div>
+      </div>
+    );
+  }
+
+  const difficultyStyles = {
+    Easy: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+    Medium: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+    Hard: "bg-red-500/10 text-red-500 border-red-500/20",
+  };
+
   return (
-    <div className="h-screen flex flex-col bg-background text-foreground overflow-hidden">
-      {/* Top Bar */}
-      <div className="h-12 bg-card border-b border-border/60 flex items-center justify-between px-4 shrink-0">
-        <div className="flex items-center gap-3">
+    <div className="h-screen flex flex-col bg-slate-50 text-slate-900 overflow-hidden font-sans">
+      {/* Top Bar - Clean & Minimalist */}
+      <div className="h-14 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-50">
+        <div className="flex items-center gap-6">
           <button
             onClick={() => navigate("/dashboard/coding")}
-            className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors text-sm"
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-all duration-300 group"
+            title="Back to Problems"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Problems</span>
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
           </button>
-          <div className="w-px h-5 bg-border" />
-          <div className="flex items-center gap-2">
-            <span className="text-foreground font-medium text-sm">{problem.id}. {problem.title}</span>
+          
+          <div className="flex items-center gap-4">
+            <h1 className="text-sm font-bold tracking-tight text-slate-900 flex items-center gap-2">
+              <span className="text-slate-300 font-mono text-xs font-normal">#{problem.id}</span>
+              {problem.title}
+            </h1>
             <span className={cn(
-              "px-2 py-0.5 rounded-md text-xs font-semibold border",
-              problem.difficulty === "Easy" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" :
-                problem.difficulty === "Medium" ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30" :
-                  "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/30"
+              "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border",
+              difficultyStyles[problem.difficulty]
             )}>
               {problem.difficulty}
             </span>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          {/* Execution mode indicator */}
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground/60">
-            {execMode === "browser" ? (
-              <>
-                <Globe className="w-3 h-3 text-emerald-500" />
-                <span className="text-emerald-500/70">In-Browser</span>
-              </>
-            ) : (
-              <>
-                <Monitor className="w-3 h-3 text-blue-500" />
-                <span className="text-blue-500/70">Server</span>
-              </>
-            )}
-          </div>
-          <div className="w-px h-5 bg-border" />
-          <div className="flex items-center gap-1.5 text-muted-foreground/80 text-sm">
+          <div className="flex items-center gap-1.5 text-slate-700 text-sm font-medium">
             <Timer className="w-3.5 h-3.5" />
             <span className="font-mono">{formatTime(timer)}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => navigateProblem("prev")}
-              disabled={!hasPrev}
-              className="p-1.5 rounded-lg hover:bg-border/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-            >
-              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-            </button>
-            <button
-              onClick={() => navigateProblem("next")}
-              disabled={!hasNext}
-              className="p-1.5 rounded-lg hover:bg-border/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-            >
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            </button>
           </div>
         </div>
       </div>
 
-      {/* Main Content - Resizable Panels */}
+      {/* Main Content - Clean White Panels */}
       <ResizablePanelGroup direction="horizontal" className="flex-1">
         {/* Left Panel - Problem Description */}
         <ResizablePanel defaultSize={38} minSize={25}>
-          <div className="h-full overflow-y-auto bg-muted/30 p-6 custom-scrollbar">
-            <div className="prose prose-invert prose-sm max-w-none">
-              <h2 className="text-lg font-bold text-foreground mb-4">{problem.title}</h2>
-              <div className="text-muted-foreground text-sm leading-relaxed whitespace-pre-wrap mb-6">
+          <div className="h-full overflow-y-auto bg-white p-8 custom-scrollbar">
+            <div className="max-w-none">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold text-foreground tracking-tight">{problem.title}</h2>
+                <div className="flex gap-2">
+                  {problem.tags.map((tag) => (
+                    <span key={tag} className="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-slate-600 text-[15px] leading-relaxed mb-10 selection:bg-primary/10">
                 {problem.description}
               </div>
 
-              {/* Examples */}
-              <h3 className="text-sm font-semibold text-foreground/90 mb-3">Examples</h3>
-              {problem.examples.map((ex, i) => (
-                <div key={i} className="mb-4 bg-border/30 border border-border/40 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-muted-foreground/80 mb-2">Example {i + 1}:</p>
-                  <div className="font-mono text-sm space-y-1">
-                    <p><span className="text-muted-foreground/80">Input: </span><span className="text-cyan-600 dark:text-cyan-400">{ex.input}</span></p>
-                    <p><span className="text-muted-foreground/80">Output: </span><span className="text-emerald-600 dark:text-emerald-400">{ex.output}</span></p>
-                    {ex.explanation && (
-                      <p className="text-muted-foreground/80 text-xs mt-2 italic">{ex.explanation}</p>
-                    )}
+              {/* Examples Section */}
+              <div className="space-y-6 mb-10">
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Examples</h3>
+                {problem.examples.map((ex, i) => (
+                  <div key={i} className="group bg-slate-50 border border-slate-100 rounded-2xl p-5 hover:bg-slate-100/50 transition-all duration-300 shadow-sm">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Example {i + 1}</span>
+                    </div>
+                    <div className="font-mono text-sm space-y-3">
+                      <div className="flex gap-4">
+                        <span className="text-slate-300 w-16 shrink-0 underline decoration-slate-200 underline-offset-4 decoration-1">Input</span>
+                        <span className="text-slate-700 font-bold break-all">{ex.input}</span>
+                      </div>
+                      <div className="flex gap-4">
+                        <span className="text-slate-300 w-16 shrink-0 underline decoration-slate-200 underline-offset-4 decoration-1">Output</span>
+                        <span className="text-emerald-600 font-bold break-all">{ex.output}</span>
+                      </div>
+                      {ex.explanation && (
+                        <div className="pt-3 border-t border-slate-100 mt-2">
+                          <p className="text-slate-500 text-xs italic leading-relaxed">{ex.explanation}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-
-              {/* Constraints */}
-              <h3 className="text-sm font-semibold text-foreground/90 mb-3">Constraints</h3>
-              <ul className="list-disc list-inside space-y-1 mb-6">
-                {problem.constraints.map((c, i) => (
-                  <li key={i} className="text-muted-foreground text-sm font-mono">{c}</li>
-                ))}
-              </ul>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {problem.tags.map((tag) => (
-                  <span key={tag} className="px-2.5 py-1 rounded-lg bg-border/50 border border-border/40 text-xs text-muted-foreground font-medium">
-                    {tag}
-                  </span>
                 ))}
               </div>
 
-              {/* Hints */}
-              <div className="border-t border-border/60 pt-5">
+              {/* Constraints Section */}
+              <div className="mb-10">
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Constraints</h3>
+                <div className="space-y-2">
+                  {problem.constraints.map((c, i) => (
+                    <div key={i} className="flex gap-3 items-start group">
+                      <div className="w-1 h-1 rounded-full bg-slate-200 mt-2 flex-shrink-0 group-hover:bg-primary/60 transition-colors" />
+                      <code className="text-xs text-slate-600 font-mono bg-slate-100 px-1.5 py-0.5 rounded leading-relaxed">{c}</code>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hints & Actions */}
+              <div className="pt-6 border-t border-white/5">
                 <button
                   onClick={() => setHintLevel((l) => Math.min(l + 1, problem.hints.length - 1))}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-sm hover:bg-amber-500/20 transition-all"
@@ -376,11 +466,11 @@ const CodingPractice = () => {
                   {hintLevel < 0 ? "Get Hint" : hintLevel < problem.hints.length - 1 ? "Next Hint" : "No More Hints"}
                 </button>
                 {hintLevel >= 0 && (
-                  <div className="mt-3 space-y-2">
+                  <div className="mt-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
                     {problem.hints.slice(0, hintLevel + 1).map((hint, i) => (
-                      <div key={i} className="flex gap-2 p-3 bg-amber-500/5 border border-amber-500/10 rounded-xl">
-                        <Lightbulb className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-                        <p className="text-sm text-amber-200/80">{hint}</p>
+                      <div key={i} className="flex gap-2 p-3 bg-amber-50 border border-amber-100 rounded-xl shadow-sm">
+                        <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                        <p className="text-sm text-amber-900/80">{hint}</p>
                       </div>
                     ))}
                   </div>
@@ -392,203 +482,188 @@ const CodingPractice = () => {
 
         <ResizableHandle withHandle className="bg-border/40 hover:bg-emerald-500/30 transition-colors" />
 
-        {/* Right Panel - Code Editor + Output */}
+        {/* Right Panel - Premium Code Editor + Console */}
         <ResizablePanel defaultSize={62} minSize={35}>
           <ResizablePanelGroup direction="vertical">
             {/* Code Editor */}
             <ResizablePanel defaultSize={60} minSize={30}>
-              <div className="h-full flex flex-col bg-muted/30">
+              <div className="h-full flex flex-col bg-slate-50 border-white">
                 {/* Editor Toolbar */}
-                <div className="h-10 flex items-center justify-between px-3 border-b border-border/60 bg-card shrink-0">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5">
-                      <Code className="w-3.5 h-3.5 text-muted-foreground/80" />
-                      <span className="text-xs text-muted-foreground/80">Code</span>
+                <div className="h-10 flex items-center justify-between px-4 border-b border-white/5 bg-white/5 shrink-0">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary/60 shadow-[0_0_8px_rgba(var(--primary),0.4)]" />
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Main.${language}</span>
                     </div>
-                    {/* Language Selector */}
-                    <select
-                      value={language}
-                      onChange={(e) => handleLanguageChange(e.target.value as LanguageId)}
-                      className={cn(
-                        "px-2.5 py-1 bg-border/50 border border-border/50 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500/50 cursor-pointer appearance-none",
-                        langColors[language] || "text-muted-foreground"
-                      )}
-                      disabled={
-                        (problem.supportedLanguages && problem.supportedLanguages.length === 1) ||
-                        !!searchParams.get("lang")
-                      }
-                    >
-                      {ALL_LANGUAGES.filter(lang =>
-                        (searchParams.get("lang") ? lang.id === searchParams.get("lang") : true) &&
-                        (!problem.supportedLanguages || problem.supportedLanguages.includes(lang.id as any))
-                      ).map((lang) => (
-                        <option key={lang.id} value={lang.id}>
-                          {lang.label}
-                        </option>
-                      ))}
-                    </select>
+                    
+                    {/* Language Selector - Minimalist */}
+                    <div className="relative group">
+                      <select
+                        value={language}
+                        onChange={(e) => handleLanguageChange(e.target.value as LanguageId)}
+                        className={cn(
+                          "px-3 py-1 bg-slate-100 border border-slate-200 rounded-md text-[10px] font-bold tracking-wider uppercase focus:outline-none focus:bg-slate-200 cursor-pointer appearance-none transition-all",
+                          langColors[language] || "text-slate-500"
+                        )}
+                        disabled={
+                          (problem.supportedLanguages && problem.supportedLanguages.length === 1) ||
+                          !!searchParams.get("lang")
+                        }
+                      >
+                        {ALL_LANGUAGES.filter(lang =>
+                          (searchParams.get("lang") ? lang.id === searchParams.get("lang") : true) &&
+                          (!problem.supportedLanguages || problem.supportedLanguages.includes(lang.id as any))
+                        ).map((lang) => (
+                          <option key={lang.id} value={lang.id} className="bg-white text-slate-900">
+                            {lang.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
                     {language === "python" && pyodideStatus === "loading" && (
-                      <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+                      <div className="flex items-center gap-1.5 text-[10px] text-amber-500/80">
                         <Loader2 className="w-3 h-3 animate-spin" />
-                        Loading Python...
+                        Initializing...
                       </div>
                     )}
-                    {language === "python" && pyodideStatus === "ready" && (
-                      <span className="text-xs text-emerald-600 dark:text-emerald-400">Python ready ✓</span>
-                    )}
-                    {execMode === "server" && (
-                      <span className="text-xs text-blue-400/70 flex items-center gap-1">
-                        <Monitor className="w-3 h-3" />
-                        Server execution
-                      </span>
-                    )}
                   </div>
-                  <div className="flex items-center gap-1.5">
+
+                  <div className="flex items-center gap-3">
                     <button
                       onClick={handleCopy}
-                      className="p-1.5 rounded-lg hover:bg-border/50 transition-all"
+                      className="p-1.5 rounded-md hover:bg-slate-100 text-slate-400 hover:text-slate-900 transition-all"
                       title="Copy code"
                     >
-                      {copied ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                      ) : (
-                        <Copy className="w-3.5 h-3.5 text-muted-foreground/80" />
-                      )}
+                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                     <button
                       onClick={handleReset}
-                      className="p-1.5 rounded-lg hover:bg-border/50 transition-all"
+                      className="p-1.5 rounded-md hover:bg-slate-100 text-slate-400 hover:text-slate-900 transition-all"
                       title="Reset code"
                     >
-                      <RotateCcw className="w-3.5 h-3.5 text-muted-foreground/80" />
+                      <RotateCcw className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
 
                 {/* Editor Body */}
                 <div className="flex-1 flex overflow-hidden relative">
-                  {/* Line Numbers */}
                   <div
                     ref={lineNumbersRef}
-                    className="w-12 bg-muted/20 border-r border-border/50 overflow-hidden select-none shrink-0"
+                    className="w-10 bg-slate-100/50 border-r border-slate-200 overflow-hidden select-none shrink-0"
                   >
-                    <div className="py-4 px-2 text-right">
+                    <div className="py-6 px-2 text-right">
                       {Array.from({ length: lineCount }, (_, i) => (
-                        <div key={i} className="text-[11px] leading-[20px] text-muted-foreground/60 font-mono">
+                        <div key={i} className="text-[10px] leading-[22px] text-muted-foreground/20 font-mono">
                           {i + 1}
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Code Textarea */}
                   <textarea
                     ref={textareaRef}
                     value={code}
-                    onChange={(e) => setCode(e.target.value)}
+                    onChange={(e) => {
+                      setCode(e.target.value);
+                      if (allPassed) setAllPassed(false);
+                    }}
                     onScroll={handleScroll}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 w-full py-4 px-4 bg-transparent text-foreground/90 font-mono text-sm leading-[20px] resize-none focus:outline-none placeholder-muted-foreground"
+                    className="flex-1 w-full py-6 px-6 bg-white text-slate-800 font-mono text-sm leading-[22px] resize-none focus:outline-none placeholder-slate-300 selection:bg-primary/10"
                     spellCheck={false}
-                    placeholder="Write your solution here..."
+                    placeholder="// Solve the challenge..."
                   />
                 </div>
               </div>
             </ResizablePanel>
 
-            <ResizableHandle withHandle className="bg-border/40 hover:bg-emerald-500/30 transition-colors" />
+            <ResizableHandle withHandle className="bg-white/5 hover:bg-primary/20 transition-colors h-1" />
 
-            {/* Bottom Panel - Test Cases & Results */}
+            {/* Bottom Panel - Console Tab System */}
             <ResizablePanel defaultSize={40} minSize={15}>
-              <div className="h-full flex flex-col bg-muted/30">
-                {/* Bottom Tabs & Actions */}
-                <div className="h-10 flex items-center justify-between px-3 border-b border-border/60 bg-card shrink-0">
+              <div className="h-full flex flex-col bg-white border-t border-slate-200">
+                {/* Console Tabs */}
+                <div className="h-12 flex items-center justify-between px-4 bg-white/[0.02] border-b border-white/5 shrink-0">
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => setBottomTab("testcase")}
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        bottomTab === "testcase" ? "bg-border/60 text-foreground/90" : "text-muted-foreground/80 hover:text-muted-foreground"
+                        "flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all",
+                        bottomTab === "testcase" ? "bg-slate-100 text-slate-900 border border-slate-200" : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
                       )}
                     >
                       <FlaskConical className="w-3.5 h-3.5" />
-                      Testcase
+                      Testsuite
                     </button>
                     <button
                       onClick={() => setBottomTab("result")}
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        bottomTab === "result" ? "bg-border/60 text-foreground/90" : "text-muted-foreground/80 hover:text-muted-foreground"
+                        "flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all",
+                        bottomTab === "result" ? "bg-slate-100 text-slate-900 border border-slate-200" : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
                       )}
                     >
                       <Terminal className="w-3.5 h-3.5" />
-                      Result
+                      Output
                       {testResults.length > 0 && (
                         <span className={cn(
-                          "ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold",
-                          testResults.every(r => r.passed) ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-red-500/20 text-red-600 dark:text-red-400"
+                          "ml-1.5 px-2 py-0.5 rounded-full text-[9px]",
+                          testResults.every(r => r.passed) ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
                         )}>
                           {testResults.filter(r => r.passed).length}/{testResults.length}
                         </span>
                       )}
                     </button>
                   </div>
+
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleRun}
                       disabled={isRunning || isSubmitting}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary border border-border text-foreground/90 text-xs font-medium hover:bg-secondary/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="px-5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-bold uppercase tracking-widest hover:bg-slate-200 disabled:opacity-30 transition-all flex items-center gap-2"
                     >
-                      {isRunning ? (
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      ) : (
-                        <Play className="w-3.5 h-3.5" />
-                      )}
+                      {isRunning ? <Loader2 className="w-3 h-3 animate-spin" /> : <Play className="w-3 h-3" />}
                       Run
                     </button>
                     <button
                       onClick={handleSubmit}
                       disabled={isRunning || isSubmitting}
-                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-emerald-600 text-foreground text-xs font-medium hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-emerald-600/20"
+                      className="px-5 py-2 rounded-xl bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest hover:brightness-110 disabled:opacity-30 transition-all flex items-center gap-2 shadow-lg shadow-primary/20"
                     >
-                      {isSubmitting ? (
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      ) : (
-                        <Send className="w-3.5 h-3.5" />
-                      )}
+                      {isSubmitting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
                       Submit
                     </button>
                   </div>
                 </div>
 
-                {/* Bottom Content */}
-                <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
+                {/* Bottom Content - Premium Console Area */}
+                <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                   {bottomTab === "testcase" && (
-                    <div>
-                      {/* Sample Test Case Tabs */}
-                      <div className="flex items-center gap-2 mb-4">
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-2">
                         {problem.testCases.slice(0, 3).map((_, i) => (
                           <button
                             key={i}
                             onClick={() => setActiveTestTab(i)}
                             className={cn(
-                              "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                              "px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all",
                               activeTestTab === i
-                                ? "bg-secondary text-foreground/90 border border-border"
-                                : "text-muted-foreground/80 hover:text-muted-foreground hover:bg-border/30"
+                                ? "bg-slate-100 text-slate-900 border border-slate-200"
+                                : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
                             )}
                           >
                             Case {i + 1}
                           </button>
                         ))}
-                        <div className="w-px h-5 bg-border" />
+                        <div className="w-px h-4 bg-white/5 mx-2" />
                         <button
                           onClick={() => setActiveTestTab(-1)}
                           className={cn(
-                            "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
+                            "px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all",
                             activeTestTab === -1
-                              ? "bg-secondary text-foreground/90 border border-border"
-                              : "text-muted-foreground/80 hover:text-muted-foreground hover:bg-border/30"
+                              ? "bg-slate-100 text-slate-900 border border-slate-200"
+                              : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
                           )}
                         >
                           Custom
@@ -596,16 +671,16 @@ const CodingPractice = () => {
                       </div>
 
                       {activeTestTab >= 0 && activeTestTab < problem.testCases.length && (
-                        <div className="space-y-3">
-                          <div>
-                            <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Input:</label>
-                            <div className="bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-cyan-600 dark:text-cyan-400">
+                        <div className="grid grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Input</span>
+                            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 font-mono text-sm text-slate-700 break-all leading-relaxed shadow-sm">
                               {problem.testCases[activeTestTab].input}
                             </div>
                           </div>
-                          <div>
-                            <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Expected Output:</label>
-                            <div className="bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-emerald-600 dark:text-emerald-400">
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Expected</span>
+                            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 font-mono text-sm text-emerald-600 font-bold break-all leading-relaxed shadow-sm">
                               {problem.testCases[activeTestTab].expected}
                             </div>
                           </div>
@@ -613,27 +688,29 @@ const CodingPractice = () => {
                       )}
 
                       {activeTestTab === -1 && (
-                        <div className="space-y-3">
-                          <div>
-                            <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Custom Input Expression:</label>
+                        <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Custom Input Expression</span>
                             <textarea
                               value={customInput}
                               onChange={(e) => setCustomInput(e.target.value)}
                               placeholder="e.g. twoSum([2,7,11,15], 9)"
-                              className="w-full h-20 bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-foreground/90 resize-none focus:outline-none focus:border-emerald-500/40"
+                              className="w-full h-24 bg-slate-50 border border-slate-200 rounded-2xl p-4 font-mono text-sm text-slate-800 resize-none focus:outline-none focus:border-primary/40 focus:bg-white transition-all shadow-sm shadow-slate-100/50"
                             />
                           </div>
-                          <button
-                            onClick={handleRunCustom}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary text-foreground/90 text-xs font-medium hover:bg-secondary/80 transition-all"
-                          >
-                            <Play className="w-3 h-3" />
-                            Run Custom
-                          </button>
+                          <div className="flex justify-end">
+                            <button
+                              onClick={handleRunCustom}
+                              className="px-6 py-2 rounded-xl bg-white/5 border border-white/5 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all flex items-center gap-2"
+                            >
+                              <Play className="w-3 h-3 text-primary" />
+                              Run Custom
+                            </button>
+                          </div>
                           {customOutput && (
-                            <div>
-                              <label className="text-xs text-muted-foreground/80 font-medium mb-1.5 block">Output:</label>
-                              <div className="bg-border/30 border border-border/40 rounded-xl p-3 font-mono text-sm text-emerald-600 dark:text-emerald-400">
+                            <div className="space-y-2 animate-in zoom-in duration-300">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Output</span>
+                              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 font-mono text-sm text-emerald-600 font-bold break-all shadow-sm">
                                 {customOutput}
                               </div>
                             </div>
@@ -644,46 +721,107 @@ const CodingPractice = () => {
                   )}
 
                   {bottomTab === "result" && (
-                    <div>
-                      {/* All Passed Banner */}
-                      {allPassed && (
-                        <div className="mb-4 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center gap-3">
-                          <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center">
-                            <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-                          </div>
-                          <div>
-                            <p className="text-emerald-600 dark:text-emerald-400 font-semibold">All Test Cases Passed! 🎉</p>
-                            <p className="text-emerald-600 dark:text-emerald-400/60 text-xs mt-0.5">Solved in {formatTime(timer)} using {ALL_LANGUAGES.find(l => l.id === language)?.label}</p>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Compilation Error */}
+                    <div className="space-y-6">
+                      {/* Compilation Error Card */}
                       {compilationError && (
-                        <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
-                          <div className="flex items-center gap-2 mb-2">
-                            <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
-                            <span className="text-red-600 dark:text-red-400 text-sm font-semibold">Compilation Error</span>
+                        <div className="p-5 bg-red-50 border border-red-100 rounded-2xl animate-in shake-1 duration-300">
+                          <div className="flex items-center gap-2 mb-3">
+                            <AlertTriangle className="w-4 h-4 text-red-600" />
+                            <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">Compilation Error</span>
                           </div>
-                          <pre className="text-red-300/80 text-xs font-mono whitespace-pre-wrap">{compilationError}</pre>
+                          <pre className="text-red-900/80 text-xs font-mono whitespace-pre-wrap leading-relaxed bg-white border border-red-100 p-4 rounded-xl shadow-sm">{compilationError}</pre>
                         </div>
                       )}
 
-                      {/* Test Results */}
-                      {testResults.length > 0 && !compilationError && (
-                        <div>
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className={cn(
-                              "text-sm font-semibold",
-                              testResults.every(r => r.passed) ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
-                            )}>
-                              {testResults.filter(r => r.passed).length}/{testResults.length} test cases passed
-                            </span>
-                            <span className="text-xs text-muted-foreground/60">
-                              Runtime: {Math.round(testResults.reduce((s, r) => s + r.time, 0))}ms
-                            </span>
+                      {/* AI Code Analysis - Glassmorphic Integration */}
+                      {(isGroqAnalyzing || groqAnalysis) && (
+                        <div className="rounded-2xl border border-blue-100 bg-blue-50/50 overflow-hidden animate-in fade-in duration-500 shadow-sm">
+                          <div className="px-5 py-3 bg-blue-100/50 border-b border-blue-100 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <Brain className="w-4 h-4 text-blue-600" />
+                              <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">AI Logic Audit</span>
+                            </div>
+                            {groqAnalysis && !isGroqAnalyzing && (
+                              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/10">
+                                <span className="text-[9px] font-bold text-blue-600 uppercase">Efficiency Score</span>
+                                <span className="text-xs font-black text-blue-600">{groqAnalysis.score}%</span>
+                              </div>
+                            )}
                           </div>
-                          <div className="space-y-2">
+                          
+                          <div className="p-6">
+                            {isGroqAnalyzing ? (
+                              <div className="space-y-3">
+                                <div className="h-2 bg-blue-200 rounded-full animate-pulse w-3/4" />
+                                <div className="h-2 bg-blue-200 rounded-full animate-pulse w-1/2" />
+                              </div>
+                            ) : groqAnalysis ? (
+                              <div className="space-y-6">
+                                <div>
+                                  <p className="text-sm text-blue-900/70 leading-relaxed italic font-serif">
+                                    "{groqAnalysis.analysis}"
+                                  </p>
+                                </div>
+                                <div className="p-4 bg-white rounded-xl border border-blue-50/50 shadow-sm">
+                                  <h4 className="text-[9px] font-bold text-blue-600 uppercase tracking-tighter mb-2">Architectural Suggestion</h4>
+                                  <p className="text-xs text-slate-700 leading-relaxed">
+                                    {groqAnalysis.feedback}
+                                  </p>
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Celebration Message */}
+                      {allPassed && (
+                        <div className="py-10 text-center animate-in fade-in zoom-in-95 duration-700">
+                          <div className="relative w-24 h-24 mx-auto mb-6">
+                            <div className="absolute inset-0 bg-emerald-500/10 blur-2xl rounded-full animate-pulse" />
+                            <div className="relative w-full h-full rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center shadow-inner">
+                              <Trophy className="w-10 h-10 text-emerald-600 drop-shadow-[0_4px_10px_rgba(16,185,129,0.3)]" />
+                            </div>
+                          </div>
+                          <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">Challenge Conquered</h3>
+                          <p className="text-slate-500 text-sm mb-8 max-w-sm mx-auto leading-relaxed px-4 font-medium">
+                            Your solution passed all test cases with optimal logical structure. Ready for the next one?
+                          </p>
+                          <div className="flex items-center justify-center gap-4">
+                            <button
+                              onClick={() => navigateProblem("next")}
+                              className="px-8 py-3 rounded-2xl bg-emerald-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-emerald-600/20"
+                            >
+                              Next Challenge
+                            </button>
+                            <button
+                              onClick={() => navigate("/dashboard/coding")}
+                              className="px-8 py-3 rounded-2xl bg-slate-100 text-slate-500 font-bold text-[10px] uppercase tracking-widest hover:bg-slate-200 transition-all border border-slate-200"
+                            >
+                              View All
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Test Result Cards */}
+                      {testResults.length > 0 && !compilationError && (
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between mb-4 px-1">
+                            <div className="flex items-center gap-3">
+                              <span className={cn(
+                                "text-[10px] font-black uppercase tracking-tighter px-3 py-1 rounded-full",
+                                testResults.every(r => r.passed) ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
+                              )}>
+                                {testResults.filter(r => r.passed).length}/{testResults.length} Cases Passed
+                              </span>
+                              <div className="w-1 h-1 rounded-full bg-white/10" />
+                              <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">
+                                Total Runtime: {Math.round(testResults.reduce((s, r) => s + r.time, 0))}ms
+                              </span>
+                            </div>
+                          </div>
+                          <div className="space-y-3">
                             {testResults.map((result, i) => (
                               <TestResultCard key={i} result={result} index={i} />
                             ))}
@@ -691,10 +829,12 @@ const CodingPractice = () => {
                         </div>
                       )}
 
-                      {testResults.length === 0 && !compilationError && (
-                        <div className="text-center py-12">
-                          <Terminal className="w-10 h-10 text-muted-foreground/40 mx-auto mb-3" />
-                          <p className="text-muted-foreground/60 text-sm">Run or submit your code to see results</p>
+                      {testResults.length === 0 && !compilationError && !isRunning && !isSubmitting && (
+                        <div className="py-20 text-center">
+                          <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mx-auto mb-4 grayscale opacity-40">
+                            <Terminal className="w-6 h-6 text-slate-400" />
+                          </div>
+                          <p className="text-[10px] font-bold text-slate-300 uppercase tracking-[0.2em]">Awaiting Execution</p>
                         </div>
                       )}
                     </div>

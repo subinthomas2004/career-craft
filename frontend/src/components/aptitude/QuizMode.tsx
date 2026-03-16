@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -224,7 +225,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         setTimeout(() => setIsNavigating(false), 300);
     };
 
-    const submitQuiz = () => {
+    const submitQuiz = async () => {
         if (isExamMode) {
             document.exitFullscreen().catch(() => { });
         }
@@ -246,6 +247,21 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         finalAnswers.forEach(ans => {
             if (ans.selected === ans.correct) correct++;
         });
+
+        // Submit Score
+        try {
+            const userInfo = localStorage.getItem("userInfo");
+            if (userInfo) {
+                await api.post("/scores", {
+                    score: correct,
+                    totalQuestions: questions.length,
+                    timeTaken: isExamMode ? (720 - timeLeft) : 0,
+                    quizType: 'aptitude'
+                });
+            }
+        } catch (err) {
+            console.error("Failed to submit score", err);
+        }
 
         setScore(correct);
         setStage("result");

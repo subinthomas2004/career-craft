@@ -37,6 +37,10 @@ app.options('*', cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Serve static files from the 'uploads' directory
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Database Connection (serverless-optimized with connection caching)
 const promptForDB = 'mongodb://localhost:27017/careercraft';
 const mongoURI = process.env.MONGODB_URI || promptForDB;

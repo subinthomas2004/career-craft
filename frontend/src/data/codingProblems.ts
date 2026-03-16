@@ -10,8 +10,8 @@ export interface Example {
 }
 
 export interface StarterCode {
-    javascript: string;
-    python: string;
+    javascript?: string;
+    python?: string;
     java?: string;
     cpp?: string;
     c?: string;
@@ -85,7 +85,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nfunction twoSum(nums, target) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nfunction twoSum(nums, target) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -124,7 +124,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nfunction isAnagram(s, t) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nfunction isAnagram(s, t) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -163,7 +163,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nfunction reverseString(s) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {character[]} s\n * @return {void} Do not return anything, modify s in-place instead.\n */\nfunction reverseString(s) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -202,7 +202,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {string[]} strs\n * @return {string[][]}\n */\nfunction groupAnagrams(strs) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {string[]} strs\n * @return {string[][]}\n */\nfunction groupAnagrams(strs) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -241,7 +241,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction longestConsecutive(nums) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction longestConsecutive(nums) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -280,7 +280,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {number[]} height\n * @return {number}\n */\nfunction maxArea(height) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {number[]} height\n * @return {number}\n */\nfunction maxArea(height) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -319,7 +319,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {number[]} height\n * @return {number}\n */\nfunction trap(height) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {number[]} height\n * @return {number}\n */\nfunction trap(height) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -358,7 +358,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode[]} lists\n * @return {ListNode}\n */\nfunction mergeKLists(lists) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode[]} lists\n * @return {ListNode}\n */\nfunction mergeKLists(lists) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -397,7 +397,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "javascript": "/**\n * @param {string} s\n * @param {string} t\n * @return {string}\n */\nfunction minWindow(s, t) {\n    \n}"
+        "javascript": "// Type your code here\n/**\n * @param {string} s\n * @param {string} t\n * @return {string}\n */\nfunction minWindow(s, t) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -436,7 +436,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def isValid(self, s: str) -> bool:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def isValid(self, s: str) -> bool:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -475,7 +475,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def maxProfit(self, prices: list[int]) -> int:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def maxProfit(self, prices: list[int]) -> int:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -514,7 +514,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def containsDuplicate(self, nums: list[int]) -> bool:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def containsDuplicate(self, nums: list[int]) -> bool:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -553,7 +553,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -592,7 +592,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def productExceptSelf(self, nums: list[int]) -> list[int]:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def productExceptSelf(self, nums: list[int]) -> list[int]:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -631,7 +631,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def maxSubArray(self, nums: list[int]) -> int:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def maxSubArray(self, nums: list[int]) -> int:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -670,7 +670,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -709,7 +709,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -748,7 +748,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "python": "class Solution:\n    def largestRectangleArea(self, heights: list[int]) -> int:\n        "
+        "python": "# Type your code here\nclass Solution:\n    def largestRectangleArea(self, heights: list[int]) -> int:\n        "
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -787,7 +787,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -826,7 +826,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        \n    }\n}"
+        "java": "// Type your code here\n/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -865,7 +865,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public int climbStairs(int n) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public int climbStairs(int n) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -904,7 +904,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public boolean wordBreak(String s, List<String> wordDict) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -943,7 +943,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public int coinChange(int[] coins, int amount) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -982,7 +982,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public int numIslands(char[][] grid) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1021,7 +1021,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public List<List<String>> solveNQueens(int n) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public List<List<String>> solveNQueens(int n) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1060,7 +1060,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public int minDistance(String word1, String word2) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public int minDistance(String word1, String word2) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1099,7 +1099,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "java": "class Solution {\n    public List<String> findWords(char[][] board, String[] words) {\n        \n    }\n}"
+        "java": "// Type your code here\nclass Solution {\n    public List<String> findWords(char[][] board, String[] words) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1138,7 +1138,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class Solution {\npublic:\n    bool isPalindrome(int x) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass Solution {\npublic:\n    bool isPalindrome(int x) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1177,7 +1177,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        \n    }\n};"
+        "cpp": "// Type your code here\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1216,7 +1216,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1255,7 +1255,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1294,7 +1294,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1333,7 +1333,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1372,7 +1372,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class LRUCache {\npublic:\n    LRUCache(int capacity) {\n        \n    }\n    \n    int get(int key) {\n        \n    }\n    \n    void put(int key, int value) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass LRUCache {\npublic:\n    LRUCache(int capacity) {\n        \n    }\n    \n    int get(int key) {\n        \n    }\n    \n    void put(int key, int value) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1411,7 +1411,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseKGroup(ListNode* head, int k) {\n        \n    }\n};"
+        "cpp": "// Type your code here\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* reverseKGroup(ListNode* head, int k) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1450,7 +1450,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "cpp": "class Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        \n    }\n};"
+        "cpp": "// Type your code here\nclass Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        \n    }\n};"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1489,7 +1489,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    \n}"
+        "c": "// Type your code here\n/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1528,7 +1528,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "int removeElement(int* nums, int numsSize, int val) {\n    \n}"
+        "c": "// Type your code here\nint removeElement(int* nums, int numsSize, int val) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1567,7 +1567,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "int searchInsert(int* nums, int numsSize, int target) {\n    \n}"
+        "c": "// Type your code here\nint searchInsert(int* nums, int numsSize, int target) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1606,7 +1606,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target) {\n    \n}"
+        "c": "// Type your code here\nbool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1645,7 +1645,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "void sortColors(int* nums, int numsSize) {\n    \n}"
+        "c": "// Type your code here\nvoid sortColors(int* nums, int numsSize) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1684,7 +1684,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     struct ListNode *next;\n * };\n */\nstruct ListNode* reverseBetween(struct ListNode* head, int left, int right) {\n    \n}"
+        "c": "// Type your code here\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     struct ListNode *next;\n * };\n */\nstruct ListNode* reverseBetween(struct ListNode* head, int left, int right) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1723,7 +1723,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     struct ListNode *next;\n * };\n */\nstruct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {\n    \n}"
+        "c": "// Type your code here\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     struct ListNode *next;\n * };\n */\nstruct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1762,7 +1762,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\n    \n}"
+        "c": "// Type your code here\n/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1801,7 +1801,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "c": "void solveSudoku(char** board, int boardSize, int* boardColSize) {\n    \n}"
+        "c": "// Type your code here\nvoid solveSudoku(char** board, int boardSize, int* boardColSize) {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1840,7 +1840,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public bool IsValid(string s) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public bool IsValid(string s) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1879,7 +1879,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public int MaxSubArray(int[] nums) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public int MaxSubArray(int[] nums) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1918,7 +1918,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\npublic class Solution {\n    public bool IsSymmetric(TreeNode root) {\n        \n    }\n}"
+        "csharp": "// Type your code here\n/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\npublic class Solution {\n    public bool IsSymmetric(TreeNode root) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1957,7 +1957,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public int[] TopKFrequent(int[] nums, int k) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public int[] TopKFrequent(int[] nums, int k) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -1996,7 +1996,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public int Search(int[] nums, int target) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public int Search(int[] nums, int target) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2035,7 +2035,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public bool CanFinish(int numCourses, int[][] prerequisites) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public bool CanFinish(int numCourses, int[][] prerequisites) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2074,7 +2074,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2113,7 +2113,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int x) { val = x; }\n * }\n */\npublic class Codec {\n    // Encodes a tree to a single string.\n    public string serialize(TreeNode root) {\n        \n    }\n\n    // Decodes your encoded data to tree.\n    public TreeNode deserialize(string data) {\n        \n    }\n}"
+        "csharp": "// Type your code here\n/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int x) { val = x; }\n * }\n */\npublic class Codec {\n    // Encodes a tree to a single string.\n    public string serialize(TreeNode root) {\n        \n    }\n\n    // Decodes your encoded data to tree.\n    public TreeNode deserialize(string data) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2152,7 +2152,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "csharp": "public class Solution {\n    public int Trap(int[] height) {\n        \n    }\n}"
+        "csharp": "// Type your code here\npublic class Solution {\n    public int Trap(int[] height) {\n        \n    }\n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2191,7 +2191,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "function containsDuplicate(nums: number[]): boolean {\n    \n}"
+        "typescript": "// Type your code here\nfunction containsDuplicate(nums: number[]): boolean {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2230,7 +2230,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "function isPalindrome(s: string): boolean {\n    \n}"
+        "typescript": "// Type your code here\nfunction isPalindrome(s: string): boolean {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2269,7 +2269,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "function intersection(nums1: number[], nums2: number[]): number[] {\n    \n}"
+        "typescript": "// Type your code here\nfunction intersection(nums1: number[], nums2: number[]): number[] {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2308,7 +2308,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "function findKthLargest(nums: number[], k: number): number {\n    \n}"
+        "typescript": "// Type your code here\nfunction findKthLargest(nums: number[], k: number): number {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2347,7 +2347,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction isValidBST(root: TreeNode | null): boolean {\n    \n}"
+        "typescript": "// Type your code here\n/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction isValidBST(root: TreeNode | null): boolean {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2386,7 +2386,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "function lengthOfLIS(nums: number[]): number {\n    \n}"
+        "typescript": "// Type your code here\nfunction lengthOfLIS(nums: number[]): number {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2425,7 +2425,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n    \n}"
+        "typescript": "// Type your code here\n/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\nfunction mergeKLists(lists: Array<ListNode | null>): ListNode | null {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2464,7 +2464,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction buildTree(preorder: number[], inorder: number[]): TreeNode | null {\n    \n}"
+        "typescript": "// Type your code here\n/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\nfunction buildTree(preorder: number[], inorder: number[]): TreeNode | null {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2503,7 +2503,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "typescript": "function calculate(s: string): number {\n    \n}"
+        "typescript": "// Type your code here\nfunction calculate(s: string): number {\n    \n}"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2542,7 +2542,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2581,7 +2581,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2620,7 +2620,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2659,7 +2659,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT\nBEGIN\n  RETURN (\n      # Write your MySQL query statement below.\n      \n  );\nEND"
+        "sql": "-- Type your code here\nCREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT\nBEGIN\n  RETURN (\n      # Write your MySQL query statement below.\n      \n  );\nEND"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2698,7 +2698,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2737,7 +2737,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2776,7 +2776,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2815,7 +2815,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",
@@ -2854,7 +2854,7 @@ export const codingProblems: CodingProblem[] = [
         }
     ],
     "starterCode": {
-        "sql": "-- Write your MySQL query statement below\n"
+        "sql": "-- Type your code here\n-- Write your MySQL query statement below\n"
     },
     "hints": [
         "Think about optimal time complexity.",

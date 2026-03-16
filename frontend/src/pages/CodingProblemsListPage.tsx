@@ -47,6 +47,7 @@ const CodingProblemsListPage = () => {
     }, [baseProblems]);
 
     const [solvedProblems, setSolvedProblems] = useState<Set<number>>(new Set());
+    const [globalStats, setGlobalStats] = useState<Record<number, { attempts: number; successes: number; acceptanceRate: number }>>({});
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -59,11 +60,18 @@ const CodingProblemsListPage = () => {
                 }
                 const { token } = JSON.parse(userInfoStr);
                 const { api } = await import('@/lib/api');
-                const res = await api.get('/coding-scores', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                if (res.data?.success) {
-                    setSolvedProblems(new Set(res.data.solvedProblems || []));
+                
+                // Fetch user scores and global stats in parallel
+                const [scoresRes, statsRes] = await Promise.all([
+                    api.get('/coding-scores', { headers: { Authorization: `Bearer ${token}` } }),
+                    api.get('/coding-scores/stats')
+                ]);
+
+                if (scoresRes.data?.success) {
+                    setSolvedProblems(new Set(scoresRes.data.solvedProblems || []));
+                }
+                if (statsRes.data?.success) {
+                    setGlobalStats(statsRes.data.stats || {});
                 }
             } catch (err) {
                 console.error("Failed to fetch coding progress:", err);
@@ -99,13 +107,17 @@ const CodingProblemsListPage = () => {
             const order = { Easy: 0, Medium: 1, Hard: 2 };
             problems.sort((a, b) => order[a.difficulty] - order[b.difficulty]);
         } else if (sortBy === "acceptance") {
-            problems.sort((a, b) => b.acceptance - a.acceptance);
+            problems.sort((a, b) => {
+                const rateA = globalStats[a.id]?.acceptanceRate ?? 0;
+                const rateB = globalStats[b.id]?.acceptanceRate ?? 0;
+                return rateB - rateA;
+            });
         } else {
             problems.sort((a, b) => a.id - b.id);
         }
 
         return problems;
-    }, [baseProblems, searchQuery, selectedDifficulty, selectedCategory, sortBy]);
+    }, [baseProblems, searchQuery, selectedDifficulty, selectedCategory, sortBy, globalStats]);
 
     const stats = useMemo(() => {
         const problemSet = baseProblems;
@@ -117,7 +129,11 @@ const CodingProblemsListPage = () => {
         const easySolved = problemSet.filter((p) => p.difficulty === "Easy" && solvedProblems.has(p.id)).length;
         const mediumSolved = problemSet.filter((p) => p.difficulty === "Medium" && solvedProblems.has(p.id)).length;
         const hardSolved = problemSet.filter((p) => p.difficulty === "Hard" && solvedProblems.has(p.id)).length;
-        return { total, easy, medium, hard, easySolved, mediumSolved, hardSolved };
+
+        // Overall progress (out of 72)
+        const totalSolvedAcrossAll = Array.from(solvedProblems).length;
+
+        return { total, easy, medium, hard, easySolved, mediumSolved, hardSolved, totalSolvedAcrossAll };
     }, [solvedProblems, baseProblems]);
 
     const toggleDifficulty = (diff: string) => {
@@ -153,9 +169,18 @@ const CodingProblemsListPage = () => {
                         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
                             {lang.label} Problems
                         </h1>
-                        <p className="text-sm text-muted-foreground">
-                            Solve coding challenges in {lang.label}
-                        </p>
+                        <div className="flex items-center gap-3 mt-1">
+                            <p className="text-sm text-muted-foreground">
+                                Solve coding challenges in {lang.label}
+                            </p>
+                            <div className="w-1 h-1 rounded-full bg-border" />
+                            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
+                                <Trophy className="w-3.5 h-3.5 text-primary" />
+                                <span className="text-xs font-semibold text-primary">
+                                    Total Progress: {stats.totalSolvedAcrossAll}/72
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,7 +373,9 @@ const CodingProblemsListPage = () => {
 
                                         <span className="text-sm text-muted-foreground">{problem.category}</span>
 
-                                        <span className="text-sm text-muted-foreground">{problem.acceptance}%</span>
+                                        <span className="text-sm text-muted-foreground">
+                                            {globalStats[problem.id]?.acceptanceRate?.toFixed(1) ?? "0.0"}%
+                                        </span>
 
                                         <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-primary transition-colors" />
                                     </button>

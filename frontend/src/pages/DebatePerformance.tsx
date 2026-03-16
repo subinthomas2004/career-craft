@@ -84,18 +84,8 @@ const DebatePerformance = () => {
 
     return (
         <div className="min-h-screen bg-background text-foreground p-6 md:p-12">
-            <div className="max-w-5xl mx-auto space-y-8">
+            <div className="space-y-8">
 
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col md:flex-row md:items-center justify-between gap-4"
-                >
-                    <Button variant="ghost" onClick={() => navigate('/dashboard/debate/topic')} className="w-fit -ml-2">
-                        <ArrowLeft className="w-4 h-4 mr-2" /> Back to Topic Selection
-                    </Button>
-                </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -259,7 +249,7 @@ const DebatePerformance = () => {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="space-y-2">
-                                        {[...sessions].reverse().map((session, i) => (
+                                        {[...sessions].reverse().slice(0, 5).map((session, i) => (
                                             <div
                                                 key={session._id}
                                                 className="flex items-center justify-between py-3 px-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"

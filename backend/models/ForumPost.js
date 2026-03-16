@@ -18,6 +18,10 @@ const forumPostSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  authorPicture: {
+    type: String,
+    default: ""
+  },
   likes: [{
     type: String // Array of user IDs who liked the post to prevent duplicate likes
   }],

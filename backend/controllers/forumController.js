@@ -1,5 +1,6 @@
 import ForumPost from '../models/ForumPost.js';
 import ForumComment from '../models/ForumComment.js';
+import User from '../models/User.js';
 
 // Get all posts, optionally filtered by search term, sorted by likes
 export const getPosts = async (req, res) => {
@@ -60,17 +61,24 @@ export const getMyPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
     try {
-        const { title, content, authorId, authorName } = req.body;
+        const { title, content, authorId } = req.body;
 
-        if (!title || !content || !authorId || !authorName) {
+        if (!title || !content || !authorId) {
             return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        // Fetch user details from MongoDB to ensure consistency
+        const user = await User.findById(authorId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found in profile database' });
         }
 
         const newPost = new ForumPost({
             title,
             content,
             authorId,
-            authorName,
+            authorName: user.name,
+            authorPicture: user.profilePicture || "",
             likes: []
         });
 
@@ -154,9 +162,9 @@ export const getComments = async (req, res) => {
 export const addComment = async (req, res) => {
     try {
         const { postId } = req.params;
-        const { content, authorId, authorName } = req.body;
+        const { content, authorId } = req.body;
 
-        if (!content || !authorId || !authorName) {
+        if (!content || !authorId) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -166,10 +174,17 @@ export const addComment = async (req, res) => {
             return res.status(404).json({ error: 'Post not found' });
         }
 
+        // Fetch user details from MongoDB
+        const user = await User.findById(authorId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         const newComment = new ForumComment({
             postId,
             authorId,
-            authorName,
+            authorName: user.name,
+            authorPicture: user.profilePicture || "",
             content
         });
 

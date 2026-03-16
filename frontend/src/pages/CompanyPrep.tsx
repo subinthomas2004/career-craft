@@ -133,7 +133,7 @@ const CompanyPrep = () => {
                                     </div>
 
                                     <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between relative z-10">
-                                        <Badge variant="secondary" className="bg-primary/5 text-primary-foreground/70 hover:bg-primary/10">
+                                        <Badge variant="secondary" className="bg-primary/5 text-primary hover:bg-primary/10">
                                             Prep Material
                                         </Badge>
                                         <Link to={`/dashboard/company-prep/${company._id}`}>

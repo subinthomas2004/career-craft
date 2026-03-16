@@ -194,7 +194,6 @@ export default function CodeEditorPanel({ defaultLanguage = "python", onRun, onS
                     className="flex-1 bg-transparent text-gray-200 p-0 pl-3 pt-4 border-none outline-none resize-none font-mono leading-6 whitespace-pre"
                     spellCheck={false}
                     style={{ tabSize: 4 }}
-                    style={{ tabSize: 4 }}
                 />
             </div>
         </div>

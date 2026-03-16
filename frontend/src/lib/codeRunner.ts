@@ -163,7 +163,7 @@ async function runPythonTests(
         for (const tc of testCases) {
             const startTime = performance.now();
             try {
-                const pythonTestExpr = convertJsToPythonTestExpr(tc.input);
+                const pythonTestExpr = convertJsToPythonTestExpr(tc.input.trim());
                 const result = pyodide.runPython(`str(${pythonTestExpr})`);
                 const elapsed = performance.now() - startTime;
                 const normalizedActual = normalizePythonOutput(String(result).trim());
@@ -194,7 +194,9 @@ async function runPythonTests(
 
 function convertJsToPythonTestExpr(jsExpr: string): string {
     let expr = jsExpr;
-    expr = expr.replace(/^JSON\.stringify\(/, "").replace(/\)$/, "");
+    if (expr.startsWith("JSON.stringify(")) {
+        expr = expr.replace(/^JSON\.stringify\(/, "").replace(/\)$/, "");
+    }
 
     if (expr.startsWith("(() =>")) {
         expr = expr.replace(/^\(\(\) => \{/, "").replace(/\}\)\(\)$/, "")

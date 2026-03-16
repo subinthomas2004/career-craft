@@ -1,18 +1,18 @@
 {
   "$schema": "../../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "vite_react_shadcn_tscareer-craft",
+  "productName": "Career Craft",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.careercraft.app",
   "build": {
-    "frontendDist": "../build../dist",
-    "devUrl": "http://localhost:3000http://localhost:5173",
-    "beforeDevCommand": "npm run devnpm run dev",
-    "beforeBuildCommand": "npm run buildnpm run build"
+    "frontendDist": "https://career-craft-frontend-nu.vercel.app",
+    "devUrl": "https://career-craft-frontend-nu.vercel.app",
+    "beforeDevCommand": "",
+    "beforeBuildCommand": ""
   },
   "app": {
     "windows": [
       {
-        "title": "vite_react_shadcn_tsCareer Craft",
+        "title": "Career Craft",
         "width": 800,
         "height": 600,
         "resizable": true,

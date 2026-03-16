@@ -903,3 +903,53 @@ export const generateSoftSkillsTips = async (req, res) => {
     }
 };
 
+export const analyzeCodingPractice = async (req, res) => {
+    const { code, language, problemTitle, problemDescription } = req.body;
+
+    const systemPrompt = `You are an Expert Technical Interviewer and Code Reviewer. 
+    Analyze the user's code for the following problem:
+    Problem: ${problemTitle}
+    Description: ${problemDescription}
+    Target Language: ${language}
+
+    TASK:
+    1. EXTREMELY STRICTOR LANGUAGE CHECK: If the code is NOT written in ${language} (e.g., user wrote Java in a Python section), set "hasErrors" to true and "compilationError" to "Language Mismatch: This code is not valid ${language}."
+    2. SYNTAX CHECK: Check for any syntax errors, unclosed brackets, or common compilation issues for ${language}.
+    3. LOGIC & EFFICIENCY: Analyze if the code correctly solves the problem and its time/space complexity.
+    4. Feedback: Provide a single actionable tip.
+
+    OUTPUT JSON ONLY:
+    {
+        "hasErrors": boolean,
+        "compilationError": "String describing the error if any, else null",
+        "analysis": "A brief (2-3 sentences) analysis of logic and efficiency",
+        "feedback": "A single actionable tip for improvement",
+        "score": 0-100 (Estimate based on correctness, efficiency, and language adherence)
+    }
+
+    RULES:
+    - You must be the primary authority on compilation/syntax errors.
+    - If the code is incomplete or has obvious syntax errors, hasErrors MUST be true.
+    - If the user wrote code in a DIFFERENT language than ${language}, hasErrors MUST be true.
+    - Do NOT include any other text besides the JSON.`;
+
+    try {
+        const completion = await groqChat({
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is my code:\n\n\`\`\`${language}\n${code}\n\`\`\`` }
+            ],
+            model: "llama-3.3-70b-versatile",
+            temperature: 0.2,
+            response_format: { type: "json_object" }
+        });
+
+        const result = JSON.parse(completion.choices[0]?.message?.content);
+        res.json({ success: true, ...result });
+
+    } catch (error) {
+        console.error("Coding Practice Analysis Error:", error);
+        res.status(500).json({ success: false, error: "Failed to analyze code with Groq" });
+    }
+};
+

@@ -13,12 +13,12 @@ interface StatCardProps {
 const StatCard = ({ icon: Icon, title, value, change, changeType = "neutral", className }: StatCardProps) => {
   return (
     <div className={cn(
-      "group p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl border border-border/40 bg-card/60 backdrop-blur-xl hover:shadow-lg hover:border-border/60 transition-all duration-300 shadow-md hover:-translate-y-1",
+      "group p-2 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl border border-border/40 bg-card/60 backdrop-blur-xl hover:shadow-lg hover:border-border/60 transition-all duration-300 shadow-md hover:-translate-y-1",
       className
     )}>
       <div className="flex items-start justify-between">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+          <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
         </div>
         {change && (
           <span className={cn(
@@ -31,9 +31,9 @@ const StatCard = ({ icon: Icon, title, value, change, changeType = "neutral", cl
           </span>
         )}
       </div>
-      <div className="mt-2 sm:mt-4">
-        <p className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground transition-transform duration-300 group-hover:scale-105 origin-left">{value}</p>
-        <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1 truncate">{title}</p>
+      <div className="mt-1.5 sm:mt-2">
+        <p className="text-base sm:text-lg lg:text-xl font-bold text-foreground transition-transform duration-300 group-hover:scale-105 origin-left">{value}</p>
+        <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 truncate">{title}</p>
       </div>
     </div>
   );

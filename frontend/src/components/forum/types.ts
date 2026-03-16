@@ -3,6 +3,7 @@ export interface ForumComment {
     postId: string;
     authorId: string;
     authorName: string;
+    authorPicture?: string;
     content: string;
     createdAt: string;
 }
@@ -13,6 +14,7 @@ export interface ForumPost {
     content: string;
     authorId: string;
     authorName: string;
+    authorPicture?: string;
     likes: string[]; // Array of User IDs
     commentCount?: number;
     createdAt: string;

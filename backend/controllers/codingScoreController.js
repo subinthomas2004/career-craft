@@ -1,4 +1,5 @@
 import CodingScore from '../models/CodingScore.js';
+import ProblemStats from '../models/ProblemStats.js';
 
 // @desc    Get user's solved coding problems
 // @route   GET /api/coding-scores
@@ -10,14 +11,63 @@ export const getSolvedProblems = async (req, res) => {
         const score = await CodingScore.findOne({ userId });
         
         if (score) {
-            res.status(200).json({ success: true, solvedProblems: score.solvedProblems });
+            res.status(200).json({ 
+                success: true, 
+                solvedProblems: score.solvedProblems,
+                attemptedProblems: score.attemptedProblems || []
+            });
         } else {
-            // Return empty array if user hasn't solved any problems yet
-            res.status(200).json({ success: true, solvedProblems: [] });
+            res.status(200).json({ success: true, solvedProblems: [], attemptedProblems: [] });
         }
     } catch (error) {
         console.error("Get Solved Problems Error:", error);
         res.status(500).json({ success: false, error: "Failed to fetch solved problems" });
+    }
+};
+
+// @desc    Record a problem attempt
+// @route   POST /api/coding-scores/attempt
+// @access  Private
+export const recordAttempt = async (req, res) => {
+    try {
+        const { problemId } = req.body;
+        const userId = req.user._id;
+
+        if (!problemId) {
+            return res.status(400).json({ success: false, error: "problemId is required" });
+        }
+
+        let score = await CodingScore.findOne({ userId });
+
+        if (!score) {
+            score = await CodingScore.create({
+                userId,
+                solvedProblems: [],
+                attemptedProblems: [problemId]
+            });
+            // First time attempt globally for this user
+            await ProblemStats.findOneAndUpdate(
+                { problemId },
+                { $inc: { attempts: 1 } },
+                { upsert: true, new: true }
+            );
+        } else {
+            if (!score.attemptedProblems.includes(problemId)) {
+                score.attemptedProblems.push(problemId);
+                await score.save();
+                // Increment global attempts
+                await ProblemStats.findOneAndUpdate(
+                    { problemId },
+                    { $inc: { attempts: 1 } },
+                    { upsert: true, new: true }
+                );
+            }
+        }
+
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error("Record Attempt Error:", error);
+        res.status(500).json({ success: false, error: "Failed to record attempt" });
     }
 };
 
@@ -36,22 +86,62 @@ export const markProblemSolved = async (req, res) => {
         let score = await CodingScore.findOne({ userId });
 
         if (score) {
-            // Check if already solved to avoid duplicates
             if (!score.solvedProblems.includes(problemId)) {
                 score.solvedProblems.push(problemId);
+                // Ensure it's also in attempted
+                if (!score.attemptedProblems.includes(problemId)) {
+                    score.attemptedProblems.push(problemId);
+                    await ProblemStats.findOneAndUpdate(
+                        { problemId },
+                        { $inc: { attempts: 1, successes: 1 } },
+                        { upsert: true, new: true }
+                    );
+                } else {
+                    await ProblemStats.findOneAndUpdate(
+                        { problemId },
+                        { $inc: { successes: 1 } },
+                        { upsert: true, new: true }
+                    );
+                }
                 await score.save();
             }
         } else {
-            // Create new record for user
             score = await CodingScore.create({
                 userId,
-                solvedProblems: [problemId]
+                solvedProblems: [problemId],
+                attemptedProblems: [problemId]
             });
+            await ProblemStats.findOneAndUpdate(
+                { problemId },
+                { $inc: { attempts: 1, successes: 1 } },
+                { upsert: true, new: true }
+            );
         }
 
         res.status(200).json({ success: true, solvedProblems: score.solvedProblems });
     } catch (error) {
         console.error("Mark Problem Solved Error:", error);
         res.status(500).json({ success: false, error: "Failed to mark problem as solved" });
+    }
+};
+
+// @desc    Get global problem statistics
+// @route   GET /api/coding-scores/stats
+// @access  Public
+export const getGlobalStats = async (req, res) => {
+    try {
+        const stats = await ProblemStats.find({});
+        const statsMap = {};
+        stats.forEach(s => {
+            statsMap[s.problemId] = {
+                attempts: s.attempts,
+                successes: s.successes,
+                acceptanceRate: s.attempts > 0 ? (s.successes / s.attempts) * 100 : 0
+            };
+        });
+        res.status(200).json({ success: true, stats: statsMap });
+    } catch (error) {
+        console.error("Get Global Stats Error:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch global stats" });
     }
 };

@@ -36,6 +36,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    resumeUrl: { type: String, default: "" },
+    resumeOriginalName: { type: String, default: "" },
     location: { type: String, default: "" },
     targetRole: { type: String, default: "" },
     education: { type: String, default: "" },
@@ -46,9 +48,15 @@ const userSchema = new mongoose.Schema({
     stats: {
         interviewsAttended: { type: Number, default: 0 },
         quizzesTaken: { type: Number, default: 0 },
+        technicalQuizCount: { type: Number, default: 0 },
+        aptitudeExamCount: { type: Number, default: 0 },
+        gdCount: { type: Number, default: 0 },
+        debateCount: { type: Number, default: 0 },
         averageScore: { type: Number, default: 0 },
         resumeScore: { type: Number, default: 0 }
     },
+    streak: { type: Number, default: 0 },
+    lastActiveDate: { type: Date },
     recentActivities: [{
         title: { type: String, required: true },
         activityType: { type: String, required: true }, // 'interview', 'quiz', 'coding', 'resume', 'learning'

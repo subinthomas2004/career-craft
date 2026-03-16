@@ -176,7 +176,7 @@ const DebateTopicSelection = () => {
     };
 
     return (
-        <div className="w-full h-full min-h-[calc(100vh-4rem)] bg-background text-foreground flex flex-col items-center justify-center font-sans relative overflow-hidden py-4 px-6 md:px-12">
+        <div className="w-full h-full min-h-screen bg-background text-foreground flex flex-col items-center justify-center font-sans relative overflow-hidden py-4 px-6 md:px-12">
 
             {/* Background Decorations - Blue Theme */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -430,17 +430,6 @@ const DebateTopicSelection = () => {
                 </div>
             </div>
 
-            {/* Top Buttons (Absolute) */}
-            <div className="absolute top-6 left-6 z-20">
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => navigate('/dashboard/debate')}
-                    className="text-muted-foreground hover:text-foreground hover:bg-background/80"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Back
-                </Button>
-            </div>
             
             <div className="absolute top-6 right-6 z-20">
                 <Button

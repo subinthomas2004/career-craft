@@ -456,6 +456,17 @@ const GroupDiscussion = () => {
             await speakText(exitText, 'male');
             setCurrentSpeaker(null);
         }
+        
+        // Record Activity
+        try {
+            await api.post('/auth/activity', {
+                title: `Group Discussion: ${topic}`,
+                activityType: 'gd',
+                score: '100%'
+            });
+        } catch (err) {
+            console.error("Failed to record activity", err);
+        }
 
         // Immediate termination and navigation to report
         const participantsData = allParticipants.map(p => ({

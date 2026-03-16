@@ -11,10 +11,11 @@ import { ForumPost } from "@/components/forum/types";
 import { auth } from "@/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com";
 
 const Forum = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [mongoUser, setMongoUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<ForumPost[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,8 +27,8 @@ const Forum = () => {
     setIsFetching(true);
     try {
       let url = `${API_BASE_URL}/api/forum/posts`;
-      if (selectedCategory === "YourPosts" && user) {
-        url = `${API_BASE_URL}/api/forum/posts/me/${user.uid}`;
+      if (selectedCategory === "YourPosts" && mongoUser?._id) {
+        url = `${API_BASE_URL}/api/forum/posts/me/${mongoUser._id}`;
       } else if (searchQuery) {
         url += `?search=${encodeURIComponent(searchQuery)}`;
       }
@@ -49,6 +50,12 @@ const Forum = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      
+      const storedUser = localStorage.getItem("userInfo");
+      if (storedUser) {
+        setMongoUser(JSON.parse(storedUser));
+      }
+      
       setLoading(false);
     });
     return () => unsubscribe();
@@ -58,7 +65,7 @@ const Forum = () => {
     if (loading) return;
     fetchPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory, user, loading]);
+  }, [selectedCategory, mongoUser, loading]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -77,16 +84,19 @@ const Forum = () => {
     }
 
     try {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+      const token = userInfo.token;
+
       const response = await fetch(`${API_BASE_URL}/api/forum/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           title: postDetails.title,
           content: postDetails.content,
-          authorId: user.uid,
-          authorName: user.displayName || user.email?.split("@")[0] || "Anonymous",
+          authorId: mongoUser._id,
         }),
       });
 
@@ -107,12 +117,16 @@ const Forum = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+      const token = userInfo.token;
+
       const response = await fetch(`${API_BASE_URL}/api/forum/posts/${postId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ userId: user?.uid }),
+        body: JSON.stringify({ userId: mongoUser?._id }),
       });
 
       if (response.ok) {
