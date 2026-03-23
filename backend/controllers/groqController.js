@@ -42,6 +42,33 @@ const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", temperatu
         });
         return response.data;
     } catch (error) {
+        // Fallback mechanism: If we hit a 429 rate limit on the 70b model, fallback to the 8b model
+        if (error.response?.status === 429 && model === "llama-3.3-70b-versatile") {
+            const fallbackModel = "llama-3.1-8b-instant";
+            console.log(`Rate limit hit for ${model}, falling back to ${fallbackModel}`);
+            body.model = fallbackModel;
+            
+            try {
+                const fallbackResponse = await axios.post(GROQ_API_URL, body, {
+                    headers: {
+                        "Authorization": `Bearer ${GROQ_API_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    timeout: 30000
+                });
+                return fallbackResponse.data;
+            } catch (fallbackError) {
+                logError({
+                    message: `Fallback to ${fallbackModel} failed: ` + fallbackError.message,
+                    status: fallbackError.response?.status,
+                    data: fallbackError.response?.data,
+                    model: fallbackModel,
+                    body
+                });
+                throw fallbackError;
+            }
+        }
+
         logError({
             message: error.message,
             status: error.response?.status,
