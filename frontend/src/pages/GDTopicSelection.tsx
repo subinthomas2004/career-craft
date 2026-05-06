@@ -193,7 +193,7 @@ const GDTopicSelection = () => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 animate-fade-in-down">
                     <Button
                         variant="ghost"
-                        onClick={() => navigate('/dashboard/group-discussion')}
+                        onClick={() => navigate('/dashboard')}
                         className="text-muted-foreground hover:text-foreground group"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
@@ -388,21 +388,8 @@ const GDTopicSelection = () => {
                                         <Play className="w-5 h-5 mr-3 fill-white" />
                                         Start Solo (You + 4 AI)
                                     </Button>
-                                    <Button
-                                        size="lg"
-                                        variant="outline"
-                                        className={cn(
-                                            "w-full h-12 text-base transition-all duration-300 rounded-xl border-2 border-indigo-200 text-indigo-600 hover:bg-indigo-50",
-                                            !manualTopic && !selectedTopic ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.01]"
-                                        )}
-                                        onClick={handleStart}
-                                        disabled={!manualTopic && !selectedTopic}
-                                    >
-                                        <Users className="w-5 h-5 mr-3" />
-                                        Invite Friends & Start
-                                    </Button>
                                     <p className="text-[10px] text-muted-foreground/60 mt-2 text-center">
-                                        Solo: 1 Moderator + You + 4 AI &nbsp;|&nbsp; Friends: Up to 4 friends can join, each replacing 1 AI
+                                        Solo: 1 Moderator + You + 4 AI Agents
                                     </p>
                                 </div>
                             </div>

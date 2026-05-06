@@ -92,9 +92,9 @@ export const saveTypingHistory = async (req, res) => {
             difficulty,
             duration,
             wpm,
-            accuracy,
+            accuracy: accuracy || 0,
             consistency: consistency || 0,
-            errors: errors || 0,
+            errorCount: errors || 0,
             completedAt: new Date()
         });
 

@@ -4,21 +4,17 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import http from 'http';
-import { Server } from 'socket.io';
 
+import fs from 'fs';
 dotenv.config();
 
-const app = express();
-const server = http.createServer(app);
+// Ensure uploads directory exists
+const uploadsDir = path.join(path.resolve(), 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
-// Socket.io setup with permissive CORS
-const io = new Server(server, {
-    cors: {
-        origin: true, // Reflect request origin
-        methods: ["GET", "POST"],
-        credentials: true
-    }
-});
+const app = express();
 
 const PORT = process.env.PORT || 5001;
 
@@ -119,123 +115,13 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal Server Error', message: err.message });
 });
 
-// Socket.io Logic
-const lobbies = {}; // Track lobby participants: { roomCode: [{ socketId, userId, name, ... }] }
 
-io.on('connection', (socket) => {
-    console.log(`User Connected: ${socket.id}`);
-
-    // --- Lobby Events ---
-
-    // Check if a room exists (for joiners before joining)
-    socket.on('check-room', (roomCode, callback) => {
-        const exists = !!lobbies[roomCode];
-        if (typeof callback === 'function') {
-            callback({ exists, participants: exists ? lobbies[roomCode].length : 0 });
-        }
-    });
-
-    socket.on('join-lobby', (roomCode, userInfo) => {
-        // If NOT host, the room must already exist (created by a host)
-        if (!userInfo.isHost && !lobbies[roomCode]) {
-            socket.emit('room-not-found');
-            return;
-        }
-
-        // Check if room is full (max 5 human participants)
-        if (lobbies[roomCode] && lobbies[roomCode].length >= 5) {
-            socket.emit('lobby-full');
-            return;
-        }
-
-        socket.join(roomCode);
-
-        if (!lobbies[roomCode]) lobbies[roomCode] = [];
-
-        // Don't add duplicate
-        const exists = lobbies[roomCode].find(p => p.userId === userInfo.userId);
-        if (!exists) {
-            lobbies[roomCode].push({ socketId: socket.id, ...userInfo });
-        }
-
-        io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
-        console.log(`[Lobby] ${userInfo.name} joined room ${roomCode} (${lobbies[roomCode].length}/5)`);
-    });
-
-    socket.on('leave-lobby', (roomCode) => {
-        if (lobbies[roomCode]) {
-            const user = lobbies[roomCode].find(p => p.socketId === socket.id);
-            lobbies[roomCode] = lobbies[roomCode].filter(p => p.socketId !== socket.id);
-            if (user) {
-                io.to(roomCode).emit('lobby-user-left', { name: user.name });
-                io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
-            }
-            if (lobbies[roomCode].length === 0) delete lobbies[roomCode];
-        }
-    });
-
-    socket.on('lobby-chat-message', (roomCode, message) => {
-        io.to(roomCode).emit('lobby-chat', message);
-    });
-
-    socket.on('start-discussion', (roomCode, data) => {
-        io.to(roomCode).emit('discussion-started', data);
-        delete lobbies[roomCode]; // Cleanup
-        console.log(`[Lobby] Discussion started in room ${roomCode}`);
-    });
-
-    // Cleanup on disconnect
-    socket.on('disconnect', () => {
-        console.log(`User Disconnected: ${socket.id}`);
-        // Clean up from any lobby
-        for (const [roomCode, participants] of Object.entries(lobbies)) {
-            const user = participants.find(p => p.socketId === socket.id);
-            if (user) {
-                lobbies[roomCode] = participants.filter(p => p.socketId !== socket.id);
-                io.to(roomCode).emit('lobby-user-left', { name: user.name });
-                io.to(roomCode).emit('lobby-update', lobbies[roomCode]);
-                if (lobbies[roomCode].length === 0) delete lobbies[roomCode];
-            }
-        }
-    });
-
-    // --- GD Room Events ---
-    socket.on('join-room', (roomId, userId) => {
-        socket.join(roomId);
-        console.log(`User ${userId} joined room ${roomId}`);
-        socket.to(roomId).emit('user-connected', userId);
-
-        socket.on('disconnect', () => {
-            console.log(`User ${userId} disconnected`);
-            socket.to(roomId).emit('user-disconnected', userId);
-        });
-
-        // New events for GD Turn Taking & Transcripts
-        socket.on('speaking-status', (statusData) => {
-            // Forward speaking status to everyone else in the room
-            socket.to(roomId).emit('speaking-status', statusData);
-        });
-
-        socket.on('speech-message', (messageData) => {
-             // Forward the processed speech text to everyone else
-             socket.to(roomId).emit('speech-message', messageData);
-        });
-    });
-
-    // Simple Peer Signaling
-    socket.on("signal", (payload) => {
-        io.to(payload.target).emit("signal", {
-            signal: payload.signal,
-            callerID: payload.callerID
-        });
-    });
-});
 
 // Start Server (only when not on Vercel)
 if (process.env.VERCEL !== '1') {
-    server.listen(PORT, () => {
+    app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
-        console.log(`Uploads directory: ${path.join(process.cwd(), 'uploads/')}`);
+        console.log(`Uploads directory: ${path.join(process.cwd(), 'uploads')}`);
     });
 }
 

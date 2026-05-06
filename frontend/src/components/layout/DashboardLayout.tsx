@@ -68,7 +68,7 @@ const DashboardLayout = () => {
   const isCodingModule = location.pathname.includes('/dashboard/coding');
   const isDebateModule = location.pathname.includes('/dashboard/debate');
   const isResumeModule = location.pathname.includes('/dashboard/resume');
-  const isQuizModule = location.pathname.includes('/dashboard/quiz');
+  const isQuizModule = location.pathname.includes('/dashboard/quiz') || location.pathname.includes('/dashboard/technical-quiz');
   const isTypingModule = location.pathname.includes('/dashboard/typing');
   const isSkillGapModule = location.pathname.includes('/dashboard/skill-gap');
   const isDomainModule = location.pathname.includes('/dashboard/domain');

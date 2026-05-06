@@ -7,9 +7,9 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import MockInterview from "./pages/MockInterview";
-import MockInterviewLanding from "./pages/MockInterviewLanding";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import Quiz from "./pages/Quiz";
+import TechnicalQuiz from "./pages/TechnicalQuiz";
 import IntroPrep from "./pages/IntroPrep";
 import TypingTest from "./pages/TypingTest";
 import CodingPractice from "./pages/CodingPractice";
@@ -30,10 +30,8 @@ import SplashScreen from "./components/layout/SplashScreen";
 import { useState } from "react";
 
 import GroupDiscussion from "./pages/GroupDiscussion";
-import GDLanding from "./pages/GDLanding";
 import GDTopicSelection from "./pages/GDTopicSelection";
 import GDReport from './pages/GDReport';
-import GDLobby from './pages/GDLobby';
 import GD3DRoom from "./pages/experimental/GD3DRoom";
 import DebateLanding from "./pages/DebateLanding";
 import DebateTopicSelection from "./pages/DebateTopicSelection";
@@ -71,18 +69,17 @@ const App = () => {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/test-groq" element={<TestGroqConnection />} />
                 <Route path="/group-discussion/room" element={<GroupDiscussion />} />
-                <Route path="/group-discussion/lobby" element={<GDLobby />} />
-                <Route path="/group-discussion/join/:code" element={<GDLobby />} />
+                <Route path="/group-discussion/room" element={<GroupDiscussion />} />
 
                 {/* Dashboard Routes */}
                 <Route path="/dashboard" element={<DashboardLayout />}>
                   <Route index element={<Dashboard />} />
-                  <Route path="interview" element={<MockInterviewLanding />} />
-                  <Route path="interview/session" element={<MockInterview />} />
+                  <Route path="interview" element={<MockInterview />} />
                   <Route path="interview/hr-technical" element={<MockInterview type="hr-technical" />} />
                   <Route path="intro-prep" element={<IntroPrep />} />
                   <Route path="resume" element={<ResumeAnalyzer />} />
                   <Route path="quiz" element={<Quiz />} />
+                  <Route path="technical-quiz" element={<TechnicalQuiz />} />
                   <Route path="typing" element={<TypingTest />} />
                   <Route path="coding" element={<CodingPracticeHome />} />
                   <Route path="coding/:language" element={<CodingProblemsListPage />} />
@@ -95,7 +92,7 @@ const App = () => {
                   <Route path="profile" element={<Profile />} />
                   <Route path="settings" element={<Settings />} />
 
-                  <Route path="group-discussion" element={<GDLanding />} />
+                  <Route path="group-discussion" element={<GDTopicSelection />} />
                   <Route path="group-discussion/topic" element={<GDTopicSelection />} />
                   <Route path="group-discussion/report" element={<GDReport />} />
                   <Route path="debate" element={<DebateTopicSelection />} />

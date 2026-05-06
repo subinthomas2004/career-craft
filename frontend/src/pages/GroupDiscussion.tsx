@@ -3,23 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-    Mic, MicOff, Video, VideoOff, Copy, UserPlus, Monitor, ArrowLeft,
-    MessageSquare, X, PhoneOff, Clock, SkipForward, Users, MoreVertical,
-    Settings, LayoutGrid, Maximize2
+    Mic, MicOff, Video, VideoOff, ArrowLeft, PhoneOff,
+    MessageSquare, X, Clock, Users
 } from 'lucide-react';
 import AvatarPlayer from "@/components/interview/AvatarPlayer";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { api } from "@/lib/api";
-import io from "socket.io-client";
-import SimplePeer from "simple-peer";
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
-
 
 // --- Types ---
 interface Participant {
@@ -30,8 +25,6 @@ interface Participant {
     systemPrompt: string;
     avatar?: string;
     isUser?: boolean;
-    isPeer?: boolean;
-    stream?: MediaStream;
 }
 
 interface TranscriptItem {
@@ -39,12 +32,6 @@ interface TranscriptItem {
     speakerName: string;
     text: string;
     timestamp: string;
-}
-
-interface PeerData {
-    peerId: string;
-    peer: SimplePeer.Instance;
-    stream?: MediaStream;
 }
 
 // --- Constants ---
@@ -99,31 +86,10 @@ const DAVID_VIDEOS = {
     nodding: "/avatars/tech/tech_nodding.mp4"
 };
 
-const BACKEND_URL = import.meta.env.VITE_API_URL
-    ? import.meta.env.VITE_API_URL.replace('/api', '')
-    : window.location.origin;
-
-// --- Video Component for Peers ---
-const PeerVideo = ({ stream, isSpeaking }: { stream: MediaStream, isSpeaking: boolean }) => {
-    const ref = useRef<HTMLVideoElement>(null);
-    useEffect(() => {
-        if (stream && ref.current) ref.current.srcObject = stream;
-    }, [stream]);
-    return (
-        <video
-            ref={ref}
-            autoPlay
-            playsInline
-            className={cn("w-full h-full object-cover transition-transform duration-500 rounded-xl", isSpeaking ? "scale-105" : "")}
-        />
-    );
-};
-
 const GroupDiscussion = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const { topic: initialTopic, timeLimit = 10, isMultiplayer = false, peerUsers = [], roomCode: lobbyRoomCode = '' } = location.state || {}; // Default 10 mins
+    const { topic: initialTopic, timeLimit = 10 } = location.state || {};
 
     // User Info
     const [userInfo, setUserInfo] = useState<any>(null);
@@ -131,9 +97,6 @@ const GroupDiscussion = () => {
         const stored = localStorage.getItem("userInfo");
         if (stored) setUserInfo(JSON.parse(stored));
     }, []);
-    // In multiplayer mode, reduce AI agents based on how many friends joined
-    const peerCount = Array.isArray(peerUsers) ? peerUsers.length : (peerUsers ? 1 : 0);
-    const activeAIAgents = AI_AGENTS.slice(0, Math.max(0, 4 - peerCount));
 
     // State
     const [topic, setTopic] = useState(initialTopic || 'Universal Basic Income');
@@ -152,7 +115,6 @@ const GroupDiscussion = () => {
     const [processing, setProcessing] = useState(false);
     const processingRef = useRef(processing);
     useEffect(() => { processingRef.current = processing; }, [processing]);
-    const [turnCycle, setTurnCycle] = useState<number>(0);
     const [abuseCount, setAbuseCount] = useState(0);
     const [isMicThrottled, setIsMicThrottled] = useState(false);
     const abuseCountRef = useRef(0);
@@ -171,132 +133,39 @@ const GroupDiscussion = () => {
         resetTranscript
     } = useSpeechRecognition();
 
-    const isUserSpeaking = interimTranscript.length > 0;
-
-    // Removed auto-sync Voice Input to Transcript
-
     // Media & Hardware
     const [cameraActive, setCameraActive] = useState(true);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const scrollRef = useRef<HTMLDivElement>(null);
     const userStream = useRef<MediaStream>();
     const isMounted = useRef(true);
 
-    // Multiplayer State
-    const [peers, setPeers] = useState<PeerData[]>([]);
-    const socketRef = useRef<any>();
-    const peersRef = useRef<{ peerId: string; peer: SimplePeer.Instance }[]>([]);
-    const sentParams = searchParams.get('room');
-
-    // Generate 6-char random code
-    const generateRoomId = () => {
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let result = '';
-        for (let i = 0; i < 6; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
-        return result;
-    }
-
-    const [roomId] = useState(sentParams || generateRoomId());
-    const [userId] = useState(Math.random().toString(36).substring(7));
-
-    // 1. Initialize & Socket Connection
+    // 1. Initialize
     useEffect(() => {
-        socketRef.current = io(BACKEND_URL);
-
         // Get Local Stream
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
             userStream.current = stream;
             if (videoRef.current) {
                 videoRef.current.srcObject = stream;
             }
-
-            // Join Room
-            socketRef.current.emit('join-room', roomId, userId);
-
-            // Socket Listeners
-            socketRef.current.on('user-connected', (newUser: string) => {
-                connectToNewUser(newUser, stream);
-                toast.success("A new user joined!");
-            });
-
-            socketRef.current.on('user-disconnected', (disconnectedUser: string) => {
-                const peerObj = peersRef.current.find(p => p.peerId === disconnectedUser);
-                if (peerObj) peerObj.peer.destroy();
-                const newPeers = peersRef.current.filter(p => p.peerId !== disconnectedUser);
-                peersRef.current = newPeers;
-                setPeers(prev => prev.filter(p => p.peerId !== disconnectedUser));
-            });
-
-            socketRef.current.on('signal', (data: any) => {
-                const item = peersRef.current.find(p => p.peerId === data.callerID);
-                if (item) item.peer.signal(data.signal);
-            });
-
-            socketRef.current.on("signal", (payload: any) => {
-                const item = peersRef.current.find(p => p.peerId === payload.callerID);
-                if (item) {
-                    item.peer.signal(payload.signal);
-                } else {
-                    const peer = addPeer(payload.signal, payload.callerID, stream);
-                    peersRef.current.push({ peerId: payload.callerID, peer });
-                    setPeers(prev => [...prev, { peerId: payload.callerID, peer }]);
-                }
-            });
-
-            // Sync speaking status across peers
-            socketRef.current.on('speaking-status', (statusData: any) => {
-                if (statusData.isSpeaking) {
-                    setCurrentSpeaker(statusData.speakerId);
-                    if (discussionTimeoutRef.current) {
-                        clearTimeout(discussionTimeoutRef.current);
-                        discussionTimeoutRef.current = null;
-                    }
-                } else if (currentSpeaker === statusData.speakerId) {
-                    setCurrentSpeaker(null);
-                    // Remote peer stopped speaking, wait 3 seconds and trigger AI if no one jumps in
-                    if (isActive && !processing) {
-                        handleTurnTransition(3000);
-                    }
-                }
-            });
-
-            socketRef.current.on('speech-message', (messageData: any) => {
-                setTranscript(prev => [...prev, { speakerId: messageData.speakerId, speakerName: messageData.speakerName, text: messageData.text, timestamp: new Date().toLocaleTimeString() }]);
-            });
+        }).catch(err => {
+            console.error("Media Error:", err);
+            toast.error("Camera/Mic access denied.");
         });
 
         return () => {
             isMounted.current = false;
-            socketRef.current.disconnect();
             userStream.current?.getTracks().forEach(track => track.stop());
             window.speechSynthesis.cancel();
             if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         };
     }, []);
 
-    // Fix: Re-attach stream when camera is toggled back on
+    // Re-attach stream when camera is toggled back on
     useEffect(() => {
         if (cameraActive && videoRef.current && userStream.current) {
             videoRef.current.srcObject = userStream.current;
         }
     }, [cameraActive]);
-
-    // Helper: Initiator 
-    function connectToNewUser(userIdToCall: string, stream: MediaStream) {
-        const peer = new SimplePeer({ initiator: true, trickle: false, stream });
-        peer.on("signal", (signal) => socketRef.current.emit("signal", { target: userIdToCall, callerID: userId, signal }));
-        peer.on("stream", (remoteStream) => setPeers(prev => prev.map(p => p.peerId === userIdToCall ? { ...p, stream: remoteStream } : p)));
-        peersRef.current.push({ peerId: userIdToCall, peer });
-        setPeers(prev => [...prev, { peerId: userIdToCall, peer }]);
-    }
-
-    // Helper: Receiver 
-    function addPeer(incomingSignal: any, callerID: string, stream: MediaStream) {
-        const peer = new SimplePeer({ initiator: false, trickle: false, stream });
-        peer.on("signal", (signal) => socketRef.current.emit("signal", { target: callerID, callerID: userId, signal }));
-        peer.on("stream", (remoteStream) => setPeers(prev => prev.map(p => p.peerId === callerID ? { ...p, stream: remoteStream } : p)));
-        return peer;
-    }
 
     // --- Logic ---
 
@@ -308,9 +177,11 @@ const GroupDiscussion = () => {
             setCurrentSpeaker(MODERATOR.id);
             setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
             await speakText(text, 'male');
-            setCurrentSpeaker(null);
-            setIsIntro(false);
-            setIsPreparing(true);
+            if (isMounted.current) {
+                setCurrentSpeaker(null);
+                setIsIntro(false);
+                setIsPreparing(true);
+            }
         };
         if (isIntro && timeLeft === 120 && !isPreparing) {
             playIntro();
@@ -345,26 +216,27 @@ const GroupDiscussion = () => {
         const text = "Time is up. Please start the discussion.";
         setTranscript(prev => [...prev, { speakerId: MODERATOR.id, speakerName: MODERATOR.name, text, timestamp: new Date().toLocaleTimeString() }]);
         await speakText(text, 'male');
-        setCurrentSpeaker(null);
-        setIsActive(true);
-        toast.success("Discussion Started!", { description: "The floor is open." });
-
-        // Initial Wait for User (3 seconds)
-        handleTurnTransition(3000);
+        if (isMounted.current) {
+            setCurrentSpeaker(null);
+            setIsActive(true);
+            toast.success("Discussion Started!", { description: "The floor is open." });
+            // Initial Wait for User (3 seconds)
+            handleTurnTransition(3000);
+        }
     };
 
     const handleTurnTransition = (delayMs: number = 3000) => {
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
 
         discussionTimeoutRef.current = setTimeout(() => {
-            if (!processingRef.current && !currentSpeakerRef.current) {
+            if (!processingRef.current && !currentSpeakerRef.current && isActive) {
                 // User didn't take the floor, trigger AI
                 const currentTranscript = transcriptRef.current;
                 const lastSpeakerId = currentTranscript[currentTranscript.length - 1]?.speakerId;
 
                 // Pick next agent (ensure it's not the same as last speaker if possible)
-                const availableAgents = activeAIAgents.filter(a => a.id !== lastSpeakerId);
-                const nextAgent = availableAgents[Math.floor(Math.random() * availableAgents.length)] || activeAIAgents[0];
+                const availableAgents = AI_AGENTS.filter(a => a.id !== lastSpeakerId);
+                const nextAgent = availableAgents[Math.floor(Math.random() * availableAgents.length)] || AI_AGENTS[0];
 
                 if (nextAgent) triggerAgentTurn(nextAgent);
             }
@@ -491,14 +363,13 @@ const GroupDiscussion = () => {
     const triggerAgentTurn = async (agent: Participant) => {
         if (processingRef.current || currentSpeakerRef.current) return;
         setProcessing(true);
-        // await new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 1000)); // Remove extra artificial delay, we handled it in transition
         try {
             const context = transcriptRef.current.map(t => `${t.speakerName}: ${t.text}`).join('\n');
             const res = await api.post('/groq/gd/response', {
                 topic, agentName: agent.name, role: agent.role, style: agent.systemPrompt, context
             });
             const text = res.data.response;
-            if (!isMounted.current) return; // Prevent speaking if user left during API call
+            if (!isMounted.current) return;
 
             if (text) {
                 setCurrentSpeaker(agent.id);
@@ -518,34 +389,7 @@ const GroupDiscussion = () => {
         }
     };
 
-    const handleSendMessage = async (e?: React.FormEvent) => {
-        e?.preventDefault();
-        if (!inputText.trim()) return;
-
-        // If user sends message, cancel any pending AI turn
-        if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
-
-        const text = inputText.trim();
-        setInputText("");
-        setTranscript(prev => [...prev, { speakerId: 'user', speakerName: 'You', text, timestamp: new Date().toLocaleTimeString() }]);
-
-        // After user speaks, wait for other agents to respond (3 seconds)
-        handleTurnTransition(3000);
-    };
-
-    // Removed auto-voice detection timeouts and intervals since we are moving to fully manual mic toggles
-
-    /* Removed Random Loop */
-
-
-
     // --- UI Helpers ---
-    const copyLink = () => {
-        const url = `${window.location.origin}/group-discussion/room?room=${roomId}&topic=${encodeURIComponent(topic)}`;
-        navigator.clipboard.writeText(url);
-        toast.success(`Invite Code: ${roomId} copied!`);
-    };
-    
     const isMicDisabled = isIntro || isPreparing || (currentSpeaker !== null && currentSpeaker !== 'user') || isMicThrottled || processing;
 
     const handleMicToggle = () => {
@@ -564,7 +408,6 @@ const GroupDiscussion = () => {
                     stopListening();
                     resetTranscript();
                     setCurrentSpeaker(null);
-                    socketRef.current?.emit('speaking-status', { roomId, isSpeaking: false, speakerId: 'user' });
                     
                     if (abuseCountRef.current === 0) {
                         setAbuseCount(1);
@@ -585,14 +428,10 @@ const GroupDiscussion = () => {
                 }
                 
                 setTranscript(prev => [...prev, { speakerId: 'user', speakerName: 'You', text: textToSend, timestamp: new Date().toLocaleTimeString() }]);
-                socketRef.current?.emit('speech-message', { roomId, speakerId: 'user', speakerName: userInfo?.name?.split(' ')[0] || 'You', text: textToSend });
             }
             resetTranscript();
 
             setCurrentSpeaker(null);
-            socketRef.current?.emit('speaking-status', { roomId, isSpeaking: false, speakerId: 'user' });
-            
-            // Release the floor, give 3 seconds for others to act
             handleTurnTransition(3000);
         } else {
             startListening();
@@ -601,13 +440,10 @@ const GroupDiscussion = () => {
                 clearTimeout(discussionTimeoutRef.current);
                 discussionTimeoutRef.current = null;
             }
-            socketRef.current?.emit('speaking-status', { roomId, isSpeaking: true, speakerId: 'user' });
         }
     }
 
     const handleMicToggleRef = useRef<() => void>(handleMicToggle);
-    
-    // Always keep the ref updated with the latest function closure
     useEffect(() => {
         handleMicToggleRef.current = handleMicToggle;
     });
@@ -643,17 +479,11 @@ const GroupDiscussion = () => {
     };
     const handleSkipPreparation = () => { setTimeLeft(0); };
 
-
     // Participants list including Moderator
-    const normalizedPeerUsers = Array.isArray(peerUsers) ? peerUsers : (peerUsers ? [peerUsers] : []);
     const allParticipants = [
         { ...MODERATOR, isUser: false },
         { id: 'user', name: userInfo?.name?.split(' ')[0] || 'You', role: 'Candidate', isUser: true, color: 'bg-indigo-100 text-indigo-700', systemPrompt: '', avatar: '' },
-        ...normalizedPeerUsers.map((pu: any, i: number) => ({
-            id: `peer-${i}`, name: pu.name?.split(' ')[0] || `Friend ${i + 1}`, role: 'Candidate', isUser: false, isPeer: true, color: 'bg-teal-100 text-teal-700', systemPrompt: '', avatar: pu.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${pu.name}`
-        })),
-        ...peers.map((p, i) => ({ ...activeAIAgents[i], ...p, isUser: false, isPeer: true })),
-        ...activeAIAgents.slice(peers.length)
+        ...AI_AGENTS
     ];
 
     return (
@@ -710,7 +540,7 @@ const GroupDiscussion = () => {
             )}>
                 <div className={cn(
                     "grid gap-4 p-4 w-full h-full max-h-full",
-                    "grid-cols-2 md:grid-cols-3 grid-rows-2" // 3 columns for 6 participants (2 rows)
+                    "grid-cols-2 md:grid-cols-3 grid-rows-2"
                 )}>
                     {allParticipants.map((p) => {
                         const isSpeaking = currentSpeaker === p.id;
@@ -733,8 +563,6 @@ const GroupDiscussion = () => {
                                             ) : (
                                                 <video ref={videoRef} autoPlay muted className="w-full h-full object-cover scale-x-[-1]" />
                                             )
-                                        ) : (p as any).isPeer && (p as any).stream ? (
-                                            <PeerVideo stream={(p as any).stream} isSpeaking={isSpeaking} />
                                         ) : (
                                             // AI Agents & Moderator
                                             <AvatarPlayer
@@ -798,20 +626,23 @@ const GroupDiscussion = () => {
                             <X className="w-4 h-4" />
                         </Button>
                     </div>
-                    <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+                    <ScrollArea className="flex-1 p-4">
                         <div className="space-y-4">
-                            {transcript.map((t, i) => (
-                                <div key={i} className={cn("flex flex-col gap-1", t.speakerId === 'user' ? "items-end" : "items-start")}>
-                                    <div className="flex items-center gap-2 text-[10px] text-slate-400 px-1">
-                                        <span className={cn("font-bold", t.speakerId === 'user' ? "text-indigo-600" : "text-slate-600")}>{t.speakerName}</span>
-                                        <span>{t.timestamp}</span>
+                            {transcript.map((item, i) => (
+                                <div key={i} className={cn(
+                                    "flex flex-col gap-1",
+                                    item.speakerId === 'user' ? "items-end" : "items-start"
+                                )}>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{item.speakerName}</span>
+                                        <span className="text-[9px] text-slate-300">{item.timestamp}</span>
                                     </div>
-                                    <p className={cn(
-                                        "text-sm p-3 rounded-2xl max-w-[90%] shadow-sm border",
-                                        t.speakerId === 'user'
-                                            ? "bg-indigo-600 text-white rounded-tr-none border-indigo-600"
-                                            : "bg-white text-slate-700 rounded-tl-none border-slate-100"
-                                    )}>{t.text}</p>
+                                    <div className={cn(
+                                        "px-3 py-2 rounded-2xl text-sm max-w-[90%]",
+                                        item.speakerId === 'user' ? "bg-indigo-600 text-white rounded-tr-sm" : "bg-slate-100 text-slate-700 rounded-tl-sm"
+                                    )}>
+                                        {item.text}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -819,89 +650,77 @@ const GroupDiscussion = () => {
                 </div>
             </div>
 
-            {/* 3. Bottom Control Bar */}
-            <div className="h-24 flex items-center justify-center gap-6 shrink-0 relative z-30 bg-transparent pointer-events-none mb-4">
-
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant={isListening ? "default" : "secondary"}
-                                size="lg"
-                                className={cn("rounded-full h-12 w-12 p-0 transition-all shadow-sm pointer-events-auto", isListening ? "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105" : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50", isMicDisabled ? "opacity-50 cursor-not-allowed" : "")}
-                                onClick={handleMicToggle}
-                                disabled={isMicDisabled}
-                            >
-                                {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent><p>{isMicDisabled ? (isPreparing ? "Wait for preparation" : (isIntro ? "Host is introducing" : "Someone else is speaking")) : (isListening ? "Mute" : "Unmute")}</p></TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant={cameraActive ? "default" : "secondary"}
-                                size="lg"
-                                className={cn("rounded-full h-12 w-12 p-0 transition-all shadow-sm pointer-events-auto", cameraActive ? "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105" : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50")}
-                                onClick={toggleCam}
-                            >
-                                {cameraActive ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent><p>{cameraActive ? "Turn Off Camera" : "Turn On Camera"}</p></TooltipContent>
-                    </Tooltip>
-
-                    {isPreparing && (
+            {/* 3. Bottom Controls */}
+            <div className="h-24 flex items-center justify-center gap-6 bg-white/80 backdrop-blur-md border-t border-slate-200 shrink-0 z-30">
+                <div className="flex items-center gap-4">
+                    <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button
-                                    className="rounded-full px-6 h-12 bg-amber-500 hover:bg-amber-600 text-white font-bold hover:scale-105 transition-all shadow-md shadow-amber-100 pointer-events-auto"
-                                    onClick={handleSkipPreparation}
+                                    size="icon"
+                                    variant={cameraActive ? "outline" : "destructive"}
+                                    onClick={toggleCam}
+                                    className="w-12 h-12 rounded-full shadow-md"
                                 >
-                                    Start Now <SkipForward className="w-4 h-4 ml-2" />
+                                    {cameraActive ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent><p>Skip Preparation Time</p></TooltipContent>
+                            <TooltipContent>
+                                <p>{cameraActive ? "Turn Camera Off" : "Turn Camera On"}</p>
+                            </TooltipContent>
                         </Tooltip>
-                    )}
 
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="destructive"
-                                size="lg"
-                                className="rounded-full px-8 h-12 bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 hover:text-red-700 hover:border-red-200 font-bold hover:scale-105 transition-all shadow-sm pointer-events-auto"
-                                onClick={() => concludeSession(false, true)}
-                            >
-                                <PhoneOff className="w-5 h-5 mr-2" /> End GD
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent><p>Leave Discussion</p></TooltipContent>
-                    </Tooltip>
-
-                    {isMultiplayer && (
-                        <>
-                            <div className="w-px h-8 bg-slate-200 mx-2" />
-
+                        <div className="relative group">
+                            <div className={cn(
+                                "absolute -inset-1 bg-green-500 rounded-full blur opacity-0 transition duration-500 group-hover:opacity-30",
+                                isListening && "opacity-50 animate-pulse"
+                            )} />
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button
-                                        variant="secondary"
-                                        className="rounded-full h-12 w-12 p-0 bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-indigo-600 shadow-sm pointer-events-auto"
-                                        onClick={copyLink}
+                                        size="icon"
+                                        variant={isListening ? "default" : "outline"}
+                                        onClick={handleMicToggle}
+                                        disabled={isMicDisabled}
+                                        className={cn(
+                                            "w-16 h-16 rounded-full shadow-lg relative z-10 transition-all duration-300",
+                                            isListening ? "bg-green-600 hover:bg-green-700 scale-110" : "hover:border-indigo-400"
+                                        )}
                                     >
-                                        <UserPlus className="w-5 h-5" />
+                                        {isListening ? <Mic className="w-6 h-6 animate-pulse" /> : <MicOff className="w-6 h-6" />}
                                     </Button>
                                 </TooltipTrigger>
-                                <TooltipContent><p>Invite Others</p></TooltipContent>
+                                <TooltipContent>
+                                    <p>{isListening ? "Stop Speaking" : "Start Speaking"}</p>
+                                </TooltipContent>
                             </Tooltip>
-                        </>
-                    )}
+                        </div>
+                    </TooltipProvider>
+                </div>
 
-                </TooltipProvider>
+                {!isIntro && (
+                    <Button
+                        variant="destructive"
+                        onClick={() => concludeSession()}
+                        className="rounded-full px-6 shadow-md ml-4 gap-2 h-12"
+                    >
+                        <PhoneOff className="w-4 h-4" /> End Discussion
+                    </Button>
+                )}
 
+                {isPreparing && (
+                    <Button onClick={handleSkipPreparation} className="bg-indigo-600 hover:bg-indigo-700 rounded-full px-6 shadow-md ml-4">
+                        Skip Preparation
+                    </Button>
+                )}
             </div>
+
+            {/* Interim Transcript Overlay */}
+            {interimTranscript && (
+                <div className="fixed bottom-32 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md text-white px-6 py-3 rounded-2xl text-lg font-medium max-w-2xl text-center animate-in fade-in slide-in-from-bottom-4 z-50 shadow-2xl border border-white/10">
+                    {interimTranscript}
+                </div>
+            )}
         </div>
     );
 };

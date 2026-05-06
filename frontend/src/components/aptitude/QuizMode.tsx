@@ -21,6 +21,15 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { AlertTriangle } from "lucide-react";
 
 import { aptitudeTopics, getQuestionsForTopic, getQuestionsForTopics, getAllAptitudeQuestions, Question } from "@/data/aptitudeQuestions";
 
@@ -47,6 +56,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
     const [examWarnings, setExamWarnings] = useState(0);
     const [terminationReason, setTerminationReason] = useState<string | null>(null);
     const [isNavigating, setIsNavigating] = useState(false);
+    const [showQuitConfirm, setShowQuitConfirm] = useState(false);
 
     // Timer Effect
     useEffect(() => {
@@ -265,6 +275,18 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
 
         setScore(correct);
         setStage("result");
+    };
+
+    const handleQuitRequest = () => {
+        setShowQuitConfirm(true);
+    };
+
+    const confirmQuit = () => {
+        setShowQuitConfirm(false);
+        if (isExamMode && document.fullscreenElement) {
+            document.exitFullscreen().catch(() => { });
+        }
+        setStage("select");
     };
 
     const restartQuiz = () => {
@@ -492,11 +514,8 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                     {/* Left Column: Question Area */}
                     <div className="space-y-8">
                         <div className="flex items-center justify-between">
-                            <Button variant="ghost" onClick={() => {
-                                if (isExamMode) document.exitFullscreen().catch(() => {});
-                                setStage("select");
-                            }} className="gap-2 text-muted-foreground">
-                                <ArrowLeft className="h-4 w-4" /> Exit
+                            <Button variant="ghost" onClick={handleQuitRequest} className="gap-2 text-muted-foreground hover:text-red-500 transition-colors">
+                                <ArrowLeft className="h-4 w-4" /> Quit
                             </Button>
                             
                             <div className={cn(
@@ -712,5 +731,31 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         );
     }
 
-    return null;
+    return (
+        <>
+            {/* Quit Confirmation Dialog */}
+            <Dialog open={showQuitConfirm} onOpenChange={setShowQuitConfirm}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5 text-red-500" />
+                            Quit Session?
+                        </DialogTitle>
+                        <DialogDescription>
+                            Are you sure you want to quit this {isExamMode ? "aptitude exam" : "practice session"}? 
+                            {isExamMode ? " Your progress will be lost and this will count as an incomplete attempt." : " Your current progress will not be saved."}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="flex sm:justify-end gap-2">
+                        <Button variant="ghost" onClick={() => setShowQuitConfirm(false)}>
+                            Stay
+                        </Button>
+                        <Button onClick={confirmQuit} className="bg-red-600 text-white hover:bg-red-700">
+                            Quit Anyway
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        </>
+    );
 };

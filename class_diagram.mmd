@@ -1,0 +1,96 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#f0f0f0",
+    "primaryTextColor": "#000000",
+    "primaryBorderColor": "#333333",
+    "lineColor": "#333333",
+    "secondaryColor": "#f0f0f0",
+    "tertiaryColor": "#f0f0f0"
+  }
+}}%%
+classDiagram
+    direction TB
+
+    classDef default fill:#f1f1f1,stroke:#333,stroke-width:1px,color:#000;
+
+    class User {
+        +String name
+        +String email
+        +String role
+        +String profilePicture
+        +String bio
+        +List~String~ skills
+        +Object stats
+        +Number streak
+        +List~Object~ recentActivities
+    }
+
+    class Company {
+        +String name
+        +String description
+        +String logoUrl
+        +List~Material~ materials
+    }
+
+    class Resume {
+        +String userId
+        +String fileName
+        +String fileType
+        +Number score
+        +Object analysis
+    }
+
+    class Score {
+        +ObjectId user
+        +String username
+        +Number score
+        +Number totalQuestions
+        +Number timeTaken
+        +Date date
+    }
+    
+    class CommunicationSession {
+        +ObjectId userId
+        +Number score
+        +Number wpm
+        +Number grammarErrorCount
+        +Number fillerWordCount
+        +String mode
+    }
+    
+    class CodingScore {
+        +ObjectId userId
+        +List~Number~ solvedProblems
+        +List~Number~ attemptedProblems
+    }
+    
+    class TypingHistory {
+        +ObjectId userId
+        +String mode
+        +Number duration
+        +Number wpm
+        +Number accuracy
+    }
+
+    class ForumPost {
+        +String authorId
+        +String title
+        +String content
+        +List~String~ likes
+    }
+
+    class ForumComment {
+        +ObjectId postId
+        +String authorId
+        +String content
+    }
+
+    Resume "0..1" --* "1" User
+    Company "1" -- "0..*" User : interacts
+    User "1" *-- "0..*" Score
+    User "1" *-- "0..*" CommunicationSession
+    User "1" *-- "0..1" CodingScore
+    User "1" *-- "0..*" TypingHistory
+    User "1" *-- "0..*" ForumPost
+    ForumPost "1" *-- "0..*" ForumComment

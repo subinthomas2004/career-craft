@@ -10,7 +10,8 @@ import {
   Lightbulb,
   Code,
   Keyboard,
-  LayoutGrid
+  LayoutGrid,
+  X
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -57,10 +58,29 @@ const MockInterview = () => {
   // NEW: Domain input mode toggle
   const [domainMode, setDomainMode] = useState<"grid" | "text">("grid");
   const [jobRoleText, setJobRoleText] = useState<string>("");
+  const [submittedRole, setSubmittedRole] = useState<string>("");
 
   // Compute effective domain/jobRole
   const effectiveDomain = domainMode === "grid" ? selectedDomain : "";
   const effectiveJobRole = domainMode === "text" ? jobRoleText : "";
+
+  const removeSkill = (skillToRemove: string) => {
+    if (parsedResumeData && parsedResumeData.skills) {
+      setParsedResumeData({
+        ...parsedResumeData,
+        skills: parsedResumeData.skills.filter((s: string) => s !== skillToRemove)
+      });
+    }
+  };
+
+  const handleRoleSubmit = () => {
+    if (!jobRoleText.trim()) return;
+    
+    // Deselect domain when submitting a typed role
+    setSelectedDomain("");
+    setSubmittedRole(jobRoleText);
+    toast.success(`Role set to: ${jobRoleText}`);
+  };
 
   const {
     sessionState,
@@ -82,7 +102,7 @@ const MockInterview = () => {
     includeHr: selectedType === 'hr' || selectedType === 'hr-tech',
     interviewType: selectedType as any || 'hr',
     difficulty: 'intermediate' as Difficulty,
-    resumeText: resumeText,
+    resumeText: parsedResumeData ? JSON.stringify(parsedResumeData) : resumeText,
     jobRole: effectiveJobRole
   });
 
@@ -279,16 +299,47 @@ const MockInterview = () => {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <Input
-                    type="text"
-                    placeholder="e.g., Full Stack Developer, Data Analyst, DevOps Engineer..."
-                    value={jobRoleText}
-                    onChange={(e) => setJobRoleText(e.target.value)}
-                    className="h-12 text-base"
-                  />
-                  {jobRoleText.trim().length > 0 && (
-                    <p className="text-sm text-muted-foreground">
-                      The AI interviewers will tailor questions for the <span className="font-semibold text-foreground">{jobRoleText}</span> role.
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      placeholder="e.g., Full Stack Developer, Data Analyst, DevOps Engineer..."
+                      value={jobRoleText}
+                      onChange={(e) => setJobRoleText(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleRoleSubmit();
+                      }}
+                      className="h-12 text-base"
+                    />
+                    <Button 
+                      onClick={handleRoleSubmit} 
+                      disabled={!jobRoleText.trim()}
+                      className="h-12 px-6"
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                  {submittedRole && (
+                    <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-xl animate-in zoom-in-95 duration-300">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-primary/10 rounded-lg">
+                          <Keyboard className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-primary uppercase tracking-wider">Target Job Role</p>
+                          <p className="text-lg font-semibold text-foreground">{submittedRole}</p>
+                        </div>
+                        <Badge variant="secondary" className="ml-auto bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                          Selected
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2 italic">
+                        * The AI interviewers will tailor all questions specifically for the {submittedRole} role.
+                      </p>
+                    </div>
+                  )}
+                  {jobRoleText.trim().length > 0 && !submittedRole && (
+                    <p className="text-sm text-muted-foreground flex items-center flex-wrap gap-1">
+                      Press Submit to confirm the <span className="font-semibold text-foreground">{jobRoleText}</span> role.
                     </p>
                   )}
                 </div>
@@ -366,7 +417,15 @@ const MockInterview = () => {
                             <span className="font-semibold text-foreground block mb-1">Top Skills:</span>
                             <div className="flex flex-wrap gap-1">
                               {parsedResumeData.skills.map((skill: string, i: number) => (
-                                <Badge key={i} variant="secondary" className="text-xs">{skill}</Badge>
+                                <Badge key={i} variant="secondary" className="text-xs flex items-center gap-1 pr-1">
+                                  {skill}
+                                  <button 
+                                    onClick={() => removeSkill(skill)}
+                                    className="hover:bg-muted/50 rounded-full p-0.5 transition-colors text-muted-foreground hover:text-foreground"
+                                  >
+                                    <X className="w-3 h-3" />
+                                  </button>
+                                </Badge>
                               ))}
                             </div>
                           </div>
@@ -385,16 +444,7 @@ const MockInterview = () => {
                       </div>
                     )}
                     
-                    {resumeText && (
-                      <div className="bg-muted/30 rounded-lg p-4 border border-border/50 text-sm space-y-3 animate-in fade-in slide-in-from-top-3">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">Parsed Words (Raw Text)</Badge>
-                        </div>
-                        <div className="max-h-40 overflow-y-auto p-2 bg-background rounded border border-border/50 text-xs text-muted-foreground whitespace-pre-wrap">
-                          {resumeText}
-                        </div>
-                      </div>
-                    )}
+
                   </div>
                 )}
               </div>

@@ -1,5 +1,5 @@
 import express from "express";
-import { testGroqConnection, generateInterviewQuestion, analyzeCodeSubmission, generateReport, generateDebateResponse, generateGroupDiscussionTopic, generateGDResponse, analyzeSpeech, evaluateDebate, generateResumeBullet, analyzeResumeATS, analyzeSkillGap, generateSoftSkillsTips, analyzeCodingPractice } from "../controllers/groqController.js";
+import { testGroqConnection, generateInterviewQuestion, analyzeCodeSubmission, generateReport, generateDebateResponse, generateGroupDiscussionTopic, generateGDResponse, analyzeSpeech, evaluateDebate, generateResumeBullet, analyzeResumeATS, analyzeSkillGap, generateSoftSkillsTips, analyzeCodingPractice, analyzeRole } from "../controllers/groqController.js";
 
 const router = express.Router();
 
@@ -7,6 +7,7 @@ router.post("/test", testGroqConnection);
 router.post("/interview/question", generateInterviewQuestion);
 router.post("/interview/analyze-code", analyzeCodeSubmission);
 router.post("/interview/report", generateReport);
+router.post("/analyze-role", analyzeRole);
 
 router.post("/debate/response", generateDebateResponse);
 router.post("/debate/topic", generateGroupDiscussionTopic);

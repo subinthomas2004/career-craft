@@ -109,6 +109,49 @@ export const testGroqConnection = async (req, res) => {
     }
 };
 
+export const analyzeRole = async (req, res) => {
+    const { role } = req.body;
+    
+    if (!role) {
+        return res.status(400).json({ success: false, error: "Role is required" });
+    }
+
+    try {
+        const completion = await groqChat({
+            messages: [
+                {
+                    role: "system",
+                    content: `You are an expert technical recruiter. Analyze the given job role title. 
+Is this a technical role that requires specialized technical knowledge? 
+Consider roles in programming, software development, data science, engineering, IT systems, UI/UX design, product design, and product management as technical roles.
+Return a valid JSON object: { "isTechnical": true/false }`
+                },
+                {
+                    role: "user",
+                    content: `Job Role: ${role}`
+                }
+            ],
+            model: "llama-3.1-8b-instant", // Use faster, smaller model
+            temperature: 0.1,
+            response_format: { type: "json_object" }
+        });
+
+        const result = JSON.parse(completion.choices[0]?.message?.content || '{"isTechnical": true}');
+        
+        res.json({
+            success: true,
+            isTechnical: result.isTechnical
+        });
+    } catch (error) {
+        console.error("Groq Analyze Role Error:", error.response?.data || error.message);
+        // Fallback: assume it's technical if error
+        res.json({
+            success: true,
+            isTechnical: true
+        });
+    }
+};
+
 export const generateInterviewQuestion = async (req, res) => {
     const { resumeText, history, type, domain, questionCount, consecutiveCount, elapsedMinutes, interviewType, jobRole } = req.body;
 
@@ -147,6 +190,14 @@ IMPORTANT RULE: This pacing is a SOFT guide to structure the 15 minutes. IF the 
     // ============================================
     const sharedGuidelines = `
 CRITICAL BEHAVIORAL RULES (ALWAYS FOLLOW):
+
+RESUME VS ROLE MISMATCH (STRICT & DIRECT):
+- Before asking your first question, mentally compare the candidate's provided resume against the target role: ${roleContext}.
+- If there is a "MASSIVE MISMATCH" (e.g., they have a Software Developer resume but are interviewing for a Chef), you MUST be very direct and honest about it. 
+- DO NOT be overly polite. Say something like: "I've reviewed your resume and to be honest, this doesn't seem like the right resume for this role at all. Your skills are in [Their Skills], which aren't relevant to being a ${roleContext}. Why are you applying for a role you're not eligible for based on your background?"
+- Address their eligibility clearly: "I don't see any relevant talent for this specific position in your history."
+- DO NOT proceed to ask standard or technical questions for ${roleContext} until they have justified this massive discrepancy.
+- If they cannot justify it, continue to push back on the lack of suitability. This is how a real, "strict brain" interviewer would act.
 
 HANDLING INAPPROPRIATE BEHAVIOR:
 - If the candidate uses abusive, vulgar, or offensive language: Respond calmly and professionally. Say something like "I understand interviews can be stressful, but I'd appreciate if we keep this professional. Let's move on." Do NOT engage with the abuse. If it continues, say "[END_INTERVIEW] I'm sorry, but I need to end this interview due to unprofessional conduct. I wish you the best."

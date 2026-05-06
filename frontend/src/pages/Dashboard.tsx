@@ -26,7 +26,7 @@ import { useState, useEffect } from "react";
 const modules = [
   { icon: Video, label: "Mock Interview", path: "/dashboard/interview", color: "from-blue-500 to-blue-600", description: "Practice AI interviews" },
   { icon: FileText, label: "Resume Builder", path: "/dashboard/resume", color: "from-green-500 to-green-600", description: "Optimize your resume" },
-  { icon: Brain, label: " Technical Quizzes", path: "/dashboard/quiz", color: "from-purple-500 to-purple-600", description: "Test your Technical knowledge" },
+  { icon: Brain, label: "Quiz", path: "/dashboard/quiz", color: "from-purple-500 to-indigo-600", description: "Technical & Aptitude assessments" },
   { icon: Code, label: "Coding Practice", path: "/dashboard/coding", color: "from-orange-500 to-orange-600", description: "Solve coding problems" },
   { icon: Keyboard, label: "Typing Test", path: "/dashboard/typing", color: "from-pink-500 to-pink-600", description: "Improve typing speed" },
   { icon: Target, label: "Skill Gap", path: "/dashboard/skill-gap", color: "from-cyan-500 to-cyan-600", description: "Identify skill gaps" },
@@ -36,8 +36,7 @@ const modules = [
   { icon: Mic, label: "Comm. Coach", path: "/dashboard/communication-coach", color: "from-indigo-500 to-purple-500", description: "Improve fluency & grammar" },
   { icon: User, label: "Intro Prep", path: "/dashboard/intro-prep", color: "from-pink-500 to-rose-500", description: "Perfect your self-intro" },
   { icon: Building2, label: "Company Prep", path: "/dashboard/company-prep", color: "from-teal-500 to-emerald-500", description: "Company Preparation" },
-  { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs", color: "from-blue-500 to-cyan-500", description: "Find Jobs" },
-  { icon: Brain, label: "Aptitude Quiz", path: "/dashboard/aptitude-quiz", color: "from-purple-500 to-purple-600", description: "Test your aptitude skills" }
+  { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs", color: "from-blue-500 to-cyan-500", description: "Find Jobs" }
 ];
 
 
