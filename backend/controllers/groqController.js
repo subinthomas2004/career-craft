@@ -814,6 +814,11 @@ export const analyzeResumeATS = async (req, res) => {
     const systemPrompt = `You are an Expert ATS System and Senior Technical Recruiter.
     Analyze the provided resume text against industry standards${jobDescription ? " and the provided job description" : ""}.
     
+    IMPORTANT RULES:
+    1. If the candidate appears to be a student or fresher and has Academic Projects or Personal Projects instead of formal Work Experience, treat the projects as Experience. DO NOT penalize them with "Empty Experience Section" or deduct points heavily if they have strong projects.
+    2. Check if a Summary, Profile, or Objective section exists.
+    3. Check for Contact Info, Links, Education, and Skills.
+    
     You MUST output valid JSON matching this structure perfectly:
     {
       "overall": 85,

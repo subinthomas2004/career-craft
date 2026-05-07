@@ -49,7 +49,7 @@ export const parseResume = async (req, res) => {
   "phone": "string",
   "location": "string",
   "links": ["string - LinkedIn, GitHub, Portfolio URLs"],
-  "summary": "string - professional summary",
+  "summary": "string - professional summary, objective, or profile section",
   "skills": ["string", "string"],
   "experience": [
     {
@@ -76,7 +76,7 @@ export const parseResume = async (req, res) => {
     }
   ]
 }
-If a field is not found, leave it as an empty string or empty array. Do NOT wrap in markdown block.`
+If a field is not found, leave it as an empty string or empty array. Treat 'Profile', 'Objective', or 'About Me' as 'summary'. Do NOT wrap in markdown block.`
                     },
                     {
                         role: "user",
@@ -136,7 +136,7 @@ export const parseProfileResume = async (req, res) => {
   "phone": "string",
   "location": "string",
   "links": ["string - LinkedIn, GitHub, Portfolio URLs"],
-  "summary": "string - professional summary",
+  "summary": "string - professional summary, objective, or profile section",
   "skills": ["string", "string"],
   "experience": [
     {
@@ -163,7 +163,7 @@ export const parseProfileResume = async (req, res) => {
     }
   ]
 }
-If a field is not found, leave it as an empty string or empty array. Do NOT wrap in markdown block.`
+If a field is not found, leave it as an empty string or empty array. Treat 'Profile', 'Objective', or 'About Me' as 'summary'. Do NOT wrap in markdown block.`
                     },
                     {
                         role: "user",

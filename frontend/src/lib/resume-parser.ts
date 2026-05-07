@@ -78,6 +78,37 @@ function mapGroqDataToResumeData(aiData: any, rawText: string): ResumeData {
         }));
     }
 
+    if (Array.isArray(aiData.projects)) {
+        resume.projects = aiData.projects.map((proj: any) => ({
+            id: generateId(),
+            name: proj.title || '',
+            description: proj.description || '',
+            technologies: [],
+            link: '',
+            year: proj.year || ''
+        }));
+    }
+
+    if (Array.isArray(aiData.certifications)) {
+        resume.certifications = aiData.certifications.map((cert: any) => ({
+            id: generateId(),
+            name: typeof cert === 'string' ? cert : cert.name || '',
+            issuer: '',
+            date: ''
+        }));
+    }
+
+    if (Array.isArray(aiData.links)) {
+        aiData.links.forEach((link: string) => {
+            const lowerLink = link.toLowerCase();
+            if (lowerLink.includes('linkedin')) {
+                resume.contact.linkedin = link;
+            } else if (lowerLink.includes('github') || lowerLink.includes('portfolio') || lowerLink.includes('vercel')) {
+                resume.contact.website = link;
+            }
+        });
+    }
+
     return resume;
 }
 

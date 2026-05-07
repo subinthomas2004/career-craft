@@ -190,14 +190,22 @@ function analyzeStructure(data: ResumeData, feedback: ATSFeedback[]): number {
         score -= 15;
     }
 
-    if (data.experience.length === 0) {
+    if (data.experience.length === 0 && (!data.projects || data.projects.length === 0)) {
         feedback.push({
             category: 'critical',
-            title: 'No Work Experience',
-            description: 'Add your work history with detailed accomplishments and responsibilities.',
+            title: 'No Work Experience or Projects',
+            description: 'Add your work history or academic projects with detailed accomplishments and responsibilities.',
             impact: 25,
         });
         score -= 25;
+    } else if (data.experience.length === 0 && data.projects && data.projects.length > 0) {
+        feedback.push({
+            category: 'suggestion',
+            title: 'Add Formal Experience',
+            description: 'You have good projects, but adding internships or formal work experience can boost your ATS score.',
+            impact: 5,
+        });
+        score -= 5;
     }
 
     if (data.education.length === 0) {
@@ -226,10 +234,13 @@ function analyzeStructure(data: ResumeData, feedback: ATSFeedback[]): number {
 function analyzeContent(data: ResumeData, feedback: ATSFeedback[]): number {
     let score = 70;
 
+    const allDescriptions = [
+        ...data.experience.flatMap(exp => exp.description),
+        ...(data.projects || []).map(proj => proj.description)
+    ].filter(Boolean);
+
     // Check experience descriptions for metrics
-    const hasMetrics = data.experience.some(exp =>
-        exp.description.some(desc => /\d+%|\d+\+|\$\d+|[0-9]+ (users|clients|customers|projects|team)/i.test(desc))
-    );
+    const hasMetrics = allDescriptions.some(desc => /\d+%|\d+\+|\$\d+|[0-9]+ (users|clients|customers|projects|team)/i.test(desc));
 
     if (hasMetrics) {
         score += 20;
@@ -249,17 +260,16 @@ function analyzeContent(data: ResumeData, feedback: ATSFeedback[]): number {
     }
 
     // Check description length
-    const avgDescLength = data.experience.reduce((acc, exp) =>
-        acc + exp.description.reduce((a, d) => a + d.length, 0) / Math.max(1, exp.description.length), 0
-    ) / Math.max(1, data.experience.length);
+    const totalItems = data.experience.length + (data.projects?.length || 0);
+    const avgDescLength = totalItems > 0 ? allDescriptions.reduce((a, d) => a + d.length, 0) / Math.max(1, allDescriptions.length) : 0;
 
     if (avgDescLength > 80) {
         score += 10;
-    } else if (avgDescLength < 40 && data.experience.length > 0) {
+    } else if (avgDescLength < 40 && totalItems > 0) {
         feedback.push({
             category: 'suggestion',
-            title: 'Expand Job Descriptions',
-            description: 'Add more detail to your job descriptions to highlight your responsibilities and achievements.',
+            title: 'Expand Descriptions',
+            description: 'Add more detail to your job and project descriptions to highlight your responsibilities and achievements.',
             impact: 10,
         });
     }
