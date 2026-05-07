@@ -1,59 +1,51 @@
 import { useState, useEffect } from "react";
-import { MessageSquare, Share2, MoreHorizontal, ArrowBigUp, ArrowBigDown } from "lucide-react";
+import { MessageSquare, Share2, ArrowBigUp, ArrowBigDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ForumPost, ForumComment } from "./types";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/firebase";
 
 interface PostCardProps {
     post: ForumPost;
+    currentUserId?: string | null;
     compact?: boolean;
     onDelete?: (postId: string) => void;
 }
 
-export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [mongoUser, setMongoUser] = useState<any>(null);
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            const storedUser = localStorage.getItem("userInfo");
-            if (storedUser) {
-                setMongoUser(JSON.parse(storedUser));
-            }
-        });
-        return () => unsubscribe();
-    }, []);
+const API_ROOT = (import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com/api").replace(/\/$/, "");
+const FORUM_API_BASE = API_ROOT.endsWith("/api") ? API_ROOT : `${API_ROOT}/api`;
+const STATIC_BASE = API_ROOT.replace(/\/api$/, "");
 
-    // Current user - hardcode or pull from context later, using local storage for toggle
+export const PostCard = ({ post, currentUserId, compact = false, onDelete }: PostCardProps) => {
+    const userHasLiked = Boolean(currentUserId && post.likes.includes(currentUserId));
     const [score, setScore] = useState(post.likes.length);
-    const [voteStatus, setVoteStatus] = useState<"up" | "down" | null>(null);
+    const [voteStatus, setVoteStatus] = useState<"up" | "down" | null>(
+        userHasLiked ? "up" : null
+    );
 
     // Comments state
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState<ForumComment[]>([]);
     const [newComment, setNewComment] = useState("");
     const [loadingComments, setLoadingComments] = useState(false);
+    const [commentCount, setCommentCount] = useState(post.commentCount || 0);
+
+    useEffect(() => {
+        setScore(post.likes.length);
+        setVoteStatus(Boolean(currentUserId && post.likes.includes(currentUserId)) ? "up" : null);
+        setCommentCount(post.commentCount || 0);
+    }, [post.likes, post.commentCount, currentUserId]);
 
     const loadComments = async () => {
         if (!showComments) {
             setLoadingComments(true);
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/comments`);
+                const res = await fetch(`${FORUM_API_BASE}/forum/posts/${post._id}/comments`);
                 if (res.ok) {
                     const data = await res.json();
                     setComments(data);
+                    setCommentCount(data.length);
                 }
             } catch (err) {
                 console.error("Failed to load comments", err);
@@ -65,25 +57,24 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
     };
 
     const handleAddComment = async () => {
-        if (!newComment.trim() || !user) return;
-        try {
-            const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-            const token = userInfo.token;
+        const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+        if (!newComment.trim() || !userInfo?.token) return;
 
-            const res = await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/comments`, {
+        try {
+            const res = await fetch(`${FORUM_API_BASE}/forum/posts/${post._id}/comments`, {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${userInfo.token}`
                 },
                 body: JSON.stringify({
                     content: newComment,
-                    authorId: mongoUser._id,
                 }),
             });
             if (res.ok) {
                 const comment = await res.json();
-                setComments([...comments, comment]);
+                setComments((currentComments) => [...currentComments, comment]);
+                setCommentCount((currentCount) => currentCount + 1);
                 setNewComment("");
             }
         } catch (err) {
@@ -92,7 +83,8 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
     };
 
     const handleVote = async (type: "up" | "down") => {
-        if (!user) {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+        if (!userInfo?.token) {
             alert("Please log in to vote.");
             return;
         }
@@ -101,52 +93,66 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
         // If users click 'down', we can just remove their like if they had one or do nothing for now since schema only has likes.
         if (type === "down") {
              if (voteStatus === "up") {
-                  setVoteStatus(null);
-                  setScore(score - 1);
-                  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-                  const token = userInfo.token;
-
-                  // Call API to remove like
-                  await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/like`, {
+                  const response = await fetch(`${FORUM_API_BASE}/forum/posts/${post._id}/like`, {
                       method: "POST",
                       headers: { 
                           "Content-Type": "application/json",
-                          "Authorization": `Bearer ${token}`
-                      },
-                      body: JSON.stringify({ userId: mongoUser._id }),
+                          "Authorization": `Bearer ${userInfo.token}`
+                      }
                   });
+
+                  if (response.ok) {
+                      const updatedPost = await response.json();
+                      setVoteStatus(null);
+                      setScore(updatedPost.likes.length);
+                  }
              }
              return;
         }
 
         // Type is "up"
         try {
-            const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-            const token = userInfo.token;
-
-            await fetch(`${import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com"}/api/forum/posts/${post._id}/like`, {
+            const response = await fetch(`${FORUM_API_BASE}/forum/posts/${post._id}/like`, {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ userId: mongoUser._id }),
+                    "Authorization": `Bearer ${userInfo.token}`
+                }
             });
 
-            if (voteStatus === "up") {
-                setVoteStatus(null);
-                setScore(score - 1);
-            } else {
-                setVoteStatus("up");
-                setScore(score + 1);
+            if (response.ok) {
+                const updatedPost = await response.json();
+                const hasLiked = currentUserId ? updatedPost.likes.includes(currentUserId) : voteStatus !== "up";
+                setVoteStatus(hasLiked ? "up" : null);
+                setScore(updatedPost.likes.length);
             }
         } catch (err) {
             console.error("Error toggling like:", err);
         }
     };
 
+    const handleShare = async () => {
+        const shareUrl = `${window.location.origin}${window.location.pathname}#post-${post._id}`;
+
+        try {
+            if (navigator.share) {
+                await navigator.share({
+                    title: post.title,
+                    text: post.content || post.title,
+                    url: shareUrl
+                });
+                return;
+            }
+
+            await navigator.clipboard.writeText(shareUrl);
+            alert("Post link copied.");
+        } catch (error) {
+            console.error("Share failed:", error);
+        }
+    };
+
     return (
-        <div className="flex bg-card border rounded-md hover:border-sidebar-border transition-colors cursor-pointer mb-3">
+        <div id={`post-${post._id}`} className="flex bg-card border rounded-md hover:border-sidebar-border transition-colors mb-3">
             {/* Vote Sidebar */}
             <div className="flex flex-col items-center p-2 bg-muted/30 w-10 sm:w-12 rounded-l-md border-r border-transparent">
                 <Button
@@ -209,6 +215,26 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
                         <div className="text-sm text-foreground/90 line-clamp-3 mb-3">
                             {post.content}
                         </div>
+                        {post.postType === "image" && post.imageUrl && (
+                            <div className="mb-3 overflow-hidden rounded-lg border bg-muted/30">
+                                <img
+                                    src={`${STATIC_BASE}${post.imageUrl}`}
+                                    alt={post.title}
+                                    className="max-h-[420px] w-full object-cover"
+                                />
+                            </div>
+                        )}
+                        {post.postType === "link" && post.linkUrl && (
+                            <a
+                                href={post.linkUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="mb-3 flex items-center gap-2 rounded-lg border p-3 text-sm text-primary hover:bg-muted/40"
+                            >
+                                <ExternalLink className="h-4 w-4 shrink-0" />
+                                <span className="truncate">{post.linkUrl}</span>
+                            </a>
+                        )}
                     </>
                 )}
 
@@ -216,36 +242,25 @@ export const PostCard = ({ post, compact = false, onDelete }: PostCardProps) => 
                 <div className="flex items-center gap-1 text-muted-foreground mb-2">
                     <Button variant="ghost" size="sm" className="gap-2 h-8 px-2 text-xs sm:text-sm hover:bg-muted" onClick={loadComments}>
                         <MessageSquare className="w-4 h-4" />
-                        {post.commentCount || 0} Comments
+                        {commentCount} Comments
                     </Button>
-                    <Button variant="ghost" size="sm" className="gap-2 h-8 px-2 text-xs sm:text-sm hover:bg-muted">
+                    <Button variant="ghost" size="sm" className="gap-2 h-8 px-2 text-xs sm:text-sm hover:bg-muted" onClick={() => void handleShare()}>
                         <Share2 className="w-4 h-4" />
                         Share
                     </Button>
-                    <div className="ml-auto">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" className="h-8 w-8">
-                                    <MoreHorizontal className="w-4 h-4" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Save</DropdownMenuItem>
-                                <DropdownMenuItem>Report</DropdownMenuItem>
-                                {user && user.uid === post.authorId && onDelete && (
-                                    <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => onDelete(post._id)}>
-                                        Delete Post
-                                    </DropdownMenuItem>
-                                )}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
+                    {currentUserId === post.authorId && onDelete && (
+                        <div className="ml-auto">
+                            <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => onDelete(post._id)}>
+                                Delete
+                            </Button>
+                        </div>
+                    )}
                 </div>
 
                 {/* Comments Section */}
                 {showComments && (
                     <div className="mt-4 border-t pt-4 space-y-4">
-                        {user ? (
+                        {currentUserId ? (
                             <div className="flex gap-2 mb-4">
                                 <Input 
                                     placeholder="Add a comment..."

@@ -191,13 +191,7 @@ const GDTopicSelection = () => {
             <div className="w-full max-w-5xl space-y-8 relative z-10">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 animate-fade-in-down">
-                    <Button
-                        variant="ghost"
-                        onClick={() => navigate('/dashboard')}
-                        className="text-muted-foreground hover:text-foreground group"
-                    >
-                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
-                    </Button>
+
                     <div className="text-center md:text-left">
                         <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
                             <Badge variant="outline" className="border-primary/50 text-primary bg-primary/5">

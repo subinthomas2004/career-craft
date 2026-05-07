@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
@@ -48,6 +49,23 @@ import CompanyDetails from "./pages/CompanyDetails";
 import JobPortal from "./pages/JobPortal";
 
 const queryClient = new QueryClient();
+
+// Scroll to top on route change component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Scroll the window
+    window.scrollTo(0, 0);
+    // Also try scrolling main content if it's the one scrolling
+    const main = document.querySelector('main');
+    if (main) main.scrollTop = 0;
+  }, [pathname]);
+
+  return null;
+};
+
+
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
@@ -60,6 +78,7 @@ const App = () => {
             <Toaster />
             <Sonner position="top-center" />
             <BrowserRouter>
+              <ScrollToTop />
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Landing />} />

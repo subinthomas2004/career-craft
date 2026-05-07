@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Job } from "@/lib/jobApi";
-import { Building2, MapPin, Clock, Briefcase, ExternalLink, GraduationCap } from "lucide-react";
+import { Building2, MapPin, Clock, Briefcase, ExternalLink, GraduationCap, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface JobCardProps {
@@ -11,12 +11,37 @@ interface JobCardProps {
     index: number;
 }
 
+const sourceConfig: Record<string, { label: string; className: string }> = {
+    infopark: {
+        label: '🏢 Infopark Kerala',
+        className: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
+    },
+    jsearch: {
+        label: '🇮🇳 India Jobs',
+        className: 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30',
+    },
+    featured: {
+        label: '⭐ Featured',
+        className: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30',
+    },
+};
+
 const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
+    const source = sourceConfig[job.source || 'featured'] || sourceConfig.featured;
+
+    const handleApply = () => {
+        if (job.applyEmail) {
+            window.open(`mailto:${job.applyEmail}?subject=Application for ${job.title}`, '_blank');
+        } else if (job.applyLink) {
+            window.open(job.applyLink, '_blank');
+        }
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
+            transition={{ duration: 0.3, delay: index * 0.08 }}
         >
             <Card className="hover:shadow-lg transition-all duration-300 border border-border/50 group overflow-hidden bg-white/50 dark:bg-card/50 backdrop-blur-sm">
                 <CardContent className="p-6">
@@ -24,7 +49,15 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
                         {/* Logo Section */}
                         <div className="w-16 h-16 rounded-xl overflow-hidden bg-secondary/50 flex items-center justify-center shrink-0 border border-border">
                             {job.logo ? (
-                                <img src={job.logo} alt={`${job.company} logo`} className="w-full h-full object-cover" />
+                                <img
+                                    src={job.logo}
+                                    alt={`${job.company} logo`}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                        (e.target as HTMLImageElement).style.display = 'none';
+                                        (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>';
+                                    }}
+                                />
                             ) : (
                                 <Building2 className="w-8 h-8 text-muted-foreground" />
                             )}
@@ -33,9 +66,14 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
                         {/* Content Section */}
                         <div className="flex-1 space-y-3">
                             <div>
-                                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                                    {job.title}
-                                </h3>
+                                <div className="flex items-center gap-2 flex-wrap mb-1">
+                                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                                        {job.title}
+                                    </h3>
+                                    <Badge variant="outline" className={`text-xs font-medium ${source.className}`}>
+                                        {source.label}
+                                    </Badge>
+                                </div>
                                 <p className="text-muted-foreground flex items-center gap-1.5 mt-1">
                                     <Building2 className="w-4 h-4" />
                                     {job.company}
@@ -69,6 +107,14 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
                                     </Badge>
                                 )}
                             </div>
+
+                            {/* Campus badge for Infopark jobs */}
+                            {job.campus && (
+                                <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                                    <MapPin className="w-3 h-3" />
+                                    {job.campus}
+                                </div>
+                            )}
                         </div>
 
                         {/* Action Section */}
@@ -82,10 +128,19 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
                                 <p className="text-lg font-bold text-foreground mb-3">{job.salary}</p>
                                 <Button
                                     className="w-full md:w-auto group-hover:shadow-md transition-all h-10 px-6 bg-gradient-to-r from-primary to-primary/80"
-                                    onClick={() => window.open(job.applyLink, '_blank')}
+                                    onClick={handleApply}
                                 >
-                                    Apply Now
-                                    <ExternalLink className="w-4 h-4 ml-2" />
+                                    {job.applyEmail ? (
+                                        <>
+                                            Email Resume
+                                            <Mail className="w-4 h-4 ml-2" />
+                                        </>
+                                    ) : (
+                                        <>
+                                            Apply Now
+                                            <ExternalLink className="w-4 h-4 ml-2" />
+                                        </>
+                                    )}
                                 </Button>
                             </div>
                         </div>

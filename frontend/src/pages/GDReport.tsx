@@ -178,9 +178,7 @@ const GDReport = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
-                        <Button variant="ghost" className="-ml-2 mb-2 text-slate-500" onClick={() => navigate('/dashboard/group-discussion')}>
-                            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
-                        </Button>
+
                         <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Performance Report</h1>
                         <p className="text-slate-500 flex items-center gap-2 mt-1">
                             Topic: <span className="font-semibold text-slate-800">{topic}</span>

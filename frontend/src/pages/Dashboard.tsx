@@ -36,7 +36,8 @@ const modules = [
   { icon: Mic, label: "Comm. Coach", path: "/dashboard/communication-coach", color: "from-indigo-500 to-purple-500", description: "Improve fluency & grammar" },
   { icon: User, label: "Intro Prep", path: "/dashboard/intro-prep", color: "from-pink-500 to-rose-500", description: "Perfect your self-intro" },
   { icon: Building2, label: "Company Prep", path: "/dashboard/company-prep", color: "from-teal-500 to-emerald-500", description: "Company Preparation" },
-  { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs", color: "from-blue-500 to-cyan-500", description: "Find Jobs" }
+  { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs", color: "from-blue-500 to-cyan-500", description: "Find Jobs" },
+  { icon: MessageSquare, label: "Chat Forum", path: "/dashboard/forum", color: "from-violet-500 to-purple-600", description: "Connect with the community" }
 ];
 
 

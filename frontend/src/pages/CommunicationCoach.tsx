@@ -150,9 +150,7 @@ const CommunicationCoach = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <Button variant="ghost" onClick={() => navigate('/dashboard')} className="pl-0 hover:bg-transparent text-gray-500 hover:text-gray-900 mb-2">
-                            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
-                        </Button>
+
                         <h1 className="text-3xl font-bold text-gray-900">Communication Coach</h1>
                         <p className="text-gray-500">Refine your speech, grammar, and delivery confidence.</p>
                     </div>

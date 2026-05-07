@@ -8,13 +8,11 @@ import { ForumSidebar } from "@/components/forum/ForumSidebar";
 import { PostCard } from "@/components/forum/PostCard";
 import { CreatePostDialog } from "@/components/forum/CreatePostDialog";
 import { ForumPost } from "@/components/forum/types";
-import { auth } from "@/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com";
+const API_ROOT = (import.meta.env.VITE_API_URL || "https://career-craft-u7fq.onrender.com/api").replace(/\/$/, "");
+const FORUM_API_BASE = API_ROOT.endsWith("/api") ? API_ROOT : `${API_ROOT}/api`;
 
 const Forum = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [mongoUser, setMongoUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<ForumPost[]>([]);
@@ -26,9 +24,14 @@ const Forum = () => {
   const fetchPosts = async () => {
     setIsFetching(true);
     try {
-      let url = `${API_BASE_URL}/api/forum/posts`;
+      if (selectedCategory === "YourPosts" && !mongoUser?._id) {
+        setPosts([]);
+        return;
+      }
+
+      let url = `${FORUM_API_BASE}/forum/posts`;
       if (selectedCategory === "YourPosts" && mongoUser?._id) {
-        url = `${API_BASE_URL}/api/forum/posts/me/${mongoUser._id}`;
+        url = `${FORUM_API_BASE}/forum/posts/me/${mongoUser._id}`;
       } else if (searchQuery) {
         url += `?search=${encodeURIComponent(searchQuery)}`;
       }
@@ -48,17 +51,16 @@ const Forum = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      
+    const loadUser = () => {
       const storedUser = localStorage.getItem("userInfo");
-      if (storedUser) {
-        setMongoUser(JSON.parse(storedUser));
-      }
-      
+      setMongoUser(storedUser ? JSON.parse(storedUser) : null);
       setLoading(false);
-    });
-    return () => unsubscribe();
+    };
+
+    loadUser();
+    window.addEventListener("userInfoUpdated", loadUser);
+
+    return () => window.removeEventListener("userInfoUpdated", loadUser);
   }, []);
 
   useEffect(() => {
@@ -77,39 +79,36 @@ const Forum = () => {
   }, [searchQuery]);
 
   // Handlers
-  const handleCreatePost = async (postDetails: Pick<ForumPost, 'title' | 'content'>) => {
-    if (!user) {
+  const handleCreatePost = async (postDetails: Pick<ForumPost, 'title' | 'content' | 'postType' | 'imageUrl' | 'linkUrl'>) => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+    if (!userInfo?.token) {
       alert("You must be logged in to post.");
-      return;
+      throw new Error("You must be logged in to post.");
     }
 
-    try {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-      const token = userInfo.token;
+    const response = await fetch(`${FORUM_API_BASE}/forum/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${userInfo.token}`
+      },
+      body: JSON.stringify({
+        title: postDetails.title,
+        content: postDetails.content,
+        postType: postDetails.postType ?? "text",
+        imageUrl: postDetails.imageUrl ?? "",
+        linkUrl: postDetails.linkUrl ?? "",
+      }),
+    });
 
-      const response = await fetch(`${API_BASE_URL}/api/forum/posts`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          title: postDetails.title,
-          content: postDetails.content,
-          authorId: mongoUser._id,
-        }),
-      });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.error || "Failed to create post");
+    }
 
-      if (response.ok) {
-        const newPost = await response.json();
-        if (selectedCategory === "Home" || selectedCategory === "YourPosts") {
-          setPosts([newPost, ...posts]);
-        }
-      } else {
-        console.error("Failed to create post");
-      }
-    } catch (error) {
-      console.error("Error creating post:", error);
+    const newPost = await response.json();
+    if (selectedCategory === "Home" || selectedCategory === "YourPosts") {
+      setPosts((currentPosts) => [newPost, ...currentPosts]);
     }
   };
 
@@ -117,20 +116,19 @@ const Forum = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-      const token = userInfo.token;
+      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+      if (!userInfo?.token) return;
 
-      const response = await fetch(`${API_BASE_URL}/api/forum/posts/${postId}`, {
+      const response = await fetch(`${FORUM_API_BASE}/forum/posts/${postId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({ userId: mongoUser?._id }),
+          "Authorization": `Bearer ${userInfo.token}`
+        }
       });
 
       if (response.ok) {
-        setPosts(posts.filter(p => p._id !== postId));
+        setPosts((currentPosts) => currentPosts.filter((p) => p._id !== postId));
       } else {
         console.error("Failed to delete post.");
       }
@@ -209,7 +207,12 @@ const Forum = () => {
               </div>
             ) : (
               posts.map((post) => (
-                <PostCard key={post._id} post={post} onDelete={handleDeletePost} />
+                <PostCard
+                  key={post._id}
+                  post={post}
+                  currentUserId={mongoUser?._id ?? null}
+                  onDelete={handleDeletePost}
+                />
               ))
             )}
           </div>

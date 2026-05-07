@@ -12,6 +12,9 @@ export interface ForumPost {
     _id: string;
     title: string;
     content: string;
+    postType?: "text" | "image" | "link";
+    imageUrl?: string;
+    linkUrl?: string;
     authorId: string;
     authorName: string;
     authorPicture?: string;
