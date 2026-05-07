@@ -12,23 +12,33 @@ const JobPortal: React.FC = () => {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
+    const [jobCount, setJobCount] = useState(0);
+    const [error, setError] = useState<string | null>(null);
 
     const fetchJobs = async (searchQuery?: string) => {
         try {
             setLoading(true);
-            const res = await jobApi.getJobs(searchQuery);
+            // We now always fetch "all" to show everything in one list
+            const res = await jobApi.getJobs(searchQuery, 'all');
+
             if (res.success) {
+                console.log(`[JobPortal] Successfully fetched ${res.count} jobs`);
                 setJobs(res.data);
+                setJobCount(res.count);
+                setError(null);
+            } else {
+                setError("Failed to fetch jobs. Please try again.");
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error fetching jobs:", error);
+            setError(error.message || "An unexpected error occurred while fetching jobs.");
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchJobs();
+        fetchJobs(search);
     }, []);
 
     const handleSearch = (e: React.FormEvent) => {
@@ -45,7 +55,7 @@ const JobPortal: React.FC = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center max-w-3xl mx-auto mb-12 space-y-4"
+                    className="text-center max-w-3xl mx-auto mb-10 space-y-4"
                 >
                     <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 backdrop-blur-sm px-4 py-1">
                         <Sparkles className="w-4 h-4 mr-2" />
@@ -55,16 +65,16 @@ const JobPortal: React.FC = () => {
                         Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">Dream Job</span>
                     </h1>
                     <p className="text-lg text-muted-foreground">
-                        Explore opportunities from top tech companies and startups. Apply directly to secure your future.
+                        Explore opportunities from top Indian companies, Kerala IT parks, and Infopark-listed organizations.
                     </p>
                 </motion.div>
 
-                {/* Search and Filters */}
+                {/* Search */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="max-w-4xl mx-auto mb-10"
+                    className="max-w-4xl mx-auto mb-8"
                 >
                     <form onSubmit={handleSearch} className="relative flex items-center gap-2 max-w-2xl mx-auto">
                         <div className="relative flex-1 group">
@@ -82,6 +92,34 @@ const JobPortal: React.FC = () => {
                     </form>
                 </motion.div>
 
+                {/* Results count */}
+                {!loading && jobs.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="max-w-4xl mx-auto mb-4"
+                    >
+                        <p className="text-sm text-muted-foreground">
+                            Showing <span className="font-semibold text-foreground">{jobCount}</span> {jobCount === 1 ? 'opportunity' : 'opportunities'}
+                            {search && <> matching "<span className="font-medium">{search}</span>"</>}
+                        </p>
+                    </motion.div>
+                )}
+
+                {/* Error Message */}
+                {error && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="max-w-4xl mx-auto mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-xl text-destructive text-center"
+                    >
+                        <p>{error}</p>
+                        <Button variant="outline" size="sm" className="mt-2 border-destructive/30 hover:bg-destructive/5" onClick={() => fetchJobs(search)}>
+                            Retry
+                        </Button>
+                    </motion.div>
+                )}
+
                 {/* Job Listings Loop */}
                 <div className="max-w-4xl mx-auto space-y-6">
                     <AnimatePresence mode="wait">
@@ -94,7 +132,9 @@ const JobPortal: React.FC = () => {
                                 className="flex flex-col items-center justify-center py-20"
                             >
                                 <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
-                                <p className="text-muted-foreground animate-pulse">Fetching latest opportunities...</p>
+                                <p className="text-muted-foreground animate-pulse">
+                                    Fetching latest opportunities from India and Infopark Kerala...
+                                </p>
                             </motion.div>
                         ) : jobs.length > 0 ? (
                             <motion.div key="list" className="space-y-4">
@@ -116,7 +156,7 @@ const JobPortal: React.FC = () => {
                                     <Search className="w-8 h-8 text-muted-foreground" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">No jobs found</h3>
-                                <p className="text-muted-foreground">Try adjusting your search criteria.</p>
+                                <p className="text-muted-foreground">Try adjusting your search criteria or checking back later.</p>
                                 <Button variant="outline" className="mt-6" onClick={() => { setSearch(''); fetchJobs(''); }}>
                                     Clear Search
                                 </Button>
@@ -124,6 +164,7 @@ const JobPortal: React.FC = () => {
                         )}
                     </AnimatePresence>
                 </div>
+
             </main>
         </div>
     );

@@ -91,7 +91,7 @@ const CompanyDetails = () => {
 
     if (isLoading) {
         return (
-            <div className="flex-1 p-6 md:p-8 pt-20 lg:pt-8 min-h-screen flex items-center justify-center">
+            <div className="flex-1 p-6 md:p-8 min-h-screen flex items-center justify-center">
                 <div className="flex flex-col justify-center items-center space-y-4">
                     <Loader2 className="w-10 h-10 text-primary animate-spin" />
                     <p className="text-muted-foreground animate-pulse">Loading {company?.name} materials...</p>
@@ -103,17 +103,12 @@ const CompanyDetails = () => {
     if (!company) return <div>Company not found</div>;
 
     return (
-        <div className="flex-1 p-6 md:p-8 pt-20 lg:pt-8 min-h-screen">
+        <div className="flex-1 p-6 md:p-8 min-h-screen">
             <div className="max-w-6xl mx-auto space-y-8">
 
                 {/* Navigation & Header */}
                 <div className="space-y-6">
-                    <Link to="/dashboard/company-prep">
-                        <Button variant="ghost" className="pl-0 hover:bg-transparent text-muted-foreground hover:text-foreground group">
-                            <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
-                            Back to Companies
-                        </Button>
-                    </Link>
+
 
                     <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-end bg-card/40 backdrop-blur-md p-6 rounded-3xl border border-border/40 shadow-sm relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />

@@ -409,11 +409,25 @@ const DashboardLayout = () => {
         </aside>
       )}
 
+      {/* Top Navigation Bar (Visible when sidebar is hidden) */}
+      {hideSidebar && (
+        <div className="fixed top-0 left-0 right-0 h-14 bg-card/70 backdrop-blur-xl border-b border-border/40 z-[100] flex items-center px-4 shadow-sm animate-in fade-in slide-in-from-top-4 duration-500">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/dashboard")}
+            className="bg-card/40 backdrop-blur-md border-border/40 hover:bg-accent group shadow-lg rounded-full px-4 h-9 flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+          >
+            <LayoutDashboard className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-semibold">Back to Dashboard</span>
+          </Button>
+        </div>
+      )}
+
       {/* Main Content */}
       <main className={cn(
         "transition-all duration-300 min-h-screen",
-        !hideSidebar && "pt-14 lg:pt-0", // Account for mobile header
-        isTauri && "lg:pt-12", // Account for desktop top bar
+        (!hideSidebar || hideSidebar) && (isTauri ? "pt-12" : (hideSidebar ? "pt-14" : "pt-14 lg:pt-0")),
         !hideSidebar && (collapsed ? "lg:ml-16" : "lg:ml-64")
       )}>
         <Outlet />

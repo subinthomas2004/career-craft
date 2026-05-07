@@ -40,12 +40,7 @@ const QuizSelection = () => {
   return (
     <div className="p-4 sm:p-6 lg:p-10 min-h-screen bg-gray-50/50">
       <div className="max-w-5xl mx-auto">
-        <div className="mb-8">
-          <Link to="/dashboard" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group">
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            Back to Dashboard
-          </Link>
-        </div>
+
 
         <div className="text-center mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">

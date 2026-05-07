@@ -1,12 +1,36 @@
 import axios from 'axios';
+import { scrapeInfoparkJobs } from '../services/infoparkService.js';
 
+/**
+ * Get all jobs — combines JSearch API (India-focused) + Infopark scraped jobs + fallback mock data
+ */
 export const getJobs = async (req, res) => {
     try {
         const rapidApiKey = process.env.RAPIDAPI_KEY;
-        console.log(`[JobPortal] RAPIDAPI_KEY present: ${!!rapidApiKey}, length: ${rapidApiKey ? rapidApiKey.length : 0}`);
+        const searchQuery = req.query.search || '';
+        const sourceFilter = req.query.source || 'all'; // 'all', 'infopark', 'other'
+        console.log(`[JobPortal] Search: "${searchQuery}", Source: "${sourceFilter}", RAPIDAPI_KEY present: ${!!rapidApiKey}`);
 
-        if (rapidApiKey) {
-            const query = req.query.search || 'Software Engineer';
+        let jsearchJobs = [];
+        let infoparkJobs = [];
+
+        // --- Source 1: Infopark Scraper (Kerala jobs) ---
+        if (sourceFilter === 'all' || sourceFilter === 'infopark') {
+            try {
+                infoparkJobs = await scrapeInfoparkJobs();
+                console.log(`[JobPortal] Got ${infoparkJobs.length} Infopark jobs`);
+            } catch (infoparkError) {
+                console.error('[JobPortal] Infopark scraping failed:', infoparkError.message);
+            }
+        }
+
+        // --- Source 2: JSearch API (India-focused) ---
+        if ((sourceFilter === 'all' || sourceFilter === 'other') && rapidApiKey) {
+            // Append "India" to make results India-focused
+            const query = searchQuery
+                ? `${searchQuery} India Kerala`
+                : 'Software Engineer India Kerala';
+
             const options = {
                 method: 'GET',
                 url: 'https://jsearch.p.rapidapi.com/search',
@@ -25,140 +49,243 @@ export const getJobs = async (req, res) => {
             try {
                 const response = await axios.request(options);
 
-                // Map the JSearch response to our frontend expected format
                 if (response.data && response.data.data) {
-                    const apiJobs = response.data.data.map((job, index) => ({
+                    jsearchJobs = response.data.data.map((job, index) => ({
                         id: job.job_id || `api_job_${index}`,
                         title: job.job_title,
                         company: job.employer_name,
-                        location: `${job.job_city || ''}, ${job.job_state || ''} ${job.job_is_remote ? '(Remote)' : ''}`.trim() || job.job_country || 'Unknown',
+                        location: `${job.job_city || ''}, ${job.job_state || ''} ${job.job_is_remote ? '(Remote)' : ''}`.trim() || job.job_country || 'India',
                         type: job.job_employment_type || 'Full-Time',
                         experience: job.job_required_experience?.required_experience_in_months ? `${Math.floor(job.job_required_experience.required_experience_in_months / 12)} years` : 'Not specified',
-                        salary: (job.job_min_salary && job.job_max_salary) ? `$${job.job_min_salary} - $${job.job_max_salary}` : (job.job_salary_currency ? 'Competitive' : 'Not Disclosed'),
-                        postedDate: new Date(job.job_posted_at_datetime_utc).toLocaleDateString(),
+                        salary: (job.job_min_salary && job.job_max_salary)
+                            ? `₹${(job.job_min_salary).toLocaleString('en-IN')} - ₹${(job.job_max_salary).toLocaleString('en-IN')}`
+                            : (job.job_salary_currency ? 'Competitive' : 'Not Disclosed'),
+                        postedDate: new Date(job.job_posted_at_datetime_utc).toLocaleDateString('en-IN'),
                         description: job.job_description ? job.job_description.substring(0, 200) + '...' : 'No description available.',
                         requirements: job.job_highlights?.Qualifications || ['See full description for requirements'],
                         applyLink: job.job_apply_link,
-                        logo: job.employer_logo || (job.employer_website ? `https://logo.clearbit.com/${job.employer_website.replace(/^https?:\/\//, '')}` : null)
+                        logo: job.employer_logo || (job.employer_website ? `https://logo.clearbit.com/${job.employer_website.replace(/^https?:\/\//, '')}` : null),
+                        source: 'jsearch',
+                        campus: null,
                     }));
-
-                    return res.status(200).json({ success: true, count: apiJobs.length, data: apiJobs });
                 }
             } catch (apiError) {
-                console.error("JSearch API Error, falling back to mock data:", apiError.message);
-                if (apiError.response) {
-                    console.error("JSearch API Response Status:", apiError.response.status);
-                    console.error("JSearch API Response Data:", JSON.stringify(apiError.response.data));
-                }
-                // Fallthrough to mock data below
+                console.error("[JobPortal] JSearch API Error:", apiError.message);
             }
         }
 
-        // Mock realistic job data (Fallback since no API key is provided yet or if API fails)
-        const jobs = [
-            {
-                id: "job_1",
-                title: "Frontend Developer",
-                company: "Google",
-                location: "Mountain View, CA (Hybrid)",
-                type: "Full-Time",
-                experience: "Entry Level",
-                salary: "$110,000 - $140,000",
-                postedDate: "2 hours ago",
-                description: "Join our core team to build responsive and accessible web interfaces. You will work closely with designers and product managers to deliver high-quality visual experiences.",
-                requirements: ["React", "TypeScript", "Tailwind CSS"],
-                applyLink: "https://careers.google.com/",
-                logo: "https://logo.clearbit.com/google.com"
-            },
-            {
-                id: "job_2",
-                title: "Backend Engineer",
-                company: "Spotify",
-                location: "New York, NY (Remote)",
-                type: "Full-Time",
-                experience: "Mid Level",
-                salary: "$130,000 - $160,000",
-                postedDate: "1 day ago",
-                description: "Help us scale our streaming infrastructure to serve millions of users globally. You will design, build, and deploy high-performance backend microservices.",
-                requirements: ["Node.js", "Express", "MongoDB", "Redis"],
-                applyLink: "https://lifeatspotify.com/jobs",
-                logo: "https://logo.clearbit.com/spotify.com"
-            },
-            {
-                id: "job_3",
-                title: "Data Scientist Intern",
-                company: "Microsoft",
-                location: "Redmond, WA (On-site)",
-                type: "Internship",
-                experience: "Student",
-                salary: "$8,000/month",
-                postedDate: "3 days ago",
-                description: "Work with massive datasets to build predictive models and extract actionable insights. Mentorship provided by Senior Data Scientists.",
-                requirements: ["Python", "Machine Learning", "SQL", "Pandas"],
-                applyLink: "https://careers.microsoft.com/students/us/en",
-                logo: "https://logo.clearbit.com/microsoft.com"
-            },
-            {
-                id: "job_4",
-                title: "Full Stack Developer",
-                company: "Netflix",
-                location: "Los Gatos, CA",
-                type: "Contract",
-                experience: "Senior Level",
-                salary: "$150,000 - $180,000",
-                postedDate: "1 week ago",
-                description: "Develop enterprise tools for our internal content production teams. You will have full ownership of features from database schema to UI components.",
-                requirements: ["React", "Node.js", "GraphQL", "PostgreSQL"],
-                applyLink: "https://jobs.netflix.com/",
-                logo: "https://logo.clearbit.com/netflix.com"
-            },
-            {
-                id: "job_5",
-                title: "Cloud Architect",
-                company: "Amazon",
-                location: "Seattle, WA (Hybrid)",
-                type: "Full-Time",
-                experience: "Senior Level",
-                salary: "$160,000 - $200,000",
-                postedDate: "Just now",
-                description: "Design and implement secure, highly available, and scalable cloud infrastructure for our enterprise clients.",
-                requirements: ["AWS", "Terraform", "Kubernetes", "Docker"],
-                applyLink: "https://amazon.jobs/en/",
-                logo: "https://logo.clearbit.com/amazon.com"
-            },
-            {
-                id: "job_6",
-                title: "UI/UX Designer",
-                company: "Apple",
-                location: "Cupertino, CA",
-                type: "Full-Time",
-                experience: "Mid Level",
-                salary: "$120,000 - $160,000",
-                postedDate: "5 hours ago",
-                description: "Create intuitive and beautiful interfaces for the next generation of Apple software products. Prototype and test features directly with users.",
-                requirements: ["Figma", "Prototyping", "User Research"],
-                applyLink: "https://jobs.apple.com/en-us/search?sort=relevance&search=UI%2FUX",
-                logo: "https://logo.clearbit.com/apple.com"
-            }
-        ];
+        // --- Fallback: Indian mock data if both sources return empty ---
+        if (jsearchJobs.length === 0 && infoparkJobs.length === 0) {
+            console.log('[JobPortal] Both sources empty, using Indian fallback data');
+            const mockJobs = getIndianMockJobs();
 
-        // Ensure we handle query params nicely if a frontend wants to filter
-        let filteredJobs = [...jobs];
-        if (req.query.search) {
-            const query = req.query.search.toLowerCase();
-            filteredJobs = filteredJobs.filter(job =>
-                job.title.toLowerCase().includes(query) ||
-                job.company.toLowerCase().includes(query)
+            // Apply search filter to mock data
+            let filteredMock = [...mockJobs];
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filteredMock = filteredMock.filter(job =>
+                    job.title.toLowerCase().includes(q) ||
+                    job.company.toLowerCase().includes(q) ||
+                    job.location.toLowerCase().includes(q)
+                );
+            }
+
+            return res.status(200).json({ success: true, count: filteredMock.length, data: filteredMock });
+        }
+
+        // --- Combine and filter results ---
+        let allJobs = [...jsearchJobs, ...infoparkJobs];
+
+        // Apply search filter
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            allJobs = allJobs.filter(job =>
+                job.title.toLowerCase().includes(q) ||
+                job.company.toLowerCase().includes(q) ||
+                job.location.toLowerCase().includes(q)
             );
         }
 
-        // Simulating network delay to make loading states visible in UI
-        setTimeout(() => {
-            res.status(200).json({ success: true, count: filteredJobs.length, data: filteredJobs });
-        }, 800);
+        // Apply campus filter if provided
+        const campusFilter = req.query.campus;
+        if (campusFilter) {
+            allJobs = allJobs.filter(job =>
+                job.campus && job.campus.toLowerCase().includes(campusFilter.toLowerCase())
+            );
+        }
+
+        res.status(200).json({ success: true, count: allJobs.length, data: allJobs });
 
     } catch (error) {
         console.error("Error fetching jobs:", error);
         res.status(500).json({ success: false, message: "Error fetching jobs" });
     }
 };
+
+/**
+ * Get only Infopark jobs
+ */
+export const getInfoparkJobs = async (req, res) => {
+    try {
+        const jobs = await scrapeInfoparkJobs();
+        const searchQuery = req.query.search || '';
+        const campusFilter = req.query.campus || '';
+
+        let filtered = [...jobs];
+
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            filtered = filtered.filter(job =>
+                job.title.toLowerCase().includes(q) ||
+                job.company.toLowerCase().includes(q)
+            );
+        }
+
+        if (campusFilter) {
+            filtered = filtered.filter(job =>
+                job.campus && job.campus.toLowerCase().includes(campusFilter.toLowerCase())
+            );
+        }
+
+        res.status(200).json({ success: true, count: filtered.length, data: filtered });
+    } catch (error) {
+        console.error("Error fetching Infopark jobs:", error);
+        res.status(500).json({ success: false, message: "Error fetching Infopark jobs" });
+    }
+};
+
+/**
+ * Indian company fallback mock data — used when APIs/scraping fail
+ */
+function getIndianMockJobs() {
+    return [
+        {
+            id: "mock_1",
+            title: "React Developer",
+            company: "UST",
+            location: "Thiruvananthapuram, Kerala (Hybrid)",
+            type: "Full-Time",
+            experience: "2-4 years",
+            salary: "₹6,00,000 - ₹10,00,000",
+            postedDate: "2 hours ago",
+            description: "Join our frontend engineering team to build modern, responsive web applications for global clients. Work with React, TypeScript, and cutting-edge web technologies.",
+            requirements: ["React", "TypeScript", "JavaScript", "REST APIs"],
+            applyLink: "https://www.ust.com/en/careers",
+            logo: "https://logo.clearbit.com/ust.com",
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_2",
+            title: "Software Engineer",
+            company: "Infosys",
+            location: "Thiruvananthapuram, Kerala",
+            type: "Full-Time",
+            experience: "Entry Level",
+            salary: "₹3,60,000 - ₹5,00,000",
+            postedDate: "1 day ago",
+            description: "Exciting opportunity for fresh graduates to join Infosys's Trivandrum campus. Work on enterprise-scale digital transformation projects for Fortune 500 clients.",
+            requirements: ["Java", "Python", "SQL", "Problem Solving"],
+            applyLink: "https://www.infosys.com/careers",
+            logo: "https://logo.clearbit.com/infosys.com",
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_3",
+            title: "Full Stack Developer",
+            company: "TCS",
+            location: "Kochi, Kerala (Hybrid)",
+            type: "Full-Time",
+            experience: "1-3 years",
+            salary: "₹4,50,000 - ₹8,00,000",
+            postedDate: "3 days ago",
+            description: "TCS is looking for talented full-stack developers for their Kochi delivery center. Build scalable web applications using the latest technologies.",
+            requirements: ["Node.js", "React", "MongoDB", "Express"],
+            applyLink: "https://www.tcs.com/careers",
+            logo: "https://logo.clearbit.com/tcs.com",
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_4",
+            title: "DevOps Engineer",
+            company: "IBS Software",
+            location: "Thiruvananthapuram, Kerala",
+            type: "Full-Time",
+            experience: "3-5 years",
+            salary: "₹8,00,000 - ₹14,00,000",
+            postedDate: "5 hours ago",
+            description: "IBS Software is hiring DevOps engineers to support cloud-native aviation and hospitality platforms. Work with AWS, Kubernetes, and CI/CD pipelines.",
+            requirements: ["AWS", "Docker", "Kubernetes", "Jenkins", "Terraform"],
+            applyLink: "https://www.ibsplc.com/careers",
+            logo: "https://logo.clearbit.com/ibsplc.com",
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_5",
+            title: "Data Analyst",
+            company: "Envestnet",
+            location: "Trivandrum, Kerala",
+            type: "Full-Time",
+            experience: "2-4 years",
+            salary: "₹7,00,000 - ₹12,00,000",
+            postedDate: "1 week ago",
+            description: "Analyze large-scale financial datasets and build dashboards for wealth management solutions. Work with a collaborative global team from our Trivandrum office.",
+            requirements: ["Python", "SQL", "Tableau", "Machine Learning"],
+            applyLink: "https://www.envestnet.com/careers",
+            logo: "https://logo.clearbit.com/envestnet.com",
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_6",
+            title: "UI/UX Designer",
+            company: "QBurst",
+            location: "Thiruvananthapuram, Kerala",
+            type: "Full-Time",
+            experience: "1-3 years",
+            salary: "₹4,00,000 - ₹7,00,000",
+            postedDate: "Just now",
+            description: "Design intuitive and beautiful user interfaces for web and mobile applications. Join one of Kerala's top product development companies.",
+            requirements: ["Figma", "Adobe XD", "Prototyping", "User Research"],
+            applyLink: "https://www.qburst.com/en-in/careers/",
+            logo: "https://logo.clearbit.com/qburst.com",
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_7",
+            title: "Python Developer",
+            company: "Travancore Analytics",
+            location: "Technopark, Trivandrum, Kerala",
+            type: "Full-Time",
+            experience: "2-5 years",
+            salary: "₹5,00,000 - ₹9,00,000",
+            postedDate: "4 hours ago",
+            description: "Build AI/ML-powered applications and backend services. Travancore Analytics specializes in AI solutions and is looking for skilled Python developers.",
+            requirements: ["Python", "Django", "FastAPI", "Machine Learning"],
+            applyLink: "https://www.travancoreanalytics.com/career",
+            logo: null,
+            source: "featured",
+            campus: null,
+        },
+        {
+            id: "mock_8",
+            title: "Mobile App Developer",
+            company: "Fingent",
+            location: "Infopark Kochi, Kerala",
+            type: "Full-Time",
+            experience: "1-3 years",
+            salary: "₹5,00,000 - ₹8,00,000",
+            postedDate: "2 days ago",
+            description: "Develop cross-platform mobile applications using React Native and Flutter. Fingent is a leading custom software development company based in Infopark Kochi.",
+            requirements: ["React Native", "Flutter", "Dart", "Mobile UI"],
+            applyLink: "https://www.fingent.com/careers/",
+            logo: "https://logo.clearbit.com/fingent.com",
+            source: "featured",
+            campus: "Infopark Kochi",
+        },
+    ];
+}

@@ -156,12 +156,7 @@ const CodingProblemsListPage = () => {
             {/* Header */}
             <div className="mb-6 sm:mb-8">
                 <div className="flex items-center gap-3 mb-2">
-                    <Link
-                        to="/dashboard/coding"
-                        className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                        <ArrowLeft className="w-5 h-5" />
-                    </Link>
+
                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${lang.gradient} flex items-center justify-center shadow-lg`}>
                         <span className="text-xl sm:text-2xl">{lang.icon}</span>
                     </div>

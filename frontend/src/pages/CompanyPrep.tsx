@@ -42,7 +42,7 @@ const CompanyPrep = () => {
     );
 
     return (
-        <div className="flex-1 p-6 md:p-8 pt-20 lg:pt-8 min-h-screen">
+        <div className="flex-1 p-6 md:p-8 min-h-screen">
             <div className="max-w-6xl mx-auto space-y-8">
 
                 {/* Header Section */}

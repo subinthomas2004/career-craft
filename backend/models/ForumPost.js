@@ -8,7 +8,20 @@ const forumPostSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    required: true
+    default: ""
+  },
+  postType: {
+    type: String,
+    enum: ["text", "image", "link"],
+    default: "text"
+  },
+  imageUrl: {
+    type: String,
+    default: ""
+  },
+  linkUrl: {
+    type: String,
+    default: ""
   },
   authorId: {
     type: String, // Storing Firebase uid usually in this project, or object id

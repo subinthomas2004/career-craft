@@ -18,12 +18,7 @@ const AptitudeQuiz = () => {
 
     return (
         <div className="min-h-screen p-6 lg:p-10 animate-in fade-in duration-500">
-            <div className="max-w-4xl mx-auto mb-8">
-                <Link to="/dashboard/quiz" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group">
-                    <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                    Back to Quiz Selection
-                </Link>
-            </div>
+
             {/* Header */}
             <div className="text-center mb-12 mx-auto max-w-2xl">
                 <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">

@@ -1,6 +1,15 @@
 import ForumPost from '../models/ForumPost.js';
 import ForumComment from '../models/ForumComment.js';
-import User from '../models/User.js';
+import fs from 'fs';
+import path from 'path';
+
+const buildPostResponse = async (post) => {
+    const commentCount = await ForumComment.countDocuments({ postId: post._id });
+    return {
+        ...post.toObject(),
+        commentCount
+    };
+};
 
 // Get all posts, optionally filtered by search term, sorted by likes
 export const getPosts = async (req, res) => {
@@ -17,16 +26,9 @@ export const getPosts = async (req, res) => {
             };
         }
 
-        const posts = await ForumPost.find(query).sort({ likes: -1, createdAt: -1 });
+        const posts = await ForumPost.find(query).sort({ createdAt: -1 });
 
-        // Add comment count to each post
-        const postsWithCommentCount = await Promise.all(posts.map(async (post) => {
-            const commentCount = await ForumComment.countDocuments({ postId: post._id });
-            return {
-                ...post.toObject(),
-                commentCount
-            };
-        }));
+        const postsWithCommentCount = await Promise.all(posts.map(buildPostResponse));
 
         res.status(200).json(postsWithCommentCount);
     } catch (error) {
@@ -43,14 +45,8 @@ export const getMyPosts = async (req, res) => {
         }
 
         const posts = await ForumPost.find({ authorId: userId }).sort({ createdAt: -1 });
-        
-        const postsWithCommentCount = await Promise.all(posts.map(async (post) => {
-            const commentCount = await ForumComment.countDocuments({ postId: post._id });
-            return {
-                ...post.toObject(),
-                commentCount
-            };
-        }));
+
+        const postsWithCommentCount = await Promise.all(posts.map(buildPostResponse));
 
         res.status(200).json(postsWithCommentCount);
     } catch (error) {
@@ -61,29 +57,46 @@ export const getMyPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
     try {
-        const { title, content, authorId } = req.body;
+        const normalizedTitle = req.body.title?.trim();
+        const normalizedContent = req.body.content?.trim() || "";
+        const postType = req.body.postType || 'text';
+        const imageUrl = req.body.imageUrl?.trim() || "";
+        const linkUrl = req.body.linkUrl?.trim() || "";
 
-        if (!title || !content || !authorId) {
+        if (!normalizedTitle) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        // Fetch user details from MongoDB to ensure consistency
-        const user = await User.findById(authorId);
-        if (!user) {
-            return res.status(404).json({ error: 'User not found in profile database' });
+        if (postType === 'text' && !normalizedContent) {
+            return res.status(400).json({ error: 'Text posts require content' });
+        }
+
+        if (postType === 'image' && !imageUrl) {
+            return res.status(400).json({ error: 'Image posts require an uploaded image' });
+        }
+
+        if (postType === 'link' && !linkUrl) {
+            return res.status(400).json({ error: 'Link posts require a URL' });
+        }
+
+        if (!req.user) {
+            return res.status(401).json({ error: 'Not authorized' });
         }
 
         const newPost = new ForumPost({
-            title,
-            content,
-            authorId,
-            authorName: user.name,
-            authorPicture: user.profilePicture || "",
+            title: normalizedTitle,
+            content: normalizedContent,
+            postType,
+            imageUrl,
+            linkUrl,
+            authorId: req.user._id.toString(),
+            authorName: req.user.name,
+            authorPicture: req.user.profilePicture || "",
             likes: []
         });
 
         const savedPost = await newPost.save();
-        res.status(201).json(savedPost);
+        res.status(201).json(await buildPostResponse(savedPost));
     } catch (error) {
         console.error('Error creating post:', error);
         res.status(500).json({ error: 'Failed to create post' });
@@ -93,20 +106,21 @@ export const createPost = async (req, res) => {
 export const deletePost = async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req.body; // or req.user if using auth middleware
 
         const post = await ForumPost.findById(id);
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        // Optional: Check if the user is the author
-        // if (post.authorId !== userId) {
-        //    return res.status(403).json({ error: 'Unauthorized to delete this post' });
-        // }
+        if (!req.user) {
+            return res.status(401).json({ error: 'Not authorized' });
+        }
+
+        if (post.authorId !== req.user._id.toString() && req.user.role !== 'admin') {
+            return res.status(403).json({ error: 'Unauthorized to delete this post' });
+        }
 
         await ForumPost.findByIdAndDelete(id);
-        // Delete associated comments
         await ForumComment.deleteMany({ postId: id });
 
         res.status(200).json({ message: 'Post deleted successfully' });
@@ -119,10 +133,8 @@ export const deletePost = async (req, res) => {
 export const toggleLike = async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req.body;
-
-        if (!userId) {
-            return res.status(400).json({ error: 'User ID is required to like a post' });
+        if (!req.user) {
+            return res.status(401).json({ error: 'Not authorized' });
         }
 
         const post = await ForumPost.findById(id);
@@ -130,6 +142,7 @@ export const toggleLike = async (req, res) => {
             return res.status(404).json({ error: 'Post not found' });
         }
 
+        const userId = req.user._id.toString();
         const hasLiked = post.likes.includes(userId);
         
         if (hasLiked) {
@@ -141,7 +154,7 @@ export const toggleLike = async (req, res) => {
         }
 
         await post.save();
-        res.status(200).json(post);
+        res.status(200).json(await buildPostResponse(post));
     } catch (error) {
         console.error('Error toggling like:', error);
         res.status(500).json({ error: 'Failed to toggle like' });
@@ -150,8 +163,8 @@ export const toggleLike = async (req, res) => {
 
 export const getComments = async (req, res) => {
     try {
-        const { postId } = req.params;
-        const comments = await ForumComment.find({ postId }).sort({ createdAt: 1 });
+        const { id } = req.params;
+        const comments = await ForumComment.find({ postId: id }).sort({ createdAt: 1 });
         res.status(200).json(comments);
     } catch (error) {
         console.error('Error fetching comments:', error);
@@ -161,31 +174,28 @@ export const getComments = async (req, res) => {
 
 export const addComment = async (req, res) => {
     try {
-        const { postId } = req.params;
-        const { content, authorId } = req.body;
+        const { id } = req.params;
+        const normalizedContent = req.body.content?.trim();
 
-        if (!content || !authorId) {
+        if (!normalizedContent) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        // Verify post exists
-        const post = await ForumPost.findById(postId);
+        if (!req.user) {
+            return res.status(401).json({ error: 'Not authorized' });
+        }
+
+        const post = await ForumPost.findById(id);
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        // Fetch user details from MongoDB
-        const user = await User.findById(authorId);
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
         const newComment = new ForumComment({
-            postId,
-            authorId,
-            authorName: user.name,
-            authorPicture: user.profilePicture || "",
-            content
+            postId: id,
+            authorId: req.user._id.toString(),
+            authorName: req.user.name,
+            authorPicture: req.user.profilePicture || "",
+            content: normalizedContent
         });
 
         const savedComment = await newComment.save();
@@ -193,5 +203,36 @@ export const addComment = async (req, res) => {
     } catch (error) {
         console.error('Error adding comment:', error);
         res.status(500).json({ error: 'Failed to add comment' });
+    }
+};
+
+export const uploadPostImage = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Not authorized' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image uploaded' });
+        }
+
+        const uploadsRoot = path.join(path.resolve(), 'uploads', 'forum');
+        if (!fs.existsSync(uploadsRoot)) {
+            fs.mkdirSync(uploadsRoot, { recursive: true });
+        }
+
+        const extension = path.extname(req.file.originalname) || '.jpg';
+        const safeExtension = extension.toLowerCase();
+        const fileName = `forum-${req.user._id}-${Date.now()}${safeExtension}`;
+        const filePath = path.join(uploadsRoot, fileName);
+
+        fs.writeFileSync(filePath, req.file.buffer);
+
+        res.status(201).json({
+            imageUrl: `/uploads/forum/${fileName}`
+        });
+    } catch (error) {
+        console.error('Error uploading forum image:', error);
+        res.status(500).json({ error: 'Failed to upload image' });
     }
 };
