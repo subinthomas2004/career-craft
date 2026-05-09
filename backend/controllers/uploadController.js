@@ -76,7 +76,11 @@ export const parseResume = async (req, res) => {
     }
   ]
 }
-If a field is not found, leave it as an empty string or empty array. Treat 'Profile', 'Objective', or 'About Me' as 'summary'. Do NOT wrap in markdown block.`
+IMPORTANT:
+1. Treat 'Profile', 'Objective', 'About Me', or any introductory text as 'summary'.
+2. Treat 'Academic Projects', 'Personal Projects', or 'Other Projects' as 'projects'.
+3. Extract ALL education details into 'education' (e.g., Btech, High School).
+4. If a field is not found, leave it as an empty string or empty array. Do NOT wrap in a markdown block.`
                     },
                     {
                         role: "user",
@@ -163,7 +167,11 @@ export const parseProfileResume = async (req, res) => {
     }
   ]
 }
-If a field is not found, leave it as an empty string or empty array. Treat 'Profile', 'Objective', or 'About Me' as 'summary'. Do NOT wrap in markdown block.`
+IMPORTANT:
+1. Treat 'Profile', 'Objective', 'About Me', or any introductory text as 'summary'.
+2. Treat 'Academic Projects', 'Personal Projects', or 'Other Projects' as 'projects'.
+3. Extract ALL education details into 'education' (e.g., Btech, High School).
+4. If a field is not found, leave it as an empty string or empty array. Do NOT wrap in a markdown block.`
                     },
                     {
                         role: "user",

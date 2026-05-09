@@ -1,7 +1,9 @@
 import express from "express";
-import { testGroqConnection, generateInterviewQuestion, analyzeCodeSubmission, generateReport, generateDebateResponse, generateGroupDiscussionTopic, generateGDResponse, analyzeSpeech, evaluateDebate, generateResumeBullet, analyzeResumeATS, analyzeSkillGap, generateSoftSkillsTips, analyzeCodingPractice, analyzeRole } from "../controllers/groqController.js";
+import { testGroqConnection, generateInterviewQuestion, analyzeCodeSubmission, generateReport, generateDebateResponse, generateGroupDiscussionTopic, generateGDResponse, analyzeSpeech, evaluateDebate, generateResumeBullet, analyzeResumeATS, analyzeSkillGap, generateSoftSkillsTips, analyzeCodingPractice, analyzeRole, handleChat } from "../controllers/groqController.js";
 
 const router = express.Router();
+
+router.post("/chat", handleChat);
 
 router.post("/test", testGroqConnection);
 router.post("/interview/question", generateInterviewQuestion);

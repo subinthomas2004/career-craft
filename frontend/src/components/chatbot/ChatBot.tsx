@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -9,20 +11,10 @@ interface Message {
   role: "user" | "assistant";
   timestamp: Date;
 }
-const mockResponses: Record<string, string> = {
-  interview: "For interview preparation, I recommend:\n\n1. **Practice common questions** - Start with behavioral questions like 'Tell me about yourself'\n2. **Mock interviews** - Use our AI Mock Interview feature\n3. **Research the company** - Understand their values and culture\n4. **Prepare questions** - Have thoughtful questions for the interviewer",
-  resume: "To improve your resume:\n\n1. **Use action verbs** - Start bullet points with strong verbs\n2. **Quantify achievements** - Add numbers and metrics\n3. **Tailor for each job** - Customize for the position\n4. **Use our Resume Analyzer** - Get instant ATS optimization tips",
-  coding: "For coding practice:\n\n1. **Start with fundamentals** - Arrays, strings, hash maps\n2. **Practice daily** - Consistency is key\n3. **Understand patterns** - Learn common problem-solving patterns\n4. **Use our Coding Practice** - Solve problems with test cases",
-  default: "I'm your CareerCraft AI assistant! I can help you with:\n\n• **Interview preparation** tips and strategies\n• **Resume optimization** guidance\n• **Coding practice** recommendations\n• **Career advice** and planning\n\nWhat would you like to know?"
-};
-const getResponse = (message: string): string => {
-  const lower = message.toLowerCase();
-  if (lower.includes("interview")) return mockResponses.interview;
-  if (lower.includes("resume") || lower.includes("cv")) return mockResponses.resume;
-  if (lower.includes("coding") || lower.includes("code") || lower.includes("programming")) return mockResponses.coding;
-  return mockResponses.default;
-};
 const ChatBot = () => {
+  const location = useLocation();
+  const isVisible = location.pathname === "/" || location.pathname === "/dashboard";
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([{
     id: "1",
@@ -38,7 +30,7 @@ const ChatBot = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -47,21 +39,33 @@ const ChatBot = () => {
       timestamp: new Date()
     };
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = input;
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI response delay
-    setTimeout(() => {
+    try {
+      const { data } = await api.post("/groq/chat", { message: currentInput });
       const response: Message = {
         id: (Date.now() + 1).toString(),
-        content: getResponse(input),
+        content: data.response,
         role: "assistant",
         timestamp: new Date()
       };
       setMessages(prev => [...prev, response]);
+    } catch (err) {
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "Sorry, I'm having trouble connecting right now. Please try again later.",
+        role: "assistant",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    }
   };
+
+  if (!isVisible) return null;
   return <>
       {/* Chat Button */}
       <button onClick={() => setIsOpen(true)} className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center ${isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"}`}>

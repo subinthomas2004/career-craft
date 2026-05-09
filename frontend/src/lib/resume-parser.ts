@@ -45,6 +45,9 @@ function mapGroqDataToResumeData(aiData: any, rawText: string): ResumeData {
     if (aiData.location) resume.contact.location = aiData.location;
 
     if (aiData.summary) resume.summary = aiData.summary;
+    else if (aiData.profile) resume.summary = aiData.profile;
+    else if (aiData.objective) resume.summary = aiData.objective;
+    else if (aiData.about) resume.summary = aiData.about;
 
     if (Array.isArray(aiData.skills)) {
         resume.skills = aiData.skills.map((skill: any, i: number) => ({

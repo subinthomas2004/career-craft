@@ -1,5 +1,5 @@
 import { HomeCarousel } from "@/components/landing/HomeCarousel";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "@/components/ui/feature-card";
 import Navbar from "@/components/layout/Navbar";
@@ -47,6 +47,14 @@ const features = [{
 
 const Landing = () => {
   const [splineLoaded, setSplineLoaded] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background overflow-hidden relative">

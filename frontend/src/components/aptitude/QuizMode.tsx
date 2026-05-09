@@ -13,7 +13,7 @@ import {
     Target,
     Loader2,
     AlertCircle,
-    ArrowLeft,
+    ArrowLeft, ArrowRight,
     ChevronLeft,
     Sparkles,
     BookOpen,
@@ -38,7 +38,6 @@ interface QuizModeProps {
 }
 
 export const QuizMode = ({ onBack }: QuizModeProps) => {
-    const lastViolationTime = useRef(0);
     const [stage, setStage] = useState<"select" | "loading" | "quiz" | "result" | "exam-rules">("select");
     const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
     const [isExamMode, setIsExamMode] = useState(false);
@@ -48,12 +47,11 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
     const [answers, setAnswers] = useState<{ questionId: number | string, selected: number | null, correct: number }[]>([]);
-    const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
+    const [quizStats, setQuizStats] = useState({ correct: 0, wrong: 0, unattempted: 0 });
     
     // Exam State
     const [timeLeft, setTimeLeft] = useState(0);
-    const [examWarnings, setExamWarnings] = useState(0);
     const [terminationReason, setTerminationReason] = useState<string | null>(null);
     const [isNavigating, setIsNavigating] = useState(false);
     const [showQuitConfirm, setShowQuitConfirm] = useState(false);
@@ -89,21 +87,10 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         };
 
         const handleFullscreenChange = () => {
-            if (!document.fullscreenElement) {
-                handleViolation("Exiting fullscreen is not allowed!");
+            if (!document.fullscreenElement && stage === "quiz" && isExamMode) {
+                setTerminationReason("Exiting fullscreen mode is prohibited during the exam.");
+                setStage("result");
             }
-        };
-
-        const handleViolation = (msg: string) => {
-            const now = Date.now();
-            if (now - lastViolationTime.current < 2000) return;
-            lastViolationTime.current = now;
-
-            setExamWarnings(prev => {
-                const newCount = prev + 1;
-                toast.warning(`Warning ${newCount}/2: ${msg}`);
-                return newCount;
-            });
         };
 
         document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -115,16 +102,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         };
     }, [isExamMode, stage]);
 
-    // Warning termination
-    useEffect(() => {
-        if (examWarnings >= 2) {
-            setTerminationReason("Multiple violations of fullscreen policy.");
-            setStage("result");
-            if (document.fullscreenElement) {
-                document.exitFullscreen().catch(() => { });
-            }
-        }
-    }, [examWarnings]);
+
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -159,7 +137,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                 const sourceTopics = selectedTopics.length > 0 ? selectedTopics : aptitudeTopics.map(t => t.id);
                 fetchedQuestions = getQuestionsForTopics(sourceTopics, 40);
                 
-                setTimeLeft(720); // 12 mins
+                setTimeLeft(1500); // 25 mins
                 document.documentElement.requestFullscreen().catch(() => {
                     toast.error("Fullscreen is required for exam mode");
                 });
@@ -174,7 +152,6 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                 setAnswers([]);
                 setSelectedAnswer(null);
                 setScore(0);
-                setExamWarnings(0);
                 setTerminationReason(null);
             } else {
                 toast.error("No questions found for the selected topics.");
@@ -205,15 +182,18 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         }
     };
 
-    const submitAnswer = () => {
-        if (isExamMode) {
-            handleNext();
-            return;
-        }
-
-        if (selectedAnswer === null) return;
+    const handlePrevious = () => {
+        if (isNavigating || currentQuestion === 0) return;
+        
         saveCurrentAnswer();
-        setShowResult(true);
+
+        setCurrentQuestion(currentQuestion - 1);
+        const prevIdx = currentQuestion - 1;
+        const existing = answers.find(a => a.questionId === prevIdx);
+        setSelectedAnswer(existing ? existing.selected : null);
+
+        setIsNavigating(true);
+        setTimeout(() => setIsNavigating(false), 300);
     };
 
     const handleNext = () => {
@@ -226,9 +206,6 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
             const nextIdx = currentQuestion + 1;
             const existing = answers.find(a => a.questionId === nextIdx);
             setSelectedAnswer(existing ? existing.selected : null);
-            setShowResult(false);
-        } else {
-            submitQuiz();
         }
 
         setIsNavigating(true);
@@ -236,12 +213,14 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
     };
 
     const submitQuiz = async () => {
+        setStage("result");
         if (isExamMode) {
             document.exitFullscreen().catch(() => { });
         }
         
         // Calculate final score
         let correct = 0;
+        let wrong = 0;
         let finalAnswers = [...answers];
         
         // Ensure final answer is preserved
@@ -255,26 +234,37 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
         }
 
         finalAnswers.forEach(ans => {
-            if (ans.selected === ans.correct) correct++;
+            if (ans.selected === ans.correct) {
+                correct++;
+            } else if (ans.selected !== null && ans.selected !== undefined) {
+                wrong++;
+            }
         });
 
-        // Submit Score
-        try {
-            const userInfo = localStorage.getItem("userInfo");
-            if (userInfo) {
-                await api.post("/scores", {
-                    score: correct,
-                    totalQuestions: questions.length,
-                    timeTaken: isExamMode ? (720 - timeLeft) : 0,
-                    quizType: 'aptitude'
-                });
-            }
-        } catch (err) {
-            console.error("Failed to submit score", err);
-        }
+        const unattempted = questions.length - correct - wrong;
+        const penalty = isExamMode ? 1 : 0;
+        const calculatedScore = correct - (wrong * penalty);
 
-        setScore(correct);
-        setStage("result");
+        setQuizStats({ correct, wrong, unattempted });
+        setScore(calculatedScore);
+
+        // Submit Score only if it's an exam
+        if (isExamMode) {
+            try {
+                const userInfo = localStorage.getItem("userInfo");
+                if (userInfo) {
+                    await api.post("/scores", {
+                        score: calculatedScore,
+                        totalQuestions: questions.length,
+                        timeTaken: 1500 - timeLeft,
+                        quizType: 'aptitude',
+                        isExamMode
+                    });
+                }
+            } catch (err) {
+                console.error("Failed to submit score", err);
+            }
+        }
     };
 
     const handleQuitRequest = () => {
@@ -332,7 +322,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                                     <ul className="text-sm text-gray-600 space-y-1">
                                         <li>• 40 Random Questions</li>
                                         <li>• All Aptitude Topics</li>
-                                        <li>• 12 Minutes Time Limit</li>
+                                        <li>• 25 Minutes Time Limit</li>
                                     </ul>
                                 </div>
                                 <div className="p-4 rounded-xl bg-gray-50 border border-gray-100">
@@ -341,7 +331,8 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                                     </h4>
                                     <ul className="text-sm text-gray-600 space-y-1">
                                         <li>• +1 for Correct Answer</li>
-                                        <li>• 0 for Wrong/Unattempted</li>
+                                        <li>• <span className="text-red-500 font-bold">-1 for Wrong Answer</span></li>
+                                        <li>• 0 for Unattempted</li>
                                     </ul>
                                 </div>
                             </div>
@@ -351,8 +342,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                                     <XCircle className="w-4 h-4" /> Strict Exam Policy
                                 </h4>
                                 <ul className="text-sm text-red-600 space-y-2">
-                                    <li>• Switching tabs or minimizing results in <strong>IMMEDIATE TERMINATION</strong>.</li>
-                                    <li>• Exiting Full Screen allows <strong>1 Warning</strong>. 2nd violation terminates exam.</li>
+                                    <li>• Switching tabs, minimizing, or exiting Full Screen results in <strong>IMMEDIATE TERMINATION</strong>.</li>
                                 </ul>
                             </div>
 
@@ -437,7 +427,7 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                                         <Trophy className="h-5 w-5 text-primary" />
                                         Full Challenge
                                     </CardTitle>
-                                    <CardDescription>40 Questions • 12 Mins • strict</CardDescription>
+                                    <CardDescription>40 Questions • 25 Mins • strict</CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <p className="text-sm text-muted-foreground mb-6">
@@ -505,114 +495,103 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
 
     if (stage === "quiz") {
         const q = questions[currentQuestion];
-        const progress = ((currentQuestion) / questions.length) * 100;
 
         return (
-            <div className="max-w-[1400px] mx-auto p-0 min-h-[85vh] animate-in fade-in duration-500">
-                <div className={cn("grid gap-8", isExamMode ? "lg:grid-cols-[1fr_300px]" : "max-w-3xl mx-auto")}>
+            <div className="p-4 sm:p-6 lg:p-8 min-h-screen bg-gray-50 text-gray-900 flex flex-col items-center animate-in fade-in duration-500">
+                <div className="w-full transition-all duration-300 max-w-[1400px] grid lg:grid-cols-[1fr_300px] gap-6">
                     
                     {/* Left Column: Question Area */}
-                    <div className="space-y-8">
+                    <div className="space-y-6">
+                        {/* Header Bar */}
                         <div className="flex items-center justify-between">
-                            <Button variant="ghost" onClick={handleQuitRequest} className="gap-2 text-muted-foreground hover:text-red-500 transition-colors">
-                                <ArrowLeft className="h-4 w-4" /> Quit
+                            <Button variant="ghost" size="sm" onClick={handleQuitRequest} className="text-gray-500 hover:text-red-500">
+                                <XCircle className="w-5 h-5 mr-2" /> Quit
                             </Button>
                             
                             <div className={cn(
-                                "flex items-center gap-2 px-6 py-2 rounded-full border-2 font-mono font-bold text-lg",
-                                isExamMode ? (timeLeft < 60 ? "bg-red-50 border-red-200 text-red-600 animate-pulse" : "bg-primary/5 border-primary/20 text-primary") : "bg-primary/5 text-primary border-primary/20"
+                                "flex items-center gap-2 px-4 py-1.5 rounded-full border font-mono font-bold",
+                                isExamMode ? (timeLeft < 60 ? "bg-red-100 border-red-200 text-red-600 animate-pulse" : "bg-primary/10 border-primary/20 text-primary") : "bg-primary/10 border-primary/20 text-primary"
                             )}>
-                                <Clock className="h-5 w-5" />
-                                {isExamMode ? formatTime(timeLeft) : "Practice"}
+                                <Clock className="w-4 h-4" />
+                                {isExamMode ? `Time Left: ${formatTime(timeLeft)}` : "Practice Mode"}
                             </div>
                         </div>
 
-                        {!isExamMode && <Progress value={progress} className="h-2" />}
+                        {/* Progress */}
+                        <div className="space-y-2">
+                            <div className="flex justify-between text-sm text-gray-500 px-1">
+                                <span>Question {currentQuestion + 1} of {questions.length}</span>
+                                <span>{answers.length} / {questions.length} Questions Attended</span>
+                            </div>
+                        </div>
 
-                        <Card className="border-none shadow-xl bg-card overflow-hidden">
-                            <div className="p-8 sm:p-10 border-b bg-muted/30">
-                                <div className="flex justify-between items-start mb-6">
-                                    <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded">
-                                        Question {currentQuestion + 1}
+                        <Card className="border-gray-200 bg-white shadow-xl overflow-hidden h-fit">
+                            <div className="p-6 sm:p-8 border-b border-gray-100 bg-gray-50/50">
+                                <div className="flex justify-between items-start gap-4">
+                                    <h2 className="text-xl sm:text-2xl font-bold leading-relaxed text-gray-900">{q.question}</h2>
+                                    <span className="flex-shrink-0 px-3 py-1 bg-gray-200 rounded text-xs font-bold text-gray-600">
+                                        Q{currentQuestion + 1}
                                     </span>
                                 </div>
-                                <h3 className="text-2xl sm:text-3xl font-medium leading-relaxed">{q.question}</h3>
                             </div>
 
-                            <CardContent className="p-8 sm:p-10 grid gap-4">
+                            <CardContent className="p-6 sm:p-8 space-y-3">
                                 {q.options.map((option, idx) => (
                                     <button
                                         key={idx}
-                                        onClick={() => !showResult && setSelectedAnswer(idx)}
-                                        disabled={showResult}
+                                        onClick={() => setSelectedAnswer(idx)}
                                         className={cn(
-                                            "text-left p-6 rounded-2xl border-2 transition-all duration-200 flex items-center justify-between group",
-                                            showResult
-                                                ? idx === q.correct
-                                                    ? "border-green-500 bg-green-50 animate-in fade-in"
-                                                    : idx === selectedAnswer
-                                                        ? "border-red-500 bg-red-50"
-                                                        : "opacity-40"
-                                                : selectedAnswer === idx
-                                                    ? "border-primary bg-primary/5 ring-1 ring-primary"
-                                                    : "border-border hover:border-primary/50 hover:bg-accent/50"
+                                            "w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center justify-between group",
+                                            selectedAnswer === idx
+                                                ? "border-primary bg-primary/5 text-primary shadow-sm"
+                                                : "border-gray-200 bg-white hover:bg-gray-50 hover:border-primary/50 text-gray-700"
                                         )}
                                     >
                                         <div className="flex items-center gap-4">
                                             <span className={cn(
-                                                "w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold border transition-colors",
-                                                selectedAnswer === idx ? "bg-primary border-primary text-white" : "bg-muted border-border text-muted-foreground group-hover:text-primary"
+                                                "w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold border transition-colors",
+                                                selectedAnswer === idx
+                                                    ? "bg-primary border-primary text-white"
+                                                    : "bg-gray-100 border-gray-200 text-gray-500 group-hover:border-primary/50 group-hover:text-primary"
                                             )}>
                                                 {String.fromCharCode(65 + idx)}
                                             </span>
-                                            <span className="font-medium text-lg">{option}</span>
+                                            <span className="font-medium">{option}</span>
                                         </div>
-                                        {showResult && idx === q.correct && <CheckCircle className="h-6 w-6 text-green-600" />}
+                                        {selectedAnswer === idx && <CheckCircle className="w-5 h-5 text-primary" />}
                                     </button>
                                 ))}
                             </CardContent>
 
-                            <CardFooter className="p-8 sm:p-10 pt-0 flex justify-end gap-4">
-                                {isExamMode ? (
-                                    <Button size="lg" onClick={handleNext} className="gap-2 px-10">
-                                        {currentQuestion === questions.length - 1 ? "Finish Exam" : "Next Question"}
-                                        <ChevronRight className="h-4 w-4" />
-                                    </Button>
-                                ) : (
-                                    !showResult ? (
-                                        <Button size="lg" onClick={submitAnswer} disabled={selectedAnswer === null} className="px-10">
-                                            Check Answer
-                                        </Button>
-                                    ) : (
-                                        <Button size="lg" onClick={handleNext} className="gap-2 px-10">
-                                            {currentQuestion < questions.length - 1 ? "Next Question" : "View Results"}
-                                            <ChevronRight className="h-4 w-4" />
-                                        </Button>
-                                    )
-                                )}
+                            <CardFooter className="p-6 sm:p-8 pt-0 flex justify-between gap-4">
+                                <Button
+                                    variant="outline"
+                                    onClick={handlePrevious}
+                                    size="lg"
+                                    disabled={isNavigating || currentQuestion === 0}
+                                    className="px-8 font-bold gap-2"
+                                >
+                                    <ChevronLeft className="w-4 h-4" />
+                                    Previous
+                                </Button>
+
+                                <Button
+                                    onClick={handleNext}
+                                    size="lg"
+                                    disabled={isNavigating || currentQuestion === questions.length - 1}
+                                    className={cn("px-8 font-bold gap-2", currentQuestion === questions.length - 1 && "hidden")}
+                                >
+                                    Next
+                                    <ArrowRight className="w-4 h-4" />
+                                </Button>
                             </CardFooter>
                         </Card>
-
-                        {showResult && q.explanation && (
-                            <div className="bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500 p-6 rounded-xl animate-in fade-in slide-in-from-left-2">
-                                <div className="flex gap-4">
-                                    <AlertCircle className="h-6 w-6 text-blue-500 shrink-0" />
-                                    <div>
-                                        <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-2">Explanation</h4>
-                                        <p className="text-blue-800 dark:text-blue-200 leading-relaxed italic">
-                                            {q.explanation}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
                     </div>
 
                     {/* Right Column: Exam Palette */}
-                    {isExamMode && (
-                        <div className="space-y-6">
-                            <Card className="sticky top-8 border-none shadow-xl">
-                                <CardHeader className="border-b pb-4">
+                    <div className="space-y-4">
+                        <Card className="border-gray-200 bg-white shadow-xl h-fit sticky top-6">
+                                <CardHeader className="pb-3 border-b border-gray-100">
                                     <CardTitle className="text-lg">Question Palette</CardTitle>
                                 </CardHeader>
                                 <CardContent className="pt-6">
@@ -654,19 +633,18 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                                         </div>
                                     </div>
                                     <Button onClick={submitQuiz} variant="secondary" className="w-full mt-10 bg-gray-900 text-white hover:bg-gray-800">
-                                        Submit Final Exam
+                                        {isExamMode ? "Submit Final Exam" : "Submit Quiz"}
                                     </Button>
                                 </CardContent>
                             </Card>
                         </div>
-                    )}
                 </div>
             </div>
         );
     }
 
     if (stage === "result") {
-        const percentage = Math.round((score / questions.length) * 100);
+        const percentage = Math.max(0, Math.round((score / questions.length) * 100));
         
         if (isExamMode && terminationReason) {
             return (
@@ -702,21 +680,25 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                     {isExamMode ? "Exam Concluded" : "Quiz Mastered!"}
                 </h2>
                 <p className="text-xl text-muted-foreground mb-12">
-                    Final Score: <span className="text-foreground font-black text-2xl">{score}</span> / {questions.length}
+                    Final Score: <span className={cn("font-black text-2xl", score < 0 ? "text-red-500" : "text-foreground")}>{score}</span> / {questions.length}
                 </p>
 
-                <div className="grid md:grid-cols-2 gap-6 mb-12">
+                <div className="grid md:grid-cols-3 gap-6 mb-12">
                     <Card className="p-8 border-none shadow-lg bg-emerald-50 dark:bg-emerald-950/20">
-                        <div className="text-4xl font-black text-emerald-600 mb-2">{score}</div>
+                        <div className="text-4xl font-black text-emerald-600 mb-2">{quizStats.correct}</div>
                         <div className="font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest text-sm">Correct Hits</div>
                     </Card>
                     <Card className="p-8 border-none shadow-lg bg-red-50 dark:bg-red-950/20">
-                        <div className="text-4xl font-black text-red-600 mb-2">{questions.length - score}</div>
-                        <div className="font-bold text-red-800 dark:text-red-400 uppercase tracking-widest text-sm">Missed/Skipped</div>
+                        <div className="text-4xl font-black text-red-600 mb-2">{quizStats.wrong}</div>
+                        <div className="font-bold text-red-800 dark:text-red-400 uppercase tracking-widest text-sm">Wrong</div>
+                    </Card>
+                    <Card className="p-8 border-none shadow-lg bg-gray-50 dark:bg-gray-900/20">
+                        <div className="text-4xl font-black text-gray-600 mb-2">{quizStats.unattempted}</div>
+                        <div className="font-bold text-gray-800 dark:text-gray-400 uppercase tracking-widest text-sm">Skipped</div>
                     </Card>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-12">
                     <Button variant="outline" size="lg" className="flex-1 text-lg py-8 shadow-sm" onClick={restartQuiz}>
                         Explore New Topics
                     </Button>
@@ -727,6 +709,64 @@ export const QuizMode = ({ onBack }: QuizModeProps) => {
                         Restart Session
                     </Button>
                 </div>
+
+                {/* Review Section */}
+                <Card className="bg-white border-gray-200 shadow-lg text-left mt-8">
+                    <CardHeader className="border-b border-gray-100 bg-gray-50/50">
+                        <CardTitle className="flex items-center gap-2">
+                            <HelpCircle className="w-5 h-5 text-primary" />
+                            Review Answers
+                        </CardTitle>
+                        <CardDescription>Detailed explanation for each question</CardDescription>
+                    </CardHeader>
+                    <CardContent className="divide-y divide-gray-100">
+                        {questions.map((q, idx) => {
+                            const userAnswer = answers.find(a => a.questionId === idx);
+                            const isCorrect = userAnswer?.selected === q.correct;
+                            const isSkipped = !userAnswer;
+
+                            return (
+                                <div key={idx} className="py-6 first:pt-4 last:pb-2">
+                                    <div className="flex gap-3 mb-3">
+                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-xs font-bold mt-0.5">
+                                            {idx + 1}
+                                        </span>
+                                        <h3 className="font-semibold text-gray-900">{q.question}</h3>
+                                    </div>
+
+                                    <div className="pl-9 space-y-3">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                                            <div className={cn(
+                                                "p-3 rounded-lg border",
+                                                isSkipped ? "bg-gray-50 border-gray-200 text-gray-500" :
+                                                    isCorrect
+                                                        ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+                                                        : "bg-red-50 border-red-200 text-red-800"
+                                            )}>
+                                                <span className="block text-xs font-bold opacity-70 mb-1">Your Answer</span>
+                                                {isSkipped ? "Not Attempted" : q.options[userAnswer.selected || 0]}
+                                            </div>
+                                            <div className="p-3 rounded-lg border bg-emerald-50 border-emerald-200 text-emerald-800">
+                                                <span className="block text-xs font-bold opacity-70 mb-1">Correct Answer</span>
+                                                {q.options[q.correct]}
+                                            </div>
+                                        </div>
+
+                                        {q.explanation && (
+                                            <div className="bg-blue-50/50 p-3 rounded-lg border border-blue-100 text-sm text-blue-800 flex gap-3">
+                                                <Sparkles className="w-4 h-4 flex-shrink-0 mt-0.5 text-blue-500" />
+                                                <div>
+                                                    <span className="font-bold block text-xs uppercase tracking-wider text-blue-600 mb-1">Explanation</span>
+                                                    {q.explanation}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </CardContent>
+                </Card>
             </div>
         );
     }

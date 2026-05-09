@@ -53,8 +53,7 @@ const Profile = () => {
       technicalQuizCount: 0,
       aptitudeExamCount: 0,
       gdCount: 0,
-      debateCount: 0,
-      averageScore: 0
+      debateCount: 0
     }
   });
 
@@ -90,8 +89,7 @@ const Profile = () => {
             technicalQuizCount: 0,
             aptitudeExamCount: 0,
             gdCount: 0,
-            debateCount: 0,
-            averageScore: 0
+            debateCount: 0
           }
         }));
       } catch (error) {
@@ -236,7 +234,6 @@ const Profile = () => {
     { icon: Code, label: "Tech Quiz", value: profile.stats.technicalQuizCount || 0, color: "text-emerald-500" },
     { icon: Users, label: "GDs", value: profile.stats.gdCount || 0, color: "text-orange-500" },
     { icon: Swords, label: "Debates", value: profile.stats.debateCount || 0, color: "text-red-500" },
-    { icon: TrendingUp, label: "Avg Score", value: `${profile.stats.averageScore || 0}%`, color: "text-cyan-500" },
   ];
 
   return (
@@ -324,7 +321,7 @@ const Profile = () => {
         </Card>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 mb-6">
           {achievements.map((item, index) => (
             <Card key={index}>
               <CardContent className="p-2 sm:p-3 text-center">

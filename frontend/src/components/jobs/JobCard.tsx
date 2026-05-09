@@ -7,7 +7,7 @@ import { Building2, MapPin, Clock, Briefcase, ExternalLink, GraduationCap, Mail 
 import { motion } from "framer-motion";
 
 interface JobCardProps {
-    job: Job;
+    job: Job & { matchScore?: number; matchedSkills?: string[] };
     index: number;
 }
 
@@ -73,6 +73,11 @@ const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
                                     <Badge variant="outline" className={`text-xs font-medium ${source.className}`}>
                                         {source.label}
                                     </Badge>
+                                    {job.matchScore !== undefined && job.matchScore > 0 && (
+                                        <Badge variant="default" className="text-xs font-medium bg-indigo-500 hover:bg-indigo-600">
+                                            🎯 {job.matchScore}% Match
+                                        </Badge>
+                                    )}
                                 </div>
                                 <p className="text-muted-foreground flex items-center gap-1.5 mt-1">
                                     <Building2 className="w-4 h-4" />

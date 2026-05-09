@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,13 @@ const Auth = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   const [isRegister, setIsRegister] = useState(searchParams.get("mode") === "register");
   const [isLoading, setIsLoading] = useState(false);
