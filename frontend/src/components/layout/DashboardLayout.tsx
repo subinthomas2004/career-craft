@@ -99,6 +99,9 @@ const DashboardLayout = () => {
         if (parsedUser.role === 'admin' && location.pathname.startsWith('/dashboard')) {
           navigate('/admin');
         }
+      } else {
+        // No user found — redirect to home page
+        navigate('/', { replace: true });
       }
     };
 
@@ -114,6 +117,11 @@ const DashboardLayout = () => {
       window.removeEventListener("userInfoUpdated", loadUser);
     };
   }, [navigate, location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    navigate('/', { replace: true });
+  };
 
   const toggleFullscreen = async () => {
     if (isTauri) {
@@ -203,13 +211,13 @@ const DashboardLayout = () => {
               <Settings className="w-5 h-5" />
               Settings
             </Link>
-            <Link
-              to="/"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-destructive hover:bg-destructive/10 transition-colors"
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-3 py-2 rounded-lg text-destructive hover:bg-destructive/10 transition-colors w-full"
             >
               <LogOut className="w-5 h-5" />
               Logout
-            </Link>
+            </button>
           </div>
         </div>
       )}
@@ -397,11 +405,9 @@ const DashboardLayout = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/" className="flex items-center gap-2 text-destructive">
+                <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 text-destructive cursor-pointer">
                     <LogOut className="w-4 h-4" />
                     Logout
-                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

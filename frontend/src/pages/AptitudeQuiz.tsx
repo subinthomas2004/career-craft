@@ -17,7 +17,7 @@ const AptitudeQuiz = () => {
     }
 
     return (
-        <div className="min-h-screen p-6 lg:p-10 animate-in fade-in duration-500">
+        <div className="min-h-screen p-6 lg:p-10 animate-in fade-in duration-500 flex flex-col items-center">
 
             {/* Header */}
             <div className="text-center mb-12 mx-auto max-w-2xl">
@@ -29,7 +29,7 @@ const AptitudeQuiz = () => {
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 w-full max-w-4xl">
+            <div className="grid md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
                 {/* Study Card */}
                 <Card
                     className="group cursor-pointer hover:border-primary transition-all hover:shadow-lg hover:-translate-y-1"

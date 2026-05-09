@@ -50,7 +50,6 @@ const Dashboard = () => {
     aptitudeExamCount: 0,
     gdCount: 0,
     debateCount: 0,
-    averageScore: 0,
     resumeScore: 0
   });
   const [streak, setStreak] = useState(0);

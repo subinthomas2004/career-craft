@@ -1,19 +1,108 @@
 import React, { useEffect, useState } from 'react';
 import PageBackground from "@/components/layout/PageBackground";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Loader2, Sparkles } from "lucide-react";
+import { Search, Loader2, Sparkles, User, FileText, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import JobCard from "@/components/jobs/JobCard";
 import { Job, jobApi } from "@/lib/jobApi";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { api } from "@/lib/api";
+import { toast } from "sonner";
 
 const JobPortal: React.FC = () => {
-    const [jobs, setJobs] = useState<Job[]>([]);
+    const [jobs, setJobs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [jobCount, setJobCount] = useState(0);
     const [error, setError] = useState<string | null>(null);
+
+    // Resume logic state
+    const [parsedResumeData, setParsedResumeData] = useState<any>(null);
+    const [uploadingState, setUploadingState] = useState<'none' | 'profile' | 'upload'>('none');
+    const [selectionMode, setSelectionMode] = useState<'none' | 'profile' | 'upload' | 'active'>('none');
+
+    const calculateMatchScore = (job: any, skills: string[]) => {
+        if (!skills || skills.length === 0) return 0;
+        let matchCount = 0;
+        const jobText = `${job.title} ${job.description || ''} ${job.requirements?.join(' ') || ''}`.toLowerCase();
+        
+        skills.forEach(skill => {
+            if (jobText.includes(skill.toLowerCase())) {
+                matchCount++;
+            }
+        });
+        
+        // Calculate percentage (max 100)
+        return Math.min(100, Math.round((matchCount / Math.max(5, skills.length)) * 100));
+    };
+
+    const sortJobsByResume = (currentJobs: any[], resumeData: any) => {
+        if (!resumeData || !resumeData.skills) return currentJobs;
+        
+        const jobsWithScores = currentJobs.map(job => ({
+            ...job,
+            matchScore: calculateMatchScore(job, resumeData.skills)
+        }));
+        
+        return jobsWithScores.sort((a, b) => (b.matchScore || 0) - (a.matchScore || 0));
+    };
+
+    const handleUseProfileResume = async () => {
+        setUploadingState('profile');
+        try {
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                toast.error("Please log in to use your profile resume.");
+                return;
+            }
+            const { token } = JSON.parse(userInfo);
+            
+            const { data } = await api.get("/upload/resume-profile", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (data.success) {
+                setParsedResumeData(data.data);
+                setSelectionMode('active');
+                setJobs(prev => sortJobsByResume(prev, data.data));
+                toast.success("Profile resume loaded! Jobs sorted by match.");
+            }
+        } catch (error: any) {
+            console.error("Profile Resume Error:", error);
+            toast.error(error.response?.data?.error || "No resume found in your profile.");
+        } finally {
+            setUploadingState('none');
+        }
+    };
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploadingState('upload');
+        const formData = new FormData();
+        formData.append("resume", file);
+
+        try {
+            const { data } = await api.post("/upload/resume", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+
+            if (data.success) {
+                setParsedResumeData(data.data);
+                setSelectionMode('active');
+                setJobs(prev => sortJobsByResume(prev, data.data));
+                toast.success("Resume parsed successfully! Jobs sorted by match.");
+            }
+        } catch (error: any) {
+            console.error("Upload Error:", error);
+            toast.error(error.response?.data?.error || "Failed to process resume.");
+        } finally {
+            setUploadingState('none');
+        }
+    };
 
     const fetchJobs = async (searchQuery?: string) => {
         try {
@@ -23,7 +112,11 @@ const JobPortal: React.FC = () => {
 
             if (res.success) {
                 console.log(`[JobPortal] Successfully fetched ${res.count} jobs`);
-                setJobs(res.data);
+                if (parsedResumeData) {
+                    setJobs(sortJobsByResume(res.data, parsedResumeData));
+                } else {
+                    setJobs(res.data);
+                }
                 setJobCount(res.count);
                 setError(null);
             } else {
@@ -90,6 +183,72 @@ const JobPortal: React.FC = () => {
                             Search
                         </Button>
                     </form>
+                </motion.div>
+
+                {/* Resume Upload / Sorting Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="max-w-4xl mx-auto mb-10"
+                >
+                    {selectionMode === 'none' ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Card className="cursor-pointer border-2 border-primary/10 hover:border-primary/30 transition-all bg-card/50 shadow-sm" onClick={handleUseProfileResume}>
+                                <CardContent className="p-6 flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                                        {uploadingState === 'profile' ? <Loader2 className="w-6 h-6 animate-spin" /> : <User className="w-6 h-6" />}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold">Match Profile Resume</h3>
+                                        <p className="text-sm text-muted-foreground">Sort jobs using your saved profile resume.</p>
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="relative overflow-hidden border-2 border-primary/10 hover:border-primary/30 transition-all bg-card/50 shadow-sm group">
+                                <input
+                                    type="file"
+                                    accept=".pdf"
+                                    onChange={handleFileUpload}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                    disabled={uploadingState !== 'none'}
+                                />
+                                <CardContent className="p-6 flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0 group-hover:scale-110 transition-transform">
+                                        {uploadingState === 'upload' ? <Loader2 className="w-6 h-6 animate-spin" /> : <FileText className="w-6 h-6" />}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold">Match New Resume</h3>
+                                        <p className="text-sm text-muted-foreground">Upload a PDF to find matching jobs.</p>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    ) : (
+                        <Card className="border-2 border-primary/20 bg-primary/5 shadow-sm">
+                            <CardContent className="p-4 flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <CheckCircle2 className="w-6 h-6 text-green-500" />
+                                    <div>
+                                        <p className="font-semibold text-foreground">Resume Match Active</p>
+                                        <p className="text-sm text-muted-foreground">Jobs are sorted based on {parsedResumeData?.skills?.length || 0} extracted skills.</p>
+                                    </div>
+                                </div>
+                                <Button 
+                                    variant="outline" 
+                                    size="sm"
+                                    onClick={() => {
+                                        setParsedResumeData(null);
+                                        setSelectionMode('none');
+                                        fetchJobs(search); // re-fetch to restore original order
+                                    }}
+                                >
+                                    Clear Match
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    )}
                 </motion.div>
 
                 {/* Results count */}

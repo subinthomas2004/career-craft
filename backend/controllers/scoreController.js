@@ -60,20 +60,11 @@ const submitScore = async (req, res) => {
         // Update stats
         user.stats.quizzesTaken += 1;
         
-        if (quizType === 'aptitude') {
-            if (totalQuestions === 40) {
-                user.stats.aptitudeExamCount += 1;
-            }
-        } else if (quizType === 'technical') {
-            if (totalQuestions === 40) {
-                user.stats.technicalQuizCount += 1;
-            }
+        if (quizType === 'aptitude' && req.body.isExamMode) {
+            user.stats.aptitudeExamCount += 1;
+        } else if (quizType === 'technical' && req.body.isExamMode) {
+            user.stats.technicalQuizCount += 1;
         }
-
-        // Simple average calculation (approximate)
-        const currentTotal = user.stats.averageScore * (user.stats.quizzesTaken - 1);
-        const newAvg = (currentTotal + ((score / totalQuestions) * 100)) / user.stats.quizzesTaken;
-        user.stats.averageScore = Math.round(newAvg);
 
         await user.save();
 

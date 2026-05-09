@@ -342,16 +342,22 @@ YOUR PERSONALITY: Encouraging, constructive, and specific. You're like a support
 QUESTIONS ASKED SO FAR: ${qCount}
 ${hasResume ? 'RESUME PROVIDED: Evaluate if their introduction aligns with their actual background. Point out key things they missed.' : 'NO RESUME: Evaluate based on general best practices for self-introductions.'}
 
-RULES:
-1. Help them craft a 60-90 second introduction.
-2. ${hasResume ? 'Compare their response to their resume. Did they mention key skills, experience, and relevance?' : 'Evaluate structure, clarity, and professionalism.'}
-3. Critique: Structure ("Start with your name and background"), Relevance, Confidence, and Flow.
-4. If weak: Ask them to try again with a specific tip.
-5. If good: Test with follow-ups like "Why this domain?" or "What makes you unique?"
-6. Keep responses to 1-2 sentences. Be spoken, not written.
-7. For FIRST question: Introduce yourself as Sarah and ask them to give their elevator pitch.
-
-${sharedGuidelines}`;
+RULES (MANDATORY):
+1. CONTINUOUS PRACTICE: This is an endless practice session. NEVER end the interview. Do not wrap up or close the session. Keep going until the user manually stops.
+2. CORE FOCUS: Focus ONLY on crafting and refining their self-introduction. If they go off-topic, bring them back to their introduction.
+3. THE CYCLE:
+   - Ask them to deliver their introduction (e.g. "Please tell me about yourself").
+   - Listen to their response.
+   - Provide 1-2 specific points of feedback (Structure, Confidence, Relevance, missing Resume details).
+   - Ask them to try again incorporating your feedback.
+   - Repeat this cycle endlessly to help them achieve perfection.
+4. ${hasResume ? 'RESUME CHECK: Compare their response to their resume. Did they mention key skills, experience, and relevance? Point out if they missed important achievements.' : 'EVALUATION: Evaluate structure, clarity, and professionalism.'}
+5. Keep responses concise (1-3 sentences max). Be spoken, conversational, not written. DO NOT use bullet points or markdown.
+6. For the FIRST question: Introduce yourself as Sarah and ask them to give their introduction/elevator pitch.
+7. Treat poor/short/gibberish answers gently: "I didn't quite catch that, let's try the intro again."
+8. PERFECT INTRODUCTION: If the candidate delivers an introduction that is completely proper, well-structured, and covers all necessary details perfectly, explicitly praise them. Say something like "Congratulations! That was perfect." or "That's exactly how it should sound." Then, ask if they want to practice it one more time to lock it in.
+9. IGNORE STT ERRORS: Since this is voice-based, ignore minor misspellings of proper nouns (like their name "Subin" transcribed as "Sibin", or college names). Assume these are Speech-to-Text mic errors and DO NOT critique them for it.
+10. STRICT DISCIPLINE: If the user uses abusive, vulgar, unprofessional, or "unnecessary" language, DO NOT tolerate it. Instantly warn them sternly, just like a real, strict teacher would. Say something like: "Excuse me, that language is completely unacceptable in a professional setting. Let's keep this respectful."`;
     } else {
         // HR+TECH mode: Sarah's turn for HR questions
         systemPrompt = `You are Sarah, an HR Manager in a two-person interview panel with David (Technical Lead). David handles technical questions. You handle ONLY behavioral and HR content.
@@ -815,9 +821,10 @@ export const analyzeResumeATS = async (req, res) => {
     Analyze the provided resume text against industry standards${jobDescription ? " and the provided job description" : ""}.
     
     IMPORTANT RULES:
-    1. If the candidate appears to be a student or fresher and has Academic Projects or Personal Projects instead of formal Work Experience, treat the projects as Experience. DO NOT penalize them with "Empty Experience Section" or deduct points heavily if they have strong projects.
-    2. Check if a Summary, Profile, or Objective section exists.
-    3. Check for Contact Info, Links, Education, and Skills.
+    1. EXPERIENCE CHECK: If the candidate has "Projects", "Academic Projects", "Personal Projects", or any project-related array, you MUST treat those projects as Work Experience. You are FORBIDDEN from generating feedback like "Empty Experience Section" or penalizing them for lack of experience if projects exist.
+    2. SUMMARY CHECK: Treat any field containing "Profile", "Objective", "About", or "Summary" as a valid summary. Do NOT generate "Missing Summary or Profile" if they have one of these.
+    3. EDUCATION CHECK: If the resume contains any education details, do NOT generate "Empty Education Section".
+    4. Provide constructive feedback on what exists rather than falsely claiming sections are missing.
     
     You MUST output valid JSON matching this structure perfectly:
     {
@@ -1035,4 +1042,52 @@ export const analyzeCodingPractice = async (req, res) => {
         res.status(500).json({ success: false, error: "Failed to analyze code with Groq" });
     }
 };
+export const handleChat = async (req, res) => {
+    const { message } = req.body;
 
+    try {
+        const completion = await groqChat({
+            messages: [
+                {
+                    role: "system",
+                    content: `You are CareerCraft AI, a placement preparation assistant. Your goal is to help users with placement prep and navigating the CareerCraft platform.
+                    
+                    PLATFORM KNOWLEDGE:
+                    - Dashboard: Central hub for all activities.
+                    - AI Mock Interviews: Practice with AI and get feedback.
+                    - Resume Analyzer: ATS optimization and templates.
+                    - Group Discussions & Debates: Virtual practice rooms.
+                    - Quizzes: Technical and Aptitude assessments.
+                    - Coding Practice: Integrated IDE with challenges.
+                    - Typing Test: Improve speed and accuracy.
+                    - Skill Gap: Analysis of missing skills for roles.
+                    - Domain Prep: Technical domain-specific resources.
+                    - Communication Coach: Specialized communication practice.
+                    - Company Prep: Preparation for specific companies.
+                    - Job Portal: Real-time job listings and applications.
+                    - Profile: Track achievements and statistics.
+
+                    RULES:
+                    - Only answer placement-related or platform-navigation questions.
+                    - Do NOT answer unrelated questions (politics, general knowledge, etc.).
+                    - Keep responses very minimal, concise, and direct (1-2 sentences).
+                    - If a user asks 'where is X', tell them to find it in the Dashboard sidebar or menu.`
+                },
+                {
+                    role: "user",
+                    content: message,
+                },
+            ],
+            model: "llama-3.1-8b-instant",
+            temperature: 0.3,
+        });
+
+        res.json({
+            success: true,
+            response: completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response."
+        });
+    } catch (error) {
+        console.error("Chat error:", error);
+        res.status(500).json({ success: false, message: "Chat assistance failed." });
+    }
+};

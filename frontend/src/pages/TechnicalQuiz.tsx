@@ -157,7 +157,7 @@ const TechnicalQuiz = () => {
   // Auto-submit score effect (Lifted to top-level)
   useEffect(() => {
     if (stage === 'result' && isExamMode) {
-      const penalty = 0; // Negative marking removed
+      const penalty = 1; // Negative marking is 1 for exam mode
       const calculatedScore = (correctCount * 1) - (wrongCount * penalty);
       const timeUsed = 720 - timeLeft; 
       submitScore(calculatedScore, quizQuestions.length, timeUsed, 'technical');
@@ -299,11 +299,42 @@ const TechnicalQuiz = () => {
     setShowSubmitConfirm(true);
   };
 
-  const confirmSubmit = () => {
+  const confirmSubmit = async () => {
     setShowSubmitConfirm(false);
     if (isExamMode) {
       document.exitFullscreen().catch(() => { });
     }
+
+    let correct = 0;
+    let wrong = 0;
+    quizQuestions.forEach(q => {
+      const ans = answers.find(a => a.questionId === q.id);
+      if (ans) {
+        if (ans.selected === ans.correct) correct++;
+        else if (ans.selected !== null) wrong++;
+      }
+    });
+
+    const penalty = isExamMode ? 1 : 0;
+    const calculatedScore = correct - (wrong * penalty);
+
+    if (isExamMode) {
+        try {
+            const userInfo = localStorage.getItem("userInfo");
+            if (userInfo) {
+                await api.post("/scores", {
+                    score: calculatedScore,
+                    totalQuestions: quizQuestions.length,
+                    timeTaken: 720 - timeLeft, // 12 mins
+                    quizType: 'technical',
+                    isExamMode
+                });
+            }
+        } catch (err) {
+            console.error("Failed to submit score", err);
+        }
+    }
+
     setStage("result");
   };
 
@@ -763,7 +794,7 @@ const TechnicalQuiz = () => {
 
     // Scoring: +1 Correct, -1 Wrong (Exam) / 0 Wrong (Practice)
     const penalty = isExamMode ? 1 : 0; 
-    const totalScore = Math.max(0, correctCount - (wrongCount * penalty));
+    const totalScore = correctCount - (wrongCount * penalty);
     const subject = isExamMode ? { name: "Exam Section" } : SUBJECTS.find(s => s.id === selectedSubject);
 
     // Exam Result Hidden State

@@ -226,12 +226,25 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
 
         recognition.onstart = () => {
             setIsListening(true);
-            toast.success("Mic On - Listening...");
+            if (!isListening) toast.success("Mic On - Listening...");
         };
 
         recognition.onerror = (event: any) => {
             console.error("Speech recognition error", event.error);
-            setIsListening(false);
+            if (event.error !== 'no-speech') {
+                setIsListening(false);
+            }
+        };
+
+        recognition.onend = () => {
+            // Auto-restart recognition if it stops on its own (browsers do this after a pause)
+            if (recognitionRef.current === recognition) {
+                try {
+                    recognition.start();
+                } catch (e) {
+                    setIsListening(false);
+                }
+            }
         };
 
         recognition.onresult = (event: any) => {
@@ -269,15 +282,21 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
 
     const stopListening = () => {
         if (recognitionRef.current) {
+            recognitionRef.current.onend = null; // Prevent auto-restart
             recognitionRef.current.stop();
+            recognitionRef.current = null;
             setIsListening(false);
         }
     };
 
     const toggleMic = () => {
         if (isListening) {
-            stopListening();
-            toast.info("Mic Off");
+            if (userInput.trim().length > 0) {
+                handleUserSubmit();
+            } else {
+                stopListening();
+                toast.info("Mic Off");
+            }
         } else {
             startListening();
         }
@@ -365,6 +384,7 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
         setResumeText("");
         setParsedResumeData(null);
         setSelectionMode('none');
+        setIsTranscriptOpen(false);
         toast.info("Session ended.");
     };
 
@@ -444,17 +464,7 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
                         </div>
                     ) : (
                         <Card className="border-2 border-primary/10 shadow-xl overflow-hidden rounded-2xl">
-                            <CardHeader className="bg-primary/5 pb-6">
-                                <CardTitle className="flex items-center justify-center gap-2 text-xl">
-                                    <FileText className="w-5 h-5 text-primary" />
-                                    {selectionMode === 'profile' ? 'Profile Resume Loaded' : 'Upload Resume'}
-                                </CardTitle>
-                                <CardDescription className="text-center">
-                                    {selectionMode === 'profile' 
-                                        ? 'Your stored resume has been loaded and analyzed.' 
-                                        : 'We need your resume to provide personalized feedback on your introduction.'}
-                                </CardDescription>
-                            </CardHeader>
+
                             <CardContent className="p-8">
                                 <div className="flex flex-col gap-8">
                                     <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-border rounded-xl bg-background hover:bg-muted/30 transition-all shadow-sm">
@@ -482,122 +492,7 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
                                                         </Button>
                                                     </div>
                                                     
-                                                    {parsedResumeData && (
-                                                        <div className="text-left space-y-3 bg-muted/30 p-4 rounded-xl border border-border/50 text-sm max-h-[300px] overflow-y-auto custom-scrollbar">
-                                                            {parsedResumeData.full_name && (
-                                                                <p><span className="text-muted-foreground mr-2 font-medium">Name:</span> 
-                                                                <span className="font-semibold text-foreground">{parsedResumeData.full_name}</span></p>
-                                                            )}
 
-                                                            {(parsedResumeData.email || parsedResumeData.phone || parsedResumeData.location || (parsedResumeData.links && parsedResumeData.links.length > 0)) && (
-                                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground border-b border-border/20 pb-2">
-                                                                    {parsedResumeData.email && <span className="flex items-center gap-1 font-medium italic underline underline-offset-2 text-primary/80">{parsedResumeData.email}</span>}
-                                                                    {parsedResumeData.phone && <span className="flex items-center gap-1">{parsedResumeData.phone}</span>}
-                                                                    {parsedResumeData.location && <span className="flex items-center gap-1 text-indigo-400 font-semibold">{parsedResumeData.location}</span>}
-                                                                    {parsedResumeData.links && parsedResumeData.links.map((link: string, i: number) => (
-                                                                        <span key={i} className="flex items-center gap-1 text-primary/70 truncate max-w-[150px]" title={link}>
-                                                                            {link.includes('github') ? 'GitHub' : link.includes('linkedin') ? 'LinkedIn' : 'Link'}
-                                                                        </span>
-                                                                    ))}
-                                                                </div>
-                                                            )}
-
-                                                            {parsedResumeData.summary && (
-                                                                <div className="bg-background/40 p-2 rounded-lg border border-border/30 shadow-inner">
-                                                                    <span className="text-muted-foreground block mb-1 font-bold text-[10px] uppercase tracking-widest text-primary/70">Professional Summary</span>
-                                                                    <p className="text-foreground leading-relaxed text-xs italic opacity-90">"{parsedResumeData.summary}"</p>
-                                                                </div>
-                                                            )}
-
-                                                            {parsedResumeData.skills && parsedResumeData.skills.length > 0 && (
-                                                                <div>
-                                                                    <span className="text-muted-foreground block mb-1.5 font-bold text-[10px] uppercase tracking-widest text-primary/70">Key Expertise (Interactive)</span>
-                                                                    <div className="flex flex-wrap gap-1.5">
-                                                                        {parsedResumeData.skills.map((skill: string, i: number) => (
-                                                                            <span key={i} className="group bg-primary/10 hover:bg-red-500/10 text-primary hover:text-red-500 border border-primary/20 hover:border-red-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1 transition-all">
-                                                                                {skill}
-                                                                                <button 
-                                                                                    onClick={() => handleRemoveSkill(skill)}
-                                                                                    className="hover:bg-red-500/20 rounded-full p-0.5 transition-colors"
-                                                                                    title={`Remove ${skill}`}
-                                                                                >
-                                                                                    <X className="w-2.5 h-2.5" />
-                                                                                </button>
-                                                                            </span>
-                                                                        ))}
-                                                                    </div>
-                                                                </div>
-                                                            )}
-
-                                                            {parsedResumeData.experience && parsedResumeData.experience.length > 0 && (
-                                                                <div>
-                                                                    <span className="text-muted-foreground block mb-1 font-bold text-[10px] uppercase tracking-widest text-primary/70">Experience Highlights</span>
-                                                                    <ul className="space-y-2">
-                                                                        {parsedResumeData.experience.map((exp: any, i: number) => (
-                                                                            <li key={i} className="flex flex-col border-l-2 border-primary/30 pl-3 py-0.5 ml-1">
-                                                                                <span className="font-bold text-xs text-foreground">{exp.role}</span>
-                                                                                <span className="text-[10px] text-muted-foreground font-medium">{exp.company} • {exp.duration}</span>
-                                                                            </li>
-                                                                        ))}
-                                                                    </ul>
-                                                                </div>
-                                                            )}
-
-                                                            {parsedResumeData.projects && parsedResumeData.projects.length > 0 && (
-                                                                <div>
-                                                                    <span className="text-muted-foreground block mb-1 font-bold text-[10px] uppercase tracking-widest text-primary/70">Projects</span>
-                                                                    <div className="space-y-3">
-                                                                        {parsedResumeData.projects.map((proj: any, i: number) => (
-                                                                            <div key={i} className="bg-background/20 p-2 rounded-lg border border-border/10">
-                                                                                <div className="flex justify-between items-start mb-1">
-                                                                                    <span className="font-bold text-xs text-foreground">{proj.title}</span>
-                                                                                    <span className="text-[10px] text-muted-foreground font-medium">{proj.year}</span>
-                                                                                </div>
-                                                                                <p className="text-[10px] text-muted-foreground/90 leading-relaxed italic">{proj.description}</p>
-                                                                            </div>
-                                                                        ))}
-                                                                    </div>
-                                                                </div>
-                                                            )}
-
-                                                            {parsedResumeData.certifications && parsedResumeData.certifications.length > 0 && (
-                                                                <div>
-                                                                    <span className="text-muted-foreground block mb-1 font-bold text-[10px] uppercase tracking-widest text-primary/70">Certifications</span>
-                                                                    <div className="flex flex-wrap gap-1.5">
-                                                                        {parsedResumeData.certifications.map((cert: string, i: number) => (
-                                                                            <span key={i} className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-[10px] px-2 py-0.5 rounded-full font-bold">
-                                                                                {cert}
-                                                                            </span>
-                                                                        ))}
-                                                                    </div>
-                                                                </div>
-                                                            )}
-
-                                                            {parsedResumeData.education && parsedResumeData.education.length > 0 && (
-                                                                <div>
-                                                                    <span className="text-muted-foreground block mb-1 font-bold text-[10px] uppercase tracking-widest text-primary/70">Education</span>
-                                                                    <div className="space-y-2">
-                                                                        {parsedResumeData.education.map((edu: any, i: number) => (
-                                                                            <div key={i} className="flex flex-col border-l-2 border-indigo-500/30 pl-3 py-0.5 ml-1">
-                                                                                <div className="flex justify-between items-center">
-                                                                                    <span className="font-bold text-xs text-foreground">{edu.degree}</span>
-                                                                                    {edu.score && <span className="text-[10px] bg-indigo-500/10 text-indigo-600 px-1.5 py-0.5 rounded font-bold">{edu.score}</span>}
-                                                                                </div>
-                                                                                <span className="text-[10px] text-muted-foreground font-medium">{edu.school} • {edu.year}</span>
-                                                                            </div>
-                                                                        ))}
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                    
-                                                    {!parsedResumeData && (
-                                                        <div className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-lg flex items-center gap-2">
-                                                            <FileText className="w-4 h-4" />
-                                                            Resume parsed successfully ({resumeText.length} chars)
-                                                        </div>
-                                                    )}
                                                 </motion.div>
                                             ) : (
                                                 <div className="flex flex-col items-center gap-4">
@@ -657,7 +552,10 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
                                             size="lg"
                                             className="w-full text-lg h-14 rounded-xl shadow-md"
                                             disabled={!resumeText && !isUploading}
-                                            onClick={() => setStage('interview')}
+                                            onClick={() => {
+                                                setStage('interview');
+                                                setIsTranscriptOpen(false);
+                                            }}
                                         >
                                             Start Preparation <ArrowRight className="w-5 h-5 ml-2" />
                                         </Button>
@@ -720,7 +618,7 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
                         {aiSpeaking && lastAiMessage(transcript) && (
                             <div className="absolute bottom-6 inset-x-6 z-30 pointer-events-none">
                                 <div className="bg-black/80 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 shadow-2xl mx-auto max-w-xl text-center">
-                                    <p className="text-sm md:text-base text-slate-100 font-medium leading-relaxed drop-shadow-sm line-clamp-3">
+                                    <p className="text-sm md:text-base text-slate-100 font-medium leading-relaxed drop-shadow-sm break-words whitespace-pre-wrap">
                                         "{lastAiMessage(transcript)}"
                                     </p>
                                 </div>
@@ -808,8 +706,8 @@ Education: ${parsedResumeData.education?.map((edu: any) => `${edu.degree} from $
                 </AnimatePresence>
             </div>
 
-            {/* Bottom Floating Controls */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-card/90 backdrop-blur-xl border border-border p-3 md:p-4 rounded-full shadow-2xl flex items-center gap-6 z-50">
+            {/* Bottom Controls */}
+            <div className="flex justify-center items-center gap-6 p-3 md:p-4 shrink-0 bg-card border border-border rounded-full mx-auto w-fit shadow-sm mb-6">
                 <Button
                     variant={isListening ? "default" : "secondary"}
                     size="icon"

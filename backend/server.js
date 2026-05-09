@@ -89,6 +89,7 @@ import typingRoutes from './routes/typingRoutes.js';
 import softSkillsRoutes from './routes/softSkillsRoutes.js';
 import forumRoutes from './routes/forumRoutes.js';
 import codingScoreRoutes from './routes/codingScoreRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
 
 app.get('/', (req, res) => {
     res.send('Career Craft API is running');
@@ -108,6 +109,7 @@ app.use('/api/typing', typingRoutes);
 app.use('/api/soft-skills', softSkillsRoutes);
 app.use('/api/forum', forumRoutes);
 app.use('/api/coding-scores', codingScoreRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Global error handler (must be after routes)
 app.use((err, req, res, next) => {

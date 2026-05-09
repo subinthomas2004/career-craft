@@ -9,6 +9,21 @@ export const api = axios.create({
     },
 });
 
+api.interceptors.request.use((config) => {
+    try {
+        const userInfo = localStorage.getItem('userInfo');
+        if (userInfo) {
+            const parsed = JSON.parse(userInfo);
+            if (parsed.token) {
+                config.headers.Authorization = `Bearer ${parsed.token}`;
+            }
+        }
+    } catch (error) {
+        console.error('Error attaching token:', error);
+    }
+    return config;
+});
+
 export const resumeApi = {
     upload: async (file: File) => {
         const formData = new FormData();

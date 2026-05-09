@@ -52,7 +52,6 @@ const userSchema = new mongoose.Schema({
         aptitudeExamCount: { type: Number, default: 0 },
         gdCount: { type: Number, default: 0 },
         debateCount: { type: Number, default: 0 },
-        averageScore: { type: Number, default: 0 },
         resumeScore: { type: Number, default: 0 }
     },
     streak: { type: Number, default: 0 },

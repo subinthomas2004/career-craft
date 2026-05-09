@@ -73,13 +73,12 @@ export function ResumeAnalyzer() {
             await new Promise(resolve => setTimeout(resolve, 1500));
             const resumeData = await parseResumeFile(file);
             setResumeData(resumeData);
-            analyzeCurrentResume(jobDescription);
+            const score = await analyzeCurrentResume(jobDescription, resumeData);
 
             // Record Activity
             try {
-                const score = await analyzeResume(resumeData, jobDescription);
                 const userInfo = localStorage.getItem("userInfo");
-                if (userInfo) {
+                if (userInfo && score) {
                     const { token } = JSON.parse(userInfo);
                     await api.post('/auth/activity', {
                         title: `Resume Analysis`,

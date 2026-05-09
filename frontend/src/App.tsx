@@ -130,8 +130,8 @@ const App = () => {
                 {/* Catch-all */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <ChatBot />
             </BrowserRouter>
-            <ChatBot />
           </>
         )}
       </TooltipProvider>

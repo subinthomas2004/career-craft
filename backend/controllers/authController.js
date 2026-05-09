@@ -345,7 +345,8 @@ export const getMe = async (req, res) => {
                 stats: user.stats || {
                     interviewsAttended: 0,
                     quizzesTaken: 0,
-                    averageScore: 0,
+                    gdCount: 0,
+                    debateCount: 0,
                     resumeScore: 0
                 },
                 location: user.location,
