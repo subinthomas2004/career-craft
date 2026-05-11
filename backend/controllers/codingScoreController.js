@@ -145,3 +145,56 @@ export const getGlobalStats = async (req, res) => {
         res.status(500).json({ success: false, error: "Failed to fetch global stats" });
     }
 };
+
+// @desc    Get coding leaderboard
+// @route   GET /api/coding-scores/leaderboard
+// @access  Private/Public
+export const getLeaderboard = async (req, res) => {
+    try {
+        const leaderboard = await CodingScore.aggregate([
+            {
+                $project: {
+                    userId: 1,
+                    solvedCount: { $size: "$solvedProblems" }
+                }
+            },
+            {
+                $match: {
+                    solvedCount: { $gt: 0 }
+                }
+            },
+            {
+                $sort: { solvedCount: -1 }
+            },
+            {
+                $lookup: {
+                    from: 'users', // Use collection name in plural lowercase
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            {
+                $unwind: '$user'
+            },
+            {
+                $match: {
+                    'user.showProgressPublicly': { $ne: false } // Only keep users where it's true or undefined
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    name: '$user.name',
+                    solvedCount: 1,
+                    profilePicture: '$user.profilePicture'
+                }
+            }
+        ]);
+        
+        res.status(200).json({ success: true, leaderboard });
+    } catch (error) {
+        console.error("Get Leaderboard Error:", error);
+        res.status(500).json({ success: false, error: "Failed to fetch leaderboard" });
+    }
+};

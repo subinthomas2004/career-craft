@@ -360,6 +360,7 @@ export const getMe = async (req, res) => {
                 resumeOriginalName: user.resumeOriginalName,
                 recentActivities: user.recentActivities || [],
                 streak: user.streak || 0,
+                showProgressPublicly: user.showProgressPublicly !== undefined ? user.showProgressPublicly : true,
                 role: user.role
             });
         } else {
@@ -397,6 +398,7 @@ export const updateProfile = async (req, res) => {
             if (req.body.skills !== undefined) user.skills = req.body.skills;
             if (req.body.resumeUrl !== undefined) user.resumeUrl = req.body.resumeUrl;
             if (req.body.resumeOriginalName !== undefined) user.resumeOriginalName = req.body.resumeOriginalName;
+            if (req.body.showProgressPublicly !== undefined) user.showProgressPublicly = req.body.showProgressPublicly;
 
             const updatedUser = await user.save();
 
@@ -417,6 +419,7 @@ export const updateProfile = async (req, res) => {
                 resumeOriginalName: updatedUser.resumeOriginalName,
                 stats: updatedUser.stats,
                 streak: updatedUser.streak || 0,
+                showProgressPublicly: updatedUser.showProgressPublicly !== undefined ? updatedUser.showProgressPublicly : true,
                 token: generateToken(updatedUser._id)
             });
         } else {
@@ -507,7 +510,11 @@ export const uploadResume = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        const resumeUrl = `/uploads/${req.file.filename}`;
+        // Convert the file buffer to a Base64 Data URL
+        const base64Resume = req.file.buffer.toString('base64');
+        const mimeType = req.file.mimetype || 'application/pdf';
+        const resumeUrl = `data:${mimeType};base64,${base64Resume}`;
+
         user.resumeUrl = resumeUrl;
         user.resumeOriginalName = req.file.originalname;
 

@@ -115,14 +115,21 @@ export const parseProfileResume = async (req, res) => {
             return res.status(404).json({ success: false, error: "please upload the resume in profile" });
         }
 
-        const __dirname = path.resolve();
-        const filePath = path.join(__dirname, user.resumeUrl);
+        let dataBuffer;
+        if (user.resumeUrl.startsWith('data:')) {
+            // Handle Base64 Data URL
+            const base64Data = user.resumeUrl.split(',')[1];
+            dataBuffer = Buffer.from(base64Data, 'base64');
+        } else {
+            // Fallback for legacy disk-based resumes
+            const __dirname = path.resolve();
+            const filePath = path.join(__dirname, user.resumeUrl);
 
-        if (!fs.existsSync(filePath)) {
-            return res.status(404).json({ success: false, error: "Resume file not found on server. Please re-upload your resume." });
+            if (!fs.existsSync(filePath)) {
+                return res.status(404).json({ success: false, error: "Resume file not found on server. Please re-upload your resume." });
+            }
+            dataBuffer = fs.readFileSync(filePath);
         }
-
-        const dataBuffer = fs.readFileSync(filePath);
         const data = await pdf(dataBuffer);
         const rawText = data.text;
 

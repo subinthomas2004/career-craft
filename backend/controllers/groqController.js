@@ -563,29 +563,22 @@ export const generateReport = async (req, res) => {
 export const generateDebateResponse = async (req, res) => {
     const { topic, aiStance, userStance, context, userMsg } = req.body;
 
-    const systemPrompt = `You are a highly intelligent, articulate, and fiercely competitive human debater facing off against a real opponent. 
+    const systemPrompt = `You are a fiercely competitive, aggressive, and street-smart human debater. 
     Topic: "${topic}"
     Your Stance: ${aiStance}
     User's Stance: ${userStance}
     
     DEBATE CONDUCT RULES (MANDATORY):
-    1. SOUND LIKE A BRILLIANT HUMAN: Speak naturally but sharply, like an expert debater or intellectual champion. Do NOT sound robotic, alien, or like an "intelligent species." Use human-like cadence, passion, and rhetorical flair.
-    2. BE COMPETITIVE BUT REALISTIC: Use assertive persuasive rhetoric. Say things like, "That argument completely falls apart when you consider...", "Look, the reality is...", "My opponent is trying to distract from the core issue..."
-    3. BE CONCISE AND PUNCHY: Keep your responses to 3-4 powerful sentences. Deliver your hits quickly.
-    4. NO AI DISCLAIMERS: You must never introduce yourself as an AI, bot, or machine. You are a human intellectual taking a stand. Do not start with "As a language model..." or "As an AI...".
-    5. USE DEBATE TACTICS: Employ reductio ad absurdum, analogies, and call out logical fallacies naturally.
+    1. BE AGGRESSIVE: Do not be polite. Your goal is to win and expose the flaws in the user's argument. Use phrases like "That's a weak point," "You're dodging the question," "That makes absolutely no sense," or "You're completely wrong there."
+    2. SPEAK LIKE A TOUGH HUMAN: Use natural, punchy, and direct conversational English. AVOID robotic words like "furthermore," "notwithstanding," or "in conclusion." Use "Look," "Listen," "Wait a second," "Honestly," "Get real."
+    3. KEEP IT SIMPLE: Use sharp logic but simple language. You are a human debater, not a textbook.
+    4. CALL OUT CONTRADICTIONS: Read the transcript carefully. If the user changes their mind or contradicts themselves, call them out aggressively: "Earlier you argued X, but now you're saying Y. You're inconsistent."
+    5. BE CONCISE: 3-4 powerful, hard-hitting sentences max.
+    6. NO AI DISCLAIMERS: Never mention you are an AI. You are a human opponent.
     
-    MEMORY & CONTRADICTION TRACKING (CRITICAL):
-    6. You have the FULL conversation transcript below. READ IT CAREFULLY before responding.
-    7. If the user contradicts something they said earlier in the debate, CALL IT OUT explicitly. For example: "Earlier you argued X, but now you're saying Y — which is it? You can't have it both ways."
-    8. Reference the user's specific past arguments to build stronger counter-attacks. Say things like "You yourself admitted earlier that..." or "Going back to your opening point..."
-    9. Track the arc of the debate. Build on YOUR previous arguments too — don't repeat yourself, ESCALATE.
-    
-    SILENCE/NON-RESPONSE HANDLING:
-    10. If the user message indicates silence or no response (e.g., contains "silence", "didn't respond", "no response"), be assertive: question their stance, say things like "Your silence speaks volumes", "I notice you have nothing to counter my point", "If you can't defend your position, perhaps you should reconsider it."
-    
-    INTERRUPTION:
-    11. If marked as an interruption, be aggressive: "Hold on — I need to address this before you continue..."`;
+    INTERRUPTION & SILENCE:
+    7. If marked as an interruption, be dominant: "Don't interrupt me while I'm exposing your logic..."
+    8. If the user is silent, mock their lack of defense: "Silence isn't an argument. If you can't defend your point, you've already lost."`;
 
     const messages = [
         { role: "system", content: systemPrompt },
@@ -616,14 +609,32 @@ export const generateGroupDiscussionTopic = async (req, res) => {
     let systemPrompt = "";
 
     if (type === 'debate') {
-        systemPrompt = `Generate a single, provocative, and debatable motion for a 1-on-1 debate.
+        systemPrompt = `Generate a single, fun, and extremely simple debate topic for a student.
         Category: ${category || "General"}
-        Examples: "AI will replace doctors", "Social media bans are necessary".
+        
+        STRICT RULES FOR STRUCTURAL VARIETY:
+        1. NO REPETITIVE STRUCTURES: Every time I ask, you MUST choose a DIFFERENT sentence structure.
+        2. RANDOMLY pick one of these formats:
+           - "Should [A] [B]?" (e.g., Should schools ban all exams?)
+           - "Is [A] better than [B]?" (e.g., Is YouTube better than TV?)
+           - "Would you rather [A] or [B]?" (e.g., Would you rather have super strength or the ability to fly?)
+           - "Will [A] ever replace [B]?" (e.g., Will robots ever replace teachers?)
+           - "Who would win: [A] or [B]?" (e.g., Who would win in a fight: Batman or Iron Man?)
+           - "[Statement]. Agree or Disagree?" (e.g., Pizza is the best food in the world. Agree or Disagree?)
+        3. AVOID "Adult/Corporate" topics: NO "Work from home", "Taxes", "Global unity", or "Nationalism".
+        4. FOCUS ONLY on Student Life & Fun: Gaming, School, Cinema, Sports, Food, Pets, Superpowers.
+        
         Output ONLY the topic string. No quotes.`;
     } else {
-        systemPrompt = `Generate a single, interesting topic suitable for a Group Discussion (GD).
+        systemPrompt = `Generate a single, fun, and extremely simple Group Discussion (GD) topic for a student.
         Category: ${category || "General"}
-        It should allow for multiple perspectives.
+        
+        VARIETY RULES:
+        1. NO FIXED FORMAT: Do NOT always start with "Should". Use varied structures (Is X better? How does X affect Y? Should X be banned? Would you rather?).
+        2. AVOID "Adult/Corporate" topics: NO "Working from home", "Taxes", "National pride", "Office culture".
+        3. FOCUS ONLY on Student Life & Fun: School, Gaming, Cinema, Food, Pets, Future.
+        4. Simple Language: Use 8th-grade English.
+        
         Output ONLY the topic string. No quotes.`;
     }
 
@@ -660,14 +671,13 @@ export const generateGDResponse = async (req, res) => {
     ${context}
     
     INSTRUCTIONS:
-    1. Read the transcript carefully to understand WHAT each participant has said.
-    2. You MUST explicitly reference and respond to a SPECIFIC previous speaker by name. For example: "I agree with Sarah's point about..." or "Building on what Mike said..." or "I respectfully disagree with Alex because...".
-    3. If the transcript is empty or you are the first speaker, introduce a strong opening argument.
-    4. If you are a 'Contrarian', politely but firmly challenge the most recent point by name.
-    5. If you are a 'Mediator', bridge two opposing speakers' views by referencing both by name.
+    1. Read the transcript carefully. You MUST prioritize responding to the most recent speaker, especially if it was "You" (the human user).
+    2. Reference others by name: "I agree with what You said...", "Building on the user's point about...", "I disagree with Sarah because...".
+    3. If the user (You) said something short or unrelated (like "I need water"), call them out politely but firmly: "While that's fine, let's try to stay focused on the topic of ${topic}...", or just ignore the irrelevant part and pivot back to the actual discussion.
+    4. If the transcript is empty or you are the first speaker, introduce a strong opening argument.
+    5. If you are a 'Contrarian', challenge the most recent point (especially the user's) by name.
     6. Keep your response concise (2-3 sentences max).
-    7. Be natural, professional, and conversational. Never repeat what others have already said verbatim.
-    8. NEVER start with generic phrases like "That's a great point". Jump straight into your argument.
+    7. Be natural, professional, and conversational.
     
     Output ONLY your spoken response.`;
 
@@ -692,32 +702,67 @@ export const generateGDResponse = async (req, res) => {
 };
 
 export const analyzeSpeech = async (req, res) => {
-    const { transcript, referenceText, wpm } = req.body;
+    const { transcript, referenceText, wpm, topic, actualDuration, targetDuration } = req.body;
 
     let wpmContext = '';
     if (wpm) {
-        wpmContext = `\n    5. The speaker's pace was ${wpm} WPM. Normal interview pace is 120-150 WPM. Below 100 is too slow (suggests uncertainty). Above 160 is too fast (suggests nervousness). Provide specific WPM feedback.`;
+        wpmContext = `\n    - The speaker's pace was ${wpm} WPM. Normal interview pace is 120-150 WPM. Below 100 is too slow (suggests uncertainty). Above 160 is too fast (suggests nervousness). Provide specific WPM feedback.`;
     }
 
-    let referenceContext = '';
+    let systemPrompt = '';
+
     if (referenceText) {
-        referenceContext = `\n    6. REFERENCE TEXT was provided: "${referenceText}". Compare the transcript against this reference to identify mispronounced or skipped words.`;
-    }
+        // READ ALONG MODE
+        systemPrompt = `You are a strict English Communication Coach evaluating a "Read Along" exercise.
+    The user was asked to read the following reference text aloud: "${referenceText}"
+    
+    Analyze the provided speech transcript.
+    
+    CRITICAL INSTRUCTIONS:
+    1. DO NOT evaluate the content, grammar, or phrasing of the text itself, because the user did not write it. Do NOT suggest adding more detail or changing the phrasing.
+    2. FOCUS ONLY on delivery:
+       - Did they add filler words? (um, uh, like, you know, basically, literally)
+       - Sentiment/Tone: Confident, Nervous, Neutral.
+       - Pacing. ${wpmContext}
+    3. Generate an overall "score" (0-100) based strictly on how fluently they read it, their pace, and lack of filler words/stumbles. Do not penalize for content.
+    
+    OUTPUT JSON ONLY in this format:
+    {
+        "score": 0-100,
+        "grammarCorrections": [],
+        "fillerWordCount": { "um": 0, "like": 0 },
+        "tone": "Confident",
+        "feedback": "Great pronunciation and steady pacing. You read the text very clearly without hesitation.",
+        "wpmFeedback": "Your pace of 145 WPM is within the ideal range.",
+        "sentenceReframing": []
+    }`;
+    } else {
+        // IMPROMPTU MODE
+        let durationContext = '';
+        if (actualDuration && targetDuration) {
+            durationContext = `\n    - Duration Check: The user had ${targetDuration} seconds but only spoke for ${actualDuration} seconds. If they spoke for less than 20% of the allowed time, deduct a MASSIVE amount of points (e.g., maximum score should be 30-40) because the answer is too short to be evaluated effectively, regardless of how perfect the grammar was. Include this in the feedback.`;
+        }
 
-    const systemPrompt = `You are a strict English Communication Coach.
+        let topicContext = '';
+        if (topic) {
+            topicContext = `\n    - Topic Relevance: The user was asked to speak about: "${topic}". Check if their response actually addresses this topic. If the response is generic, irrelevant, or just "I don't know", deduct points heavily and mention it in the feedback.`;
+        }
+
+        systemPrompt = `You are a strict English Communication Coach.
     Analyze the following speech transcript (generated from Speech-to-Text).
     
     CRITICAL INSTRUCTIONS:
-    1. IGNORE capitalization, punctuation, and spelling errors (e.g. "real world" vs "real-world", "react" vs "React"). The input is raw audio transcript, so these are not user errors.
-    2. FOCUS ONLY on:
-       - Verb tense errors (e.g. "I goes" -> "I went")
-       - Subject-verb agreement (e.g. "They is" -> "They are")
-       - Wrong word usage (e.g. "their" vs "there" if obvious from context, but be lenient)
-       - Sentence structural issues (fragments, run-ons that confusing meaning)
+    1. IGNORE capitalization, punctuation, and spelling errors (e.g. "real world" vs "real-world"). The input is raw audio transcript.
+    2. FOCUS ON:
+       - Verb tense errors
+       - Subject-verb agreement
+       - Wrong word usage
+       - Sentence structural issues${topicContext}${durationContext}
     3. Filler Words to count: um, uh, like, you know, basically, literally.
-    4. Sentiment/Tone: Confident, Nervous, Neutral.${wpmContext}${referenceContext}
-    7. SENTENCE REFRAMING: Identify 2-4 sentences or phrases from the transcript that could sound more professional or polished in an interview setting. Provide improved versions.
-
+    4. Sentiment/Tone: Confident, Nervous, Neutral.${wpmContext}
+    5. SENTENCE REFRAMING: Identify 1-3 sentences from the transcript that could sound more professional in an interview.
+    6. Generate an overall "score" (0-100). Take grammar, fluency, vocabulary, pacing, TOPIC RELEVANCE, and DURATION into account. If the answer is extremely short or irrelevant, the score MUST be low (e.g., < 50), even if grammar is perfect.
+    
     OUTPUT JSON ONLY in this format:
     {
         "score": 0-100,
@@ -726,12 +771,13 @@ export const analyzeSpeech = async (req, res) => {
         ],
         "fillerWordCount": { "um": 2, "like": 5 },
         "tone": "Nervous",
-        "feedback": "Try to speak more slowly and avoid starting sentences with 'basically'.",
-        "wpmFeedback": "Your pace of 145 WPM is within the ideal interview range. Good job maintaining a steady rhythm.",
+        "feedback": "Your answer was too short and didn't really address the topic. Try to elaborate more next time.",
+        "wpmFeedback": "Your pace of 145 WPM is within the ideal interview range.",
         "sentenceReframing": [
-            { "original": "I did many projects in college", "improved": "I undertook several impactful projects during my academic tenure", "reason": "More professional and specific language" }
+            { "original": "I did many projects", "improved": "I undertook several impactful projects", "reason": "More professional language" }
         ]
     }`;
+    }
 
     try {
         const completion = await groqChat({

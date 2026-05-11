@@ -177,15 +177,17 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({ analysis, referenceText
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-wrap gap-3">
-                        {!fillerWordCount || Object.entries(fillerWordCount).length === 0 ? (
+                        {!fillerWordCount || Object.values(fillerWordCount).reduce((a, b: any) => a + Number(b), 0) === 0 ? (
                             <span className="text-emerald-500 font-medium flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-lg border border-emerald-100">
                                 <CheckCircle className="w-4 h-4" /> No filler words detected!
                             </span>
                         ) : (
-                            Object.entries(fillerWordCount).map(([word, count]) => (
+                            Object.entries(fillerWordCount)
+                                .filter(([_, count]) => Number(count) > 0)
+                                .map(([word, count]) => (
                                 <div key={word} className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full border border-gray-200">
                                     <span className="font-medium text-gray-700 capitalize text-sm">{word}</span>
-                                    <span className="bg-white px-2 py-0.5 rounded-full text-xs font-bold text-gray-900 shadow-sm border">{count}</span>
+                                    <span className="bg-white px-2 py-0.5 rounded-full text-xs font-bold text-gray-900 shadow-sm border">{count as number}</span>
                                 </div>
                             ))
                         )}

@@ -8,7 +8,6 @@ import AnalysisResult from "@/components/communication/AnalysisResult";
 import PracticeTextSelector from "@/components/communication/PracticeTextSelector";
 import VocabularyBuilder from "@/components/communication/VocabularyBuilder";
 import TimerDisplay from "@/components/communication/TimerDisplay";
-import SessionHistory from "@/components/communication/SessionHistory";
 import { PracticeText } from '@/data/practiceTexts';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
@@ -18,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 const CommunicationCoach = () => {
     const navigate = useNavigate();
-    const [mode, setMode] = useState<"read" | "impromptu" | "vocabulary" | "history">("read");
+    const [mode, setMode] = useState<"read" | "impromptu" | "vocabulary">("read");
     const [transcript, setTranscript] = useState("");
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [analysis, setAnalysis] = useState<any>(null);
@@ -34,6 +33,7 @@ const CommunicationCoach = () => {
 
     // Final calculated WPM
     const [wpm, setWpm] = useState<number | undefined>(undefined);
+    const [actualDuration, setActualDuration] = useState<number | undefined>(undefined);
 
     const topics = [
         "Tell me about a time you failed.",
@@ -75,6 +75,7 @@ const CommunicationCoach = () => {
 
     const handleRecordingComplete = (calculatedWpm: number, duration: number) => {
         setWpm(calculatedWpm);
+        setActualDuration(duration);
         setTimerActive(false);
     };
 
@@ -92,7 +93,10 @@ const CommunicationCoach = () => {
             const response = await api.post('/groq/speech-analysis', {
                 transcript,
                 referenceText,
-                wpm
+                wpm,
+                topic: mode === 'impromptu' ? topic : undefined,
+                actualDuration: mode === 'impromptu' ? actualDuration : undefined,
+                targetDuration: mode === 'impromptu' ? timerDuration : undefined
             });
 
             const data = response.data;
@@ -135,6 +139,7 @@ const CommunicationCoach = () => {
         setAnalysis(null);
         setTranscript("");
         setWpm(undefined);
+        setActualDuration(undefined);
         setTimerActive(false);
         setForceStopRecord(false);
     };
@@ -162,11 +167,10 @@ const CommunicationCoach = () => {
                         <div className="lg:col-span-5 xl:col-span-4 space-y-6">
                             <Card className="border-gray-200 bg-white shadow-sm overflow-hidden border-2">
                                 <Tabs value={mode} className="w-full" onValueChange={handleModeChange}>
-                                    <TabsList className="grid w-full grid-cols-4 rounded-none h-14 bg-gray-50/50 border-b">
+                                    <TabsList className="grid w-full grid-cols-3 rounded-none h-14 bg-gray-50/50 border-b">
                                         <TabsTrigger value="read" className="data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none">Read</TabsTrigger>
                                         <TabsTrigger value="impromptu" className="data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none">Topic</TabsTrigger>
                                         <TabsTrigger value="vocabulary" className="data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none">Vocab</TabsTrigger>
-                                        <TabsTrigger value="history" className="data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none">Stats</TabsTrigger>
                                     </TabsList>
 
                                     <div className="p-4 sm:p-6 min-h-[400px]">
@@ -254,14 +258,6 @@ const CommunicationCoach = () => {
                                         <TabsContent value="vocabulary" className="mt-0">
                                             <VocabularyBuilder />
                                         </TabsContent>
-
-                                        <TabsContent value="history" className="mt-0 space-y-4">
-                                            <div className="flex items-center gap-2 mb-4 text-emerald-700">
-                                                <Target className="w-5 h-5" />
-                                                <h3 className="font-semibold">Your Progress</h3>
-                                            </div>
-                                            <SessionHistory />
-                                        </TabsContent>
                                     </div>
                                 </Tabs>
                             </Card>
@@ -271,7 +267,7 @@ const CommunicationCoach = () => {
                         <div className="lg:col-span-7 xl:col-span-8">
                             <Card className={cn(
                                 "border-gray-200 bg-white shadow-lg min-h-[500px] flex flex-col transition-all duration-300",
-                                (mode === 'vocabulary' || mode === 'history') ? 'opacity-50 pointer-events-none' : 'opacity-100'
+                                mode === 'vocabulary' ? 'opacity-50 pointer-events-none' : 'opacity-100'
                             )}>
                                 <CardHeader className="border-b bg-gray-50/50">
                                     <div className="flex items-center justify-between">

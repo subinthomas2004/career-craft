@@ -146,9 +146,12 @@ const DebateTopicSelection = () => {
     const handleRandomTopic = async () => {
         setLoadingRandom(true);
         try {
+            const categories = Object.keys(DEBATE_CATEGORIES);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            
             const response = await api.post('/groq/debate/topic', {
                 type: 'debate',
-                category: 'General'
+                category: randomCategory
             });
             if (response.data.success) {
                 setSelectedTopic(response.data.topic);

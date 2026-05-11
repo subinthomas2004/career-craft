@@ -65,6 +65,10 @@ const userSchema = new mongoose.Schema({
     lastActive: {
         type: Date,
         default: Date.now
+    },
+    showProgressPublicly: {
+        type: Boolean,
+        default: true
     }
 });
 

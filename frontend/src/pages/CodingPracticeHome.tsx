@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Code, ArrowRight, ArrowLeft, Flame, Loader2 } from "lucide-react";
+import { Code, ArrowRight, ArrowLeft, Flame, Loader2, Trophy, Medal } from "lucide-react";
 import { codingProblems } from "@/data/codingProblems";
 import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
@@ -72,13 +72,20 @@ const languages = [
     },
 ];
 
+interface LeaderboardUser {
+    name: string;
+    solvedCount: number;
+    profilePicture?: string;
+}
+
 const CodingPracticeHome = () => {
     const navigate = useNavigate();
     const [solvedProblems, setSolvedProblems] = useState<number[]>([]);
+    const [leaderboard, setLeaderboard] = useState<LeaderboardUser[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchScores = async () => {
+        const fetchData = async () => {
             try {
                 const userInfoStr = localStorage.getItem("userInfo");
                 if (!userInfoStr) {
@@ -86,19 +93,25 @@ const CodingPracticeHome = () => {
                     return;
                 }
                 const { token } = JSON.parse(userInfoStr);
-                const res = await api.get('/coding-scores', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                if (res.data?.success) {
-                    setSolvedProblems(res.data.solvedProblems || []);
+                
+                const [scoresRes, leaderboardRes] = await Promise.all([
+                    api.get('/coding-scores', { headers: { Authorization: `Bearer ${token}` } }),
+                    api.get('/coding-scores/leaderboard', { headers: { Authorization: `Bearer ${token}` } })
+                ]);
+
+                if (scoresRes.data?.success) {
+                    setSolvedProblems(scoresRes.data.solvedProblems || []);
+                }
+                if (leaderboardRes.data?.success) {
+                    setLeaderboard(leaderboardRes.data.leaderboard || []);
                 }
             } catch (err) {
-                console.error("Failed to fetch coding progress:", err);
+                console.error("Failed to fetch coding data:", err);
             } finally {
                 setIsLoading(false);
             }
         };
-        fetchScores();
+        fetchData();
     }, [navigate]);
 
     const solvedCount = solvedProblems.length;
@@ -197,6 +210,55 @@ const CodingPracticeHome = () => {
                         </Link>
                     )
                 })}
+            </div>
+
+            {/* Top Coders Leaderboard */}
+            <div className="mt-8 sm:mt-12">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                        <Trophy className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                        <h2 className="text-lg sm:text-xl font-bold text-foreground">Top Coders</h2>
+                        <p className="text-xs sm:text-sm text-muted-foreground">Users with the most problems solved</p>
+                    </div>
+                </div>
+
+                <div className="bg-card/60 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden shadow-lg">
+                    {leaderboard.length > 0 ? (
+                        <div className="divide-y divide-border/30">
+                            {leaderboard.map((user, index) => (
+                                <div key={index} className="flex items-center justify-between p-4 sm:p-5 hover:bg-muted/20 transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${index === 0 ? 'bg-yellow-500/20 text-yellow-600' : index === 1 ? 'bg-gray-300/30 text-gray-600' : index === 2 ? 'bg-amber-600/20 text-amber-700' : 'bg-muted/50 text-muted-foreground'}`}>
+                                            {index + 1}
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            {user.profilePicture ? (
+                                                <img src={user.profilePicture} alt={user.name} className="w-10 h-10 rounded-full object-cover border border-border" />
+                                            ) : (
+                                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                                                    <span className="text-primary font-semibold">{user.name.charAt(0).toUpperCase()}</span>
+                                                </div>
+                                            )}
+                                            <span className="font-semibold text-foreground">{user.name}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                                        <Flame className="w-3.5 h-3.5 text-emerald-500" />
+                                        <span className="text-sm font-bold text-emerald-600">{user.solvedCount} Solved</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="p-8 text-center">
+                            <Trophy className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                            <p className="text-muted-foreground font-medium">No one has solved any problems yet.</p>
+                            <p className="text-sm text-muted-foreground/70 mt-1">Solve a problem to be the first on the leaderboard!</p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

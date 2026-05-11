@@ -90,30 +90,21 @@ const DebateReport = () => {
             
             YOUR TASK: Evaluate ONLY the "User" speaker's performance. The "AI" speaker is the opponent — ignore their quality.
 
-            SCORING CRITERIA (be HONEST and CRITICAL — do NOT inflate scores):
+            SCORING CRITERIA (Be highly nuanced and use the full 0-100 range):
 
-            1. **Speech Clarity** (0-100): How clearly did the user articulate their points? Were their sentences well-structured and easy to understand? Did they use proper grammar and vocabulary? Deduct points for rambling, incomplete sentences, or unclear phrasing.
-
-            2. **Confidence** (0-100): Did the user sound confident and assertive? Did they make definitive claims or were they wishy-washy? Did they use hedge words excessively ("maybe", "I think", "kind of")? Did they hold their ground against the AI's counter-arguments?
-
-            3. **Logical Reasoning** (0-100): Did the user provide logical, well-structured arguments? Did they use evidence, examples, or analogies effectively? Were there logical fallacies in their reasoning? Did they address the AI's counter-points or ignore them?
-
-            4. **Relevance to Topic** (0-100): Did the user stay on topic throughout? Did their arguments directly relate to the motion being debated? Did they go off on tangents? 
-
-            5. **Persuasiveness** (0-100): Overall, how persuasive was the user? Would an impartial judge be convinced by their arguments? Did they have strong opening and closing statements? Did they adapt their strategy during the debate?
-
-            6. **Filler Words**: Carefully scan ONLY the User's lines in the transcript. Count EVERY occurrence of these filler words/phrases: "um", "uh", "like" (when used as filler, not comparison), "you know", "basically", "actually", "literally", "I mean", "sort of", "kind of", "right", "so yeah". Return the EXACT total count. If none are found, return 0.
+            1. **Speech Clarity** (0-100): Evaluate articulation, sentence structure, and grammar. Even if the topic is wrong, if they spoke clearly, they should get credit here.
+            2. **Confidence** (0-100): Evaluate the tone and assertiveness. Did they sound sure of themselves? 
+            3. **Logical Reasoning** (0-100): Evaluate the strength of arguments. This is the most important factor for the final score.
+            4. **Relevance to Topic** (0-100): Did they actually debate the topic? If they talked about something completely unrelated (like asking for water), this should be very low.
+            5. **Persuasiveness** (0-100): Would a judge be convinced? 
 
             OVERALL SCORE CALCULATION:
-            - The overallScore should be a WEIGHTED assessment: Reasoning (30%), Persuasiveness (25%), Clarity (20%), Confidence (15%), Relevance (10%).
-            - CONTENT QUALITY IS KING: A user who speaks a lot but says nothing meaningful (rambling, repeating the same point, saying "blah blah" filler content) should score LOW. Only substantive, well-argued content gets high marks.
-            - Conversely, a user who speaks briefly but makes sharp, powerful arguments can score HIGH. Length alone does NOT matter.
-            - A score of 80+ = excellent debater who made compelling, well-reasoned arguments
-            - A score of 60-79 = decent but with clear room for improvement
-            - A score of 40-59 = needs significant work on argumentation
-            - A score below 40 = struggled to make coherent arguments
-            - If the user barely spoke or gave very short responses with no substance, score should be LOW (20-40)
-            - If the user contradicted themselves, the score should reflect that negatively
+            - The overallScore must be a WEIGHTED average of the 5 metrics above.
+            - DO NOT default to a low score like 10 or 20 unless the user literally said nothing or gibberish.
+            - If the user made a sincere effort but had weak arguments, the score should be in the 40-60 range.
+            - If the user made a strong, logical case, the score should be 80-95.
+            - A score of 10-30 is reserved for total avoidance of the topic or extremely low-effort responses (e.g., just saying "hello").
+            - Be fair: if they are clear and confident but have bad logic, their Clarity and Confidence scores should still be high even if Reasoning is low.
 
             FEEDBACK RULES:
             - Strengths: cite SPECIFIC quotes from the user's actual speech that were effective

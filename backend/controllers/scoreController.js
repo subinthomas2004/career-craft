@@ -80,12 +80,36 @@ const submitScore = async (req, res) => {
 // @access  Public
 const getTopScores = async (req, res) => {
     try {
-        // Sort by score (descending) and timeTaken (ascending) for tie-breaking
-        const scores = await Score.find({})
+        // Fetch more than 5 initially to account for filtered out users
+        const allScores = await Score.find({})
             .sort({ score: -1, timeTaken: 1 })
-            .limit(5);
+            .populate('user', 'showProgressPublicly');
 
-        res.json(scores);
+        // Filter out users who have chosen to hide their progress
+        const visibleScores = allScores.filter(score => {
+            // If user exists and showProgressPublicly is false, filter them out.
+            // If user is null (deleted user) or showProgressPublicly is true/undefined, keep them.
+            if (score.user && score.user.showProgressPublicly === false) {
+                return false;
+            }
+            return true;
+        });
+
+        // Limit to top 5 after filtering
+        const topScores = visibleScores.slice(0, 5);
+
+        // Sanitize the output (don't send populated user object, just send the original schema format)
+        const sanitizedScores = topScores.map(score => ({
+            _id: score._id,
+            user: score.user ? score.user._id : null,
+            username: score.username,
+            score: score.score,
+            totalQuestions: score.totalQuestions,
+            timeTaken: score.timeTaken,
+            date: score.date
+        }));
+
+        res.json(sanitizedScores);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });

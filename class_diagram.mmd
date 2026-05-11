@@ -77,6 +77,9 @@ classDiagram
         +String authorId
         +String title
         +String content
+        +String postType
+        +String imageUrl
+        +String linkUrl
         +List~String~ likes
     }
 
@@ -86,6 +89,21 @@ classDiagram
         +String content
     }
 
+    class Debate {
+        +ObjectId userId
+        +String topic
+        +Number overallScore
+        +Date createdAt
+    }
+
+    class Notification {
+        +String type
+        +String title
+        +String message
+        +String link
+        +Date createdAt
+    }
+
     Resume "0..1" --* "1" User
     Company "1" -- "0..*" User : interacts
     User "1" *-- "0..*" Score
@@ -93,4 +111,6 @@ classDiagram
     User "1" *-- "0..1" CodingScore
     User "1" *-- "0..*" TypingHistory
     User "1" *-- "0..*" ForumPost
+    User "1" *-- "0..*" Debate
+    User "1" *-- "0..*" Notification
     ForumPost "1" *-- "0..*" ForumComment

@@ -70,8 +70,36 @@ export const submitRankedScore = async (req, res) => {
 // @access  Public
 export const getLeaderboard = async (req, res) => {
     try {
-        const leaderboard = await RankedScore.find().sort({ wpm: -1 }).limit(5);
-        res.json(leaderboard);
+        // Fetch more than 5 initially to account for filtered out users
+        const allScores = await RankedScore.find()
+            .sort({ wpm: -1 })
+            .populate('userId', 'showProgressPublicly');
+
+        // Filter out users who have chosen to hide their progress
+        const visibleScores = allScores.filter(score => {
+            // If user exists and showProgressPublicly is false, filter them out.
+            // If userId is null (deleted user) or showProgressPublicly is true/undefined, keep them.
+            if (score.userId && score.userId.showProgressPublicly === false) {
+                return false;
+            }
+            return true;
+        });
+
+        // Limit to top 5 after filtering
+        const leaderboard = visibleScores.slice(0, 5);
+
+        // Sanitize the output (don't send populated user object, just send the original schema format)
+        const sanitizedLeaderboard = leaderboard.map(score => ({
+            _id: score._id,
+            userId: score.userId ? score.userId._id : null,
+            name: score.name,
+            wpm: score.wpm,
+            accuracy: score.accuracy,
+            consistency: score.consistency,
+            completedAt: score.completedAt
+        }));
+
+        res.json(sanitizedLeaderboard);
     } catch (error) {
         console.error('Error in getLeaderboard:', error);
         res.status(500).json({ message: 'Server error' });

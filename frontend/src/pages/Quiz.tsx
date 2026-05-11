@@ -16,8 +16,7 @@ const QuizSelection = () => {
       features: [
         "8+ CS Subjects",
         "Practice & Exam Modes",
-        "Anti-cheating System",
-        "Global Leaderboard"
+        "Anti-cheating System"
       ]
     },
     {

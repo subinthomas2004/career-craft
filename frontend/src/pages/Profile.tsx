@@ -535,7 +535,7 @@ const Profile = () => {
                           {profile.resumeOriginalName || "Current Resume"}
                         </span>
                         <a 
-                          href={`${window.location.origin.replace(':5173', ':5001')}${profile.resumeUrl}`} 
+                          href={profile.resumeUrl.startsWith('data:') ? profile.resumeUrl : `${window.location.origin.replace(':5173', ':5001')}${profile.resumeUrl}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-xs text-primary hover:underline"
