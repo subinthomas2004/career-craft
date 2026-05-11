@@ -27,6 +27,7 @@ import Admin from "./pages/Admin";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import ChatBot from "./components/chatbot/ChatBot";
 import NotFound from "./pages/NotFound";
+import PerformanceAnalyzer from "./pages/PerformanceAnalyzer";
 import SplashScreen from "./components/layout/SplashScreen";
 import { useState } from "react";
 
@@ -47,6 +48,8 @@ import CommunicationCoach from "./pages/CommunicationCoach";
 import CompanyPrep from "./pages/CompanyPrep";
 import CompanyDetails from "./pages/CompanyDetails";
 import JobPortal from "./pages/JobPortal";
+import Feedback from "./pages/Feedback";
+import AIMentor from "./pages/AIMentor";
 
 const queryClient = new QueryClient();
 
@@ -88,7 +91,6 @@ const App = () => {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/test-groq" element={<TestGroqConnection />} />
                 <Route path="/group-discussion/room" element={<GroupDiscussion />} />
-                <Route path="/group-discussion/room" element={<GroupDiscussion />} />
 
                 {/* Dashboard Routes */}
                 <Route path="/dashboard" element={<DashboardLayout />}>
@@ -106,6 +108,7 @@ const App = () => {
                   <Route path="soft-skills" element={<SoftSkills />} />
                   <Route path="skill-gap" element={<SkillGap />} />
                   <Route path="domain" element={<DomainPrep />} />
+                  <Route path="performance" element={<PerformanceAnalyzer />} />
                   <Route path="notifications" element={<Notifications />} />
                   <Route path="forum" element={<Forum />} />
                   <Route path="profile" element={<Profile />} />
@@ -125,6 +128,8 @@ const App = () => {
                   <Route path="company-prep" element={<CompanyPrep />} />
                   <Route path="company-prep/:id" element={<CompanyDetails />} />
                   <Route path="jobs" element={<JobPortal />} />
+                  <Route path="feedback" element={<Feedback />} />
+                  <Route path="ai-mentor" element={<AIMentor />} />
                 </Route>
 
                 {/* Catch-all */}

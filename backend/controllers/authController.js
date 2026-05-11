@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import sendEmail from '../utils/sendEmail.js';
 import { getOtpEmailTemplate, getWelcomeEmailTemplate } from '../utils/emailTemplates.js';
+import Log from '../models/Log.js';
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -141,6 +142,17 @@ export const verifyOtp = async (req, res) => {
             stats: user.stats
         });
 
+        // Log the new login action
+        await Log.create({
+            userId: user._id,
+            userName: user.name,
+            userEmail: user.email,
+            action: 'login',
+            ipAddress: req.ip,
+            userAgent: req.headers['user-agent'] || 'unknown',
+            details: 'Registration finalized and first login'
+        });
+
     } catch (error) {
         console.error('Error in verifyOtp:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -161,6 +173,31 @@ export const loginUser = async (req, res) => {
             if (user.isVerified === false) {
                 return res.status(401).json({ message: 'Please verify your email first' });
             }
+
+            if (user.isSuspended) {
+                // Log suspicious attempt
+                await Log.create({
+                    userId: user._id,
+                    userName: user.name,
+                    userEmail: user.email,
+                    action: 'suspicious_activity',
+                    ipAddress: req.ip,
+                    userAgent: req.headers['user-agent'] || 'unknown',
+                    details: 'Attempted to login while suspended'
+                });
+                return res.status(403).json({ message: 'Your account has been suspended. Please contact support.' });
+            }
+
+            // Log standard login
+            await Log.create({
+                userId: user._id,
+                userName: user.name,
+                userEmail: user.email,
+                action: 'login',
+                ipAddress: req.ip,
+                userAgent: req.headers['user-agent'] || 'unknown',
+                details: 'Standard login'
+            });
 
             res.json({
                 _id: user.id,
@@ -299,6 +336,17 @@ export const googleLogin = async (req, res) => {
                 email: user.email,
                 role: user.role,
                 token: generateToken(user._id)
+            });
+
+            // Log Google Login
+            await Log.create({
+                userId: user._id,
+                userName: user.name,
+                userEmail: user.email,
+                action: 'login',
+                ipAddress: req.ip,
+                userAgent: req.headers['user-agent'] || 'unknown',
+                details: 'Google login'
             });
         } else {
             // User doesn't exist - Register

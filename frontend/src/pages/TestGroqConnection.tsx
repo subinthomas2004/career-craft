@@ -45,9 +45,9 @@ const TestGroqConnection = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black/95 text-white p-8 flex items-center justify-center">
-            <div className="flex gap-6 w-full max-w-5xl items-start">
-                <Card className="flex-1 bg-black/40 border-white/10 backdrop-blur-xl">
+        <div className="text-foreground space-y-6 w-full">
+            <div className="flex flex-col xl:flex-row gap-6 w-full items-start">
+                <Card className="flex-1 bg-card border-border shadow-sm w-full">
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -55,8 +55,8 @@ const TestGroqConnection = () => {
                                     <Bot className="w-6 h-6 text-orange-400" />
                                 </div>
                                 <div>
-                                    <CardTitle className="text-white">Groq API Test</CardTitle>
-                                    <CardDescription className="text-white/60">Test connection with Llama 3 on Groq</CardDescription>
+                                    <CardTitle>Groq API Test</CardTitle>
+                                    <CardDescription>Test connection with Llama 3 on Groq</CardDescription>
                                 </div>
                             </div>
                             {status === 'connected' && (
@@ -72,9 +72,9 @@ const TestGroqConnection = () => {
                         </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="h-[400px] overflow-y-auto w-full rounded-xl bg-white/5 p-4 space-y-4 border border-white/5">
+                        <div className="h-[400px] overflow-y-auto w-full rounded-xl bg-accent/30 p-4 space-y-4 border border-border">
                             {messages.length === 0 && (
-                                <div className="h-full flex flex-col items-center justify-center text-white/30 space-y-2">
+                                <div className="h-full flex flex-col items-center justify-center text-muted-foreground/50 space-y-2">
                                     <Bot className="w-12 h-12 opacity-20" />
                                     <p>Send a message to test the connection</p>
                                 </div>
@@ -82,8 +82,8 @@ const TestGroqConnection = () => {
                             {messages.map((msg, i) => (
                                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     <div className={`max-w-[80%] rounded-2xl p-3 px-4 ${msg.role === 'user'
-                                        ? 'bg-blue-600 text-white rounded-br-none'
-                                        : 'bg-white/10 text-white/90 rounded-bl-none'
+                                        ? 'bg-primary text-primary-foreground rounded-br-none'
+                                        : 'bg-accent text-accent-foreground rounded-bl-none'
                                         }`}>
                                         <p className="text-sm leading-relaxed">{msg.content}</p>
                                     </div>
@@ -115,10 +115,10 @@ const TestGroqConnection = () => {
                 </Card>
 
                 {/* Rate Limits Panel */}
-                <Card className="w-80 bg-black/40 border-white/10 backdrop-blur-xl">
+                <Card className="w-full xl:w-80 bg-card border-border shadow-sm">
                     <CardHeader>
-                        <CardTitle className="text-white text-lg">Rate Limits</CardTitle>
-                        <CardDescription className="text-white/60">Live usage stats</CardDescription>
+                        <CardTitle className="text-lg">Rate Limits</CardTitle>
+                        <CardDescription>Live usage stats</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         {!limits ? (
@@ -128,36 +128,36 @@ const TestGroqConnection = () => {
                         ) : (
                             <>
                                 <div className="space-y-2">
-                                    <div className="text-xs font-medium text-white/50 uppercase tracking-wider">Requests (RPM)</div>
-                                    <div className="bg-white/5 rounded-lg p-3 border border-white/5">
+                                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Requests (RPM)</div>
+                                    <div className="bg-accent/40 rounded-lg p-3 border border-border">
                                         <div className="flex justify-between items-end mb-1">
-                                            <span className="text-2xl font-bold text-white">{limits.remainingRequests}</span>
-                                            <span className="text-xs text-white/50 mb-1">/ {limits.limitRequests}</span>
+                                            <span className="text-2xl font-bold">{limits.remainingRequests}</span>
+                                            <span className="text-xs text-muted-foreground mb-1">/ {limits.limitRequests}</span>
                                         </div>
-                                        <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                        <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden">
                                             <div
                                                 className="bg-blue-500 h-full rounded-full transition-all duration-500"
                                                 style={{ width: `${(parseInt(limits.remainingRequests) / parseInt(limits.limitRequests)) * 100}%` }}
                                             />
                                         </div>
-                                        <div className="text-xs text-white/40 mt-2">Resets in {limits.resetRequests}</div>
+                                        <div className="text-xs text-muted-foreground mt-2">Resets in {limits.resetRequests}</div>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <div className="text-xs font-medium text-white/50 uppercase tracking-wider">Tokens (TPM)</div>
-                                    <div className="bg-white/5 rounded-lg p-3 border border-white/5">
+                                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Tokens (TPM)</div>
+                                    <div className="bg-accent/40 rounded-lg p-3 border border-border">
                                         <div className="flex justify-between items-end mb-1">
-                                            <span className="text-2xl font-bold text-white">{limits.remainingTokens}</span>
-                                            <span className="text-xs text-white/50 mb-1">/ {limits.limitTokens}</span>
+                                            <span className="text-2xl font-bold">{limits.remainingTokens}</span>
+                                            <span className="text-xs text-muted-foreground mb-1">/ {limits.limitTokens}</span>
                                         </div>
-                                        <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                                        <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden">
                                             <div
                                                 className="bg-purple-500 h-full rounded-full transition-all duration-500"
                                                 style={{ width: `${(parseInt(limits.remainingTokens) / parseInt(limits.limitTokens)) * 100}%` }}
                                             />
                                         </div>
-                                        <div className="text-xs text-white/40 mt-2">Resets in {limits.resetTokens}</div>
+                                        <div className="text-xs text-muted-foreground mt-2">Resets in {limits.resetTokens}</div>
                                     </div>
                                 </div>
                             </>

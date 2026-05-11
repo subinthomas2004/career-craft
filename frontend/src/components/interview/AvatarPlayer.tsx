@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 
 export type AvatarState = 'idle' | 'talking' | 'listening' | 'nodding';
@@ -18,11 +18,65 @@ interface AvatarPlayerProps {
 const AvatarPlayer = ({ state, videoSet, isActive, className }: AvatarPlayerProps) => {
     // We keep the internal state logic for "Nodding" management
     const [internalState, setInternalState] = useState<AvatarState>(state);
+    
+    // Refs for explicit video control
+    const videoRefs = {
+        idle: useRef<HTMLVideoElement>(null),
+        talking: useRef<HTMLVideoElement>(null),
+        listening: useRef<HTMLVideoElement>(null),
+        nodding: useRef<HTMLVideoElement>(null)
+    };
 
     // Sync internal state with prop state
     useEffect(() => {
         setInternalState(state);
     }, [state]);
+
+    // Ref to store timeouts for delayed pausing (prevents freezing during fade-out)
+    const pauseTimeoutsRef = useRef<Record<string, NodeJS.Timeout>>({});
+
+    // Sync Video Playback with state changes
+    useEffect(() => {
+        // Iterate through all states and explicitly start/stop their respective video nodes
+        Object.entries(videoRefs).forEach(([key, ref]) => {
+            const video = ref.current;
+            if (!video) return;
+
+            const isTarget = internalState === key;
+            
+            // Clear any scheduled pause for this video if it just became active
+            if (pauseTimeoutsRef.current[key]) {
+                clearTimeout(pauseTimeoutsRef.current[key]);
+                delete pauseTimeoutsRef.current[key];
+            }
+
+            if (isTarget) {
+                // Reset timeline immediately for start frame sync
+                video.currentTime = 0;
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => {
+                        // Log only critical play errors
+                        if (err.name !== "AbortError") console.warn(`Video play error for ${key}:`, err);
+                    });
+                }
+            } else {
+                // DELAY PAUSING: Wait 400ms so the 300ms CSS fade-out finishes gracefully
+                // while the video keeps playing, avoiding an ugly frame freeze during transition.
+                pauseTimeoutsRef.current[key] = setTimeout(() => {
+                    if (video && !video.paused && internalState !== key) {
+                        video.pause();
+                    }
+                }, 400);
+            }
+        });
+
+        // Cleanup all timeouts on unmount
+        return () => {
+            Object.values(pauseTimeoutsRef.current).forEach(clearTimeout);
+        };
+    }, [internalState]);
 
     // Random Nodding Logic when Listening
     useEffect(() => {
@@ -48,14 +102,14 @@ const AvatarPlayer = ({ state, videoSet, isActive, className }: AvatarPlayerProp
     }, [state, isActive, videoSet.nodding]);
 
     // Helper to render a video layer
-    const renderVideoLayer = (videoSrc: string | undefined, targetState: AvatarState, visible: boolean) => {
+    const renderVideoLayer = (videoSrc: string | undefined, targetState: 'idle' | 'talking' | 'listening' | 'nodding', visible: boolean) => {
         if (!videoSrc) return null;
 
         return (
             <video
                 key={targetState}
+                ref={videoRefs[targetState]}
                 src={videoSrc}
-                autoPlay
                 loop
                 playsInline
                 muted

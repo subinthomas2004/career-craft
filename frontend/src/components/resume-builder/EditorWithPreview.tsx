@@ -26,8 +26,8 @@ export function EditorWithPreview() {
                         <span className="capitalize">{selectedTemplate} Template</span>
                     </div>
                     <CardContent className="p-4 overflow-auto h-[calc(100%-40px)] bg-muted/30">
-                        <div className="transform-gpu origin-top" style={{ transform: 'scale(0.48)' }}>
-                            <ResumePreview data={resumeData} template={selectedTemplate} />
+                        <div className="flex justify-center">
+                            <ResumePreview data={resumeData} template={selectedTemplate} scale={0.48} />
                         </div>
                     </CardContent>
                 </Card>

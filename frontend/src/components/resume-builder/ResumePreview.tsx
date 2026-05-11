@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { ResumeData, TemplateId } from '@/types/resume';
 import { 
   Mail, 
@@ -17,6 +17,24 @@ interface ResumePreviewProps {
 }
 
 export function ResumePreview({ data, template, scale = 1 }: ResumePreviewProps) {
+  const masterRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [fitScale, setFitScale] = useState(1);
+
+  const PAGE_HEIGHT_PX = 11 * 96; 
+
+  useLayoutEffect(() => {
+    if (contentRef.current) {
+      const naturalHeight = contentRef.current.scrollHeight;
+      if (naturalHeight > PAGE_HEIGHT_PX) {
+        const compressionRatio = Math.max(0.3, (PAGE_HEIGHT_PX - 4) / naturalHeight);
+        setFitScale(compressionRatio);
+      } else {
+        setFitScale(1);
+      }
+    }
+  }, [data, template]);
+
   const renderTemplate = () => {
     switch (template) {
       case 'modern':
@@ -52,17 +70,34 @@ export function ResumePreview({ data, template, scale = 1 }: ResumePreviewProps)
   };
 
   return (
-    <div 
-      className="bg-card shadow-xl origin-top-left"
-      style={{ 
-        width: '8.5in', 
-        minHeight: '11in',
-        transform: `scale(${scale})`,
-        fontFamily: 'Times New Roman, serif',
-      }}
-      id="resume-preview"
-    >
-      {renderTemplate()}
+    <div className="flex justify-center" style={{ zoom: scale }}>
+      <div 
+        id="resume-preview" 
+        ref={masterRef}
+        className="bg-card shadow-xl relative overflow-hidden"
+        style={{ 
+          width: '8.5in', 
+          height: '11in',
+          fontFamily: 'Times New Roman, serif',
+        }}
+      >
+        <div 
+          ref={contentRef}
+          className="h-full origin-top-left transition-all duration-300 ease-out"
+          style={{ 
+            transform: `scale(${fitScale})`,
+            width: `${100 / fitScale}%`, // Inverse scaling to perfectly restore full-width visually
+            height: fitScale < 1 ? 'max-content' : '100%' 
+          }}
+        >
+          {renderTemplate()}
+        </div>
+        {fitScale < 1 && fitScale > 0.5 && (
+          <div className="absolute bottom-2 right-4 px-2 py-1 text-[9px] font-medium text-primary bg-primary/10 border border-primary/20 rounded-full pointer-events-none">
+            Condensing to Fit (Scale {Math.round(fitScale * 100)}%)
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -175,6 +210,27 @@ function ClassicTemplate({ data }: { data: ResumeData }) {
             Skills
           </h2>
           <p>{data.skills.map(s => s.name).join(' • ')}</p>
+        </section>
+      )}
+
+      {/* Projects */}
+      {data.projects && data.projects.length > 0 && (
+        <section className="mb-6">
+          <h2 className="text-sm font-bold uppercase tracking-widest border-b border-muted-foreground pb-1 mb-3">
+            Projects
+          </h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-4">
+              <div className="flex justify-between items-baseline">
+                <h3 className="font-bold">{proj.name}</h3>
+                {proj.link && <span className="text-sm italic">{proj.link}</span>}
+              </div>
+              <p className="mt-1">{proj.description}</p>
+              {proj.technologies && proj.technologies.length > 0 && (
+                <p className="text-sm mt-1"><strong>Tech:</strong> {proj.technologies.join(', ')}</p>
+              )}
+            </div>
+          ))}
         </section>
       )}
 
@@ -303,6 +359,35 @@ function ModernTemplate({ data }: { data: ResumeData }) {
             ))}
           </section>
         )}
+        {data.projects && data.projects.length > 0 && (
+          <section className="mt-6 mb-6">
+            <h2 className="text-lg font-bold text-primary border-b border-primary/30 pb-1 mb-3">
+              Projects
+            </h2>
+            {data.projects.map((proj) => (
+              <div key={proj.id} className="mb-4">
+                <h3 className="font-bold text-foreground">{proj.name}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{proj.description}</p>
+                {proj.technologies && proj.technologies.length > 0 && (
+                  <p className="text-xs text-primary mt-1">Tech: {proj.technologies.join(', ')}</p>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+        {data.certifications && data.certifications.length > 0 && (
+          <section className="mt-6">
+            <h2 className="text-lg font-bold text-primary border-b border-primary/30 pb-1 mb-3">
+              Certifications
+            </h2>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} className="mb-2">
+                <p className="text-sm font-bold text-foreground">{cert.name}</p>
+                <p className="text-xs text-muted-foreground">{cert.issuer} • {cert.date}</p>
+              </div>
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
@@ -377,6 +462,36 @@ function MinimalTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground mb-4">
+            Projects
+          </h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-4">
+              <h3 className="font-medium">{proj.name}</h3>
+              <p className="text-sm text-muted-foreground">{proj.description}</p>
+              {proj.technologies && proj.technologies.length > 0 && (
+                <p className="text-xs italic text-muted-foreground mt-1">{proj.technologies.join(', ')}</p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground mb-4">
+            Certifications
+          </h2>
+          <ul className="space-y-1 text-sm">
+            {data.certifications.map((cert) => (
+              <li key={cert.id} className="text-muted-foreground">
+                {cert.name} — {cert.issuer} ({cert.date})
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }
@@ -462,6 +577,20 @@ function ExecutiveTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mt-6 mb-6">
+          <h2 className="text-lg font-bold text-primary mb-4">Key Projects</h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-4 pl-4 border-l-2 border-primary/30">
+              <h3 className="text-lg font-bold text-foreground">{proj.name}</h3>
+              <p className="text-muted-foreground italic text-sm mb-1">{proj.description}</p>
+              {proj.technologies && proj.technologies.length > 0 && (
+                <p className="text-xs text-primary">Technology Stack: {proj.technologies.join(', ')}</p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
     </div>
   );
 }
@@ -545,6 +674,37 @@ function BoldTemplate({ data }: { data: ResumeData }) {
             </section>
           )}
         </div>
+        {data.projects && data.projects.length > 0 && (
+          <section className="mt-8 mb-8">
+            <h2 className="text-2xl font-black uppercase mb-4 border-b-4 border-foreground pb-2">
+              Featured Projects
+            </h2>
+            {data.projects.map((proj) => (
+              <div key={proj.id} className="mb-6">
+                <h3 className="text-xl font-black uppercase">{proj.name}</h3>
+                <p className="text-sm mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>{proj.description}</p>
+                {proj.technologies && proj.technologies.length > 0 && (
+                  <p className="text-xs font-bold mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+                    Tech stack: {proj.technologies.join(', ')}
+                  </p>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+        {data.certifications && data.certifications.length > 0 && (
+          <section className="mt-8">
+            <h2 className="text-2xl font-black uppercase mb-4 border-b-4 border-foreground pb-2">
+              Certifications
+            </h2>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} className="mb-3" style={{ fontFamily: 'Arial, sans-serif' }}>
+                <p className="font-bold text-lg">{cert.name}</p>
+                <p className="text-sm">{cert.issuer} | {cert.date}</p>
+              </div>
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
@@ -635,6 +795,34 @@ function TechTemplate({ data }: { data: ResumeData }) {
                 <p><span className="text-accent">year</span>: "{edu.graduationDate}"</p>
               </div>
               <p className="text-muted-foreground">{'}'}{index < data.education.length - 1 ? ',' : ''}</p>
+            </div>
+          ))}
+          <p className="text-muted-foreground">];</p>
+        </section>
+      )}
+      {data.projects && data.projects.length > 0 && (
+        <section className="mb-6">
+          <p className="text-info mb-2">const projects = [</p>
+          {data.projects.map((proj, idx) => (
+            <div key={proj.id} className="pl-6 mb-2">
+              <p className="text-muted-foreground">{'{'}</p>
+              <div className="pl-4">
+                <p><span className="text-accent">name</span>: "{proj.name}",</p>
+                <p><span className="text-accent">desc</span>: "{proj.description}"</p>
+              </div>
+              <p className="text-muted-foreground">{'}'}{idx < data.projects.length - 1 ? ',' : ''}</p>
+            </div>
+          ))}
+          <p className="text-muted-foreground">];</p>
+        </section>
+      )}
+
+      {data.certifications && data.certifications.length > 0 && (
+        <section>
+          <p className="text-info mb-2">const certifications = [</p>
+          {data.certifications.map((cert, idx) => (
+            <div key={cert.id} className="pl-6 mb-1">
+              <p className="text-muted-foreground">{'{'} <span className="text-accent">n</span>: "{cert.name}", <span className="text-accent">d</span>: "{cert.date}" {'}'}{idx < data.certifications.length - 1 ? ',' : ''}</p>
             </div>
           ))}
           <p className="text-muted-foreground">];</p>
@@ -735,6 +923,38 @@ function CreativeTemplate({ data }: { data: ResumeData }) {
             </section>
           )}
         </div>
+        {data.projects && data.projects.length > 0 && (
+          <section className="mt-8 mb-6">
+            <h2 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+              <span className="w-8 h-0.5 bg-primary"></span>
+              Projects
+            </h2>
+            {data.projects.map((proj) => (
+              <div key={proj.id} className="mb-5 ml-10">
+                <h3 className="font-bold text-foreground">{proj.name}</h3>
+                <p className="text-sm text-muted-foreground">{proj.description}</p>
+                {proj.technologies && proj.technologies.length > 0 && (
+                  <p className="text-xs text-primary font-medium mt-1">Build Tools: {proj.technologies.join(', ')}</p>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {data.certifications && data.certifications.length > 0 && (
+          <section className="mt-8 mb-6">
+            <h2 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+              <span className="w-8 h-0.5 bg-primary"></span>
+              Certificates
+            </h2>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} className="mb-3 ml-10">
+                <p className="font-bold text-foreground text-sm">{cert.name}</p>
+                <p className="text-xs text-muted-foreground">{cert.issuer}, {cert.date}</p>
+              </div>
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
@@ -819,6 +1039,32 @@ function ProfessionalTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mt-8 mb-8">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
+            Selected Projects
+          </h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-5">
+              <h3 className="font-bold text-foreground">{proj.name}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{proj.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
+            Certifications
+          </h2>
+          {data.certifications.map((cert) => (
+            <div key={cert.id} className="mb-3 text-sm">
+              <span className="font-bold">{cert.name}</span> — <span className="italic text-muted-foreground">{cert.issuer}, {cert.date}</span>
+            </div>
+          ))}
+        </section>
+      )}
     </div>
   );
 }
@@ -905,6 +1151,35 @@ function ElegantTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mt-12 mb-8">
+          <h2 className="text-lg font-normal uppercase tracking-[0.3em] text-muted-foreground mb-6">
+            Projects
+          </h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-6">
+              <h3 className="text-xl font-normal text-foreground mb-1">{proj.name}</h3>
+              <p className="text-sm italic text-muted-foreground leading-relaxed">{proj.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-lg font-normal uppercase tracking-[0.3em] text-muted-foreground mb-6">
+            Certifications
+          </h2>
+          <div className="grid grid-cols-2 gap-4 text-sm font-normal">
+            {data.certifications.map((cert) => (
+              <div key={cert.id}>
+                <p className="text-foreground font-medium">{cert.name}</p>
+                <p className="text-xs italic text-muted-foreground">{cert.issuer} | {cert.date}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
@@ -973,6 +1248,27 @@ function CompactTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mt-3 mb-3">
+          <h2 className="text-xs font-bold uppercase bg-muted px-2 py-1 mb-2">Projects</h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-2 text-xs">
+              <p className="font-bold text-foreground">{proj.name}</p>
+              <p className="text-muted-foreground">{proj.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mt-3 mb-3">
+          <h2 className="text-xs font-bold uppercase bg-muted px-2 py-1 mb-2">Certifications</h2>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            {data.certifications.map((cert) => (
+              <p key={cert.id}>{cert.name} • <span className="italic text-muted-foreground">{cert.date}</span></p>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
@@ -1084,6 +1380,27 @@ function SidebarTemplate({ data }: { data: ResumeData }) {
             ))}
           </section>
         )}
+        {data.projects && data.projects.length > 0 && (
+          <section className="mt-6 mb-6">
+            <h2 className="text-lg font-bold text-primary mb-3">Projects</h2>
+            {data.projects.map((proj) => (
+              <div key={proj.id} className="mb-4">
+                <h3 className="font-bold text-foreground">{proj.name}</h3>
+                <p className="text-sm text-muted-foreground">{proj.description}</p>
+              </div>
+            ))}
+          </section>
+        )}
+        {data.certifications && data.certifications.length > 0 && (
+          <section className="mt-6 mb-6">
+            <h2 className="text-lg font-bold text-primary mb-3">Certifications</h2>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} className="mb-2 text-sm">
+                <span className="font-bold">{cert.name}</span> — {cert.issuer}
+              </div>
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
@@ -1165,6 +1482,32 @@ function CorporateTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mt-6 mb-6">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">
+            Major Projects
+          </h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-5">
+              <h3 className="font-bold text-foreground">{proj.name}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{proj.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mt-6 mb-6">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-foreground mb-4">
+            Certifications
+          </h2>
+          {data.certifications.map((cert) => (
+            <div key={cert.id} className="flex justify-between mb-2 text-sm">
+              <span>{cert.name}</span>
+              <span className="italic text-muted-foreground">{cert.issuer} | {cert.date}</span>
+            </div>
+          ))}
+        </section>
+      )}
     </div>
   );
 }
@@ -1263,6 +1606,34 @@ function DesignerTemplate({ data }: { data: ResumeData }) {
             ))}
           </section>
         )}
+        {data.projects && data.projects.length > 0 && (
+          <section className="mt-8 mb-6">
+            <h2 className="text-lg font-bold text-accent mb-4 flex items-center gap-2">
+              <span className="w-8 h-0.5 bg-accent"></span>
+              Projects
+            </h2>
+            {data.projects.map((proj) => (
+              <div key={proj.id} className="mb-5">
+                <h3 className="font-bold text-foreground">{proj.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{proj.description}</p>
+              </div>
+            ))}
+          </section>
+        )}
+        {data.certifications && data.certifications.length > 0 && (
+          <section className="mt-8 mb-6">
+            <h2 className="text-lg font-bold text-accent mb-4 flex items-center gap-2">
+              <span className="w-8 h-0.5 bg-accent"></span>
+              Licenses & Certs
+            </h2>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} className="mb-2 text-sm">
+                <p className="font-bold text-foreground">{cert.name}</p>
+                <p className="text-xs text-muted-foreground">{cert.issuer} - {cert.date}</p>
+              </div>
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
@@ -1336,6 +1707,34 @@ function CleanTemplate({ data }: { data: ResumeData }) {
           </section>
         )}
       </div>
+      {data.projects && data.projects.length > 0 && (
+        <section className="mt-12 mb-10">
+          <h2 className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground mb-6">
+            Projects
+          </h2>
+          {data.projects.map((proj) => (
+            <div key={proj.id} className="mb-6">
+              <h3 className="font-medium text-foreground mb-1">{proj.name}</h3>
+              <p className="text-sm text-muted-foreground">{proj.description}</p>
+            </div>
+          ))}
+        </section>
+      )}
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground mb-6">
+            Certifications
+          </h2>
+          <div className="space-y-3">
+            {data.certifications.map((cert) => (
+              <div key={cert.id} className="text-sm">
+                <span className="text-foreground font-medium">{cert.name}</span>
+                <span className="text-muted-foreground"> — {cert.issuer}, {cert.date}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

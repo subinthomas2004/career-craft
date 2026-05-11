@@ -21,7 +21,7 @@ const logError = (errorInfo) => {
     }
 };
 
-const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", temperature = 0.7, max_tokens, response_format }) => {
+export const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", temperature = 0.7, max_tokens, response_format }) => {
     if (!GROQ_API_KEY) {
         const error = "GROQ_API_KEY is missing or empty in environment variables.";
         logError({ error, envKeys: Object.keys(process.env).filter(k => k.includes("GROQ")) });
@@ -160,6 +160,14 @@ export const generateInterviewQuestion = async (req, res) => {
     const eMinutes = elapsedMinutes || 0;
     const hasResume = resumeText && resumeText.trim().length > 10;
     const roleContext = jobRole || domain || 'general software engineering';
+    
+    // Total overall questions completed (rounds)
+    const totalRounds = Math.floor((history || []).length / 2);
+    const currentQuestionNum = totalRounds + 1;
+    
+    const mandatoryEndRule = (totalRounds >= 15)
+        ? `- CRITICAL CAP REACHED: The overall interview is over. You MUST output "[END_INTERVIEW]" and deliver your final closing immediately.`
+        : `- TOTAL PROGRESS: This is Question #${currentQuestionNum} of 15 overall. Aim to terminate after 15 total rounds across both panel members.`;
 
     // ============================================
     // SOFT PACING GUIDE (For HR+Tech)
@@ -263,11 +271,12 @@ CODING QUESTIONS:
 - If they submit code ("[Submitted Code"): Review it thoroughly — correctness, edge cases, time complexity. Give specific feedback like a real code reviewer. Then move on.
 
 INTERVIEW LENGTH & WRAP-UP:
-- Target interview length: ~12-15 minutes total.
-- You do NOT have a strict question limit. Use your judgment.
-- Assess the candidate thoroughly. If they give short answers, ask more questions (e.g., 8-10). If they give deep answers, ask fewer (e.g., 5-7).
-- Once you feel you have gathered enough information for a 15-minute interview, wrap up.
-- When done assessing, respond with "[END_INTERVIEW]" followed by a warm closing.
+- MANDATORY LIMIT: You MUST ask exactly 10 questions total for a complete evaluation.
+- CURRENT QUESTION COUNT: ${qCount} out of 10.
+${qCount >= 10
+    ? "- CRITICAL: You have now asked 10 questions. YOU MUST CONCLUDE IMMEDIATELY using [END_INTERVIEW]. Acknowledge their last answer and deliver a professional farewell." 
+    : `- Proceed with technical evaluation until 10 questions are reached. Ask Question #${qCount + 1}.`}
+- When the 10-question threshold is met, always output "[END_INTERVIEW]" followed by your final technical wrap-up.
 
 ${sharedGuidelines}`;
         } else {
@@ -286,8 +295,10 @@ TECHNICAL QUESTION FLOW:
 2. Gradually increase difficulty: concepts → practical scenarios → coding (Q2-5).
 3. If asking a CODING question: Start with "[CODE_QUESTION]", tell them to use the editor on the right.
 4. If they submit code ("[Submitted Code"): Review correctness, edge cases, complexity. Give real feedback.
-5. You and Sarah will take turns interviewing the candidate over the course of 12-15 minutes. After you've asked 2-3 good technical/coding questions, hand off to Sarah for HR questions. You may get the floor back later.
-6. If the overall interview has naturally concluded (~15 mins total) AND you are in the WRAP-UP phase, wrap up the interview with "[END_INTERVIEW]" and a brief closing.
+5. You and Sarah will take turns interviewing the candidate. You MUST keep track of TOTAL QUESTIONS.
+6. INTERVIEW ENDING CAP:
+   ${mandatoryEndRule}
+   - Always prioritize using "[END_INTERVIEW]" if specified above. Do NOT switch once 15 total questions is reached.
 
 Ask MEDIUM-EASY coding problems. NOT hard LeetCode. Think real interview warmup questions.
 
@@ -326,11 +337,12 @@ HR INTERVIEW STRUCTURE (follow this flow):
 ABSOLUTELY NO TECHNICAL QUESTIONS. Do not ask about code, algorithms, system design, APIs, databases, or any technical concepts. ONLY behavioral, situational, and background questions.
 
 INTERVIEW LENGTH & WRAP-UP:
-- Target interview length: ~12-15 minutes total.
-- You do NOT have a strict question limit. Use your judgment.
-- Assess the candidate thoroughly. If they give short answers, ask more questions (e.g., 8-10). If they give deep answers, ask fewer (e.g., 5-7).
-- Once you feel you have gathered enough information for a 15-minute interview, wrap up.
-- When done assessing, use "[END_INTERVIEW]" with a warm closing.
+- MANDATORY LIMIT: You MUST ask exactly 15 questions total for a complete evaluation.
+- CURRENT QUESTION COUNT: ${qCount} out of 15.
+${qCount >= 15 
+    ? "- CRITICAL: You have now asked 15 questions. YOU MUST CONCLUDE IMMEDIATELY using [END_INTERVIEW]. Acknowledge their last answer and wrap up the session gracefully." 
+    : `- Proceed with the interview until 15 questions are reached. Ask Question #${qCount + 1}.`}
+- When the 15-question threshold is met, always output "[END_INTERVIEW]" with your final farewell.
 
 ${sharedGuidelines}`;
     } else if (interviewType === 'intro-prep') {
@@ -373,7 +385,10 @@ HR QUESTION FLOW:
 1. Start warm — ask them to introduce themselves (Q1).
 2. Ask about background, motivation, and career goals (Q2-3).
 3. One situational/behavioral question using STAR topics: teamwork, conflict, leadership, pressure (Q3-4).
-4. You and David will take turns interviewing the candidate over the course of 12-15 minutes. After you've asked 2-3 good HR questions, hand off to David for technical questions. You may get the floor back later.
+4. You and David will take turns interviewing the candidate.
+5. OVERALL CAP RULE:
+   ${mandatoryEndRule}
+   - Prioritize "[END_INTERVIEW]" immediately if dictated by the rule above. Do NOT hand off once the 15-limit total is hit.
 
 ABSOLUTELY NO TECHNICAL QUESTIONS. If they bring up tech topics, acknowledge briefly and redirect to behavioral topics.
 
@@ -383,7 +398,7 @@ INTERVIEWER HANDOFF (critical):
 - If you need to ask a follow-up to your OWN previous question (e.g., the candidate's answer was vague), just ask it normally WITHOUT any signal. You stay as the interviewer.
 - When you want David to take over for technical questions, append "[SWITCH]" at the very END of your response. Example: "Great, thanks for sharing! I'll let David take over for a bit. [SWITCH]"
 - CRITICAL RULE: If "CONSECUTIVE QUESTIONS IN THIS TURN" is 3 or more, you MUST end your response with "[SWITCH]" to hand off to David. Do not ask more than 3 questions in a row.
-- If the interview has naturally concluded (~12-15 mins total), use "[END_INTERVIEW]" instead to wrap up. NEVER include "[SWITCH]" and "[END_INTERVIEW]" in the same response.
+- NEVER include "[SWITCH]" and "[END_INTERVIEW]" in the same response.
 
 ${sharedGuidelines}`;
     }
@@ -535,6 +550,7 @@ export const generateReport = async (req, res) => {
     3. "communicationAnalysis": Paragraph analyzing their CONFIDENCE based on the WPM and Fillers. Explicitly mention their pace and hesitation.
     4. "bodyLanguageEstimation": Estimate likely body language based on confidence (e.g. "Confident tone suggests good posture" or "Hesitation suggests nervousness").
     5. "feedback": Bullet points for improvement.
+    6. "questionAnalysis": Provide a detailed analysis of EVERY answer submitted. Format: [{"question": "...", "answer": "...", "evaluation": "Analysis", "suggestion": "Improvement", "rating": 1-10}]. CRITICAL: For any answers tagged '[Submitted Code]', you MUST include an "idealCodeReference" block in the feedback or within the suggestion text containing the correct/optimized sample solution for the candidate to compare against. Ensure EVERY question answered is analyzed.
 
     OUTPUT JSON ONLY.`;
 

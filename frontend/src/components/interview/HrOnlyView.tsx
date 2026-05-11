@@ -36,13 +36,13 @@ export default function HrOnlyView({
     const currentQ = sessionState.currentQuestion;
 
     return (
-        <div className="h-full grid lg:grid-cols-5 gap-4">
+        <div className="h-full flex flex-col items-center justify-center gap-8 p-6 bg-background/95">
 
-            {/* Interviewers Column (Left) — Sarah Only (80%) */}
-            <div className="lg:col-span-4 flex flex-col gap-4 h-full">
-
-                {/* Interviewer: Sarah (Full Height) */}
-                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-lg transition-all duration-300 flex-1 h-full">
+            {/* Videos Row Container */}
+            <div className="flex flex-col lg:flex-row items-stretch justify-center gap-6 w-full max-w-6xl flex-1 max-h-[50vh]">
+                
+                {/* Interviewer: Sarah (Smaller Box) */}
+                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-2xl transition-all duration-300 flex-1 aspect-video lg:aspect-auto min-h-[250px]">
                     <div className="absolute inset-0 bg-black/10">
                         <AvatarPlayer
                             state={avatarState}
@@ -53,114 +53,126 @@ export default function HrOnlyView({
                     </div>
                     {/* Info Overlay */}
                     <div className="absolute top-4 left-4 z-10">
-                        <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10">
-                            <p className="font-medium text-white">Sarah</p>
-                            <p className="text-xs text-white/70">HR Manager</p>
+                        <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10 shadow-lg">
+                            <p className="font-medium text-white text-sm">Sarah</p>
+                            <p className="text-[10px] text-white/70 font-semibold uppercase">HR Manager</p>
                         </div>
                     </div>
                     {avatarState === 'talking' && (
-                        <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center">
+                        <div className="absolute top-4 right-4 z-10">
                             <SpeakingIndicator isActive={true} />
                         </div>
                     )}
 
-                    {/* Question Overlay (Only when not talking to avoid clutter, or always?) -> Always for context */}
-                    <div className="absolute bottom-20 left-6 right-6 z-10 flex justify-center">
-                        <div className="bg-black/70 backdrop-blur-md rounded-2xl p-4 border border-white/10 shadow-2xl max-w-xl text-center">
-                            <p className="text-sm md:text-base text-white/95 font-medium leading-relaxed">"{currentQ?.text}"</p>
+                    {/* Question Overlay - Subtitle Style */}
+                    <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center">
+                        <div className="bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/10 shadow-xl w-full max-w-lg mx-auto transition-all animate-in fade-in slide-in-from-bottom-2">
+                            <p className="text-sm md:text-base text-white font-medium leading-tight text-center">
+                                "{currentQ?.text}"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* User Video (Smaller Box) */}
+                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-2xl transition-all duration-300 flex-1 aspect-video lg:aspect-auto min-h-[250px] group">
+                    {isVideoOn ? (
+                        <div className="w-full h-full relative">
+                            <UserVideoPreview isVideoOn={isVideoOn} />
+                        </div>
+                    ) : (
+                        <div className="absolute inset-0 bg-muted flex items-center justify-center">
+                            <div className="text-center">
+                                <VideoOff className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                                <p className="text-muted-foreground text-sm font-medium">Camera Off</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Info Overlay */}
+                    <div className="absolute top-4 left-4 z-10">
+                        <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10 shadow-lg">
+                            <p className="font-medium text-white text-sm">You</p>
+                            <p className="text-[10px] text-white/70 font-semibold uppercase">Candidate</p>
+                        </div>
+                    </div>
+
+                    {/* Speaking Indicator (Top Right) */}
+                    {isListening && (
+                        <div className="absolute top-4 right-4 z-20">
+                            <SpeakingIndicator isActive={true} />
+                        </div>
+                    )}
+
+                    {/* Transcript Overlay - Subtitle Style (Matches Interviewer) */}
+                    <div className={cn("absolute bottom-4 left-4 right-4 z-20 flex justify-center transition-all duration-300", 
+                        currentTranscript ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none")}>
+                        <div className="bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/10 shadow-xl w-full max-w-lg mx-auto">
+                            <p className="text-sm md:text-base text-white font-medium leading-tight text-center">
+                                {currentTranscript || " "}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* User Column (Right) - Full Height Video (20%) */}
-            <div className="lg:col-span-1 flex flex-col gap-4 h-full">
-                {/* User Video Container */}
-                <div className="bg-card rounded-2xl border border-border overflow-hidden relative flex-1 shadow-2xl h-full group">
-                    {isVideoOn ? <UserVideoPreview isVideoOn={isVideoOn} /> : (
-                        <div className="absolute inset-0 bg-muted flex items-center justify-center">
-                            <div className="text-center">
-                                <VideoOff className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
-                                <p className="text-muted-foreground font-medium">Camera Off</p>
-                            </div>
-                        </div>
-                    )}
 
-                    {/* Status Badge (Top Right) */}
-                    <div className="absolute top-4 right-4 z-20">
-                        <div className={cn("px-4 py-2 rounded-full flex items-center gap-2 backdrop-blur-md shadow-lg border border-white/10 transition-all duration-300",
-                            isListening ? "bg-red-500 text-white animate-pulse" : "bg-black/60 text-white/80")}>
-                            <div className={cn("w-2 h-2 rounded-full", isListening ? "bg-white" : "bg-white/50")} />
-                            <span className="text-xs font-bold tracking-wider uppercase">{isListening ? "Recording" : "Standby"}</span>
-                        </div>
-                    </div>
+            {/* Controls Overlay (Centered at bottom) */}
+            <div className="flex justify-center items-center w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex flex-wrap justify-center items-center gap-4 bg-card/90 backdrop-blur-2xl p-4 rounded-full border border-border shadow-2xl ring-1 ring-white/5">
+                    {/* Mic Toggle */}
+                    <Button
+                        variant={isMicOn ? "outline" : "destructive"}
+                        size="icon"
+                        className={cn("w-12 h-12 rounded-full shadow-lg transition-all hover:scale-105",
+                            isMicOn ? "hover:bg-accent" : "bg-red-500 text-white hover:bg-red-600",
+                            avatarState === 'talking' && "opacity-50 grayscale cursor-not-allowed"
+                        )}
+                        onClick={() => setIsMicOn(!isMicOn)}
+                        disabled={avatarState === 'talking'}
+                        title={isMicOn ? "Mute Microphone" : "Unmute Microphone"}
+                    >
+                        {isMicOn ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
+                    </Button>
 
-                    {/* Real-time Subtitles (Middle-Bottom) */}
-                    <div className="absolute bottom-32 left-0 right-0 px-8 flex justify-center z-20 pointer-events-none">
-                        <div className={cn("bg-black/70 backdrop-blur-md text-white px-6 py-4 rounded-2xl text-center shadow-2xl max-w-2xl transition-all duration-300 transform",
-                            currentTranscript ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0")}>
-                            <p className="text-lg md:text-xl font-medium leading-relaxed">
-                                {currentTranscript}
-                            </p>
-                        </div>
-                    </div>
+                    {/* Camera Toggle */}
+                    <Button
+                        variant={isVideoOn ? "outline" : "destructive"}
+                        size="icon"
+                        className={cn("w-12 h-12 rounded-full shadow-lg transition-all hover:scale-105",
+                            isVideoOn ? "hover:bg-accent" : "bg-red-500 text-white hover:bg-red-600")}
+                        onClick={() => setIsVideoOn(!isVideoOn)}
+                        title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
+                    >
+                        {isVideoOn ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+                    </Button>
 
-                    {/* Controls Overlay */}
-                    <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center items-end w-full px-4 pointer-events-none">
-                        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 bg-black/60 backdrop-blur-xl p-3 rounded-3xl border border-white/15 pointer-events-auto shadow-2xl scale-90 md:scale-100 max-w-full">
-                            {/* Mic Toggle */}
-                            <Button
-                                variant={isMicOn ? "default" : "destructive"}
-                                size="icon"
-                                className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
-                                    isMicOn ? "bg-white text-black hover:bg-slate-200" : "bg-red-500 text-white hover:bg-red-600",
-                                    avatarState === 'talking' && "opacity-50 grayscale cursor-not-allowed"
-                                )}
-                                onClick={() => setIsMicOn(!isMicOn)}
-                                disabled={avatarState === 'talking'}
-                                title={isMicOn ? "Mute Microphone" : "Unmute Microphone"}
-                            >
-                                {isMicOn ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
-                            </Button>
+                    <div className="w-px h-8 bg-border mx-1" />
 
-                            {/* Camera Toggle */}
-                            <Button
-                                variant={isVideoOn ? "secondary" : "destructive"}
-                                size="icon"
-                                className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
-                                    isVideoOn ? "bg-white/90 hover:bg-white text-black" : "bg-red-500/90 hover:bg-red-500 text-white")}
-                                onClick={() => setIsVideoOn(!isVideoOn)}
-                                title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
-                            >
-                                {isVideoOn ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
-                            </Button>
+                    {/* End Call */}
+                    <Button
+                        variant="destructive"
+                        size="icon"
+                        className="w-12 h-12 rounded-full shadow-lg bg-red-500 hover:bg-red-600 text-white transition-all hover:scale-105"
+                        onClick={onEndInterview}
+                        title="End Interview"
+                    >
+                        <Phone className="w-5 h-5" />
+                    </Button>
 
-                            {/* End Call */}
-                            <Button
-                                variant="destructive"
-                                size="icon"
-                                className="w-14 h-14 mx-2 rounded-full shadow-2xl bg-red-600 hover:bg-red-700 border-2 border-red-800/20 text-white transition-all hover:scale-110"
-                                onClick={onEndInterview}
-                                title="End Interview"
-                            >
-                                <Phone className="w-6 h-6 fill-current" />
-                            </Button>
-
-                            {/* Submit Answer */}
-                            <Button
-                                size="lg"
-                                className={cn("rounded-full font-bold shadow-2xl transition-all duration-300 ml-2 h-12 px-6",
-                                    (currentTranscript || isListening)
-                                        ? "bg-green-500 hover:bg-green-600 text-white"
-                                        : "bg-gray-500 text-gray-300 hover:bg-gray-500 pointer-events-none"
-                                )}
-                                onClick={onManualSubmit}
-                                disabled={!currentTranscript && !isListening}
-                            >
-                                Submit <ArrowRight className="w-4 h-4 ml-2" />
-                            </Button>
-                        </div>
-                    </div>
+                    {/* Submit Answer */}
+                    <Button
+                        size="lg"
+                        className={cn("rounded-full font-semibold shadow-lg transition-all duration-300 ml-2 h-12 px-6 group/btn hover:scale-105",
+                            (currentTranscript || isListening)
+                                ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                                : "bg-muted text-muted-foreground pointer-events-none"
+                        )}
+                        onClick={onManualSubmit}
+                        disabled={!currentTranscript && !isListening}
+                    >
+                        Submit <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                    </Button>
                 </div>
             </div>
         </div>
