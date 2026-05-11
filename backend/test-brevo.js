@@ -1,4 +1,6 @@
 import { BrevoClient } from '@getbrevo/brevo';
+import dotenv from 'dotenv';
+dotenv.config();
 
 try {
     const brevo = new BrevoClient({

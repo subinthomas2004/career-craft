@@ -1,12 +1,11 @@
 import { BrevoClient } from '@getbrevo/brevo';
 
-const brevo = new BrevoClient({
-    apiKey: process.env.BREVO_API_KEY
-});
-
-
 const sendEmail = async (options) => {
     try {
+        const brevo = new BrevoClient({
+            apiKey: process.env.BREVO_API_KEY
+        });
+
         const payload = {
             subject: options.subject,
             to: [{ email: options.email }],
