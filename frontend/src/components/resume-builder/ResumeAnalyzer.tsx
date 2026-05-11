@@ -17,12 +17,12 @@ export function ResumeAnalyzer() {
         atsScore,
         setResumeData,
         analyzeCurrentResume,
-        setActiveStep
+        setActiveStep,
+        setAtsScore
     } = useResume();
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     const [fileName, setFileName] = useState<string | null>(null);
-    const [jobDescription, setJobDescription] = useState("");
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
 
@@ -68,12 +68,15 @@ export function ResumeAnalyzer() {
 
         setIsAnalyzing(true);
         setFileName(file.name);
-
+        
+        // Clear previous results before starting new analysis
+        setAtsScore(null);
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
+
             const resumeData = await parseResumeFile(file);
             setResumeData(resumeData);
-            const score = await analyzeCurrentResume(jobDescription, resumeData);
+            const score = await analyzeCurrentResume(undefined, resumeData);
 
             // Record Activity
             try {
@@ -106,6 +109,9 @@ export function ResumeAnalyzer() {
             });
         } finally {
             setIsAnalyzing(false);
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
         }
     };
 
@@ -148,18 +154,6 @@ export function ResumeAnalyzer() {
                     </p>
                 </div>
 
-                {/* Optional Job Description */}
-                <div className="mb-6 space-y-2">
-                    <Label htmlFor="jobDesc" className="text-foreground font-medium">Target Job Description (Optional)</Label>
-                    <Textarea
-                        id="jobDesc"
-                        placeholder="Paste the job requirements here to get a customized ATS score..."
-                        className="min-h-[100px] resize-y bg-background"
-                        value={jobDescription}
-                        onChange={(e) => setJobDescription(e.target.value)}
-                        disabled={isAnalyzing}
-                    />
-                </div>
 
                 {/* Upload Section */}
                 <div
@@ -295,9 +289,6 @@ export function ResumeAnalyzer() {
 
                         {/* Action Buttons */}
                         <div className="flex justify-center gap-4">
-                            <Button size="lg" onClick={() => setActiveStep('edit')}>
-                                Edit Resume
-                            </Button>
                             <Button size="lg" variant="outline" onClick={() => setActiveStep('template')}>
                                 Choose Template
                             </Button>

@@ -2,9 +2,22 @@ import { BrevoClient } from '@getbrevo/brevo';
 
 try {
     const brevo = new BrevoClient({
-        apiKey: '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'
+        apiKey: process.env.BREVO_API_KEY
     });
-    console.log("Success! BrevoClient initialized:", Object.keys(brevo));
+
+    const payload = {
+        subject: "Test Email from CareerCraft",
+        to: [{ email: "subinthomas965@gmail.com" }],
+        sender: { 
+            name: "CareerCraft Test", 
+            email: "subinthomas965@gmail.com" 
+        },
+        textContent: "If you are receiving this, the Brevo API is working correctly."
+    };
+
+    const data = await brevo.transactionalEmails.sendTransacEmail(payload);
+    console.log("Success! Email sent:", JSON.stringify(data));
 } catch (e) {
-    console.error("Failed:", e.message);
+    console.error("Failed:", e.response?.body || e.message);
 }
+

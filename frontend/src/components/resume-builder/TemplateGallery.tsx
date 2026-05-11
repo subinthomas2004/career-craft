@@ -24,8 +24,6 @@ export function TemplateGallery() {
     const { setSelectedTemplate, setActiveStep, setResumeData, analyzeCurrentResume } = useResume();
     const [activeCategory, setActiveCategory] = useState('all');
     const [hoveredTemplate, setHoveredTemplate] = useState<string | null>(null);
-    const [isImporting, setIsImporting] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
 
     const filteredTemplates = activeCategory === 'all'
@@ -43,63 +41,9 @@ export function TemplateGallery() {
         setActiveStep('edit');
     };
 
-    const handleImportClick = () => {
-        fileInputRef.current?.click();
-    };
-
-    const handleFileImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-        if (!files || files.length === 0) return;
-
-        const file = files[0];
-        const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
-
-        if (!validTypes.includes(file.type) && !file.name.endsWith('.docx')) {
-            toast({
-                title: 'Invalid file type',
-                description: 'Please upload a PDF, DOCX, or TXT file.',
-                variant: 'destructive',
-            });
-            return;
-        }
-
-        setIsImporting(true);
-
-        try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const resumeData = await parseResumeFile(file);
-            setResumeData(resumeData);
-            analyzeCurrentResume();
-            setActiveStep('edit');
-
-            toast({
-                title: 'Resume imported!',
-                description: 'Your resume has been imported. Review and edit as needed.',
-            });
-        } catch (error) {
-            toast({
-                title: 'Error importing file',
-                description: 'There was an error parsing your resume. Please try again.',
-                variant: 'destructive',
-            });
-        } finally {
-            setIsImporting(false);
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-            }
-        }
-    };
 
     return (
         <div className="min-h-screen bg-background">
-            {/* Hidden file input */}
-            <input
-                ref={fileInputRef}
-                type="file"
-                accept=".pdf,.docx,.txt"
-                onChange={handleFileImport}
-                className="hidden"
-            />
 
             {/* Header Section */}
             <div className="bg-card border-b">
@@ -131,16 +75,8 @@ export function TemplateGallery() {
                         </TabsList>
                     </Tabs>
 
-                    <Button
-                        variant="outline"
-                        className="gap-2"
-                        onClick={handleImportClick}
-                        disabled={isImporting}
-                    >
-                        <Upload className="w-4 h-4" />
-                        {isImporting ? 'Importing...' : 'Import existing resume'}
-                    </Button>
                 </div>
+
 
                 {/* Template Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

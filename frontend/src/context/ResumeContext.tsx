@@ -15,7 +15,9 @@ interface ResumeContextType {
     setActiveStep: (step: 'upload' | 'analyze' | 'edit' | 'template' | 'export') => void;
     loadSampleData: () => void;
     resetResume: () => void;
+    setAtsScore: (score: ATSScore | null) => void;
 }
+
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
 
@@ -62,7 +64,9 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
                 setActiveStep,
                 loadSampleData,
                 resetResume,
+                setAtsScore,
             }}
+
         >
             {children}
         </ResumeContext.Provider>

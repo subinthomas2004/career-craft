@@ -34,7 +34,7 @@ export const resumeTemplates: ResumeTemplate[] = [
         description: 'Sophisticated design for senior-level positions',
         thumbnail: '/templates/executive.png',
         category: 'professional',
-        hasPhoto: true,
+        hasPhoto: false,
         atsScore: 92,
     },
     {
@@ -43,7 +43,7 @@ export const resumeTemplates: ResumeTemplate[] = [
         description: 'Stand out with a unique but ATS-friendly design',
         thumbnail: '/templates/creative.png',
         category: 'creative',
-        hasPhoto: true,
+        hasPhoto: false,
         atsScore: 88,
     },
     {
@@ -115,7 +115,7 @@ export const resumeTemplates: ResumeTemplate[] = [
         description: 'Creative layout perfect for design professionals',
         thumbnail: '/templates/designer.png',
         category: 'creative',
-        hasPhoto: true,
+        hasPhoto: false,
         atsScore: 85,
     },
     {
