@@ -49,18 +49,24 @@ function runJavaScriptTests(
                 const fn = new Function(`
           "use strict";
           ${code}
-          return String(${tc.input});
+          const result = ${tc.input};
+          if (result === undefined) return "undefined";
+          if (typeof result === 'object') return JSON.stringify(result);
+          if (typeof result === 'string') return "'" + result + "'";
+          return String(result);
         `);
                 const actual = fn();
                 const elapsed = performance.now() - startTime;
-                const normalizedActual = String(actual).trim();
-                const normalizedExpected = String(tc.expected).trim();
+                
+                // Normalize outputs for comparison
+                const normalizedActual = String(actual).replace(/'/g, '"').replace(/\s+/g, "").trim();
+                const normalizedExpected = String(tc.expected).replace(/'/g, '"').replace(/\s+/g, "").trim();
 
                 results.push({
                     passed: normalizedActual === normalizedExpected,
                     input: tc.input,
                     expected: tc.expected,
-                    actual: normalizedActual,
+                    actual: String(actual),
                     time: Math.round(elapsed * 100) / 100,
                 });
             } catch (err: unknown) {

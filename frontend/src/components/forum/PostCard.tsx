@@ -218,7 +218,7 @@ export const PostCard = ({ post, currentUserId, compact = false, onDelete }: Pos
                         {post.postType === "image" && post.imageUrl && (
                             <div className="mb-3 overflow-hidden rounded-lg border bg-muted/30">
                                 <img
-                                    src={`${STATIC_BASE}${post.imageUrl}`}
+                                    src={post.imageUrl.startsWith('data:') ? post.imageUrl : `${STATIC_BASE}${post.imageUrl}`}
                                     alt={post.title}
                                     className="max-h-[420px] w-full object-cover"
                                 />

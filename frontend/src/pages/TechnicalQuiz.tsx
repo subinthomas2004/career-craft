@@ -41,7 +41,7 @@ const TechnicalQuiz = () => {
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
   const [showQuitConfirm, setShowQuitConfirm] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
-  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
 
   // Exam Mode State
   const [isExamMode, setIsExamMode] = useState(false);
@@ -50,6 +50,7 @@ const TechnicalQuiz = () => {
   const [terminationReason, setTerminationReason] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
+  const isSubmittingRef = useRef(false);
 
   // Format time as MM:SS
   const formatTime = (seconds: number) => {
@@ -81,7 +82,7 @@ const TechnicalQuiz = () => {
     if (!isExamMode || stage !== "quiz") return;
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
+      if (document.hidden && !isSubmittingRef.current) {
         setTerminationReason("Switching tabs or minimizing the window is prohibited.");
         setStage("result");
         if (document.fullscreenElement) {
@@ -91,7 +92,7 @@ const TechnicalQuiz = () => {
     };
 
     const handleFullscreenChange = () => {
-      if (!document.fullscreenElement && stage === "quiz" && isExamMode) {
+      if (!document.fullscreenElement && stage === "quiz" && isExamMode && !isSubmittingRef.current) {
         setTerminationReason("Exiting fullscreen mode is prohibited during the exam.");
         setStage("result");
       }
@@ -108,18 +109,9 @@ const TechnicalQuiz = () => {
 
 
 
-  useEffect(() => {
-    fetchLeaderboard();
-  }, []);
 
-  const fetchLeaderboard = async () => {
-    try {
-      const { data } = await api.get("/scores/top");
-      setLeaderboard(data);
-    } catch (err) {
-      console.error("Failed to fetch leaderboard", err);
-    }
-  };
+
+
 
   const submitScore = async (score: number, totalQuestions: number, timeTaken: number, quizType: string = 'technical') => {
     try {
@@ -127,7 +119,6 @@ const TechnicalQuiz = () => {
       if (!token) return;
 
       await api.post("/scores", { score, totalQuestions, timeTaken, quizType });
-      fetchLeaderboard(); // Refresh after submission
     } catch (err) {
       console.error("Failed to submit score", err);
     }
@@ -197,6 +188,7 @@ const TechnicalQuiz = () => {
       setSelectedAnswer(null);
       setShowExamResults(false);
       setTerminationReason(null);
+      isSubmittingRef.current = false;
 
       // Trigger Fullscreen
       document.documentElement.requestFullscreen().catch((err) => {
@@ -300,6 +292,7 @@ const TechnicalQuiz = () => {
   };
 
   const confirmSubmit = async () => {
+    isSubmittingRef.current = true;
     setShowSubmitConfirm(false);
     if (isExamMode) {
       document.exitFullscreen().catch(() => { });
@@ -420,42 +413,7 @@ const TechnicalQuiz = () => {
             ))}
           </div>
 
-          {/* Leaderboard Section */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-600 mb-6 flex items-center gap-2">
-              <Trophy className="w-8 h-8 text-yellow-500" /> Top Performers
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {leaderboard.map((entry, index) => (
-                <Card key={index} className={cn(
-                  "border-0 shadow-lg overflow-hidden relative",
-                  index === 0 ? "bg-gradient-to-br from-yellow-50 to-amber-100 ring-2 ring-yellow-400" :
-                    index === 1 ? "bg-gradient-to-br from-gray-50 to-gray-200 ring-1 ring-gray-300" :
-                      index === 2 ? "bg-gradient-to-br from-orange-50 to-orange-100 ring-1 ring-orange-300" : "bg-white"
-                )}>
-                  <CardContent className="p-6 flex items-center gap-4">
-                    <div className={cn(
-                      "w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-inner",
-                      index === 0 ? "bg-yellow-400 text-white" :
-                        index === 1 ? "bg-gray-400 text-white" :
-                          index === 2 ? "bg-orange-400 text-white" : "bg-gray-100 text-gray-500"
-                    )}>
-                      #{index + 1}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900">{entry.username}</h3>
-                      <p className="text-sm text-gray-600">
-                        <span className="font-bold text-primary">{entry.score}</span> / {entry.totalQuestions}
-                        <span className="text-xs text-gray-400 ml-2">({Math.round(entry.timeTaken / 60)}m)</span>
-                      </p>
-                    </div>
-                    {index === 0 && <Sparkles className="absolute top-2 right-2 text-yellow-400 w-6 h-6 animate-pulse" />}
-                  </CardContent>
-                </Card>
-              ))}
-              {leaderboard.length === 0 && <p className="text-gray-500 italic">No scores yet. Be the first!</p>}
-            </div>
-          </div>
+
         </div>
       </div>
     );

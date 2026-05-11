@@ -216,23 +216,16 @@ export const uploadPostImage = async (req, res) => {
             return res.status(400).json({ error: 'No image uploaded' });
         }
 
-        const uploadsRoot = path.join(path.resolve(), 'uploads', 'forum');
-        if (!fs.existsSync(uploadsRoot)) {
-            fs.mkdirSync(uploadsRoot, { recursive: true });
-        }
-
-        const extension = path.extname(req.file.originalname) || '.jpg';
-        const safeExtension = extension.toLowerCase();
-        const fileName = `forum-${req.user._id}-${Date.now()}${safeExtension}`;
-        const filePath = path.join(uploadsRoot, fileName);
-
-        fs.writeFileSync(filePath, req.file.buffer);
+        // Convert the image buffer to a Base64 Data URL
+        const base64Image = req.file.buffer.toString('base64');
+        const mimeType = req.file.mimetype || 'image/jpeg';
+        const dataUrl = `data:${mimeType};base64,${base64Image}`;
 
         res.status(201).json({
-            imageUrl: `/uploads/forum/${fileName}`
+            imageUrl: dataUrl
         });
     } catch (error) {
         console.error('Error uploading forum image:', error);
-        res.status(500).json({ error: 'Failed to upload image' });
+        res.status(500).json({ error: 'Failed to process image' });
     }
 };

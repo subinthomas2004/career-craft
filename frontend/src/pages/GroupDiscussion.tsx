@@ -220,12 +220,12 @@ const GroupDiscussion = () => {
             setCurrentSpeaker(null);
             setIsActive(true);
             toast.success("Discussion Started!", { description: "The floor is open." });
-            // Initial Wait for User (3 seconds)
-            handleTurnTransition(3000);
+            // Initial Wait for User (5 seconds)
+            handleTurnTransition(5000);
         }
     };
 
-    const handleTurnTransition = (delayMs: number = 3000) => {
+    const handleTurnTransition = (delayMs: number = 5000) => {
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
 
         discussionTimeoutRef.current = setTimeout(() => {
@@ -310,7 +310,12 @@ const GroupDiscussion = () => {
         });
     };
 
+    const [isEnding, setIsEnding] = useState(false);
+
     const concludeSession = async (abortedByAbuse: boolean | any = false, skipSpeech: boolean = false) => {
+        if (isEnding) return;
+        setIsEnding(true);
+
         window.speechSynthesis.cancel();
         if (discussionTimeoutRef.current) clearTimeout(discussionTimeoutRef.current);
         setIsActive(false);
@@ -569,10 +574,10 @@ const GroupDiscussion = () => {
                                                 state={isSpeaking ? 'talking' : 'idle'}
                                                 videoSet={
                                                     isMod ? DAVID_VIDEOS :
-                                                        p.name === 'Alex' ? ALEX_VIDEOS :
-                                                            p.name === 'Mike' ? MIKE_VIDEOS :
-                                                                p.name === 'Priya' ? PRIYA_VIDEOS :
-                                                                    SARAH_VIDEOS
+                                                    p.id === 'p1' ? ALEX_VIDEOS :
+                                                    p.id === 'p2' ? SARAH_VIDEOS :
+                                                    p.id === 'p3' ? MIKE_VIDEOS :
+                                                    PRIYA_VIDEOS
                                                 }
                                                 isActive={isSpeaking}
                                                 className="w-full h-full object-cover"
@@ -702,9 +707,10 @@ const GroupDiscussion = () => {
                     <Button
                         variant="destructive"
                         onClick={() => concludeSession()}
+                        disabled={isEnding}
                         className="rounded-full px-6 shadow-md ml-4 gap-2 h-12"
                     >
-                        <PhoneOff className="w-4 h-4" /> End Discussion
+                        <PhoneOff className="w-4 h-4" /> {isEnding ? "Concluding..." : "End Discussion"}
                     </Button>
                 )}
 
@@ -715,12 +721,7 @@ const GroupDiscussion = () => {
                 )}
             </div>
 
-            {/* Interim Transcript Overlay */}
-            {interimTranscript && (
-                <div className="fixed bottom-32 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md text-white px-6 py-3 rounded-2xl text-lg font-medium max-w-2xl text-center animate-in fade-in slide-in-from-bottom-4 z-50 shadow-2xl border border-white/10">
-                    {interimTranscript}
-                </div>
-            )}
+
         </div>
     );
 };

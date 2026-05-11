@@ -22,19 +22,29 @@ const DebateLanding = () => {
 
     useEffect(() => {
         const fetchDebates = async () => {
-            if (!auth.currentUser) {
-                setLoading(false);
-                return;
-            }
             try {
-                const q = query(
-                    collection(db, "debates"),
-                    where("userId", "==", auth.currentUser.uid),
-                    orderBy("createdAt", "asc")
-                );
-                const querySnapshot = await getDocs(q);
-                const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setDebates(data);
+                const userInfoStr = localStorage.getItem('userInfo');
+                if (!userInfoStr) {
+                    setLoading(false);
+                    return;
+                }
+                const userInfo = JSON.parse(userInfoStr);
+                const token = userInfo.token;
+
+                if (!token) {
+                    setLoading(false);
+                    return;
+                }
+
+                const response = await api.get('/soft-skills/debate', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                if (response.data.success) {
+                    // Reverse the array to show chronological order for the chart (oldest to newest)
+                    const sortedData = [...response.data.sessions].reverse();
+                    setDebates(sortedData);
+                }
             } catch (error) {
                 console.error("Error fetching past debates:", error);
             } finally {
@@ -42,14 +52,7 @@ const DebateLanding = () => {
             }
         };
 
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            if (user) {
-                fetchDebates();
-            } else {
-                setLoading(false);
-            }
-        });
-        return () => unsubscribe();
+        fetchDebates();
     }, []);
 
     const chartData = {

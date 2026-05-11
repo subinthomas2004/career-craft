@@ -145,7 +145,13 @@ const GDTopicSelection = () => {
     const handleRandomTopic = async () => {
         setLoadingRandom(true);
         try {
-            const response = await api.post('/groq/debate/topic');
+            const categories = Object.keys(TOPIC_CATEGORIES);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+
+            const response = await api.post('/groq/debate/topic', {
+                type: 'gd',
+                category: randomCategory
+            });
             if (response.data.success) {
                 setSelectedTopic(response.data.topic);
                 toast.success("Random topic generated!");

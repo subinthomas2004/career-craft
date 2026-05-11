@@ -105,12 +105,12 @@ const DebateRoom = () => {
 
         toast.success("Debate started!", { duration: 2000 });
 
-        // Wait 3 seconds — if user doesn't start speaking, AI opens
+        // Wait 6 seconds — if user doesn't start speaking, AI opens
         const startTimer = setTimeout(() => {
-            if (transcript.length === 0 && !isListening) {
+            if (transcript.length === 0 && !isListening && !aiSpeakingRef.current) {
                 triggerAiOpening();
             }
-        }, 3000);
+        }, 6000);
 
         return () => clearTimeout(startTimer);
     }, [topic, navigate]);
@@ -310,17 +310,6 @@ const DebateRoom = () => {
         }
     };
 
-    // Interruption Logic
-    useEffect(() => {
-        let interruptionTimer: NodeJS.Timeout;
-        if (isListening && !aiSpeaking) {
-            interruptionTimer = setTimeout(() => {
-                handleInterruption();
-            }, 45000); // 45 seconds limit
-        }
-        return () => clearTimeout(interruptionTimer);
-    }, [isListening, aiSpeaking]);
-
     const handleInterruption = () => {
         stopListening();
         handleUserSubmit(true);
@@ -333,8 +322,13 @@ const DebateRoom = () => {
 
         if (recognitionRef.current && isListening) return;
 
-        // DON'T stop AI speaking immediately — wait until user actually speaks
-        // (handled in onresult below)
+        // STOP AI speaking immediately on click
+        if (aiSpeakingRef.current) {
+            window.speechSynthesis.cancel();
+            setAiSpeaking(false);
+            aiSpeakingRef.current = false;
+            setCurrentSubtitle('');
+        }
 
         // Reset speech tracking
         userHasSpokenRef.current = false;
@@ -386,16 +380,6 @@ const DebateRoom = () => {
                         aiSpeakingRef.current = false;
                         setCurrentSubtitle('');
                     }
-                    
-                    // Start max speech timer when user starts speaking
-                    if (maxSpeechTimerRef.current) {
-                        clearTimeout(maxSpeechTimerRef.current);
-                    }
-                    maxSpeechTimerRef.current = setTimeout(() => {
-                        toast("Maximum speaking time (40s) reached. AI will now respond.");
-                        stopListening();
-                        handleUserSubmit(true); // Trigger AI interruption
-                    }, 40000);
                 }
                 userHasSpokenRef.current = true;
 
@@ -771,15 +755,17 @@ const DebateRoom = () => {
                 {/* Mic Toggle */}
                 <Button
                     size="icon"
-                    variant={isListening ? "destructive" : "secondary"}
+                    variant={isListening ? "secondary" : "secondary"}
                     onClick={toggleMic}
                     className={cn(
-                        "h-14 w-14 rounded-full shadow-lg border-2 border-transparent transition-all",
-                        isListening ? "animate-pulse shadow-red-500/20 border-red-500/50" : "bg-primary text-primary-foreground hover:bg-primary/90"
+                        "h-12 w-12 rounded-full shadow-lg border-2 border-transparent transition-all",
+                        isListening 
+                            ? "bg-blue-600 hover:bg-blue-700 animate-pulse shadow-blue-500/40 border-blue-400 text-white" 
+                            : "bg-secondary text-secondary-foreground"
                     )}
                     title={isListening ? "Stop & Submit" : "Start Speaking"}
                 >
-                    {isListening ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
+                    {isListening ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
                 </Button>
 
                 {/* End Debate — Professional hang-up style */}

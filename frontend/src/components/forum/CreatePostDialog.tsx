@@ -151,7 +151,7 @@ export const CreatePostDialog = ({ children, onCreate }: CreatePostDialogProps) 
                                             </>
                                         ) : imageUrl ? (
                                             <img
-                                                src={`${API_ROOT.replace(/\/api$/, "")}${imageUrl}`}
+                                                src={imageUrl.startsWith('data:') ? imageUrl : `${API_ROOT.replace(/\/api$/, "")}${imageUrl}`}
                                                 alt="Uploaded preview"
                                                 className="max-h-[160px] rounded-md object-cover"
                                             />
