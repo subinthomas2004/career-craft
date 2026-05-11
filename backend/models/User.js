@@ -73,6 +73,14 @@ const userSchema = new mongoose.Schema({
     showProgressPublicly: {
         type: Boolean,
         default: true
+    },
+    emailNotifications: {
+        type: Boolean,
+        default: true
+    },
+    pushNotifications: {
+        type: Boolean,
+        default: true
     }
 });
 

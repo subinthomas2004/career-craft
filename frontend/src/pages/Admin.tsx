@@ -388,15 +388,6 @@ const Admin = () => {
                             {user.role !== 'admin' && (
                               <>
                                 <Button
-                                  variant={user.isSuspended ? "default" : "outline"}
-                                  size="sm"
-                                  onClick={() => toggleSuspendUser(user._id)}
-                                  className={user.isSuspended ? "bg-green-600 hover:bg-green-700 text-white" : "text-orange-500 border-orange-200 hover:bg-orange-50"}
-                                >
-                                  {user.isSuspended ? <CheckSquare className="w-4 h-4 mr-1" /> : <Ban className="w-4 h-4 mr-1" />}
-                                  {user.isSuspended ? "Reactivate" : "Suspend"}
-                                </Button>
-                                <Button
                                   variant="ghost"
                                   size="icon"
                                   className="text-destructive hover:bg-destructive/10"

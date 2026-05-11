@@ -102,12 +102,29 @@ export default function AIMentor() {
     };
 
     const toggleGoalCompletion = async (goalId: string) => {
+        // OPTIMISTIC UPDATE: Instantly toggle checkbox locally for snappy feel
+        setProfile((prev: any) => {
+            if (!prev || !prev.dailyGoals) return prev;
+            const newGoals = prev.dailyGoals.map((g: any) => {
+                if (g._id === goalId || g.id === goalId) {
+                    return { ...g, isCompleted: !g.isCompleted };
+                }
+                return g;
+            });
+            return { ...prev, dailyGoals: newGoals };
+        });
+
         try {
             const { data } = await api.patch("/mentor/goals/toggle", { goalId });
             if (data.success) {
+                // Ensure local storage matches server source perfectly without causing a visible flash
                 setProfile(data.profile);
             }
-        } catch (err) { toast.error("Progress save failed"); }
+        } catch (err) { 
+            toast.error("Failed to update checkbox. Reverting."); 
+            // Revert on failure logic is covered by fetching profile again or relying on next render
+            fetchProfile(); 
+        }
     };
 
     const generateBehaviorReport = async () => {
@@ -162,8 +179,8 @@ export default function AIMentor() {
                     className="xl:col-span-12 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between shadow-sm gap-6"
                 >
                     <div className="flex items-center gap-6">
-                        <div className="w-20 h-20 bg-indigo-600 rounded-3xl shadow-xl shadow-indigo-200 flex items-center justify-center shrink-0 transform rotate-3">
-                            <BrainCircuit className="w-10 h-10 text-white transform -rotate-3" />
+                        <div className="w-20 h-20 bg-indigo-600 rounded-3xl shadow-xl shadow-indigo-200 flex items-center justify-center shrink-0">
+                            <BrainCircuit className="w-10 h-10 text-white" />
                         </div>
                         <div>
                             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">AI Mentor Space</h1>
@@ -180,10 +197,10 @@ export default function AIMentor() {
                             </div>
                         </div>
                         <div className="bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3 flex items-center gap-4">
-                            <div className="p-2.5 bg-blue-100 text-blue-600 rounded-xl"><Target className="w-5 h-5" /></div>
+                            <div className="p-2.5 bg-violet-100 text-violet-600 rounded-xl"><Route className="w-5 h-5" /></div>
                             <div>
-                                <p className="text-xs uppercase tracking-wider text-slate-400 font-bold">Progress</p>
-                                <p className="text-xl font-black text-slate-800">{completedGoals}/{totalGoals}</p>
+                                <p className="text-xs uppercase tracking-wider text-slate-400 font-bold">Milestones</p>
+                                <p className="text-xl font-black text-slate-800">{profile?.learningRoadmap?.length || 0}</p>
                             </div>
                         </div>
                         
@@ -281,162 +298,89 @@ export default function AIMentor() {
                 </motion.div>
 
                 {/* ===================== RIGHT DASHBOARD GRID (CLEAN WHITES) ===================== */}
-                <div className="xl:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="xl:col-span-7 flex flex-col gap-8">
                     
-                    {/* BLOCK 1: SMART GOALS LIST */}
+                    {/* BLOCK 1: BEHAVIORAL INSIGHTS (Replaces Active Mission List) */}
+                    {/* BLOCK 1: PLACEMENT READINESS FORECASTER */}
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="md:col-span-2 bg-white border border-slate-200 rounded-3xl shadow-lg shadow-slate-100/50 overflow-hidden flex flex-col"
+                        className="bg-white border border-slate-200 rounded-3xl shadow-lg shadow-slate-100/50 overflow-hidden flex flex-col"
                     >
-                        <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/30">
+                        <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/30">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100"><Target className="w-6 h-6" /></div>
+                                <div className="p-3 bg-rose-50 text-rose-600 rounded-2xl border border-rose-100"><LineChart className="w-6 h-6" /></div>
                                 <div>
-                                    <h3 className="font-extrabold text-xl text-slate-900">Active Mission List</h3>
-                                    <p className="text-sm font-medium text-slate-500">Dynamic targeted checklist for continuous calibration.</p>
+                                    <h3 className="font-extrabold text-xl text-slate-900">Job Market Readiness</h3>
+                                    <p className="text-sm font-medium text-slate-500">Predictive modeling of placement probability and performance delta.</p>
                                 </div>
                             </div>
-                            <Button onClick={generateDailyGoals} variant="outline" size="sm" disabled={loading} className="bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-emerald-600 shadow-sm font-bold rounded-xl h-10 gap-2">
-                                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Recalculate
+                            <Button onClick={generateWeeklyReflection} disabled={loading} className="bg-rose-600 hover:bg-rose-700 text-white shadow-md shadow-rose-200 font-bold rounded-xl h-11 gap-2 px-5">
+                                <Sparkles className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Generate Insight
                             </Button>
                         </div>
-                        <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex flex-col gap-2">
-                            <div className="flex justify-between text-sm font-bold text-slate-600 uppercase tracking-wider">
-                                <span>Completion Rate</span>
-                                <span className="text-emerald-600 font-black">{Math.round(goalProgress)}%</span>
-                            </div>
-                            <Progress value={goalProgress} className="h-3 bg-slate-200 border-0 rounded-full overflow-hidden shadow-inner [&>div]:bg-emerald-500" />
-                        </div>
-                        <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto max-h-[350px]">
-                            {(!profile?.dailyGoals || profile.dailyGoals.length === 0) ? (
-                                <div className="col-span-full py-12 text-center flex flex-col items-center bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-                                    <Target className="w-12 h-12 text-slate-300 mb-3" />
-                                    <p className="text-slate-600 font-medium mb-5">Target parameters not loaded.</p>
-                                    <Button onClick={generateDailyGoals} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl px-6 h-11 shadow-lg shadow-emerald-200">Initialize Checklist</Button>
-                                </div>
-                            ) : (
-                                profile.dailyGoals.map((g:any, i:number) => (
-                                    <motion.div 
-                                        key={g._id || g.id}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: i * 0.05 }}
-                                        onClick={() => toggleGoalCompletion(g._id || g.id)}
-                                        className={`group cursor-pointer relative flex items-start gap-4 p-5 rounded-2xl border transition-all duration-300 shadow-sm ${
-                                            g.isCompleted 
-                                            ? 'bg-emerald-50/50 border-emerald-200' 
-                                            : 'bg-white border-slate-200 hover:border-indigo-400 hover:shadow-md'
-                                        }`}
-                                    >
-                                        <div className="mt-0.5 shrink-0">
-                                            {g.isCompleted 
-                                                ? <CheckCircle2 className="w-6 h-6 text-emerald-500 fill-emerald-500/10" /> 
-                                                : <Circle className="w-6 h-6 text-slate-300 group-hover:text-indigo-500 transition-colors" />
-                                            }
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className={`text-[15px] font-bold leading-snug mb-2 ${g.isCompleted ? 'text-emerald-700 line-through font-medium opacity-70' : 'text-slate-900'}`}>
-                                                {g.title}
-                                            </p>
-                                            <div className="flex gap-2">
-                                                <Badge className="bg-slate-100 text-slate-600 border border-slate-200 font-bold text-[10px] uppercase px-2 py-0.5 rounded-md">{g.category}</Badge>
-                                                <Badge className={`border font-bold text-[10px] uppercase px-2 py-0.5 rounded-md ${
-                                                    g.difficulty === 'Hard' ? 'bg-rose-50 text-rose-600 border-rose-200' : 
-                                                    g.difficulty === 'Medium' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-emerald-50 text-emerald-600 border-emerald-200'
-                                                }`}>{g.difficulty}</Badge>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))
-                            )}
-                        </div>
-                    </motion.div>
-
-                    {/* BLOCK 2: PSYCH ENGINE (COLORFUL ON WHITE) */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="bg-white border border-slate-200 rounded-3xl shadow-lg p-7 flex flex-col border-t-4 border-t-rose-400"
-                    >
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-rose-50 text-rose-500 rounded-xl border border-rose-100"><BarChart2 className="w-5 h-5" /></div>
-                                <h4 className="font-extrabold text-slate-900 text-lg">Analytics Graph</h4>
-                            </div>
-                            <Button onClick={generateBehaviorReport} size="icon" variant="ghost" className="h-9 w-9 rounded-xl text-slate-400 hover:bg-rose-50 hover:text-rose-500"><RefreshCw className="w-4 h-4"/></Button>
-                        </div>
-
-                        <div className="flex flex-col items-center justify-center flex-1 gap-6 text-center pt-2">
-                            <div className="relative w-32 h-32 flex items-center justify-center bg-rose-50 rounded-full p-2 border border-rose-100">
-                                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="40" stroke="#ffe4e6" strokeWidth="8" fill="transparent" />
-                                    <motion.circle 
-                                        cx="50" cy="50" r="40" stroke="#f43f5e" strokeWidth="8" fill="transparent"
-                                        strokeDasharray="251.2"
-                                        initial={{ strokeDashoffset: 251.2 }}
-                                        animate={{ strokeDashoffset: 251.2 * (1 - (profile?.behavioralMetrics?.consistencyScore || 0) / 100) }}
-                                        transition={{ duration: 1.5, ease: "easeOut" }}
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
-                                <div className="text-center relative z-10">
-                                    <span className="text-4xl font-black text-slate-900 leading-none">{profile?.behavioralMetrics?.consistencyScore || 0}</span>
-                                    <p className="text-[10px] uppercase font-black text-rose-500 tracking-wider mt-1">PTS</p>
-                                </div>
-                            </div>
-                            <div className="w-full">
-                                <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mb-3">Telemetry Prime Hours</p>
-                                <div className="flex flex-wrap gap-2 justify-center">
-                                    {profile?.behavioralMetrics?.peakProductiveHours?.length > 0 
-                                        ? profile.behavioralMetrics.peakProductiveHours.map((h:any,i:number) => (
-                                            <Badge key={i} className="bg-white border border-slate-200 text-slate-800 font-extrabold py-1.5 px-4 rounded-xl shadow-sm text-xs">{h}</Badge>
-                                        ))
-                                        : <span className="text-xs italic text-slate-400 bg-slate-50 px-4 py-2 rounded-lg border border-slate-100 w-full inline-block">Pending Data Streams</span>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* BLOCK 3: REFLECTION MODULE */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="bg-white border border-slate-200 rounded-3xl shadow-lg p-7 border-t-4 border-t-blue-500 flex flex-col justify-between"
-                    >
-                        <div>
-                            <div className="flex items-center justify-between mb-5">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-blue-50 text-blue-600 rounded-xl border border-blue-100"><Trophy className="w-5 h-5" /></div>
-                                    <h4 className="font-extrabold text-slate-900 text-lg">Weekly Review</h4>
-                                </div>
-                                <Button onClick={generateWeeklyReflection} size="sm" className="bg-blue-600 hover:bg-blue-700 text-white font-bold h-9 px-4 shadow-md rounded-xl" disabled={loading}>Compile</Button>
-                            </div>
-
-                            {profile?.progressReflection?.weeklyReport ? (
-                                <div className="bg-slate-50 border border-slate-200 p-5 rounded-2xl text-slate-700 text-[13px] leading-relaxed italic font-medium mb-6 relative shadow-inner">
-                                    "{profile.progressReflection.weeklyReport.length > 160 ? profile.progressReflection.weeklyReport.substring(0, 160) + '...' : profile.progressReflection.weeklyReport}"
-                                </div>
-                            ) : (
-                                <div className="h-32 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center mb-6 text-slate-400 text-sm text-center px-6">
-                                    <FileText className="w-6 h-6 mb-2 opacity-50" />
-                                    Await active data reflection.
-                                </div>
-                            )}
-                        </div>
                         
-                        <div className="bg-indigo-50 rounded-2xl p-5 flex items-center justify-between border border-indigo-100 shadow-sm shadow-indigo-100/50">
-                            <div className="flex items-center gap-3">
-                                <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-                                <span className="text-xs font-black text-indigo-700 uppercase tracking-widest">Readiness Velocity</span>
+                        <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+                            {/* The Predictor Card */}
+                            <div className="lg:col-span-5 bg-gradient-to-br from-rose-500 to-orange-500 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                                <div className="absolute inset-0 bg-black/10 mix-blend-overlay" />
+                                <div className="relative z-10 h-full flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-2 opacity-90">
+                                            <Trophy className="w-4 h-4" />
+                                            <span className="text-xs font-bold uppercase tracking-widest">Predictive Probability</span>
+                                        </div>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-5xl font-black">{profile?.progressReflection?.predictedReadiness || 0}</span>
+                                            <span className="text-2xl font-bold opacity-80">%</span>
+                                        </div>
+                                        <p className="text-sm font-medium mt-2 opacity-80">Current Placement Benchmark Score</p>
+                                    </div>
+                                    
+                                    <div className="mt-8 bg-white/20 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                                        <p className="text-sm font-medium leading-relaxed italic">
+                                            "{profile?.progressReflection?.weeklyReport || "Generate an insight report to trigger placement probability prediction using AI synthesis models."}"
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex items-baseline gap-0.5">
-                                <span className="text-3xl font-black text-indigo-900">{profile?.progressReflection?.predictedReadiness || 0}</span>
-                                <span className="text-sm font-bold text-indigo-600">%</span>
+
+                            {/* Grid 2: Strengths and Weaknesses Split */}
+                            <div className="lg:col-span-7 grid grid-rows-2 gap-4">
+                                {/* Strengths */}
+                                <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-4 flex flex-col justify-center">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="bg-emerald-100 text-emerald-600 p-1.5 rounded-lg"><Zap className="w-4 h-4" /></div>
+                                        <h4 className="text-sm font-bold text-emerald-800">Verified Dominant Factors</h4>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {(!profile?.progressReflection?.strengthsImproved || profile.progressReflection.strengthsImproved.length === 0) ? (
+                                            <span className="text-xs text-emerald-600/60 italic font-medium">Pending capability audit.</span>
+                                        ) : (
+                                            profile.progressReflection.strengthsImproved.map((s:string, i:number) => (
+                                                <Badge key={i} className="bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold px-3 py-1 rounded-md shadow-sm">{s}</Badge>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Growth Needs */}
+                                <div className="bg-amber-50/50 border border-amber-100 rounded-xl p-4 flex flex-col justify-center">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="bg-amber-100 text-amber-600 p-1.5 rounded-lg"><TrendingUp className="w-4 h-4" /></div>
+                                        <h4 className="text-sm font-bold text-amber-800">High-Impact Growth Gaps</h4>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {(!profile?.progressReflection?.areasStillWeak || profile.progressReflection.areasStillWeak.length === 0) ? (
+                                            <span className="text-xs text-amber-600/60 italic font-medium">Pending weak area calibration.</span>
+                                        ) : (
+                                            profile.progressReflection.areasStillWeak.map((w:string, i:number) => (
+                                                <Badge key={i} className="bg-white text-amber-700 border border-amber-200 font-bold px-3 py-1 rounded-md shadow-sm">{w}</Badge>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
@@ -445,8 +389,8 @@ export default function AIMentor() {
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="md:col-span-2 bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden border-t-4 border-t-violet-500"
+                        transition={{ delay: 0.4 }}
+                        className="bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden border-t-4 border-t-violet-500"
                     >
                         <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-50/30">
                             <div className="flex items-center gap-4">
@@ -491,7 +435,6 @@ export default function AIMentor() {
                             )}
                         </div>
                     </motion.div>
-
                 </div>
             </div>
         </div>

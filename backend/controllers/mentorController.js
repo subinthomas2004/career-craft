@@ -48,8 +48,8 @@ export const generateGoals = async (req, res) => {
 Given the user's stats and memory, generate 3 to 5 achievable daily goals.
 Adapt difficulty based on current streak and performance.
 Include categories like 'coding', 'aptitude', 'typing', 'quiz', 'interview'.
-Return ONLY a JSON array of goal objects containing 'title', 'category', and 'difficulty'.
-Output valid JSON format only. Example: [{"title": "Solve 2 Medium DP questions", "category": "coding", "difficulty": "Medium"}]`;
+Return ONLY a valid JSON object containing a root key "goals" with an array of goal objects containing 'title', 'category', and 'difficulty'.
+Output valid JSON format only. Example: { "goals": [{"title": "Solve 2 Medium DP questions", "category": "coding", "difficulty": "Medium"}] }`;
 
         const context = `User Current Streak: ${user?.streak || 0} days.
 Recent Weak Areas: ${profile?.memory?.weakTopics?.join(', ') || 'None identified yet'}.
@@ -113,16 +113,34 @@ Target Role: ${user?.targetRole || 'Software Developer'}.`;
 export const toggleGoal = async (req, res) => {
     const { goalId } = req.body;
     try {
+        // 1. Find profile and inspect goals to get current state
         const profile = await AIMentorProfile.findOne({ user: req.user._id });
         if (!profile) return res.status(404).json({ success: false, message: "Profile not found" });
 
-        const goal = profile.dailyGoals.find(g => g.id === goalId || g._id?.toString() === goalId);
-        if (goal) {
-            goal.isCompleted = !goal.isCompleted;
-            await profile.save();
+        // 2. Locate the specific goal instance
+        const goalIndex = profile.dailyGoals.findIndex(g => g.id === goalId || g._id?.toString() === goalId);
+        
+        if (goalIndex === -1) {
+            console.error(`ToggleGoal error: Goal ID ${goalId} not found in profile.`);
+            return res.status(404).json({ success: false, message: "Task identifier invalid." });
         }
-        res.json({ success: true, profile });
+
+        // 3. Read and invert status
+        const currentStatus = profile.dailyGoals[goalIndex].isCompleted;
+        const newStatus = !currentStatus;
+
+        // 4. Atomically update the target element via positional query to bypass full-document validation artifacts
+        // 4. Directly target and update ONLY that sub-item field index via MongoDB set
+        const fieldKey = `dailyGoals.${goalIndex}.isCompleted`;
+        const updatedProfile = await AIMentorProfile.findOneAndUpdate(
+            { _id: profile._id },
+            { $set: { [fieldKey]: newStatus } },
+            { new: true, validateBeforeSave: false }
+        );
+ 
+        res.json({ success: true, profile: updatedProfile });
     } catch (error) {
+        console.error("Toggle Goal backend exception:", error);
         res.status(500).json({ success: false, error: error.message });
     }
 };
@@ -248,7 +266,7 @@ export const generateRoadmap = async (req, res) => {
         const systemPrompt = `You are an Adaptive Learning Architect. 
 Generate a personalized roadmap for: ${goal || 'General Preparation'}.
 Include 4 to 6 clear milestones. Each milestone needs iterative steps.
-Format purely in JSON matching structure: [{"title": "Milestone Title", "steps": ["Step 1", "Step 2"]}]`;
+Format purely in JSON matching structure: { "roadmap": [{"title": "Milestone Title", "steps": ["Step 1", "Step 2"]}] }`;
 
         const completion = await groqChat({
             messages: [

@@ -225,8 +225,11 @@ export const sendEmailBroadcast = async (req, res) => {
             return res.status(400).json({ message: "Subject and message body are required" });
         }
 
-        // Fetch all non-suspended users
-        const users = await User.find({ isSuspended: false }).select('email name');
+        // Fetch all non-suspended users who opted into emails
+        const users = await User.find({ 
+            isSuspended: false,
+            emailNotifications: { $ne: false } 
+        }).select('email name');
 
         if (!users || users.length === 0) {
             return res.status(404).json({ message: "No active users found to email" });
@@ -235,13 +238,11 @@ export const sendEmailBroadcast = async (req, res) => {
         const htmlContent = getBroadcastEmailTemplate(subject, message, link);
 
         // Loop and send email to each user
+        // Loop and send email to each user sequentially to prevent rate-limiting flooding
         let successCount = 0;
         let failureCount = 0;
 
-        // Using parallel loops with simple promise tracking
-        // In real large production, queue processors like BullMQ are used. 
-        // For this scope, standard iteration works.
-        await Promise.allSettled(users.map(async (user) => {
+        for (const user of users) {
             try {
                 await sendEmail({
                     email: user.email,
@@ -250,11 +251,13 @@ export const sendEmailBroadcast = async (req, res) => {
                     isHtml: true
                 });
                 successCount++;
+                // Minimal pacing sleep (250ms) to protect API connection pools
+                await new Promise(r => setTimeout(r, 250));
             } catch (err) {
                 console.error(`Failed to send email to ${user.email}:`, err.message);
                 failureCount++;
             }
-        }));
+        }
 
         // Log activity
         await Log.create({

@@ -51,7 +51,9 @@ const Settings = () => {
         if (response.data) {
           setSettings(prev => ({
             ...prev,
-            showProgress: response.data.showProgressPublicly !== undefined ? response.data.showProgressPublicly : true
+            showProgress: response.data.showProgressPublicly !== undefined ? response.data.showProgressPublicly : true,
+            emailNotifications: response.data.emailNotifications !== undefined ? response.data.emailNotifications : true,
+            pushNotifications: response.data.pushNotifications !== undefined ? response.data.pushNotifications : true
           }));
         }
       } catch (error) {
@@ -66,7 +68,9 @@ const Settings = () => {
   const handleSaveSettings = async () => {
     try {
       await api.put('/auth/profile', {
-        showProgressPublicly: settings.showProgress
+        showProgressPublicly: settings.showProgress,
+        emailNotifications: settings.emailNotifications,
+        pushNotifications: settings.pushNotifications,
       });
       toast.success("Settings saved successfully!");
     } catch (error) {
@@ -175,11 +179,11 @@ const Settings = () => {
         </div>
 
         {/* Notifications (Static placeholders for future) */}
-        <Card className="mb-6 opacity-80">
+        <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Bell className="w-5 h-5 text-primary" />
-              Notifications <span className="text-xs bg-muted px-2 py-0.5 rounded text-muted-foreground ml-2">Coming Soon</span>
+              Notifications
             </CardTitle>
             <CardDescription>Configure how you receive notifications</CardDescription>
           </CardHeader>

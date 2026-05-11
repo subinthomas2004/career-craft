@@ -843,9 +843,12 @@ const MockInterview = ({ type }: MockInterviewProps) => {
                     <div className="bg-muted/40 p-3 rounded-lg border border-border/30 italic text-muted-foreground text-sm">
                       <p className="font-medium text-xs uppercase tracking-wider text-muted-foreground/80 mb-1 not-italic">Your Response</p>
                       {String(item.answer).includes('[Submitted Code') ? (
-                        <pre className="text-xs font-mono p-3 bg-[#1e1e1e] text-gray-200 rounded-md mt-2 overflow-x-auto border border-white/10 shadow-inner max-h-48">
-                          {String(item.answer).replace(/\[Submitted Code - (.*?)\]\n/, '// $1 Implementation\n')}
-                        </pre>
+                        <div className="space-y-2">
+                          <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">💻 Submitted Code:</p>
+                          <pre className="text-xs font-mono p-3 bg-[#1e1e1e] text-gray-200 rounded-md mt-2 overflow-x-auto border border-white/10 shadow-inner max-h-64">
+                            {String(item.answer).replace(/\[Submitted Code\s*(?:-\s*(.*?))?\]\s*/i, '// Code Implementation\n')}
+                          </pre>
+                        </div>
                       ) : (
                         `"${item.answer}"`
                       )}
@@ -867,7 +870,7 @@ const MockInterview = ({ type }: MockInterviewProps) => {
                            <div className="mt-3">
                              <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-700 dark:text-emerald-300 mb-1">💡 Reference Solution</p>
                              <pre className="text-xs font-mono p-3 bg-[#121212] text-emerald-400/90 rounded border border-emerald-900/50 overflow-x-auto max-h-48">
-                               {item.idealCodeReference}
+                               {String(item.idealCodeReference).replace(/^```(?:\w+)?\s*\n/, '').replace(/```\s*$/, '').trim()}
                              </pre>
                            </div>
                          )}
@@ -890,7 +893,13 @@ const MockInterview = ({ type }: MockInterviewProps) => {
                   </div>
                   <div className="ml-8 bg-background p-3 rounded-lg border border-border/40">
                     <p className="text-xs text-muted-foreground uppercase mb-1 font-semibold">Your Answer</p>
-                    <p className="text-sm text-foreground/90">{h.answer}</p>
+                    {String(h.answer).includes('[Submitted Code') ? (
+                       <pre className="text-xs font-mono p-3 bg-[#1e1e1e] text-gray-200 rounded-md mt-1 overflow-x-auto border border-white/10 shadow-inner max-h-48">
+                         {String(h.answer).replace(/\[Submitted Code\s*(?:-\s*(.*?))?\]\s*/i, '// Code Implementation\n')}
+                       </pre>
+                    ) : (
+                       <p className="text-sm text-foreground/90">{h.answer}</p>
+                    )}
                   </div>
                 </div>
               ))

@@ -206,8 +206,8 @@ export const useInterviewSession = (config: InterviewConfig) => {
         setSessionState({ ...engine.getState() });
 
         if (q) {
-            console.log("Speaking question in 5s (giving user time to settle):", q.text);
-            setTimeout(() => speakQuestion(q.text), 5000);
+            console.log("Speaking question in 1.5s:");
+            setTimeout(() => speakQuestion(q.text), 1500);
         }
     }, [engine, speakQuestion]);
 

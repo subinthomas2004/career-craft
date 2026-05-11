@@ -409,6 +409,8 @@ export const getMe = async (req, res) => {
                 recentActivities: user.recentActivities || [],
                 streak: user.streak || 0,
                 showProgressPublicly: user.showProgressPublicly !== undefined ? user.showProgressPublicly : true,
+                emailNotifications: user.emailNotifications !== undefined ? user.emailNotifications : true,
+                pushNotifications: user.pushNotifications !== undefined ? user.pushNotifications : true,
                 role: user.role
             });
         } else {
@@ -447,6 +449,8 @@ export const updateProfile = async (req, res) => {
             if (req.body.resumeUrl !== undefined) user.resumeUrl = req.body.resumeUrl;
             if (req.body.resumeOriginalName !== undefined) user.resumeOriginalName = req.body.resumeOriginalName;
             if (req.body.showProgressPublicly !== undefined) user.showProgressPublicly = req.body.showProgressPublicly;
+            if (req.body.emailNotifications !== undefined) user.emailNotifications = req.body.emailNotifications;
+            if (req.body.pushNotifications !== undefined) user.pushNotifications = req.body.pushNotifications;
 
             const updatedUser = await user.save();
 
@@ -468,6 +472,8 @@ export const updateProfile = async (req, res) => {
                 stats: updatedUser.stats,
                 streak: updatedUser.streak || 0,
                 showProgressPublicly: updatedUser.showProgressPublicly !== undefined ? updatedUser.showProgressPublicly : true,
+                emailNotifications: updatedUser.emailNotifications !== undefined ? updatedUser.emailNotifications : true,
+                pushNotifications: updatedUser.pushNotifications !== undefined ? updatedUser.pushNotifications : true,
                 token: generateToken(updatedUser._id)
             });
         } else {

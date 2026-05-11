@@ -83,28 +83,48 @@ export const groqChat = async ({ messages, model = "llama-3.3-70b-versatile", te
 export const testGroqConnection = async (req, res) => {
     const { message } = req.body;
 
+    if (!GROQ_API_KEY) {
+        return res.status(500).json({ success: false, error: "GROQ_API_KEY missing from environment" });
+    }
+
     try {
-        const completion = await groqChat({
-            messages: [
-                {
-                    role: "user",
-                    content: message || "Hello, are you connected?",
-                },
-            ],
+        const response = await axios.post(GROQ_API_URL, {
+            messages: [{
+                role: "user",
+                content: message || "Hello, are you connected?",
+            }],
             model: "llama-3.3-70b-versatile",
+        }, {
+            headers: {
+                "Authorization": `Bearer ${GROQ_API_KEY}`,
+                "Content-Type": "application/json"
+            }
         });
+
+        const headers = response.headers;
+
+        // Extract precise rate limit values from headers for client telemetry display
+        const limits = {
+            remainingRequests: headers["x-ratelimit-remaining-requests"] || "N/A",
+            limitRequests: headers["x-ratelimit-limit-requests"] || "N/A",
+            resetRequests: headers["x-ratelimit-reset-requests"] || "N/A",
+            remainingTokens: headers["x-ratelimit-remaining-tokens"] || "N/A",
+            limitTokens: headers["x-ratelimit-limit-tokens"] || "N/A",
+            resetTokens: headers["x-ratelimit-reset-tokens"] || "N/A",
+        };
 
         res.json({
             success: true,
-            reply: completion.choices[0]?.message?.content || "No response content",
-            usage: completion.usage,
+            reply: response.data.choices[0]?.message?.content || "Connected successfully",
+            limits: limits,
+            usage: response.data.usage
         });
     } catch (error) {
-        console.error("Groq API Error:", error.response?.data || error.message);
+        console.error("Groq API Connection Test Failed:", error.response?.data || error.message);
         res.status(500).json({
             success: false,
             error: error.response?.data?.error?.message || error.message,
-            details: "Failed to connect to Groq API"
+            details: "Failed to connect to Groq"
         });
     }
 };
@@ -550,7 +570,11 @@ export const generateReport = async (req, res) => {
     3. "communicationAnalysis": Paragraph analyzing their CONFIDENCE based on the WPM and Fillers. Explicitly mention their pace and hesitation.
     4. "bodyLanguageEstimation": Estimate likely body language based on confidence (e.g. "Confident tone suggests good posture" or "Hesitation suggests nervousness").
     5. "feedback": Bullet points for improvement.
-    6. "questionAnalysis": Provide a detailed analysis of EVERY answer submitted. Format: [{"question": "...", "answer": "...", "evaluation": "Analysis", "suggestion": "Improvement", "rating": 1-10}]. CRITICAL: For any answers tagged '[Submitted Code]', you MUST include an "idealCodeReference" block in the feedback or within the suggestion text containing the correct/optimized sample solution for the candidate to compare against. Ensure EVERY question answered is analyzed.
+    6. "questionAnalysis": Provide a detailed analysis of EVERY answer submitted. Format: [{"question": "...", "answer": "...", "evaluation": "Analysis", "suggestion": "Improvement", "rating": 1-10, "idealCodeReference": "..."}]. 
+    CRITICAL RULES:
+    - For any answers tagged with '[Submitted Code]', you MUST explicitly include a key "idealCodeReference" in the JSON object containing the correct/optimized sample solution (with correct syntax and logic) for the candidate to compare against. Do not wrap this key in Markdown formatting inside the string; provide clean code text.
+    - You MUST retain the EXACT original answer text, including the '[Submitted Code - Language]' tag, in the "answer" field of the analysis so it renders correctly.
+    - Ensure EVERY question answered is analyzed.
 
     OUTPUT JSON ONLY.`;
 

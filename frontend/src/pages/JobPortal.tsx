@@ -292,7 +292,7 @@ const JobPortal: React.FC = () => {
                             >
                                 <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
                                 <p className="text-muted-foreground animate-pulse">
-                                    Fetching latest opportunities from India and Infopark Kerala...
+                                    Fetching latest opportunities...
                                 </p>
                             </motion.div>
                         ) : jobs.length > 0 ? (

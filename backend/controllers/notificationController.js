@@ -64,14 +64,19 @@ export const getNotifications = async (req, res) => {
             await Notification.create(sharedTip);
         }
         
-        // Fetch global notifications OR notifications addressed to THIS user
-        const notifications = await Notification.find({
-            $or: [
-                { user: { $exists: false } },
-                { user: null },
-                { user: req.user._id }
-            ]
-        }).sort({ createdAt: -1 }).limit(20);
+        let notifications = [];
+        
+        // Respect user's push notification preference
+        if (req.user.pushNotifications !== false) {
+            // Fetch global notifications OR notifications addressed to THIS user
+            notifications = await Notification.find({
+                $or: [
+                    { user: { $exists: false } },
+                    { user: null },
+                    { user: req.user._id }
+                ]
+            }).sort({ createdAt: -1 }).limit(20);
+        }
         
         res.json({ success: true, notifications });
     } catch (error) {

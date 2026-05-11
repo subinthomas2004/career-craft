@@ -52,93 +52,99 @@ export default function TechOnlyView({
     }, [isCodeQuestion]);
 
     const renderMainView = () => (
-        <div className={cn("h-full flex flex-col items-center justify-center gap-8 p-6", showCodeEditor ? "lg:justify-start" : "lg:justify-center")}>
-            {/* Videos Row Container */}
+        <div className="h-full flex flex-col w-full relative">
+            {/* Scrollable Container for Videos */}
             <div className={cn(
-                "flex gap-6 w-full transition-all duration-500 items-stretch flex-1",
-                showCodeEditor 
-                    ? "flex-col lg:max-w-md lg:max-h-none" // Vertically stack and narrow down when editor open
-                    : "flex-col lg:flex-row justify-center max-w-6xl max-h-[50vh]" // Side-by-side when full screen
+                "flex-1 w-full overflow-y-auto overflow-x-hidden min-h-0 px-4 py-6 lg:px-6 flex flex-col items-center",
+                showCodeEditor ? "justify-start" : "justify-center"
             )}>
-                
-                {/* Interviewer: David */}
-                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-2xl transition-all duration-300 flex-1 aspect-video lg:aspect-auto min-h-[220px]">
-                    <div className="absolute inset-0 bg-black/10">
-                        <AvatarPlayer
-                            state={avatarState}
-                            videoSet={techVideos}
-                            isActive={true}
-                            className="w-full h-full object-cover opacity-100"
-                        />
-                    </div>
-                    {/* Info Overlay */}
-                    <div className="absolute top-4 left-4 z-10">
-                        <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10 shadow-lg">
-                            <p className="font-medium text-white text-sm">David</p>
-                            <p className="text-[10px] text-white/70 font-semibold uppercase">Technical Lead</p>
-                        </div>
-                    </div>
+                {/* Videos Row Container */}
+                <div className={cn(
+                    "flex gap-6 w-full transition-all duration-500 items-stretch flex-1",
+                    showCodeEditor 
+                        ? "flex-col max-w-md max-h-none" // Vertically stack and narrow down when editor open
+                        : "flex-col lg:flex-row justify-center max-w-6xl lg:h-[65vh]" // Standard size
+                )}>
                     
-                    {avatarState === 'talking' && (
-                        <div className="absolute top-4 right-4 z-10">
-                            <SpeakingIndicator isActive={true} />
+                    {/* Interviewer: David */}
+                    <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-2xl transition-all duration-300 flex-1 aspect-video lg:aspect-auto min-h-[220px]">
+                        <div className="absolute inset-0 bg-black/10">
+                            <AvatarPlayer
+                                state={avatarState}
+                                videoSet={techVideos}
+                                isActive={true}
+                                className="w-full h-full object-cover opacity-100"
+                            />
                         </div>
-                    )}
-
-                    {/* Question Overlay - Subtitle Style (Inside Avatar Card) */}
-                    <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center pointer-events-none">
-                        <div className="bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/10 shadow-xl w-full max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-2 pointer-events-auto">
-                            <p className="text-sm text-white font-medium leading-snug text-center">
-                                "{currentQ?.text}"
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* User Video */}
-                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-2xl transition-all duration-300 flex-1 aspect-video lg:aspect-auto min-h-[220px] group">
-                    {isVideoOn ? (
-                        <div className="w-full h-full relative">
-                            <UserVideoPreview isVideoOn={isVideoOn} />
-                        </div>
-                    ) : (
-                        <div className="absolute inset-0 bg-muted flex items-center justify-center">
-                            <div className="text-center">
-                                <VideoOff className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
-                                <p className="text-muted-foreground text-sm font-medium">Camera Off</p>
+                        {/* Info Overlay */}
+                        <div className="absolute top-4 left-4 z-10">
+                            <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10 shadow-lg">
+                                <p className="font-medium text-white text-sm">David</p>
+                                <p className="text-[10px] text-white/70 font-semibold uppercase">Technical Lead</p>
                             </div>
                         </div>
-                    )}
+                        
+                        {avatarState === 'talking' && (
+                            <div className="absolute top-4 right-4 z-10">
+                                <SpeakingIndicator isActive={true} />
+                            </div>
+                        )}
 
-                    {/* Info Overlay */}
-                    <div className="absolute top-4 left-4 z-10">
-                        <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10 shadow-lg">
-                            <p className="font-medium text-white text-sm">You</p>
-                            <p className="text-[10px] text-white/70 font-semibold uppercase">Candidate</p>
+                        {/* Question Overlay - Subtitle Style (Inside Avatar Card) */}
+                        <div className="absolute bottom-4 left-4 right-4 z-10 flex justify-center pointer-events-none">
+                            <div className="bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/10 shadow-xl w-full max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-2 pointer-events-auto">
+                                <p className="text-sm text-white font-medium leading-snug text-center">
+                                    "{currentQ?.text}"
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Speaking Indicator */}
-                    {isListening && (
-                        <div className="absolute top-4 right-4 z-20">
-                            <SpeakingIndicator isActive={true} />
-                        </div>
-                    )}
+                    {/* User Video */}
+                    <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-2xl transition-all duration-300 flex-1 aspect-video lg:aspect-auto min-h-[220px] group">
+                        {isVideoOn ? (
+                            <div className="w-full h-full relative">
+                                <UserVideoPreview isVideoOn={isVideoOn} />
+                            </div>
+                        ) : (
+                            <div className="absolute inset-0 bg-muted flex items-center justify-center">
+                                <div className="text-center">
+                                    <VideoOff className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                                    <p className="text-muted-foreground text-sm font-medium">Camera Off</p>
+                                </div>
+                            </div>
+                        )}
 
-                    {/* Transcript Overlay */}
-                    <div className={cn("absolute bottom-4 left-4 right-4 z-20 flex justify-center transition-all duration-300", 
-                        currentTranscript ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none")}>
-                        <div className="bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/10 shadow-xl w-full max-w-lg mx-auto">
-                            <p className="text-sm text-white font-medium leading-snug text-center">
-                                {currentTranscript || " "}
-                            </p>
+                        {/* Info Overlay */}
+                        <div className="absolute top-4 left-4 z-10">
+                            <div className="bg-black/60 backdrop-blur rounded-lg p-3 border border-white/10 shadow-lg">
+                                <p className="font-medium text-white text-sm">You</p>
+                                <p className="text-[10px] text-white/70 font-semibold uppercase">Candidate</p>
+                            </div>
+                        </div>
+
+                        {/* Speaking Indicator */}
+                        {isListening && (
+                            <div className="absolute top-4 right-4 z-20">
+                                <SpeakingIndicator isActive={true} />
+                            </div>
+                        )}
+
+                        {/* Transcript Overlay */}
+                        <div className={cn("absolute bottom-4 left-4 right-4 z-20 flex justify-center transition-all duration-300", 
+                            currentTranscript ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none")}>
+                            <div className="bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/10 shadow-xl w-full max-w-lg mx-auto">
+                                <p className="text-sm text-white font-medium leading-snug text-center">
+                                    {currentTranscript || " "}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Controls Dock - Floating centered at bottom */}
-            <div className="flex justify-center items-center w-full animate-in fade-in slide-in-from-bottom-4 duration-500 mb-2">
+            {/* Controls Dock - Fixed below scrollable area */}
+            <div className="w-full flex-shrink-0 flex justify-center items-center p-4 z-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex flex-wrap justify-center items-center gap-3 bg-card/90 backdrop-blur-2xl px-4 py-3 rounded-full border border-border shadow-2xl ring-1 ring-white/5">
                     
                     <Button
