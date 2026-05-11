@@ -45,15 +45,23 @@ const interviewTypes = [
   { id: "technical", label: "Technical Interview", description: "David — Technical and coding questions", icon: "👨‍💻" },
 ];
 
-const MockInterview = () => {
+interface MockInterviewProps {
+  type?: "hr" | "hr-tech" | "technical" | string;
+}
+
+const MockInterview = ({ type }: MockInterviewProps) => {
   const [stage, setStage] = useState<"setup" | "instructions" | "interview" | "feedback">("setup");
   const [selectedDomain, setSelectedDomain] = useState<string>("");
-  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>(type || "");
   const [resumeText, setResumeText] = useState<string>("");
   const [parsedResumeData, setParsedResumeData] = useState<any>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isMicOn, setIsMicOn] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
+
+  // Report states
+  const [reportData, setReportData] = useState<any>(null);
+  const [isLoadingReport, setIsLoadingReport] = useState(false);
 
   // NEW: Domain input mode toggle
   const [domainMode, setDomainMode] = useState<"grid" | "text">("grid");
@@ -142,12 +150,42 @@ const MockInterview = () => {
     toast.success("Interview started! Listen to the introduction.");
   };
 
+  const fetchFullReport = useCallback(async (history: any[]) => {
+    setIsLoadingReport(true);
+    try {
+      const formattedHistory = history.flatMap(h => [
+        { role: 'assistant', content: h.question.text },
+        { role: 'user', content: h.answer, metrics: h.metrics }
+      ]);
+
+      const { data } = await api.post('/groq/interview/report', {
+        history: formattedHistory,
+        domain: effectiveJobRole || effectiveDomain.toUpperCase() || "General",
+        resumeText: parsedResumeData ? JSON.stringify(parsedResumeData) : resumeText
+      });
+
+      if (data.success && data.report) {
+        setReportData(data.report);
+      }
+    } catch (err) {
+      console.error("Report fetch failed:", err);
+      toast.error("Partial error: AI analysis could not be fully generated.");
+    } finally {
+      setIsLoadingReport(false);
+    }
+  }, [effectiveJobRole, effectiveDomain, resumeText, parsedResumeData]);
+
   const handleEndInterview = useCallback(async () => {
     endSession();
     setIsMicOn(false);
     setIsVideoOn(false);
     window.speechSynthesis.cancel();
     setStage("feedback");
+
+    if (sessionState && sessionState.history.length > 0) {
+       // Trigger async fetch immediately
+       fetchFullReport(sessionState.history);
+    }
 
     // Record Activity
     try {
@@ -680,12 +718,12 @@ const MockInterview = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { label: "Overall", score: scores.overall, color: "text-primary" },
+            { label: "Overall", score: reportData?.score || scores.overall, color: "text-primary" },
             { label: "Clarity", score: scores.clarity, color: "text-blue-500" },
             { label: "Confidence", score: scores.confidence, color: "text-green-500" },
             { label: "Content", score: scores.content, color: "text-purple-500" },
           ].map((item, index) => (
-            <Card key={index}>
+            <Card key={index} className="border border-border/40 shadow-md">
               <CardContent className="p-4 text-center">
                 <div className="relative w-16 h-16 mx-auto mb-2">
                   <svg className="w-full h-full transform -rotate-90">
@@ -698,7 +736,7 @@ const MockInterview = () => {
                       cx="32" cy="32" r="28"
                       stroke="currentColor" strokeWidth="4" fill="none"
                       strokeDasharray={`${item.score * 1.76} ${100 * 1.76}`}
-                      className={item.color}
+                      className={`${item.color} transition-all duration-1000 ease-out`}
                       strokeLinecap="round"
                     />
                   </svg>
@@ -706,74 +744,169 @@ const MockInterview = () => {
                     <span className="text-lg font-bold text-foreground">{item.score}</span>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground">{item.label}</p>
+                <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <Card className="mb-6">
+        {/* AI Feedback Section */}
+        {isLoadingReport ? (
+          <Card className="mb-8 border-dashed border-primary/30 animate-pulse">
+            <CardContent className="p-12 flex flex-col items-center justify-center text-center gap-4">
+              <Loader2 className="w-10 h-10 animate-spin text-primary" />
+              <div>
+                <h3 className="font-bold text-lg">Analyzing Your Performance...</h3>
+                <p className="text-muted-foreground text-sm max-w-md">Our AI is reviewing your transcript, speech patterns, and answer quality to generate your comprehensive improvement report.</p>
+              </div>
+            </CardContent>
+          </Card>
+        ) : reportData ? (
+          <div className="grid md:grid-cols-2 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <Card className="bg-card/50 border border-border/40">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-yellow-500" />
+                  Key Suggestions
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {Array.isArray(reportData.feedback) ? reportData.feedback.map((item: string, i: number) => (
+                    <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="text-primary font-bold mt-0.5">•</span> {item}
+                    </li>
+                  )) : <p className="text-sm text-muted-foreground">{reportData.feedback}</p>}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <div className="space-y-6">
+              {reportData.communicationAnalysis && (
+                <Card className="bg-primary/5 border border-primary/10 h-fit">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-semibold text-primary uppercase tracking-wider">Communication & Confidence</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-foreground/90 leading-relaxed">{reportData.communicationAnalysis}</p>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {reportData.technicalAnalysis && (
+                <Card className="bg-blue-500/5 border border-blue-500/10 h-fit">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-semibold text-blue-600 uppercase tracking-wider">Assessment Breakdown</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-foreground/90 leading-relaxed">{reportData.technicalAnalysis}</p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </div>
+        ) : null}
+
+        {/* Detailed Q&A Analysis */}
+        <Card className="mb-8 border border-border/40 shadow-lg">
           <CardHeader>
-            <CardTitle>Interview Transcript & Feedback</CardTitle>
-            <CardDescription>Review your answers and see where you can improve.</CardDescription>
+            <CardTitle className="flex items-center justify-between">
+              <span>Detailed Answer-by-Answer Analysis</span>
+              {isLoadingReport && <Badge variant="outline" className="animate-pulse">Loading AI Insights...</Badge>}
+            </CardTitle>
+            <CardDescription>
+              Comprehensive analysis of your responses, pinpointing specific areas of strength and concrete improvement suggestions.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {sessionState?.history.map((h, i) => (
-              <div key={i} className="p-4 bg-muted/30 rounded-xl border border-border/50">
-                <div className="flex justify-between items-start mb-2 gap-4">
-                  <div className="flex gap-2">
-                    <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center p-0 shrink-0">
-                      {i + 1}
-                    </Badge>
-                    <div className="flex flex-col gap-1">
-                      <p className="font-medium text-foreground">{h.question.text}</p>
-                      {h.question.codeTask && (
-                        <div className="mt-2 p-3 bg-muted/50 rounded-md border border-border">
-                          <p className="text-xs font-semibold text-blue-500 mb-1 uppercase tracking-wider">Coding Task</p>
-                          <p className="text-sm font-mono text-foreground/90 whitespace-pre-wrap">{h.question.codeTask}</p>
-                        </div>
-                      )}
+            {/* First priority: Show questionAnalysis from AI report. Fallback to simple history if not loaded yet. */}
+            {reportData?.questionAnalysis && Array.isArray(reportData.questionAnalysis) ? (
+              reportData.questionAnalysis.map((item: any, i: number) => (
+                <div key={i} className="p-5 bg-card rounded-xl border border-border/50 shadow-sm transition-all hover:shadow-md animate-in fade-in slide-in-from-bottom-2">
+                  <div className="flex justify-between items-start mb-3 gap-4">
+                    <div className="flex gap-3">
+                      <div className="h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0 shadow-md">
+                        {i + 1}
+                      </div>
+                      <p className="font-semibold text-foreground text-base">"{item.question}"</p>
                     </div>
-                  </div>
-                  <Badge className={h.score > 70 ? "bg-green-500/10 text-green-500" : "bg-yellow-500/10 text-yellow-500"}>
-                    {h.score}% Match
-                  </Badge>
-                </div>
-
-                <div className="ml-8 space-y-3">
-                  <div className="bg-background p-3 rounded-lg border border-border/50">
-                    <p className="text-xs text-muted-foreground uppercase mb-1 font-semibold">Your Answer</p>
-                    {h.answer.includes('[Submitted Code') ? (
-                      <pre className="text-sm text-foreground/90 font-mono whitespace-pre-wrap overflow-x-auto p-3 bg-[#1e1e1e] text-gray-200 rounded-md mt-2">
-                        {h.answer.replace(/\[Submitted Code - (.*?)\]\n/, '// Language: $1\n')}
-                      </pre>
-                    ) : (
-                      <p className="text-sm text-foreground/90">{h.answer}</p>
+                    {item.rating && (
+                       <Badge className={cn("px-2 py-1 font-bold shadow-sm", 
+                         item.rating >= 8 ? "bg-emerald-500 text-white" : 
+                         item.rating >= 6 ? "bg-amber-500 text-white" : "bg-red-500 text-white")}>
+                         {item.rating}/10
+                       </Badge>
                     )}
                   </div>
 
-                  {h.question.expectedKeywords && h.question.expectedKeywords.length > 0 && (
-                    <div className="bg-primary/5 p-3 rounded-lg border border-primary/10">
-                      <p className="text-xs text-primary uppercase mb-1 font-semibold flex items-center gap-1">
-                        <Lightbulb className="w-3 h-3" /> Suggested Improvement
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Try to include more specific examples. Mention keywords like: {h.question.expectedKeywords.join(", ")}.
-                      </p>
+                  <div className="ml-10 space-y-4 mt-2">
+                    <div className="bg-muted/40 p-3 rounded-lg border border-border/30 italic text-muted-foreground text-sm">
+                      <p className="font-medium text-xs uppercase tracking-wider text-muted-foreground/80 mb-1 not-italic">Your Response</p>
+                      {String(item.answer).includes('[Submitted Code') ? (
+                        <pre className="text-xs font-mono p-3 bg-[#1e1e1e] text-gray-200 rounded-md mt-2 overflow-x-auto border border-white/10 shadow-inner max-h-48">
+                          {String(item.answer).replace(/\[Submitted Code - (.*?)\]\n/, '// $1 Implementation\n')}
+                        </pre>
+                      ) : (
+                        `"${item.answer}"`
+                      )}
                     </div>
-                  )}
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                       <div className="p-3 rounded-lg bg-background border border-blue-100 dark:border-blue-900/30 shadow-sm">
+                         <p className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase flex items-center gap-1 mb-1.5">
+                           🔍 Evaluation
+                         </p>
+                         <p className="text-sm text-foreground/90">{item.evaluation}</p>
+                       </div>
+                       <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 shadow-sm">
+                         <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase flex items-center gap-1 mb-1.5">
+                           💡 Suggestion & Reframing
+                         </p>
+                         <p className="text-sm text-foreground/90">{item.suggestion}</p>
+                         {item.idealCodeReference && (
+                           <div className="mt-3">
+                             <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-700 dark:text-emerald-300 mb-1">💡 Reference Solution</p>
+                             <pre className="text-xs font-mono p-3 bg-[#121212] text-emerald-400/90 rounded border border-emerald-900/50 overflow-x-auto max-h-48">
+                               {item.idealCodeReference}
+                             </pre>
+                           </div>
+                         )}
+                       </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              /* Fallback when AI report hasn't loaded or failed */
+              sessionState?.history.map((h, i) => (
+                <div key={i} className="p-4 bg-muted/20 rounded-xl border border-border/50">
+                  <div className="flex justify-between items-start mb-2 gap-4">
+                    <div className="flex gap-2">
+                      <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center p-0 shrink-0">
+                        {i + 1}
+                      </Badge>
+                      <p className="font-medium text-foreground">{h.question.text}</p>
+                    </div>
+                  </div>
+                  <div className="ml-8 bg-background p-3 rounded-lg border border-border/40">
+                    <p className="text-xs text-muted-foreground uppercase mb-1 font-semibold">Your Answer</p>
+                    <p className="text-sm text-foreground/90">{h.answer}</p>
+                  </div>
+                </div>
+              ))
+            )}
           </CardContent>
         </Card>
 
-        <div className="flex gap-4">
-          <Button variant="outline" className="flex-1" onClick={() => setStage("setup")}>
-            Try Another Interview
+        <div className="flex gap-4 mb-12">
+          <Button variant="outline" className="flex-1 h-12 text-base font-medium shadow-sm" onClick={() => {
+            setReportData(null);
+            setStage("setup");
+          }}>
+            Start Another Interview
           </Button>
-          <Button className="flex-1">
-            View Full Analysis
+          <Button className="flex-1 h-12 text-base font-medium shadow-md" onClick={() => window.print()}>
+            Export Report
           </Button>
         </div>
       </div>

@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 import { Download, FileText, Loader2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,82 +22,86 @@ export function ExportPanel() {
         setIsExporting(true);
 
         try {
-            // Using the browser's print functionality for PDF generation
-            const printWindow = window.open('', '_blank');
-
-            if (!printWindow) {
-                toast({
-                    title: 'Pop-up blocked',
-                    description: 'Please allow pop-ups to download your resume.',
-                    variant: 'destructive',
-                });
-                setIsExporting(false);
-                return;
-            }
-
-            const resumeElement = document.getElementById('resume-preview');
-            if (!resumeElement) {
+            const originalElement = document.getElementById('resume-preview');
+            if (!originalElement) {
                 throw new Error('Resume preview not found');
             }
 
-            printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>${resumeData.contact.name || 'Resume'}</title>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+            // 1. Create a pristine clone for perfect capturing (removes visual scale artifacts)
+            const clone = originalElement.cloneNode(true) as HTMLElement;
+            clone.style.position = 'absolute';
+            clone.style.top = '-9999px';
+            clone.style.left = '-9999px';
+            clone.style.zoom = '1'; // Reset scale factor to ensure 1:1 capture
+            clone.style.transform = 'none';
+            clone.style.boxShadow = 'none'; // Remove shadow for cleaner PDF
             
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
+            document.body.appendChild(clone);
+
+            // 2. Wait briefly for renderer stability
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            // Use html2canvas to capture pristine high resolution snapshot
+            const canvas = await html2canvas(clone, {
+                scale: 2, // Render at double resolution for sharp printing
+                useCORS: true,
+                allowTaint: true,
+                logging: false,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: clone.scrollWidth,
+                windowHeight: clone.scrollHeight
+            });
+
+            // 3. Cleanup the hidden cloned element
+            document.body.removeChild(clone);
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.98);
             
-            body {
-              font-family: 'Inter', Arial, sans-serif;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
+            // Letter size standard dimensions in points (72 DPI)
+            // Letter: 8.5 x 11 inches => 612 x 792 pts
+            const pdf = new jsPDF('p', 'pt', 'letter');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
             
-            @page {
-              size: letter;
-              margin: 0;
-            }
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const ratio = pdfWidth / imgWidth;
             
-            @media print {
-              body {
-                width: 8.5in;
-              }
+            const imgScaledHeight = imgHeight * ratio;
+            
+            let heightLeft = imgScaledHeight;
+            let position = 0;
+
+            // Add first page
+            pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgScaledHeight, undefined, 'FAST');
+            heightLeft -= pdfHeight;
+
+            // Add consecutive pages if the resume spans multiple letter pages
+            while (heightLeft >= 0) {
+                position = heightLeft - imgScaledHeight; // Shifts to top of next "slice"
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgScaledHeight, undefined, 'FAST');
+                heightLeft -= pdfHeight;
             }
-          </style>
-        </head>
-        <body>
-          ${resumeElement.innerHTML}
-        </body>
-        </html>
-      `);
 
-            printWindow.document.close();
+            const name = resumeData.contact.name || 'resume';
+            const safeName = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            pdf.save(`${safeName}_resume.pdf`);
 
-            // Wait for content to load
-            setTimeout(() => {
-                printWindow.print();
-                printWindow.close();
-                setExportComplete(true);
+            setExportComplete(true);
+            toast({
+                title: 'Resume Downloaded Successfully',
+                description: 'The PDF file is saved to your downloads.',
+            });
 
-                toast({
-                    title: 'PDF ready!',
-                    description: 'Your resume has been prepared for download.',
-                });
-
-                setTimeout(() => setExportComplete(false), 3000);
-            }, 500);
+            setTimeout(() => setExportComplete(false), 3000);
         } catch (error) {
             console.error('Export error:', error);
             toast({
                 title: 'Export failed',
-                description: 'There was an error exporting your resume. Please try again.',
+                description: 'There was an error generating the PDF. Please try again.',
                 variant: 'destructive',
             });
         } finally {
@@ -209,8 +215,8 @@ export function ExportPanel() {
                             ref={previewRef}
                             className="overflow-auto max-h-[800px] bg-muted/30 p-6"
                         >
-                            <div className="transform-gpu origin-top-left" style={{ transform: 'scale(0.65)' }}>
-                                <ResumePreview data={resumeData} template={selectedTemplate} />
+                            <div className="flex justify-center">
+                                <ResumePreview data={resumeData} template={selectedTemplate} scale={0.65} />
                             </div>
                         </div>
                     </Card>

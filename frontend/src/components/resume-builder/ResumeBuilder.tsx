@@ -115,29 +115,13 @@ export function ResumeBuilder() {
                     "flex-1 bg-muted/30 overflow-hidden relative transition-all duration-300",
                     showPreview ? "w-full lg:block lg:w-1/2 xl:w-[55%]" : "hidden"
                 )}>
-                    <ScrollArea className="h-full w-full">
-                        <div className="min-h-full flex items-start justify-center p-8">
-                            <div
-                                className="shadow-2xl bg-white transition-all duration-300 ease-in-out"
-                                style={{
-                                    width: scaledWidth,
-                                    height: scaledHeight,
-                                    // This wrapper ensures the layout reserves exactly the scaled size
-                                }}
-                            >
-                                {/* 
-                                    We use the 'scale' property of ResumePreview which uses 'transform: scale()' 
-                                    and 'transform-origin: top left'.
-                                    Since we wrapped it in a div of correct scaled size, it fits perfectly.
-                                */}
-                                <div style={{ width: '8.5in', height: '11in' }}>
-                                    <ResumePreview
-                                        data={resumeData}
-                                        template={selectedTemplate}
-                                        scale={scale}
-                                    />
-                                </div>
-                            </div>
+                    <ScrollArea className="h-full w-full bg-muted/10">
+                        <div className="min-h-full flex items-start justify-center p-8 overflow-auto">
+                            <ResumePreview
+                                data={resumeData}
+                                template={selectedTemplate}
+                                scale={scale}
+                            />
                         </div>
                     </ScrollArea>
                 </div>

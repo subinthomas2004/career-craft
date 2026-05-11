@@ -19,7 +19,8 @@ import {
   Mic,
   User,
   Building2,
-  Briefcase
+  Briefcase,
+  BrainCircuit
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -37,7 +38,9 @@ const modules = [
   { icon: User, label: "Intro Prep", path: "/dashboard/intro-prep", color: "from-pink-500 to-rose-500", description: "Perfect your self-intro" },
   { icon: Building2, label: "Company Prep", path: "/dashboard/company-prep", color: "from-teal-500 to-emerald-500", description: "Company Preparation" },
   { icon: Briefcase, label: "Job Portal", path: "/dashboard/jobs", color: "from-blue-500 to-cyan-500", description: "Find Jobs" },
-  { icon: MessageSquare, label: "Chat Forum", path: "/dashboard/forum", color: "from-violet-500 to-purple-600", description: "Connect with the community" }
+  { icon: BrainCircuit, label: "AI Mentor", path: "/dashboard/ai-mentor", color: "from-indigo-600 to-violet-700", description: "24/7 AI guidance & goals" },
+  { icon: MessageSquare, label: "Chat Forum", path: "/dashboard/forum", color: "from-violet-500 to-purple-600", description: "Connect with the community" },
+  { icon: BarChart3, label: "Performance Analyzer", path: "/dashboard/performance", color: "from-indigo-500 to-blue-600", description: "AI-driven progress insights" }
 ];
 
 

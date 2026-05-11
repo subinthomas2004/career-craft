@@ -36,6 +36,10 @@ const getIcon = (type: string) => {
     case 'achievement': return CheckCircle;
     case 'gd': return Users;
     case 'debate': return Swords;
+    case 'update':
+    case 'announcement': return Bell;
+    case 'feedback_update': return MessageSquare;
+    case 'system': return Shield;
     default: return Bell;
   }
 };
@@ -48,6 +52,10 @@ const getColor = (type: string) => {
     case 'achievement': return "bg-amber-100 dark:bg-amber-900/30 text-amber-600";
     case 'gd': return "bg-orange-100 dark:bg-orange-900/30 text-orange-600";
     case 'debate': return "bg-red-100 dark:bg-red-900/30 text-red-600";
+    case 'update':
+    case 'announcement': return "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600";
+    case 'feedback_update': return "bg-teal-100 dark:bg-teal-900/30 text-teal-600";
+    case 'system': return "bg-rose-100 dark:bg-rose-900/30 text-rose-600";
     default: return "bg-gray-100 dark:bg-gray-800 text-gray-600";
   }
 };
@@ -145,9 +153,10 @@ const Notifications = () => {
                                     variant="secondary" 
                                     size="sm" 
                                     className="h-8 text-xs font-semibold rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all gap-1"
-                                    onClick={() => navigate(notification.link!)}
+                                    onClick={() => notification.link!.startsWith('http') ? window.open(notification.link, '_blank') : navigate(notification.link!)}
                                   >
-                                    {notification.type === 'gd' ? 'Join Discussion' : 'Go to Practice'}
+                                    {notification.type === 'gd' ? 'Join Discussion' : 
+                                     ['update', 'announcement'].includes(notification.type) ? 'View Details' : 'Go to Practice'}
                                     <ExternalLink className="w-3 h-3" />
                                   </Button>
                                 )}

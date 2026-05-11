@@ -157,3 +157,50 @@ export const getWelcomeEmailTemplate = (name) => {
 </html>
     `;
 };
+
+export const getBroadcastEmailTemplate = (title, body, link = "") => {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; width: 100%; margin: 0; padding: 0; background-color: #f4f4f7; color: #1f2937; }
+        .email-wrapper { width: 100%; background-color: #f4f4f7; padding: 20px; }
+        .email-content { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e5e7eb; }
+        .email-header { background-color: #7c3aed; padding: 32px; text-align: center; color: #ffffff; }
+        .email-header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .email-body { padding: 32px; text-align: left; line-height: 1.7; }
+        .email-footer { background-color: #f9fafb; padding: 24px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #f3f4f6; }
+        .btn-action { display: inline-block; padding: 12px 32px; background-color: #7c3aed; color: #ffffff !important; text-decoration: none; border-radius: 8px; font-weight: 600; margin-top: 24px; font-size: 15px; }
+        .content-body { white-space: pre-wrap; font-size: 16px; color: #4b5563; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-content">
+            <div class="email-header">
+                <h1>CareerCraft Updates</h1>
+            </div>
+            <div class="email-body">
+                <h2 style="color: #111827; margin-top: 0;">${title}</h2>
+                <div class="content-body">${body}</div>
+                ${link ? `
+                <div style="text-align: center;">
+                    <a href="${link.startsWith('http') ? link : 'https://careercraft.com' + link}" class="btn-action">View Update Details</a>
+                </div>` : ''}
+                <br />
+                <p style="margin-bottom: 0;">Best regards,<br><strong>The CareerCraft Admin Team</strong></p>
+            </div>
+            <div class="email-footer">
+                <p>You are receiving this email because you registered on CareerCraft platform.</p>
+                <p>&copy; ${new Date().getFullYear()} CareerCraft. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    `;
+};

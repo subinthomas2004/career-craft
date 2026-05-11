@@ -722,17 +722,7 @@ export function ResumeEditor() {
                 </Card>
             </Collapsible>
 
-            {/* Action Buttons */}
-            <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t p-4">
-                <div className="max-w-4xl mx-auto flex gap-4 justify-center">
-                    <Button variant="outline" onClick={() => setActiveStep('analyze')}>
-                        View ATS Score
-                    </Button>
-                    <Button onClick={() => setActiveStep('template')}>
-                        Choose Template
-                    </Button>
-                </div>
-            </div>
+
         </div>
     );
 }

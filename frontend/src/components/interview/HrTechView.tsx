@@ -59,187 +59,141 @@ export default function HrTechView({
     const currentQ = sessionState.currentQuestion;
 
     const renderVideoGrid = () => (
-        <div className="h-full w-full p-4 overflow-hidden relative">
+        <div className="h-full flex flex-col w-full relative">
+            {/* Scrollable Content Area (Scrolls if stacked height > screen height) */}
             <div className={cn(
-                "grid gap-4 h-full w-full transition-all duration-500",
-                showCodeEditor ? "grid-cols-2 grid-rows-2" : "grid-cols-1 lg:grid-cols-3 lg:grid-rows-1"
+                "flex-1 w-full overflow-y-auto overflow-x-hidden min-h-0 px-4 py-6 lg:px-6 flex flex-col items-center",
+                showCodeEditor ? "justify-start" : "justify-center"
             )}>
-                {/* 1. Sarah (HR) */}
-                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-lg h-full w-full">
-                    <div className="absolute inset-0 bg-black/10">
-                        <AvatarPlayer
-                            state={isHrActive ? avatarState : 'idle'}
-                            videoSet={hrVideos}
-                            isActive={isHrActive}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                        <div className="bg-black/60 backdrop-blur px-3 py-2 rounded-lg text-white font-medium flex flex-col items-start min-w-[100px] border border-white/10">
-                            <span className="text-sm font-bold leading-none mb-1">Sarah</span>
-                            <span className="text-xs text-white/70 leading-none">HR Manager</span>
+                {/* 3-Box Container */}
+                <div className={cn(
+                    "grid gap-4 w-full transition-all duration-500 items-stretch",
+                    showCodeEditor
+                        ? "grid-cols-1 max-w-md" // Single narrow stack when code editor active
+                        : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl lg:h-[65vh]" // 3-wide row
+                )}>
+                    {/* 1. Sarah (HR) */}
+                    <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-xl aspect-video lg:aspect-auto min-h-[180px]">
+                        <div className="absolute inset-0 bg-black/10">
+                            <AvatarPlayer
+                                state={isHrActive ? avatarState : 'idle'}
+                                videoSet={hrVideos}
+                                isActive={isHrActive}
+                                className="w-full h-full object-cover"
+                            />
                         </div>
-                    </div>
-                    {isHrActive && avatarState === 'talking' && (
-                        <div className="absolute top-4 right-4 z-10">
-                            <SpeakingIndicator isActive={true} />
+                        {/* Sarah Label */}
+                        <div className="absolute top-3 left-3 z-10">
+                            <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-white border border-white/10 shadow-lg">
+                                <span className="text-xs font-bold leading-none block">Sarah</span>
+                                <span className="text-[10px] text-white/70 uppercase tracking-wider">HR Manager</span>
+                            </div>
                         </div>
-                    )}
-                    {/* Subtitle for Sarah */}
-                    {isHrActive && currentQ && (
-                        <div className="absolute bottom-6 left-4 right-4 z-20 flex justify-center pointer-events-none">
-                            <div className="bg-black/85 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10 text-center shadow-xl max-w-[95%] animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                <p className="text-sm md:text-base text-white/95 font-medium leading-relaxed tracking-wide">
-                                    {showCodeEditor ? (
-                                        (() => {
-                                            const rawText = currentQ.text;
-                                            const words = rawText.split(/\s+/).filter(Boolean);
-                                            
-                                            // More robust word tracking
-                                            let charAcc = 0;
-                                            let currentWordIndex = 0;
-                                            for (let i = 0; i < words.length; i++) {
-                                                const word = words[i];
-                                                // Find actual start index of this word in raw text to handle double spaces etc
-                                                const actualPos = rawText.indexOf(word, charAcc);
-                                                if (spokenCharIndex >= actualPos) {
-                                                    currentWordIndex = i;
-                                                }
-                                                charAcc = actualPos + word.length;
-                                            }
+                        {/* Speaking Indicator Sarah */}
+                        {isHrActive && avatarState === 'talking' && (
+                            <div className="absolute top-3 right-3 z-20">
+                                <SpeakingIndicator isActive={true} />
+                            </div>
+                        )}
+                        {/* Subtitle Sarah */}
+                        {isHrActive && currentQ && (
+                            <div className="absolute bottom-3 left-3 right-3 z-30 flex justify-center pointer-events-none">
+                                <div className="bg-black/80 backdrop-blur-md rounded-xl px-3 py-2 border border-white/10 shadow-xl w-full max-w-xs pointer-events-auto animate-in fade-in slide-in-from-bottom-2">
+                                    <p className="text-xs font-medium text-white leading-snug text-center">
+                                        "{currentQ.text}"
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
 
-                                            // Determine chunk (targeting 6 words approx)
-                                            const chunkSize = 6;
-                                            const chunkIndex = Math.floor(currentWordIndex / chunkSize);
-                                            const start = chunkIndex * chunkSize;
-                                            const end = Math.min(start + chunkSize, words.length);
-                                            
-                                            const chunkText = words.slice(start, end).join(' ');
-                                            const hasPrefix = start > 0;
-                                            const hasSuffix = end < words.length;
+                    {/* 2. David (Tech) */}
+                    <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-xl aspect-video lg:aspect-auto min-h-[180px]">
+                        <div className="absolute inset-0 bg-black/10">
+                            <AvatarPlayer
+                                state={!isHrActive ? avatarState : 'idle'}
+                                videoSet={techVideos}
+                                isActive={!isHrActive}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        {/* David Label */}
+                        <div className="absolute top-3 left-3 z-10">
+                            <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-white border border-white/10 shadow-lg">
+                                <span className="text-xs font-bold leading-none block">David</span>
+                                <span className="text-[10px] text-white/70 uppercase tracking-wider">Tech Lead</span>
+                            </div>
+                        </div>
+                        {/* Speaking Indicator David */}
+                        {!isHrActive && avatarState === 'talking' && (
+                            <div className="absolute top-3 right-3 z-20">
+                                <SpeakingIndicator isActive={true} />
+                            </div>
+                        )}
+                        {/* Subtitle David */}
+                        {!isHrActive && currentQ && (
+                            <div className="absolute bottom-3 left-3 right-3 z-30 flex justify-center pointer-events-none">
+                                <div className="bg-black/80 backdrop-blur-md rounded-xl px-3 py-2 border border-white/10 shadow-xl w-full max-w-xs pointer-events-auto animate-in fade-in slide-in-from-bottom-2">
+                                    <p className="text-xs font-medium text-white leading-snug text-center">
+                                        "{currentQ.text}"
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
 
-                                            return (
-                                                <span className="inline-block transition-all duration-300">
-                                                    {hasPrefix && <span className="text-white/40 mr-1">..</span>}
-                                                    {chunkText}
-                                                    {hasSuffix && <span className="text-white/40 ml-1">...</span>}
-                                                </span>
-                                            );
-                                        })()
-                                    ) : (
-                                        `"${currentQ.text}"`
-                                    )}
+                    {/* 3. User Video Preview */}
+                    <div className={cn(
+                        "bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-xl aspect-video lg:aspect-auto min-h-[180px]",
+                        showCodeEditor ? "hidden lg:block" : ""
+                    )}>
+                        {isVideoOn ? <UserVideoPreview isVideoOn={isVideoOn} /> : (
+                            <div className="absolute inset-0 bg-muted flex items-center justify-center">
+                                <div className="text-center text-muted-foreground">
+                                    <VideoOff className="w-8 h-8 mx-auto mb-2 opacity-40" />
+                                    <p className="text-xs font-medium">Camera Off</p>
+                                </div>
+                            </div>
+                        )}
+                        
+                        {/* Candidate Label */}
+                        <div className="absolute top-3 left-3 z-10">
+                            <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-white border border-white/10 shadow-lg">
+                                <span className="text-xs font-bold leading-none block">You</span>
+                                <span className="text-[10px] text-white/70 uppercase tracking-wider">Candidate</span>
+                            </div>
+                        </div>
+
+                        {/* Active User Speaking Indicator */}
+                        {isListening && (
+                            <div className="absolute top-3 right-3 z-20">
+                                <SpeakingIndicator isActive={true} />
+                            </div>
+                        )}
+
+                        {/* User Transcript Subtitles Overlay */}
+                        <div className={cn(
+                            "absolute bottom-3 left-3 right-3 z-30 flex justify-center transition-all duration-300 pointer-events-none",
+                            currentTranscript ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                        )}>
+                            <div className="bg-black/80 backdrop-blur-md text-white px-3 py-2 rounded-xl border border-white/10 shadow-xl w-full max-w-xs text-center">
+                                <p className="text-xs font-medium leading-snug">
+                                    {currentTranscript || " "}
                                 </p>
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
+            </div>
 
-                {/* 2. David (Tech) */}
-                <div className="bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-lg h-full w-full">
-                    <div className="absolute inset-0 bg-black/10">
-                        <AvatarPlayer
-                            state={!isHrActive ? avatarState : 'idle'}
-                            videoSet={techVideos}
-                            isActive={!isHrActive}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                        <div className="bg-black/60 backdrop-blur px-3 py-2 rounded-lg text-white font-medium flex flex-col items-start min-w-[100px] border border-white/10">
-                            <span className="text-sm font-bold leading-none mb-1">David</span>
-                            <span className="text-xs text-white/70 leading-none">Technical Lead</span>
-                        </div>
-                    </div>
-                    {!isHrActive && avatarState === 'talking' && (
-                        <div className="absolute top-4 right-4 z-10">
-                            <SpeakingIndicator isActive={true} />
-                        </div>
-                    )}
-                    {/* Subtitle for David */}
-                    {!isHrActive && currentQ && (
-                        <div className="absolute bottom-6 left-4 right-4 z-20 flex justify-center pointer-events-none">
-                            <div className="bg-black/85 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10 text-center shadow-xl max-w-[95%] animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                <p className="text-sm md:text-base text-white/95 font-medium leading-relaxed tracking-wide">
-                                    {showCodeEditor ? (
-                                        (() => {
-                                            const rawText = currentQ.text;
-                                            const words = rawText.split(/\s+/).filter(Boolean);
-                                            
-                                            let charAcc = 0;
-                                            let currentWordIndex = 0;
-                                            for (let i = 0; i < words.length; i++) {
-                                                const word = words[i];
-                                                const actualPos = rawText.indexOf(word, charAcc);
-                                                if (spokenCharIndex >= actualPos) {
-                                                    currentWordIndex = i;
-                                                }
-                                                charAcc = actualPos + word.length;
-                                            }
-
-                                            const chunkSize = 6;
-                                            const chunkIndex = Math.floor(currentWordIndex / chunkSize);
-                                            const start = chunkIndex * chunkSize;
-                                            const end = Math.min(start + chunkSize, words.length);
-                                            
-                                            const chunkText = words.slice(start, end).join(' ');
-                                            const hasPrefix = start > 0;
-                                            const hasSuffix = end < words.length;
-
-                                            return (
-                                                <span className="inline-block transition-all duration-300">
-                                                    {hasPrefix && <span className="text-white/40 mr-1">..</span>}
-                                                    {chunkText}
-                                                    {hasSuffix && <span className="text-white/40 ml-1">...</span>}
-                                                </span>
-                                            );
-                                        })()
-                                    ) : (
-                                        `"${currentQ.text}"`
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* 3. User Video */}
-                <div className={cn("bg-card/70 backdrop-blur-xl rounded-2xl border border-border/40 overflow-hidden relative shadow-lg h-full w-full", showCodeEditor ? "col-span-2" : "")}>
-                    {isVideoOn ? <UserVideoPreview isVideoOn={isVideoOn} /> : (
-                        <div className="absolute inset-0 bg-muted flex items-center justify-center">
-                            <div className="text-center">
-                                <VideoOff className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
-                                <p className="text-muted-foreground font-medium">Camera Off</p>
-                            </div>
-                        </div>
-                    )}
-                    {/* Status Badge */}
-                    <div className="absolute top-4 right-4 z-10">
-                        <div className={cn("px-4 py-2 rounded-full flex items-center gap-2 backdrop-blur-md shadow-lg border border-white/10 transition-all duration-300",
-                            isListening ? "bg-red-500 text-white animate-pulse" : "bg-black/60 text-white/80")}>
-                            <div className={cn("w-2 h-2 rounded-full", isListening ? "bg-white" : "bg-white/50")} />
-                            <span className="text-xs font-bold tracking-wider uppercase">{isListening ? "Recording" : "Standby"}</span>
-                        </div>
-                    </div>
-                    
-                    {/* Transcript overlay for User */}
-                    <div className={cn("absolute bottom-28 left-4 right-4 flex justify-center z-20 pointer-events-none transition-all duration-300 transform",
-                        currentTranscript ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0")}>
-                        <div className="bg-black/80 backdrop-blur-md text-white px-4 py-3 rounded-xl text-center shadow-lg max-w-[90%]">
-                            <p className="text-sm font-medium leading-relaxed break-words">
-                                {currentTranscript}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Controls Overlay (now anchored inside the User Video box) */}
-                    <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center items-end w-full px-4 pointer-events-none">
-                        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 bg-black/60 backdrop-blur-xl p-3 rounded-3xl border border-white/15 pointer-events-auto shadow-2xl scale-90 md:scale-100 max-w-full">
+            {/* Central Floating Command Controls Dock - Fixed below scroll area */}
+            <div className="w-full flex-shrink-0 flex justify-center items-center p-4 z-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex flex-wrap justify-center items-center gap-3 bg-card/90 backdrop-blur-2xl px-4 py-3 rounded-full border border-border shadow-xl ring-1 ring-white/5">
                     <Button
-                        variant={isMicOn ? "default" : "destructive"}
+                        variant={isMicOn ? "outline" : "destructive"}
                         size="icon"
-                        className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
-                            isMicOn ? "bg-white text-black hover:bg-slate-200" : "bg-red-500 text-white hover:bg-red-600",
+                        className={cn("w-11 h-11 rounded-full shadow transition-all hover:scale-105",
+                            isMicOn ? "hover:bg-accent" : "bg-red-500 text-white hover:bg-red-600",
                             avatarState === 'talking' && "opacity-50 grayscale cursor-not-allowed"
                         )}
                         onClick={() => setIsMicOn(!isMicOn)}
@@ -250,75 +204,87 @@ export default function HrTechView({
                     </Button>
 
                     <Button
-                        variant={isVideoOn ? "secondary" : "destructive"}
+                        variant={isVideoOn ? "outline" : "destructive"}
                         size="icon"
-                        className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
-                            isVideoOn ? "bg-white/90 hover:bg-white text-black" : "bg-red-500/90 hover:bg-red-500 text-white")}
+                        className={cn("w-11 h-11 rounded-full shadow transition-all hover:scale-105",
+                            isVideoOn ? "hover:bg-accent" : "bg-red-500 text-white hover:bg-red-600")}
                         onClick={() => setIsVideoOn(!isVideoOn)}
                         title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
                     >
                         {isVideoOn ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
                     </Button>
 
-                    <Button
-                        variant="destructive"
-                        size="icon"
-                        className="w-14 h-14 mx-2 rounded-full shadow-2xl bg-red-600 hover:bg-red-700 border-2 border-red-800/20 text-white transition-all hover:scale-110"
-                        onClick={onEndInterview}
-                        title="End Interview"
-                    >
-                        <Phone className="w-6 h-6 fill-current" />
-                    </Button>
+                    <div className="w-px h-7 bg-border mx-1" />
 
                     <Button
-                        variant="default"
+                        variant="outline"
                         size="icon"
-                        className={cn("w-12 h-12 rounded-full shadow-xl transition-all hover:scale-110",
-                            showCodeEditor
-                                ? "bg-red-500 hover:bg-red-600 text-white border-2 border-red-400/50"
-                                : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white")}
+                        className={cn("w-11 h-11 rounded-full shadow transition-all hover:scale-105",
+                            showCodeEditor 
+                                ? "bg-blue-600 text-white hover:bg-blue-700 border-transparent" 
+                                : "hover:bg-accent text-foreground"
+                        )}
                         onClick={() => setShowCodeEditor(!showCodeEditor)}
-                        title={showCodeEditor ? "Close Code Editor" : "Open Code Editor"}
+                        title="Toggle Code Editor"
                     >
                         <Code className="w-5 h-5" />
                     </Button>
 
                     <Button
+                        variant="destructive"
+                        size="icon"
+                        className="w-11 h-11 rounded-full shadow-md bg-red-500 hover:bg-red-600 text-white transition-all hover:scale-105"
+                        onClick={onEndInterview}
+                        title="End Interview"
+                    >
+                        <Phone className="w-5 h-5" />
+                    </Button>
+
+                    <Button
                         size="lg"
-                        className={cn("rounded-full font-bold shadow-2xl transition-all duration-300 ml-2 h-12 px-6",
+                        className={cn("rounded-full font-semibold shadow-md transition-all duration-300 ml-1 h-11 px-6 group/btn hover:scale-105",
                             (currentTranscript || isListening)
-                                ? "bg-green-500 hover:bg-green-600 text-white"
-                                : "bg-gray-500 text-gray-300 hover:bg-gray-500 pointer-events-none"
+                                ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                                : "bg-muted text-muted-foreground pointer-events-none"
                         )}
                         onClick={onManualSubmit}
                         disabled={!currentTranscript && !isListening}
                     >
-                        Next <ArrowRight className="w-4 h-4 ml-2" />
+                        Submit <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover/btn:translate-x-1" />
                     </Button>
-                </div>
-                    </div>
                 </div>
             </div>
         </div>
     );
 
     return (
-        <div className="h-full w-full overflow-hidden relative">
-            <div className={cn(
-                "h-full transition-all duration-700 ease-in-out flex gap-4 w-full",
-                showCodeEditor ? "pr-[50%]" : "pr-0"
-            )}>
-                {/* Left Side: Videos (Full width when editor closed, 50% when open) */}
-                <div className="h-full w-full flex-shrink-0 transition-all duration-700 ease-in-out">
+        <div className="h-full w-full overflow-hidden relative bg-background/95">
+            <div className="h-full flex w-full overflow-hidden">
+                {/* Videos Frame (Resizes automatically to leave space for code editor) */}
+                <div className={cn(
+                    "h-full flex-shrink-0 transition-all duration-500 ease-in-out",
+                    showCodeEditor ? "w-full lg:w-[40%]" : "w-full"
+                )}>
                     {renderVideoGrid()}
                 </div>
 
-                {/* Right Side: Code Editor (Sliding in from right) */}
+                {/* Slide-in Code Editor Panel */}
                 <div className={cn(
-                    "absolute top-0 right-0 h-full w-[calc(50%-0.5rem)] bg-black/40 backdrop-blur-xl rounded-xl border border-white/10 shadow-2xl overflow-hidden transition-all duration-700 ease-in-out transform",
-                    showCodeEditor ? "translate-x-0 opacity-100" : "translate-x-[110%] opacity-0 pointer-events-none"
+                    "absolute top-4 bottom-4 right-4 w-[calc(60%-2rem)] bg-card border border-border/80 shadow-2xl rounded-2xl overflow-hidden transition-all duration-500 ease-in-out transform flex flex-col z-50",
+                    showCodeEditor ? "translate-x-0 opacity-100" : "translate-x-[120%] opacity-0 pointer-events-none"
                 )}>
-                    <CodeEditorPanel onSubmit={onCodeSubmit} question={currentQ?.codeTask || currentQ?.text} />
+                    <div className="p-3 bg-muted/50 border-b border-border flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <Code className="w-4 h-4 text-blue-500" />
+                            <span className="text-sm font-bold tracking-tight">Code Workspace</span>
+                        </div>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg" onClick={() => setShowCodeEditor(false)}>
+                            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                        </Button>
+                    </div>
+                    <div className="flex-1 h-full w-full overflow-hidden">
+                        <CodeEditorPanel onSubmit={onCodeSubmit} question={currentQ?.codeTask || currentQ?.text} />
+                    </div>
                 </div>
             </div>
         </div>

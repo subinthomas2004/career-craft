@@ -26,7 +26,9 @@ import {
   Maximize,
   Minimize,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  LifeBuoy,
+  BrainCircuit
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -50,11 +52,12 @@ import PageBackground from "@/components/layout/PageBackground";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: BookOpen, label: "Domain Prep", path: "/dashboard/domain" },
+  { icon: BrainCircuit, label: "AI Mentor", path: "/dashboard/ai-mentor" },
   { icon: MessageSquare, label: "Forum", path: "/dashboard/forum" },
   { icon: Bell, label: "Notifications", path: "/dashboard/notifications" },
-  { icon: Shield, label: "Admin", path: "/dashboard/admin" },
-  { icon: MessageSquare, label: "Test Connection", path: "/dashboard/test-connection" },
+  { icon: LifeBuoy, label: "Help & Feedback", path: "/dashboard/feedback" },
+  { icon: User, label: "Profile", path: "/dashboard/profile" },
+  { icon: Settings, label: "Settings", path: "/dashboard/settings" },
 ];
 
 const DashboardLayout = () => {
@@ -79,12 +82,15 @@ const DashboardLayout = () => {
   const isCompanyPrepModule = location.pathname.includes('/dashboard/company-prep');
   const isJobsModule = location.pathname.includes('/dashboard/jobs');
   const isAptitudeModule = location.pathname.includes('/dashboard/aptitude-quiz');
+  const isPerformanceModule = location.pathname.includes('/dashboard/performance');
+  const isMentorModule = location.pathname.includes('/dashboard/ai-mentor');
 
   const hideSidebar = isInterviewModule || isCodingModule || isDebateModule || 
                       isResumeModule || isQuizModule || isTypingModule || 
                       isSkillGapModule || isDomainModule || isGDModule || 
                       isForumModule || isCommCoachModule || isIntroPrepModule || 
-                      isCompanyPrepModule || isJobsModule || isAptitudeModule;
+                      isCompanyPrepModule || isJobsModule || isAptitudeModule ||
+                      isPerformanceModule || isMentorModule;
 
   const navigate = useNavigate();
 
@@ -177,6 +183,21 @@ const DashboardLayout = () => {
             </Link>
           );
         })}
+        
+        {/* Explicit Logout in Main Nav */}
+        <button
+          onClick={() => {
+            mobile && setMobileMenuOpen(false);
+            handleLogout();
+          }}
+          className={cn(
+            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group w-full text-left",
+            "text-destructive hover:bg-destructive/10 hover:translate-x-1"
+          )}
+        >
+          <LogOut className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
+          <span className="truncate">Logout</span>
+        </button>
       </nav>
 
       {/* User section for mobile */}
@@ -364,6 +385,21 @@ const DashboardLayout = () => {
                 </Link>
               );
             })}
+            
+            {/* Desktop Explicit Logout button at bottom of primary menu */}
+            <button
+              onClick={handleLogout}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group w-full text-left",
+                "text-destructive hover:bg-destructive/10 hover:translate-x-1"
+              )}
+            >
+              <LogOut className={cn(
+                "w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:scale-110",
+                collapsed && "mx-auto"
+              )} />
+              {!collapsed && <span className="truncate font-medium">Logout</span>}
+            </button>
           </nav>
 
           {/* User Menu */}

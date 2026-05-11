@@ -1,9 +1,14 @@
 import mongoose from 'mongoose';
 
 const notificationSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false // null or absent means broadcast to all
+    },
     type: {
         type: String,
-        enum: ['interview', 'quiz', 'skill', 'achievement', 'gd', 'debate'],
+        enum: ['interview', 'quiz', 'skill', 'achievement', 'gd', 'debate', 'update', 'announcement', 'feedback_update', 'system'],
         required: true
     },
     title: {
@@ -16,6 +21,10 @@ const notificationSchema = new mongoose.Schema({
     },
     link: {
         type: String
+    },
+    isRead: {
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,
